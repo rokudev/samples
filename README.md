@@ -13,7 +13,7 @@ Simply sideload these zip files to evaluate channels on your Roku device. Before
 
 Using your Roku remote, enter the following button sequence:
 
-> :house: :house: :house: + :arrow_up_small: :arrow_up_small: + :arrow_forward: :arrow_backward: + :arrow_forward:  :arrow_backward:
+> :house: :house: :house: + :arrow_up_small: :arrow_up_small: + :arrow_forward: :arrow_backward: + :arrow_forward:  :arrow_backward: + :arrow_forward:
 
 Follow the steps to activate developer mode on your Roku device. Save the IP address at the end of the process (_example: `http://10.1.168.265`_)
 
