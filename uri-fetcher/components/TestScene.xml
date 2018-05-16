@@ -1,0 +1,18 @@
+<?rokuml version="1.0" encoding="utf-8" ?>
+
+<component name="TestScene" extends="Scene">
+
+<children>
+	<Label id="info" translation="[100,100]" font="font:LargeBoldSystemFont" text="Press the OK button on the remote to fire transfer requests" />
+	<Label id="transferPool" translation="[120, 200]" font="font:MediumBoldSystemFont" text="Number of transfer objects: " />
+	<Label id="poolIndex" translation="[120, 300]" font="font:MediumBoldSystemFont" text="Number of jobs in the queue: "/>
+	<Label id="transferPoolValue" translation="[470, 200]" text="0" />
+	<Label id="poolIndexValue" translation="[490, 300]" text="0" />
+	<Label id="delayInfo" translation="[100, 500]" font="font:LargeBoldSystemFont" text="Press the UP/DOWN buttons on the remote to adjust the response delay" />
+	<Label id="delay" translation="[120,600]" font="font:MediumBoldSystemFont" text="HTTP response delay (in seconds): " />
+	<Label id="counter" translation="[560,600]" />
+</children>
+
+<script type="text/brightscript" uri="pkg://components/TestScene.brs"/>
+
+</component>
