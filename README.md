@@ -6,8 +6,8 @@ The following samples demonstrate working Roku channels. Often the best way to l
 
 Simply sideload these zip files to evaluate channels on your Roku device. Before proceeding, review the following guides:
 
-* [Developer Setup Guide](/develop/getting-started/setup-guide.md) to enable developer settings on your Roku device
-* [Hello World Guide](/develop/getting-started/hello-world.md) to understand how to side-load a channel
+* [Developer Setup Guide](https://developer.roku.com/develop/getting-started/setup-guide) to enable developer settings on your Roku device
+* [Hello World Guide](https://developer.roku.com/develop/getting-started/sdk-hello-world) to understand how to side-load a channel
 
 ### Quick start
 
