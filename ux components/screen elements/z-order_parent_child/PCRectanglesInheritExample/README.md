@@ -38,7 +38,7 @@ This markup puts the rectangles in exactly the same position as before, but the 
 
 The z-order rendering of the rectangles is the same as for other methods of grouping renderable nodes together, the blue rectangle defined last is drawn on top of the green rectangle. But it's almost impossible to see the blue rectangle! 
 
-That's because in this method of grouping nodes together, where nodes are defined as a child of the previous parent node, the last node defined inherits its characteristics from the previous node. That node in turn inherits its characteristics from its parent node, and so forth. The various fields you can define for a child node are either added to, or multiplied, by the corresponding field in the parent node. This is the same as how nodes in a **Group** node define their `translation` fields as offsets from the **Group** node `translation` field definition (see [**Parent-Child Grouping Markup**](https://github.com/rokudev/samples/blob/master/ux%20components/screen%20elements/z-order_parent_child/PCRenderablesExample.zip)).
+That's because in this method of grouping nodes together, where nodes are defined as a child of the previous parent node, the last node defined inherits its characteristics from the previous node. That node in turn inherits its characteristics from its parent node, and so forth. The various fields you can define for a child node are either added to, or multiplied, by the corresponding field in the parent node. This is the same as how nodes in a **Group** node define their `translation` fields as offsets from the **Group** node `translation` field definition (see [**Parent-Child Grouping Markup**](https://github.com/rokudev/samples/tree/master/ux%20components/screen%20elements/z-order_parent_child/PCRenderablesExample)).
 
 In looking at the XML markup, we can see that the first parent node defined, the **red rectangle**, does not have a `translation` field defined, meaning that the default X,Y screen coordinate values of 0,0 will be used.
 
@@ -64,7 +64,7 @@ Note that we added an `opacity` field to the green rectangle definition.
 `opacity = ``"0.5"`
 ```
 
-As described in the [**SceneGraph XML Guide**](https://sdkdocs.roku.com/display/sdkdoc/SceneGraph+Core+Concepts), opacity is the inverse of transparency, ranges from 0.0 (completely transparent) to 1.0 (completely visible - opaque), and is a definable field for all renderable nodes, because they are derived from the **Group** node class. So if a renderable node has an `opacity` field definition of 0.5, it is half transparent, like the **green rectangle** (note the lowest red rectangle shows through the **green rectangle**).
+Opacity is the inverse of transparency, ranges from 0.0 (completely transparent) to 1.0 (completely visible - opaque), and is a definable field for all renderable nodes, because they are derived from the **Group** node class. So if a renderable node has an `opacity` field definition of 0.5, it is half transparent, like the **green rectangle** (note the lowest red rectangle shows through the **green rectangle**).
 
 In this example, the **blue rectangle** is a child of the **green rectangle** with its own `opacity` field definition:
 
