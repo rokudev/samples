@@ -1,0 +1,23 @@
+'********** Copyright 2016 Roku Corp.  All Rights Reserved. **********
+
+title=Task Example
+subtitle=A Roku Scene Graph Development Example
+major_version=1
+minor_version=0
+build_version=00000
+
+mm_icon_focus_hd=pkg:/images/rsgde_mm_focus_hd.jpg
+
+mm_icon_focus_sd=pkg:/images/rde_mm_focus_sd.png
+
+
+splash_screen_sd=pkg:/images/rde_splash_sd.jpg
+
+splash_screen_hd=pkg:/images/rsgde_splash_hd.jpg
+
+splash_screen_fhd=pkg:/images/rde_splash_fhd.jpg
+
+splash_color=#662D91
+splash_min_time=1000
+
+ui_resolutions = "hd"

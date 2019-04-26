@@ -1,0 +1,45 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "RadioButtonListExample" extends = "Scene" initialFocus = "exampleRadioButtonList" >
+
+  <script >
+
+    <![CDATA[
+
+    sub init()
+      m.top.backgroundURI = "pkg:/images/rsgde_bg_hd.jpg"
+
+      example = m.top.findNode("exampleRadioButtonList")
+
+      example.checkedItem = 2
+
+      examplerect = example.boundingRect()
+      centerx = (1280 - examplerect.width) / 2
+      centery = (720 - examplerect.height) / 2
+      example.translation = [ centerx, centery ]
+
+      m.top.setFocus(true)
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children >
+
+    <RadioButtonList id = "exampleRadioButtonList" >
+
+      <ContentNode role = "content" >
+        <ContentNode title = "Renderable Nodes" />
+        <ContentNode title = "Z-Order/Parent-Child" />
+        <ContentNode title = "Animations" />
+        <ContentNode title = "Events and Observers" />
+      </ContentNode>
+
+    </RadioButtonList>
+
+  </children>
+
+</component>

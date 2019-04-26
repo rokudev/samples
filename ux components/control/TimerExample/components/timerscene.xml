@@ -1,0 +1,62 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "TimerExample" extends = "Scene" >
+
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      m.top.backgroundURI = "pkg:/images/rsgde_bg_hd.jpg"
+
+      m.defaulttext = "Wait for it, wait for it..."
+      m.alternatetext = "Timer fired!!!"
+      m.label = m.top.FindNode("exampleLabel")
+      m.label.text = m.defaulttext
+      m.textchange = false
+
+      examplerect = m.label.boundingRect()
+      centerx = (1280 - examplerect.width) / 2
+      centery = (720 - examplerect.height) / 2
+      m.label.translation = [ centerx, centery ]
+
+      timer = m.top.findNode("exampleTimer")
+      timer.ObserveField("fire", "changetext")
+      timer.control = "start"
+
+      m.top.setFocus(true)
+    end sub
+
+    sub changetext()
+      if (m.textchange = false) then
+        m.label.text = m.alternatetext
+        m.textchange = true
+      else
+        m.label.text = m.defaulttext
+        m.textchange = false
+      end if
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children>
+
+    <Label 
+      id = "exampleLabel" 
+      width = "480" 
+      height = "60" 
+      horizAlign = "center" 
+      vertAlign = "center" />
+
+    <Timer 
+      id = "exampleTimer" 
+      repeat = "true" 
+      duration = "2" />
+
+  </children>
+
+</component>

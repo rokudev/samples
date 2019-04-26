@@ -1,0 +1,36 @@
+<?xml version = "1.0" encoding = "utf-8" ?> 
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "ButtonGroupExample" extends = "Scene" initialFocus = "exampleButtonGroup" >
+
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      m.top.backgroundURI = "pkg:/images/rsgde_bg_hd.jpg"
+
+      example = m.top.findNode("exampleButtonGroup")
+
+      example.buttons = [ "OK", "Cancel" ]
+
+      examplerect = example.boundingRect()
+      centerx = (1280 - examplerect.width) / 2
+      centery = (720 - examplerect.height) / 2
+      example.translation = [ centerx, centery ]
+
+      m.top.setFocus(true)
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children>
+
+    <ButtonGroup id = "exampleButtonGroup" />
+
+  </children>
+
+</component>

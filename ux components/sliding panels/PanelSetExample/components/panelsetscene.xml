@@ -1,0 +1,60 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "PanelSetExample" extends = "Scene" >
+
+  <script type = "text/brightscript" >
+
+
+
+    <![CDATA[
+
+    sub init()
+      m.top.backgroundURI = "pkg:/images/rsgde_bg_hd.jpg"
+
+      m.panelset = createObject("roSGNode", "PanelSet")
+      m.top.appendChild(m.panelset)
+
+      m.readContentTask = createObject("roSGNode", "ContentReader")
+      m.readContentTask.observeField("content", "setpanels")
+      m.readContentTask.contenturi = "http://www.sdktestinglab.com/Tutorial/content/panelsetcontent.xml"
+      m.readContentTask.control = "RUN"
+    end sub
+
+    sub setpanels()
+      m.listpanel = m.panelset.createChild("ListPanelExample")
+      m.listpanel.list.content = m.readContentTask.content
+
+      m.panel = m.panelset.createChild("PanelExample")
+
+      m.listpanel.list.observeField("itemFocused", "showpanelinfo")
+      m.panel.observeField("focusedChild", "slidepanels")
+
+      m.listpanel.setFocus(true)
+    end sub
+
+    sub showpanelinfo()
+      panelcontent = m.listpanel.list.content.getChild(m.listpanel.list.itemFocused)
+
+      m.panel.description = panelcontent.description
+
+      m.gridpanel = createObject("roSGNode", "GridPanelExample")
+
+      m.gridpanel.gridcontenturi = panelcontent.url
+    end sub
+
+    sub slidepanels()
+      if not m.panelset.isGoingBack
+        m.panelset.appendChild(m.gridpanel)
+        m.gridpanel.setFocus(true)
+      else
+        m.listpanel.setFocus(true)
+      end if 
+    end sub
+
+    ]]>
+
+  </script>
+
+</component>

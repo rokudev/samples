@@ -1,0 +1,46 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "PosterGridExample" extends = "Scene" initialFocus = "examplePosterGrid" >
+
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      m.top.backgroundURI = "pkg:/images/rsgde_bg_hd.jpg"
+
+      m.top.setFocus(true)
+
+      m.postergrid = m.top.findNode("examplePosterGrid")
+
+      m.postergrid.translation = [ 130, 160 ]
+
+      m.readPosterGridTask = createObject("roSGNode", "ContentReader")
+      m.readPosterGridTask.contenturi = "http://www.sdktestinglab.com/Tutorial/content/rendergridps.xml"
+      m.readPosterGridTask.observeField("content", "showpostergrid")
+      m.readPosterGridTask.control = "RUN"
+    end sub
+
+    sub showpostergrid()
+      m.postergrid.content = m.readPosterGridTask.content
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children>
+
+    <PosterGrid 
+      id = "examplePosterGrid" 
+      basePosterSize = "[ 512, 288 ]" 
+      caption1NumLines = "1" 
+      numColumns = "2" 
+      numRows = "5" 
+      itemSpacing = "[ 20, 20 ]" />
+
+  </children>
+
+</component>

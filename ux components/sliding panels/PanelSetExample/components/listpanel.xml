@@ -1,0 +1,32 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "ListPanelExample" extends = "ListPanel" >
+
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      m.top.panelSize = "medium"
+      m.top.focusable = true
+      m.top.hasNextPanel = true
+      m.top.leftOnly = true
+      m.top.createNextPanelOnItemFocus = false
+      m.top.selectButtonMovesPanelForward = true
+
+      m.top.list = m.top.findNode("exampleLabelList")
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children >
+
+    <LabelList id = "exampleLabelList" />
+
+  </children>
+
+</component>

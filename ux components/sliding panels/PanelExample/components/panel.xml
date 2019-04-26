@@ -1,0 +1,43 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2015 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "PanelExample" extends = "Panel" >
+
+  <script type="text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      m.top.panelSize = "medium"
+      m.top.focusable = true
+      m.top.hasNextPanel = false
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children>
+
+    <Rectangle 
+      id = "infoRectangle" 
+      translation = "[ 0, 40 ]" 
+      height = "460" 
+      width = "520" 
+      color = "0x101010C0" >
+
+      <Label 
+        id = "infoLabel" 
+        translation = "[ 15, 15 ]" 
+        text = "Example Panel" 
+        height = "430" 
+        width = "490" 
+        wrap = "true" 
+        font = "font:MediumBoldSystemFont" />
+
+    </Rectangle>
+
+  </children>
+
+</component>

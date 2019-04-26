@@ -1,0 +1,38 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "PosterExample" extends = "Scene" >
+
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      m.top.backgroundURI = "pkg:/images/rsgde_bg_hd.jpg"
+
+      example = m.top.findNode("examplePoster")
+
+      examplerect = example.boundingRect()
+      centerx = (1280 - examplerect.width) / 2
+      centery = (720 - examplerect.height) / 2
+      example.translation = [ centerx, centery ]
+
+      m.top.setFocus(true)
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children >
+
+    <Poster
+      id = "examplePoster" 
+      width = "512" 
+      height = "288" 
+      uri = "http://sdktestinglab.com/Tutorial/images/videopg.jpg" />
+
+  </children>
+
+</component>

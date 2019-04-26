@@ -1,0 +1,58 @@
+<?xml version = "1.0" encoding = "utf-8" ?> 
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "DialogExample" extends = "Scene" >
+
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      m.top.backgroundURI = "pkg:/images/rsgde_bg_hd.jpg"
+
+      example = m.top.findNode("instructLabel")
+
+      examplerect = example.boundingRect()
+      centerx = (1280 - examplerect.width) / 2
+      centery = (720 - examplerect.height) / 2
+      example.translation = [ centerx, centery ]
+
+      m.top.setFocus(true)
+    end sub
+
+    sub showdialog()
+      dialog = createObject("roSGNode", "Dialog")
+      dialog.backgroundUri = "pkg:/images/rsgde_dlg_bg_hd.9.png"
+      dialog.title = "Example Dialog"
+      dialog.optionsDialog = true
+      dialog.message = "Press * To Dismiss"
+      m.top.dialog = dialog
+    end sub
+
+    function onKeyEvent(key as String, press as Boolean) as Boolean
+      if press then
+        if key = "OK"
+
+          showdialog()
+
+          return true
+        end if
+      end if
+
+      return false
+    end function
+
+    ]]>
+
+  </script>
+
+  <children >
+
+    <Label 
+      id = "instructLabel" 
+      text = "Press OK For Dialog" />
+
+  </children>
+
+</component>

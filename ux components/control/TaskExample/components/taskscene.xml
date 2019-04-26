@@ -1,0 +1,92 @@
+<?xml version = "1.0" encoding = "utf-8" ?> 
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "TaskExample" extends = "Scene" >
+
+  <script type = "text/brightscript" >
+    <![CDATA[
+
+    sub init()
+      m.top.backgroundURI = "pkg:/images/rsgde_bg_hd.jpg"
+
+      example = m.top.findNode("exampleDisplay")
+
+      m.item = m.top.findNode("itemLabel")
+
+      m.item.font.size = m.item.font.size+5
+
+      examplerect = example.boundingRect()
+      centerx = (1280 - examplerect.width) / 2
+      centery = (720 - examplerect.height) / 2
+      example.translation = [ centerx, centery ]
+
+      m.readXMLContentTask = createObject("roSGNode", "ContentReader")
+      m.readXMLContentTask.observeField("content", "setcontent")
+      m.readXMLContentTask.contenturi = "http://www.sdktestinglab.com/Tutorial/content/xmlcontent.xml"
+      m.readXMLContentTask.control = "RUN"
+
+      m.top.setFocus(true)
+    end sub
+
+    sub setcontent()
+      m.content = m.readXMLContentTask.content
+      m.contentitems = m.content.getChildCount()
+      m.currentitem = 0
+      showcontentitem()
+    end sub
+
+    sub showcontentitem()
+      itemcontent = m.content.getChild(m.currentitem) 
+      m.item.text = itemcontent.title 
+    end sub
+
+    function onKeyEvent(key as String,press as Boolean) as Boolean
+      if press then 
+        if key = "OK" 
+          m.currentitem++ 
+
+          if (m.currentitem = m.contentitems) 
+            m.currentitem = 0
+          end if
+
+          showcontentitem()
+
+          return true 
+        end if
+      end if
+
+      return false
+    end function
+
+    ]]>
+  </script>
+
+  <children >
+
+    <Rectangle 
+      id = "exampleDisplay" 
+      width = "560" 
+      height = "360" 
+      color = "0x101010C0" >
+
+      <Label 
+        translation = "[ 0, 100 ]" 
+        width = "560" 
+        height = "24" 
+        horizAlign = "center" 
+        text = "Press OK For Next Content Item"/>
+
+      <Label 
+        id = "itemLabel" 
+        translation = "[ 0, 200 ]" 
+        width = "560" 
+        height = "24" 
+        horizAlign = "center" 
+        color = "0xEBEB10FF" />
+
+    </Rectangle>
+
+  </children>
+
+</component>

@@ -1,0 +1,30 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "OverhangExample" extends = "Scene" >
+
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      m.top.backgroundURI = "pkg:/images/rsgde_bg_hd.jpg"
+
+      m.top.setFocus(true)
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children >
+
+    <Overhang 
+      title = "Scene Graph Examples"
+      showOptions = "true"
+      optionsAvailable = "true" />
+
+  </children>
+
+</component>

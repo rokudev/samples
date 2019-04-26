@@ -1,0 +1,40 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "RectangleRotatedExample" extends = "Scene" >
+
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      m.top.backgroundURI = "pkg:/images/rsgde_bg_hd.jpg"
+
+      example = m.top.findNode("examplerotatedRectangle")
+
+      examplelrect = example.localBoundingRect()
+      centerx = (1280 - examplelrect.width) / 2
+      centery = (720 - examplelrect.height) / 2
+      example.translation = [ centerx, centery ]
+
+      m.top.setFocus(true)
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children >
+
+    <Rectangle 
+      id = "examplerotatedRectangle" 
+      width = "512" 
+      height = "288" 
+      scaleRotateCenter = "[ 256.0, 144.0 ]" 
+      rotation = "1.5707963268" 
+      color = "0x1010EBFF" />
+
+  </children>
+
+</component>

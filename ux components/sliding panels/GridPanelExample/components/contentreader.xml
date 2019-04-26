@@ -1,0 +1,43 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "ContentReader" extends = "Task" >
+
+  <interface>
+    <field id = "contenturi" type = "uri" />
+    <field id = "content" type = "node" />
+  </interface>
+
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      m.top.functionName = "getcontent"
+    end sub
+
+    sub getcontent()
+      content = createObject("roSGNode", "ContentNode")
+
+      contentxml = createObject("roXMLElement")
+
+      readInternet = createObject("roUrlTransfer")
+      readInternet.setUrl(m.top.contenturi)
+      contentxml.parse(readInternet.GetToString())
+
+      if contentxml.getName()="Content"
+        for each item in contentxml.GetNamedElements("item")
+          itemcontent = content.createChild("ContentNode")
+          itemcontent.setFields(item.getAttributes())
+        end for
+      end if
+
+      m.top.content = content
+    end sub
+
+    ]]>
+
+  </script>
+
+</component>

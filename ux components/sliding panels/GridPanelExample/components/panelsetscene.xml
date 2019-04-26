@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2015 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "PanelSetExample" extends = "Scene" >
+
+  <script type = "text/brightscript" >
+
+
+
+    <![CDATA[
+
+    sub init()
+      m.top.backgroundURI = "pkg:/images/rsgde_bg_hd.jpg"
+
+      m.panelset = createObject("roSGNode", "PanelSet")
+
+      m.gridpanel = m.panelset.createChild("GridPanelExample")
+
+      m.top.appendChild(m.panelset)
+
+      m.gridpanel.setFocus(true)
+    end sub
+
+    ]]>
+
+  </script>
+
+</component>

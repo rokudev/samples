@@ -1,0 +1,32 @@
+<?xml version = "1.0" encoding = "utf-8" ?> 
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "AudioExample" extends = "Scene" >
+
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      m.top.backgroundURI = "pkg:/images/rsgde_bg_hd.jpg"
+
+      audio = createObject("roSGNode", "Audio")
+
+      audiocontent = createObject("RoSGNode", "ContentNode")
+      audiocontent.url = "http://www.sdktestinglab.com/Tutorial/sounds/audionode.mp3"
+
+      audio.content = audiocontent
+
+      m.top.appendChild(audio)
+
+      audio.control = "play"
+
+      m.top.setFocus(true)
+    end sub
+
+    ]]>
+
+  </script>
+
+</component>

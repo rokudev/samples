@@ -1,0 +1,69 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+ 
+<component name = "MarkupListItem" extends = "Group" >
+ 
+  <interface> 
+    <field id = "itemContent" type = "node" onChange = "showcontent" />
+    <field id = "focusPercent" type = "float" onChange = "showfocus" />
+  </interface>
+ 
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      m.top.id = "markuplistitem"
+      m.itemicon = m.top.findNode("itemIcon")
+      m.itemlabel = m.top.findNode("itemLabel")
+      m.itemcursor = m.top.findNode("itemcursor")
+      m.itemposter = m.top.findNode("itemPoster")
+    end sub
+
+    sub showcontent()
+      itemcontent = m.top.itemContent
+      m.itemicon.uri = itemcontent.url
+      m.itemlabel.text = itemcontent.title
+      m.itemposter.uri = itemcontent.HDPosterUrl
+    end sub
+
+    sub showfocus()
+      m.itemcursor.opacity = m.top.focusPercent
+      m.itemposter.opacity = m.top.focusPercent
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children>
+
+    <Poster 
+      id = "itemIcon" 
+      translation = "[ 0, 114 ]" 
+      width = "53" 
+      height = "30" />
+
+    <Label 
+      id = "itemLabel" 
+      translation = "[ 60, 120 ]" />
+
+    <Rectangle 
+      id = "itemcursor" 
+      translation = "[ 0, 148 ]" 
+      width = "596" 
+      height = "6" 
+      color = "0xEB3333FF" 
+      opacity = "0.0" />
+
+    <Poster 
+      id = "itemPoster" 
+      translation = "[ 334, 0 ]" 
+      width = "256" 
+      height = "144" 
+      opacity = "0.0" />
+
+  </children>
+
+</component>

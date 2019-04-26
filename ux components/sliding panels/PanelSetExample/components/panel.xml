@@ -1,0 +1,52 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "PanelExample" extends = "Panel" >
+
+  <interface >
+    <field id = "description" type = "string" onChange = "showdescription" /> 
+  </interface>
+
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      m.top.panelSize = "medium"
+      m.top.focusable = true
+      m.top.hasNextPanel = true
+
+      m.infolabel = m.top.findNode("infoLabel")
+    end sub
+
+    sub showdescription()
+      m.infolabel.text = m.top.description
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children >
+
+  <Rectangle 
+    id = "infoRectangle" 
+    translation = "[ 0, 40 ]" 
+    height = "460" 
+    width = "520" 
+    color = "0x101010C0" >
+
+    <Label 
+      id = "infoLabel" 
+      translation = "[ 15, 15 ]" 
+      height = "430" 
+      width = "490" 
+      wrap = "true" 
+      font = "font:MediumBoldSystemFont" />
+
+    </Rectangle>
+
+  </children>
+
+</component>

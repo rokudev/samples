@@ -1,0 +1,42 @@
+<?xml version = "1.0" encoding = "utf-8" ?> 
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "RowListExample" extends = "Scene" initialFocus = "exampleRowList" >
+
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      m.top.backgroundURI = "pkg:/images/rsgde_bg_hd.jpg"
+
+      rowlist = m.top.findNode("exampleRowList")
+
+      rowlist.content = CreateObject("roSGNode", "RowListContent")
+
+      m.top.setFocus(true)
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children >
+
+    <RowList 
+      id = "exampleRowList" 
+      translation = "[ 130, 160 ]" 
+      itemComponentName = "RowListItem" 
+      numRows = "4" 
+      itemSize = "[ 1608, 308 ]" 
+      rowItemSize = "[ [536, 308] ]" 
+      itemSpacing = "[ 0, 40 ]" 
+      showRowLabel = "[ true ]" 
+      drawFocusFeedback = "false" 
+      vertFocusAnimationStyle = "fixedFocusWrap" 
+      rowFocusAnimationStyle = "fixedFocusWrap" />
+
+  </children>
+
+</component>

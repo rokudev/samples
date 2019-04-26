@@ -1,0 +1,43 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "LabelListExample" extends = "Scene" initialFocus = "exampleLabelList" >
+
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      m.top.backgroundURI = "pkg:/images/rsgde_bg_hd.jpg"
+
+      example = m.top.findNode("exampleLabelList")
+
+      examplerect = example.boundingRect()
+      centerx = (1280 - examplerect.width) / 2
+      centery = (720 - examplerect.height) / 2
+      example.translation = [ centerx, centery ]
+
+      m.top.setFocus(true)
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children >
+
+    <LabelList id = "exampleLabelList" >
+
+      <ContentNode role = "content" >
+        <ContentNode title = "Renderable Nodes" />
+        <ContentNode title = "Z-Order/Parent-Child" />
+        <ContentNode title = "Animations" />
+        <ContentNode title = "Events and Observers" />
+      </ContentNode>
+
+    </LabelList>
+
+  </children>
+
+</component>
