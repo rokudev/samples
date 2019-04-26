@@ -1,0 +1,97 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "AnimationSequentialExample" extends = "Group" >
+
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      examplerect = m.top.boundingRect()
+      centerx = (1280 - examplerect.width) / 2
+      centery = (720 - examplerect.height) / 2
+      m.top.translation = [ centerx, centery ]
+
+      m.examplesequentialanimation = m.top.findNode("exampleSequentialAnimation")
+      m.examplesequentialanimation.repeat = true
+      m.examplesequentialanimation.control = "start"
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children>
+
+    <Rectangle 
+      id = "lowestRectangle" 
+      width = "180" 
+      height = "60" 
+      color = "0xEB1010FF" />
+
+    <Rectangle 
+      id = "middleRectangle" 
+      width = "360" 
+      height = "120" 
+      color = "0x10EB10FF" />
+
+    <Rectangle 
+      id = "highestRectangle" 
+      translation = "[ 180.0, 90.0 ]" 
+      width = "720" 
+      height = "240" 
+      color = "0x1010EBFF" />
+
+    <SequentialAnimation id = "exampleSequentialAnimation" >
+
+      <Animation 
+        duration = "3" 
+        easeFunction = "linear" >
+
+        <Vector2DFieldInterpolator 
+          key = "[ 0.0, 1.0 ]" 
+          keyValue = "[ [0.0,0.0], [180.0,90.0] ]" 
+          fieldToInterp = "highestRectangle.translation" />
+
+      </Animation>
+
+      <Animation 
+        duration = "3" 
+        easeFunction = "linear" >
+
+        <Vector2DFieldInterpolator 
+          key = "[ 0.0, 1.0 ]" 
+          keyValue = "[ [0.0,0.0], [60.0,30.0] ]" 
+          fieldToInterp = "middleRectangle.translation" />
+
+      </Animation>
+
+      <Animation 
+        duration = "3" 
+        easeFunction = "linear" >
+
+        <Vector2DFieldInterpolator 
+          key = "[ 0.0, 1.0 ]" 
+          keyValue = "[ [60.0,30.0], [0.0,0.0] ]" 
+          fieldToInterp = "middleRectangle.translation" />
+
+      </Animation>
+
+      <Animation 
+        duration = "3" 
+        easeFunction = "linear" >
+
+        <Vector2DFieldInterpolator 
+          key = "[ 0.0, 1.0 ]" 
+          keyValue = "[ [180.0,90.0], [0.0,0.0] ]" 
+          fieldToInterp = "highestRectangle.translation" />
+
+      </Animation>
+
+    </SequentialAnimation>
+
+  </children>
+
+</component>

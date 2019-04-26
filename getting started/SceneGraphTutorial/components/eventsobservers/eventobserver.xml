@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "EventObserverExample" extends = "Group" >
+
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      examplerect = m.top.boundingRect()
+      centerx = (1280 - examplerect.width) / 2
+      centery = (720 - examplerect.height) / 2
+      m.top.translation = [ centerx, centery ]
+
+      m.movinglabel = m.top.findNode("movingLabel")
+      scrollback = m.top.findNode("scrollbackAnimation")
+      texttimer = m.top.findNode("textTimer")
+      m.defaulttext = "All The Best Videos!"
+      m.alternatetext = "All The Time!!!"
+      m.textchange = false
+      texttimer.observeField("fire", "changetext")
+      scrollback.control = "start"
+      texttimer.control = "start"
+    end sub
+
+    sub changetext()
+      if (m.textchange = false) then 
+        m.movinglabel.text = m.alternatetext
+        m.textchange = true
+      else
+        m.movinglabel.text = m.defaulttext
+        m.textchange = false
+      end if
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children>
+
+    <Rectangle 
+      width = "640" 
+      height = "60" 
+      color = "0x10101000" >
+
+      <Label 
+        id = "movingLabel" 
+        width = "280" 
+        height = "60" 
+        text = "All The Best Videos!" 
+        horizAlign = "center" 
+        vertAlign = "center" />
+
+    </Rectangle>
+
+    <Animation 
+      id = "scrollbackAnimation" 
+      duration = "10" 
+      repeat = "true" 
+      easeFunction = "linear" >
+
+      <Vector2DFieldInterpolator 
+        key = "[ 0.0, 0.5, 1.0 ]" 
+        keyValue = "[ [0.0, 0.0], [360.0, 0.0], [0.0, 0.0] ]" 
+        fieldToInterp = "movingLabel.translation" />
+
+    </Animation>
+
+    <Timer 
+      id = "textTimer" 
+      repeat = "true" 
+      duration = "5" />
+
+  </children>
+
+</component>

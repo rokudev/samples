@@ -1,0 +1,39 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "BusySpinnerExample" extends = "Group" >
+
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      m.busyspinner = m.top.findNode("exampleBusySpinner")
+      m.busyspinner.poster.observeField("loadStatus", "showspinner")
+      m.busyspinner.poster.uri = "pkg:/images/busyspinner_hd.png"
+    end sub
+
+    sub showspinner()
+      if(m.busyspinner.poster.loadStatus = "ready")
+        centerx = (1280 - m.busyspinner.poster.bitmapWidth) / 2
+        centery = (720 - m.busyspinner.poster.bitmapHeight) / 2
+        m.busyspinner.translation = [ centerx, centery ]
+
+        m.busyspinner.visible = true
+      end if
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children >
+
+    <BusySpinner 
+      id = "exampleBusySpinner" 
+      visible = "false" />
+
+  </children>
+
+</component>

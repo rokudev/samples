@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "KeyEventsExample" extends = "Group" >
+
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      m.label = m.top.findNode("exampleLabel")
+
+      examplerect = m.top.boundingRect()
+      centerx = (1280 - examplerect.width) / 2
+      centery = (720 - examplerect.height) / 2
+      m.top.translation = [ centerx, centery ]
+    end sub 
+
+    function onKeyEvent(key as String, press as Boolean) as Boolean
+      if press then
+        if (key = "OK") then 
+          if (m.label.visible = true)
+            m.label.visible = false
+          else
+            m.label.visible = true
+          endif
+
+          return true
+        end if
+      end if
+
+      return false
+    end function
+
+    ]]>
+
+  </script>
+
+  <children>
+
+    <Label 
+      id = "exampleLabel" 
+      width = "600" 
+      height = "60" 
+      text = "Press OK to Hide/Show" 
+      horizAlign = "center" 
+      vertAlign = "center" 
+      visible = "true" />
+
+  </children>
+
+</component>

@@ -1,0 +1,58 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "TimerExample" extends = "Group" >
+
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      m.defaulttext = "Wait for it, wait for it..."
+      m.alternatetext = "Timer fired!!!"
+      m.exampletimerlabel = m.top.FindNode("exampleTimerLabel")
+      m.exampletimerlabel.text = m.defaulttext
+      m.textchange = false
+
+      m.exampletimer = m.top.findNode("exampleTimer")
+      m.exampletimer.control = "start"
+      m.exampletimer.ObserveField("fire", "changetext")
+
+      examplerect = m.top.boundingRect()
+      centerx = (1280 - examplerect.width) / 2
+      centery = (720 - examplerect.height) / 2
+      m.top.translation = [ centerx, centery ]
+    end sub
+
+    sub changetext()
+      if (m.textchange = false) then 
+        m.exampletimerlabel.text = m.alternatetext
+        m.textchange = true
+      else
+        m.exampletimerlabel.text = m.defaulttext
+        m.textchange = false
+      end if
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children>
+
+    <Label 
+      id = "exampleTimerLabel" 
+      width = "500" 
+      height = "60" 
+      horizAlign = "center" 
+      vertAlign = "center" />
+
+    <Timer 
+      id = "exampleTimer" 
+      repeat = "true" 
+      duration = "3" />
+
+  </children>
+
+</component>

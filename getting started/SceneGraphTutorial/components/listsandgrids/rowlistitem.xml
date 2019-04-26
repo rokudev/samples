@@ -1,0 +1,71 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+ 
+<component name = "RowListItem" extends = "Group" >
+ 
+  <interface > 
+    <field id = "itemContent" type = "node" onChange = "showcontent" />
+    <field id = "focusPercent" type = "float" onChange = "showfocus" /> 
+    <field id = "rowFocusPercent" type = "float" onChange = "showrowfocus" />
+  </interface>
+ 
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      m.itemposter = m.top.findNode("itemPoster") 
+      m.itemmask = m.top.findNode("itemMask")
+      m.itemlabel = m.top.findNode("itemLabel")
+    end sub
+
+    sub showcontent()
+      itemcontent = m.top.itemContent
+      m.itemposter.uri = itemcontent.HDPosterUrl
+      m.itemlabel.text = itemcontent.title
+    end sub
+
+    sub showfocus()
+      scale = 1 + (m.top.focusPercent * 0.08)
+      m.itemposter.scale = [scale, scale]
+    end sub
+
+    sub showrowfocus()
+      m.itemmask.opacity = 0.75 - (m.top.rowFocusPercent * 0.75)
+      m.itemlabel.opacity = m.top.rowFocusPercent
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children >
+
+    <Poster 
+      id = "itemPoster" 
+      translation = "[ 10, 10 ]" 
+      width = "512" 
+      height = "288" 
+      scaleRotateCenter = "[ 256.0, 144.0 ]" >
+
+      <Rectangle 
+        id = "itemMask" 
+        width = "512" 
+        height = "288" 
+        scaleRotateCenter = "[ 256.0, 144.0 ]" 
+        color = "0x101010FF" 
+        opacity = "0.75" />
+
+    </Poster>
+
+    <Label 
+      id = "itemLabel" 
+      translation = "[ 20, 264 ]" 
+      width = "492" 
+      horizAlign = "right" 
+      opacity = "0.0" />
+
+  </children>
+
+</component>

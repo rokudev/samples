@@ -1,0 +1,41 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "CheckListExample" extends = "Group" initialFocus = "exampleCheckList" >
+
+  <script >
+
+    <![CDATA[
+
+    sub init()
+      example = m.top.findNode("exampleCheckList")
+
+      example.checkedState = [ true, false, true, false ]
+
+      examplerect = m.top.boundingRect()
+      centerx = (1280 - examplerect.width) / 2
+      centery = (720 - examplerect.height) / 2
+      m.top.translation = [ centerx, centery ]
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children >
+
+    <CheckList id = "exampleCheckList" >
+
+      <ContentNode role = "content" >
+        <ContentNode title = "Renderable Nodes" />
+        <ContentNode title = "Z-Order/Parent-Child" />
+        <ContentNode title = "Animations" />
+        <ContentNode title = "Events and Observers" />
+      </ContentNode>
+
+    </CheckList>
+
+  </children>
+
+</component>

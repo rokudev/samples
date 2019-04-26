@@ -1,0 +1,59 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "MarkupGridItem" extends = "Group" >
+ 
+  <interface> 
+    <field id = "itemContent" type = "node" onChange = "showcontent"/>
+    <field id = "focusPercent" type = "float" onChange = "showfocus"/> 
+  </interface>
+ 
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      m.top.id = "markupgriditem"
+      m.itemposter = m.top.findNode("itemPoster") 
+      m.itemmask = m.top.findNode("itemMask")
+      m.focuslabel = m.top.findNode("focusLabel")
+    end sub
+
+    sub showcontent()
+      itemcontent = m.top.itemContent
+      m.itemposter.uri = itemcontent.hdgridposterurl
+    end sub
+
+    sub showfocus()
+      scale = 1 + (m.top.focusPercent * 0.08)
+      m.itemposter.scale = [scale, scale]
+      m.itemmask.opacity = 0.75 - (m.top.focusPercent * 0.75)
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children >
+
+    <Poster 
+      id = "itemPoster" 
+      translation = "[ 10, 10 ]" 
+      width = "512" 
+      height = "288" 
+      scaleRotateCenter = "[ 256.0, 144.0 ]" >
+
+      <Rectangle 
+        id = "itemMask" 
+        width = "512" 
+        height = "288" 
+        scaleRotateCenter = "[ 256.0, 144.0 ]" 
+        color = "0x101010FF" 
+        opacity = "0.75" />
+
+    </Poster>
+
+  </children>
+
+</component>

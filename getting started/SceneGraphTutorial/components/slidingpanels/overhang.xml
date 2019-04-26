@@ -1,0 +1,16 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "OverhangExample" extends = "Group" >
+
+  <children >
+
+    <Overhang 
+      title = "Scene Graph Examples" 
+      showOptions = "true" 
+      optionsAvailable = "true" />
+
+  </children>
+
+</component>

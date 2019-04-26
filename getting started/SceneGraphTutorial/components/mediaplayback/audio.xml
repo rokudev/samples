@@ -1,0 +1,56 @@
+<?xml version = "1.0" encoding = "utf-8" ?> 
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "AudioExample" extends = "Group" initialFocus = "audioButton" >
+
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      m.audio = createObject("RoSGNode", "Audio")
+      m.audio.observeField("state","controlaudioplay")
+
+      m.audiocontent = createObject("RoSGNode", "ContentNode")
+      m.audiocontent.title = "Audio Node"
+      m.audiocontent.url = "http://www.sdktestinglab.com/Tutorial/sounds/audionode.mp3"
+      m.audio.content = m.audiocontent
+
+      m.audiobutton = m.top.findNode("audioButton")
+      m.audiobutton.observeField("buttonSelected", "playaudio")
+    end sub
+
+    sub playaudio()
+      m.audio.control = "stop"
+      m.audio.control = "none"
+      m.audio.control = "play"
+    end sub
+
+    sub controlaudioplay()
+      if (m.audio.state = "finished") 
+        m.audio.control = "stop"
+        m.audio.control = "none"
+      end if
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children >
+
+    <Button 
+      id = "audioButton" 
+      translation = "[ 140, 100 ]"
+      text = "Press OK for Audio" />
+
+    <Poster 
+      uri = "pkg:/images/audio_hd.jpg" 
+      translation = "[ 560, 100 ]" 
+      width = "494" 
+      height = "574" />
+
+  </children>
+
+</component>

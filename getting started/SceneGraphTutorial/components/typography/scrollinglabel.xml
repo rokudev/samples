@@ -1,0 +1,35 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "ScrollingLabelExample" extends = "Group" initialFocus = "exampleScrollingLabel" >
+
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      examplerect = m.top.boundingRect()
+      centerx = (1280 - examplerect.width) / 2
+      centery = (720 - examplerect.height) / 2
+      m.top.translation = [ centerx, centery ]
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children>
+
+    <ScrollingLabel 
+      id = "exampleScrollingLabel" 
+      maxWidth = "300" 
+      height = "0" 
+      font = "font:MediumBoldSystemFont" 
+      text = "Roku now offers Nielsen audience measurement software on the Roku platform. You may choose to turn on these Nielsen audience measurement features in your channel." 
+      horizAlign = "left" 
+      vertAlign = "top" />
+
+  </children>
+
+</component>

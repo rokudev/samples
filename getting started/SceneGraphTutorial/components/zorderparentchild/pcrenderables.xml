@@ -1,0 +1,52 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "PCRenderablesExample" extends = "Group" >
+
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      examplerect = m.top.boundingRect()
+      centerx = (1280 - examplerect.width) / 2
+      centery = (720 - examplerect.height) / 2
+      m.top.translation = [ centerx, centery ]
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children >
+
+    <Poster 
+      id = "examplePoster" 
+      width = "512" 
+      height = "288" 
+      uri = "http://sdktestinglab.com/Tutorial/images/videopg.jpg" >
+
+        <Rectangle 
+          id = "bottomRectangle" 
+          translation = "[ 0, 244 ]" 
+          width = "512" 
+          height = "34" 
+          color = "0x1010EBFF" >
+
+          <Label 
+            id = "bottomLabel" 
+            width = "512" 
+            height = "34" 
+            font = "font:SmallBoldSystemFont" 
+            text = "All the Best Videos...All the Time!" 
+            horizAlign = "center" 
+            vertAlign = "center" />
+
+        </Rectangle>
+
+      </Poster>
+
+  </children>
+
+</component>

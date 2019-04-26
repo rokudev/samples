@@ -1,0 +1,52 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "PCRectanglesInheritExample" extends = "Group" >
+
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      examplerect = m.top.boundingRect()
+      centerx = (1280 - examplerect.width) / 2
+      centery = (720 - examplerect.height) / 2
+      m.top.translation = [ centerx, centery ]
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children>
+
+    <Rectangle 
+      id = "lowestRectangle" 
+      width = "180" 
+      height = "60" 
+      color = "0xEB1010FF" >
+
+      <Rectangle 
+        id = "middleRectangle" 
+        translation = "[ 60, 30 ]" 
+        width = "360" 
+        height = "120" 
+        color = "0x10EB10FF" 
+        opacity = "0.5" >
+
+        <Rectangle 
+          id = "highestRectangle" 
+          translation = "[120,60]" 
+          width = "720" 
+          height = "240" 
+          color = "0x1010EBFF" 
+          opacity = "0.25" />
+
+      </Rectangle>
+
+    </Rectangle>
+
+  </children>
+
+</component>

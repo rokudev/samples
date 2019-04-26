@@ -1,0 +1,48 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "AnimationFloatExample" extends = "Group" >
+
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      examplerect = m.top.boundingRect()
+      centerx = (1280 - examplerect.width) / 2
+      centery = (720 - examplerect.height) / 2
+      m.top.translation = [ centerx, centery ]
+
+      m.floatanimation = m.top.FindNode("exampleFloatAnimation")
+      m.floatanimation.repeat = true
+      m.floatanimation.control = "start"
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children >
+
+    <Poster 
+      id = "examplePoster" 
+      width = "512" 
+      height = "288" 
+      uri = "http://sdktestinglab.com/Tutorial/images/videopg.jpg" />
+
+    <Animation 
+      id = "exampleFloatAnimation" 
+      duration = "5" 
+      easeFunction = "linear" >
+
+      <FloatFieldInterpolator 
+        key = "[ 0.0, 0.5, 1.0 ]" 
+        keyValue = "[ 1.0, 0.0, 1.0 ]" 
+        fieldToInterp = "examplePoster.opacity" />
+
+    </Animation>
+
+  </children>
+
+</component>

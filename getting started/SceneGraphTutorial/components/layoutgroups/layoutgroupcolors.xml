@@ -1,0 +1,667 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "LayoutGroupColorsExample" extends = "Group" initialFocus = "exampleLayoutGroup" >
+
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      examplerect = m.top.boundingRect()
+      centerx = (1280 - examplerect.width)  / 2
+      centery = (720 - examplerect.height) / 2
+      m.top.translation = [ centerx, centery ]
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children >
+
+    <Group id = "exampleLayoutGroup" >
+
+      <!--** fully saturated primary and secondary colors **-->
+
+      <LayoutGroup 
+        id = "fullysaturatedcolors" 
+        translation = "[0,0]" 
+        itemSpacings = "[20]" 
+        layoutDirection = "horiz" >
+
+        <Rectangle 
+          color = "0xEB1010FF" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0xEB1010FF" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0xEBEB10FF" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0xEBEB10FF" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0x10EB10FF" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0x10EB10FF" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0x10EBEBFF" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0x10EBEBFF" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0x1010EBFF" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0x1010EBFF" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0xEB10EBFF" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0xEB10EBFF" />
+
+        </Rectangle>
+
+      </LayoutGroup>
+
+      <!--** less saturated **-->
+
+      <LayoutGroup 
+        id = "lesssaturatedcolors" 
+        translation = "[0,90]" 
+        itemSpacings = "[20]" 
+        layoutDirection = "horizontal" >
+
+        <Rectangle 
+          color = "0xCC1010FF" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF"
+            height = "40"
+            width = "180" 
+            horizAlign = "center"
+            vertAlign = "center"
+            text = "0xCC1010FF" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0xCCCC10FF" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0xCCCC10FF" />
+
+	</Rectangle>
+
+        <Rectangle 
+          color = "0x10CC10FF" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0x10CC10FF" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0x10CCCCFF" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0x10CCCCFF" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0x1010CCFF" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0x1010CCFF" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0xCC10CCFF" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0xCC10CCFF" />
+
+        </Rectangle>
+
+      </LayoutGroup>
+
+      <!--** even less saturated **-->
+
+      <LayoutGroup 
+	id = "evenlesssaturatedcolors" 
+	translation = "[0,150]" 
+	itemSpacings = "[20]" 
+	layoutDirection = "horizontal" >
+
+        <Rectangle 
+          color = "0x991010FF" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0x991010FF" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0x999910FF" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0x999910FF" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0x109910FF" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0x109910FF" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0x109999FF" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0x109999FF" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0x101099FF" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0x101099FF" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0x991099FF" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0x991099FF" />
+
+        </Rectangle>
+
+      </LayoutGroup>
+
+      <!--** alpha channels **-->
+
+      <LayoutGroup 
+	id = "alphachannel1" 
+	translation = "[0,240]" 
+	itemSpacings = "[20]" 
+	layoutDirection = "horizontal" >
+
+        <Rectangle 
+          color = "0xEB1010CC" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0xEB1010CC" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0xEBEB10CC" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF"
+            height = "40"
+            width = "180" 
+            horizAlign = "center"
+            vertAlign = "center"
+            text = "0xEBEB10CC" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0x10EB10CC" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0x10EB10CC" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0x10EBEBCC" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0x10EBEBCC" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0x1010EBCC" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0x1010EBCC" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0xEB10EBCC" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0xEB10EBCC" />
+
+        </Rectangle>
+
+      </LayoutGroup>
+
+      <LayoutGroup 
+	id = "alphachannel2" 
+	translation = "[0,300]" 
+	itemSpacings = "[20]" 
+	layoutDirection = "horizontal" >
+
+        <Rectangle 
+          color = "0xEB101099" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0xEB101099" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0xEBEB1099" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0xEBEB1099" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0x10EB1099" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0x10EB1099" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0x10EBEB99" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0x10EBEB99" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0x1010EB99" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0x1010EB99" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0xEB10EB99" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0xEB10EB99" />
+
+        </Rectangle>
+
+      </LayoutGroup>
+
+      <LayoutGroup 
+	id = "alphachannel3" 
+	translation = "[0,360]" 
+	itemSpacings = "[20]" 
+	layoutDirection = "horizontal" >
+
+        <Rectangle 
+          color = "0xEB101066" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0xEB101066" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0xEBEB1066" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0xEBEB1066" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0x10EB1066" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0x10EB1066" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0x10EBEB66" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0x10EBEB66" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0x1010EB66" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0x1010EB66" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0xEB10EB66" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0xEB10EB66" />
+
+        </Rectangle>
+
+      </LayoutGroup>
+
+      <!--** text colors and fonts **-->
+
+      <LayoutGroup 
+	id = "textcolorsfonts" 
+	translation = "[400,450]" 
+	itemSpacings = "[20]" 
+	layoutDirection = "horizontal" >
+
+        <Rectangle 
+          color = "0x262626FF" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0xB3B3B3FF" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0xB3B3B3FF" />
+
+        </Rectangle>
+
+        <Rectangle 
+          color = "0xB3B3B3FF" 
+          height = "40" 
+          width = "180" >
+
+          <Label 
+            color = "0x262626FF" 
+            font = "font:MediumBoldSystemFont" 
+            height = "40" 
+            width = "180" 
+            horizAlign = "center" 
+            vertAlign = "center" 
+            text = "0x262626FF" />
+
+        </Rectangle>
+
+      </LayoutGroup>
+
+    </Group>
+
+  </children>
+
+</component>

@@ -1,0 +1,43 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "MarkupGridExample" extends = "Group" initialFocus = "exampleMarkupGrid" >
+
+  <script type="text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      m.top.translation = [ 130, 160 ]
+
+      m.markupgrid = m.top.findNode("exampleMarkupGrid")
+
+      m.readMarkupGridTask = createObject("roSGNode", "ContentReader")
+      m.readMarkupGridTask.contenturi = "http://www.sdktestinglab.com/Tutorial/content/rendergrid.xml"
+      m.readMarkupGridTask.observeField("content", "showmarkupgrid")
+      m.readMarkupGridTask.control = "RUN"
+    end sub
+
+    sub showmarkupgrid()
+      m.markupgrid.content = m.readMarkupGridTask.content
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children >
+
+    <MarkupGrid 
+      id = "exampleMarkupGrid" 
+      itemComponentName = "MarkupGridItem"
+      numColumns = "2" 
+      numRows = "5" 
+      itemSize = "[ 532, 308 ]" 
+      itemSpacing = "[ 20, 20 ]" 
+      drawFocusFeedback = "false" />
+
+  </children>
+
+</component>

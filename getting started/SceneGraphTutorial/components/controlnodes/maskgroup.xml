@@ -1,0 +1,57 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "MaskGroupExample" extends = "Group" >
+
+  <script type="text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      examplerect = m.top.boundingRect()
+      centerx = (1280 - examplerect.width) / 2
+      centery = (720 - examplerect.height) / 2
+      m.top.translation = [ centerx, centery ]
+
+      maskgroupanimation = m.top.findNode("MaskGroupAnimation")
+      maskgroupanimation.control = "start"
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children>
+
+    <MaskGroup 
+      id = "exampleMaskGroup" 
+      masksize = "[ 512, 288 ]" 
+      maskOffset = "[ 0, 0 ]" 
+      maskuri = "pkg:/images/grad_lin_l2r_hd.png" >
+
+      <Poster 
+        id = "examplePoster" 
+        width = "512" 
+        height = "288" 
+        uri = "http://sdktestinglab.com/Tutorial/images/videopg.jpg" />
+
+    </MaskGroup>
+
+    <Animation 
+      id = "MaskGroupAnimation" 
+      duration = "3" 
+      easeFunction = "linear" 
+      repeat = "true" >
+
+      <Vector2DFieldInterpolator 
+        id = "interpolator" 
+        fieldToInterp = "exampleMaskGroup.maskOffset" 
+        key = "[ 0.0, 0.5, 1.0 ]" 
+        keyValue = "[ [512,0], [-512,0], [512,0] ]" />
+
+    </Animation>
+
+  </children>
+
+</component>

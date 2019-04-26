@@ -1,0 +1,40 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "RowListExample" extends = "Group" initialFocus = "exampleRowList" >
+
+  <script type="text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      m.top.translation = [ 130, 160 ]
+
+      rowlist = m.top.findNode("exampleRowList")
+
+      rowlist.itemSize = [ 536 * 3, 308 ]
+
+      rowlist.content = createObject("roSGNode", "RowListContent")
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children >
+
+    <RowList 
+      id = "exampleRowList" 
+      itemComponentName = "RowListItem" 
+      numRows = "4" 
+      rowItemSize = "[ [536, 308] ]" 
+      itemSpacing = "[ 0, 40 ]" 
+      showRowLabel = "[ true ]" 
+      drawFocusFeedback = "false" 
+      vertFocusAnimationStyle = "fixedFocusWrap" 
+      rowFocusAnimationStyle = "fixedFocusWrap" />
+
+  </children>
+
+</component>

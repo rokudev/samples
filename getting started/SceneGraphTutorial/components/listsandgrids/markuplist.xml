@@ -1,0 +1,38 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "MarkupListExample" extends = "Group" initialFocus = "exampleMarkupList" >
+
+  <script type="text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      markuplist = m.top.findNode("exampleMarkupList")
+
+      markuplist.content = createObject("roSGNode", "MarkupListContent")
+
+      examplerect = m.top.boundingRect()
+      centerx = (1280 - examplerect.width) / 2
+      centery = (720 - examplerect.height) / 2
+      m.top.translation = [ centerx, centery + 46 ]
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children >
+
+    <MarkupList 
+      id = "exampleMarkupList" 
+      itemComponentName = "MarkupListItem" 
+      itemSize = "[ 586, 154 ]" 
+      itemSpacing = "[ 0, 10 ]" 
+      drawFocusFeedback = "false" 
+      vertFocusAnimationStyle = "floatingFocus" />
+
+  </children>
+
+</component>

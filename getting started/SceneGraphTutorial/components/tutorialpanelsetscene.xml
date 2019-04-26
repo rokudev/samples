@@ -1,0 +1,132 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "SceneGraphTutorialScene" extends = "OverhangPanelSetScene" >
+
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      m.top.backgroundURI = "pkg:/images/rsgde_bg_hd.jpg"
+
+      m.readContentTask = createObject("roSGNode", "ContentReader")
+      m.readContentTask.observeField("content", "setcategories")
+      m.readContentTask.contenturi = "http://www.sdktestinglab.com/Tutorial/content/categoriescontent.xml"
+      m.readContentTask.control = "RUN"
+    end sub
+
+    sub setcategories()
+      m.categoriespanel = m.top.panelSet.createChild("CategoriesListPanel")
+      m.categoriespanel.list.content = m.readContentTask.content
+
+      m.categoryinfopanel = m.top.panelSet.createChild("CategoryInfoPanel")
+
+      m.categoriespanel.list.observeField("itemFocused", "showcategoryinfo")
+      m.categoryinfopanel.observeField("focusedChild", "slideexamplesgridpanel")
+
+      m.categoriespanel.setFocus(true)
+    end sub
+
+    sub showcategoryinfo()
+      categorycontent = m.categoriespanel.list.content.getChild(m.categoriespanel.list.itemFocused)
+
+      m.categoryinfopanel.description = categorycontent.description
+
+      m.examplespanel = createObject("roSGNode", "ExamplesGridPanel")
+
+      m.examplespanel.overhangtext = categorycontent.shortdescriptionline1
+      m.examplespanel.gridcontenturi = categorycontent.url
+    end sub
+
+    sub slideexamplesgridpanel()
+      if not m.top.panelSet.isGoingBack
+        m.top.panelSet.appendChild(m.examplespanel)
+
+        m.examplespanel.grid.observeField("itemSelected", "runselectedexample")
+        m.examplespanel.grid.setFocus(true)
+
+      else
+        m.categoriespanel.setFocus(true)
+
+      end if 
+    end sub
+
+    sub runselectedexample()
+      examplecontent = m.examplespanel.grid.content.getChild(m.examplespanel.grid.itemSelected)
+      example = examplecontent.shortdescriptionline2
+
+      if (example = "DialogExample")
+        dialog = createObject("roSGNode", "Dialog")
+        dialog.backgroundUri = "pkg:/images/rsgde_dlg_bg_hd.9.png"
+        dialog.title = "Example Dialog"
+        dialog.optionsDialog = true
+        dialog.message = "Press * To Dismiss"
+        m.top.dialog = dialog
+
+      else if (example = "KeyboardDialogExample")
+        keyboarddialog = createObject("roSGNode", "KeyboardDialog")
+        keyboarddialog.backgroundUri = "pkg:/images/rsgde_dlg_bg_hd.9.png"
+        keyboarddialog.title = "Example Keyboard Dialog"
+        m.top.dialog = keyboarddialog
+
+      else if (example = "PinDialogExample")
+        pindialog = createObject("roSGNode", "PinDialog")
+        pindialog.backgroundUri = "pkg:/images/rsgde_dlg_bg_hd.9.png"
+        pindialog.title = "Example PinPad Dialog"
+        m.top.dialog = pindialog
+
+      else if (example = "ProgressDialogExample")
+        progressdialog = createObject("roSGNode", "ProgressDialog")
+        progressdialog.backgroundUri = "pkg:/images/rsgde_dlg_bg_hd.9.png"
+        progressdialog.title = "Example Progress Dialog"
+        m.top.dialog = progressdialog
+
+        m.timer = createObject("roSGNode", "Timer")
+        m.timer.duration = 3
+        m.timer.control = "start"
+        m.timer.ObserveField("fire", "dismissdialog")
+
+      else
+        m.top.overhang.visible = false
+        m.top.panelset.visible = false
+
+        m.currentexample = createObject("roSGNode", example)
+
+        m.top.appendChild(m.currentexample)
+
+        m.currentexample.setFocus(true)
+      end if
+    end sub
+
+    sub dismissdialog()
+      m.top.dialog.close = true
+    end sub
+
+    function onKeyEvent(key as String, press as Boolean) as Boolean
+      if press then
+        if key = "back"
+
+          if (m.currentexample <> invalid)
+            m.top.removeChild(m.currentexample)
+            m.currentexample = invalid
+
+            m.top.overhang.visible = true
+            m.top.panelset.visible = true
+
+            m.examplespanel.setFocus(true)
+
+            return true
+          end if
+        end if
+      end if
+
+      return false
+    end function
+
+    ]]>
+
+  </script>
+
+</component>

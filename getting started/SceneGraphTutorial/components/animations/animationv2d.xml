@@ -1,0 +1,55 @@
+<?xml version = "1.0" encoding = "utf-8" ?> 
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "AnimationV2DExample" extends = "Group" >
+
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      examplerect = m.top.boundingRect()
+      centerx = (1280 - examplerect.width) / 2
+      centery = (720 - examplerect.height) / 2
+      m.top.translation = [ centerx, centery ]
+
+      m.vector2danimation = m.top.FindNode("exampleVector2DAnimation")
+      m.vector2danimation.repeat = true
+      m.vector2danimation.control = "start"
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children>
+
+    <Rectangle 
+      width = "900" 
+      height = "330" 
+      color = "0x10101000" >
+
+      <Rectangle 
+        id = "movingRectangle" 
+        width = "720" 
+        height = "240" 
+        color = "0x1010EBFF" />
+
+    </Rectangle>
+
+    <Animation 
+      id = "exampleVector2DAnimation" 
+      duration = "5" 
+      easeFunction = "linear" >
+
+      <Vector2DFieldInterpolator 
+        key = "[ 0.0, 0.5, 1.0 ]" 
+        keyValue = "[ [0.0,0.0], [180.0,90.0], [0.0,0.0] ]" 
+        fieldToInterp = "movingRectangle.translation" />
+
+    </Animation>
+
+  </children>
+
+</component>
