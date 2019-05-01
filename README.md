@@ -1,6 +1,6 @@
 # Roku Sample Channels
 
-The following samples demonstrate working Roku channels. Often the best way to learn a framework is seeing a working application running. Make sure to obtain a Roku device - it's required for following these steps. Products are found at https://www.roku.com/products/compare and on many online stores.
+The samples listed above demonstrate working Roku channels. Often the best way to learn a framework is seeing a working application running. Make sure to obtain a Roku device - it's required for following these steps. Products are found at https://www.roku.com/products/compare and on many online stores.
 
 ### Overview
 
