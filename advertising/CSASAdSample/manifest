@@ -1,0 +1,15 @@
+title=CSASAdSample
+major_version=1
+minor_version=0
+build_version=1
+mm_icon_focus_hd=pkg:/images/icon_focus_hd.png
+mm_icon_focus_sd=pkg:/images/icon_focus_sd.png
+mm_icon_focus_fhd=pkg:/images/icon_focus_hd.png
+splash_screen_fhd=pkg:/images/splash_fhd.jpg
+splash_screen_hd=pkg:/images/splash_hd.jpg
+splash_screen_sd=pkg:/images/splash_sd.jpg
+splash_color=#121212
+ui_resolutions=hd
+splash_rsg_optimization=1
+bs_libs_required=roku_ads_lib
+
