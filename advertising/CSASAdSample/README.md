@@ -22,5 +22,5 @@ To run this sample, follow these steps:
 
 3. Follow the steps in [Loading and Running Your Application](https://sdkdocs.roku.com/display/sdkdoc/Loading+and+Running+Your+Application) to enable developer mode on your device and sideload the ZIP file containing the sample onto it.
 
-4. Optionally, you can launch the sample channel via the device UI to view the scene and video content items. The sample channel is named FirstApp (dev).
+4. Optionally, you can launch the sample channel via the device UI to view the scene and video content items. The sample channel is named CSASAdSample (dev).
 
