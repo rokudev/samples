@@ -12,9 +12,11 @@ You'll note that there are three basic "screens" in the application. The applica
 
 The first "screen" consists of a categories list panel (a medium-size panel), and a category description panel (another medium-size panel), as part of the tutorial panel set. If you press the remote control **OK** or **Right** key, a full-size examples grid panel slides into view, and moves the two medium-size panels out of view (the **Overhang** node title also changes from **SceneGraph Examples** to the name of the example category as shown in this tutorial). If you select an example by pressing the remote **OK** key while the focus indicator is on the example image, you'll see the example in action as the examples grid panel is replaced by the example "screen". Pressing the **Back** key while in the example "screen" causes the examples "screen" to be replaced by the examples grid panel; pressing **Back** (or **Left** when the focus indicator is on a left-hand grid image) slides the examples grid panel off the screen and replaced with the original two medium-size panels.
 
-**![img](https://sdkdocs.roku.com/download/attachments/1605791/tutorialscenedoc14pt.jpg?version=7&modificationDate=1472848171069&api=v2)**
+![categories list and description panel](https://image.roku.com/ZHZscHItMTc2/tutorialscenedoc14pt.jpg)
 
-**![img](https://sdkdocs.roku.com/download/attachments/1605791/tutorialexamplesdoc14pt.png?version=1&modificationDate=1472849250417&api=v2)**![img](https://sdkdocs.roku.com/download/attachments/1605791/tutorialexampledoc14pt.jpg?version=1&modificationDate=1472850061739&api=v2)
+![example grid panel](https://image.roku.com/ZHZscHItMTc2/tutorialexamplesdoc14pt.png)
+
+![example screen](https://image.roku.com/ZHZscHItMTc2/tutorialexampledoc14pt.jpg)
 
 ### Files and Directories
 
