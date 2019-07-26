@@ -20,7 +20,7 @@
 
       m.readVideoContentTask = createObject("roSGNode", "ContentReader")
       m.readVideoContentTask.observeField("content", "showvideolist")
-      m.readVideoContentTask.contenturi = "http://www.sdktestinglab.com/Tutorial/content/videocontent.xml"
+      m.readVideoContentTask.contenturi = "http://bit.ly/2JUKILe"
       m.readVideoContentTask.control = "RUN" 
 
       m.videolist.observeField("itemFocused", "setvideo")
