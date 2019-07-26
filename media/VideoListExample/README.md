@@ -26,12 +26,10 @@ end sub
 ```
 
 This is where we set the `hdposterurl` and `description` **Content Meta-Data** attributes, as the `m.videoposter` **Poster** node `uri`, and `m.videoinfo` **Label** node `text` fields, respectively. As the user scrolls down the list of videos, each change of the **LabelList** node `itemFocused` field triggers a `setvideo()` callback. The index number for the currently-focused video item in the `itemFocused` field is used to get the **ContentNode** node child containing the **Content Meta-Data**for the item. This allows all the **Content Meta-Data** for the focused video item to be assigned to various node fields in the application. As each video item is focused, these node field values are reassigned with the **Content Meta-Data** for that item.
+ 
+![img](https://image.roku.com/ZHZscHItMTc2/videolistdoc.jpg)
 
-![img](https://sdkdocs.roku.com/download/attachments/4262787/videolistdoc.jpg?version=3&modificationDate=1472839022462&api=v2)
-
-You can see how the content meta-data for the **LabelList** node is used to set the video item strings in the list using the **Content Meta-Data** `title` attribute, as well as setting the other descriptive and media playback **Content Meta-Data**attributes:
-
-<http://www.sdktestinglab.com/Tutorial/content/videocontent.xml>
+You can see how the content meta-data for the **LabelList** node is used to set the video item strings in the list using the **Content Meta-Data** `title` attribute, as well as setting the other descriptive and media playback **Content Meta-Data** attributes in the videocontent.xml file.
 
 ```
 <Content >
