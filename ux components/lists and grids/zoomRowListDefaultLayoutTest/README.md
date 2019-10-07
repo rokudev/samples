@@ -1,0 +1,3 @@
+This RSG sample channel demonstrates the default layout of the ZoomRowList node. There are only two fields of the ZoomRowList node that must be set in order to see a default layout. The content field must be set up to contain a tree of ContentNode's as described in the documentation. The itemComponentName field must be set to a custom RSG component that is used to render each item in the content.
+
+In addition to those two fields, the example also sets the id field of the ZoomRowList so that some of information from read-only ZoomRowList status fields can be displayed along the top edge of the screen. The translation field of the ZoomRowList is also set to offset it slightly from the top of the screen.
