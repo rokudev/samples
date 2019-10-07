@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<component name="SimpleGridItem" extends="Group">
+
+<interface>
+  <field id="width" type="float" alias="itemPoster.width" />
+  <field id="height" type="float" alias="itemPoster.height" /> 
+  <field id="itemContent" type="node" onChange="itemContentChanged"/> 
+</interface>
+
+<script type="text/brightscript" >
+<![CDATA[
+    function itemContentChanged()
+	m.itemPoster.uri = m.top.itemContent.HDPOSTERURL
+    end function
+
+    function init()
+        m.itemPoster  = m.top.findNode("itemPoster")
+    end function
+]]>
+</script>
+
+<children>
+<Poster id="itemPoster" />
+</children>
+
+</component>
+

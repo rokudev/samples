@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<component name="ZoomRowListTestScene" extends="Scene">
+
+<script type="text/brightscript" >
+<![CDATA[
+
+    function init()
+        print "in ZoomRowListTestScene init()"
+        
+        m.zoomRowList = m.top.findNode("theZoomRowList")
+
+        m.zoomRowList.translation = [193, 110]
+
+        m.zoomRowList.observeField("scrollingStatus", "scrollingStatusChanged")
+        m.zoomRowList.observeField("rowItemFocused", "rowItemFocusedChanged")
+        m.zoomRowList.observeField("rowFocused", "rowFocusedChanged")
+
+        m.scrollingStatusLabel = m.top.findNode("scrollingStatusLabel")
+        m.rowItemFocusedLabel = m.top.findNode("rowItemFocusedLabel")
+        m.rowFocusedLabel = m.top.findNode("rowFocusedLabel")
+
+        m.top.visible = true
+
+        m.top.observeField("focusedChild", "focusChanged")
+
+        m.readerTask = createObject("roSGNode", "RowListContentTask")
+        m.readerTask.observeField("content", "gotContent")
+        m.readerTask.control = "RUN"
+
+        m.zoomRowList.visible = false
+        m.zoomRowList.setFocus(true)
+    end function
+
+    function gotContent()
+        if m.readerTask.content=invalid
+            print "invalid readerTask.content"
+        else
+            m.zoomRowList.content = m.readerTask.content
+	    m.zoomRowList.visible = true
+        end if
+    end function
+
+    function focusChanged()
+        if m.top.isInFocusChain()
+	    if not m.zoomRowList.hasFocus()
+                m.zoomRowList.setFocus(true)
+            end if
+        end if
+    end function
+
+    function rowFocused()
+'        print "grid row "; m.zoomRowList.rowFocused; " focused"
+    end function
+
+    function rowSelected()
+'        print "grid row "; m.zoomRowList.rowSelected; " selected"
+    end function
+    
+    function updateCurrFocusRow()
+        m.currFocusRowLabel.text = "currFocusRow: " + m.zoomRowList.currFocusRow.toStr()
+    end function
+
+    function scrollingStatusChanged()
+        m.scrollingStatusLabel.text = "scrollingStatus is: " + m.zoomRowList.scrollingStatus.toStr()
+    end function
+
+    function rowItemFocusedChanged()
+        m.rowItemFocusedLabel.text = "rowItemFocused is: " + m.zoomRowList.rowItemFocused[0].toStr() + " " + m.zoomRowList.rowItemFocused[1].toStr()
+    end function
+
+    function rowFocusedChanged()
+        m.rowFocusedLabel.text = "rowFocused is: " + m.zoomRowList.rowFocused.toStr()
+    end function
+
+'    function onKeyEvent(key as string, press as boolean) as boolean
+'    end function
+]]>
+</script>
+
+<children>
+<ZoomRowList 
+    id="theZoomRowList"
+    itemComponentName="SimpleGridItem"
+/>
+<Label id="scrollingStatusLabel" text="scrollingStatus: false" translation="[100,20]"/>
+<Label id="rowItemFocusedLabel" text="rowItemFocused: 0, 0" translation="[500,20]" />
+<Label id="rowFocusedLabel" text="rowFocused: 0" translation="[900, 20]"/>
+</children>
+
+</component>
