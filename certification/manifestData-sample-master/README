@@ -1,0 +1,1 @@
+This sample shows how to use the Video node's manifestData field to detect the periods in a DASH manifest before they are played back.
