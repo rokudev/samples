@@ -1,0 +1,31 @@
+#
+#  Copyright (c) 2016 Roku, Inc. All rights reserved.
+#  Roku Channel Manifest File 
+#  Full spec at bit.ly/roku-manifest-file
+#
+
+##   Channel Details
+title=Roku_analytics_component_video_player_with_case_1_analytics
+major_version=1
+minor_version=0
+build_version=1
+
+##   Channel Assets
+###  Main Menu Icons / Channel Poster Artwork 
+#### Image sizes are FHD: 540x405px | HD: 290x218px | SD: 214x144px
+mm_icon_focus_hd=pkg:/images/MainMenu_Icon_Center_HD.png
+mm_icon_focus_sd=pkg:/images/MainMenu_Icon_Center_SD43.png
+
+### Legacy Required Manifest Attributes
+#### Image sizes are HD: 108x69px | SD: 248x140px
+mm_icon_side_hd=pkg:/images/MainMenu_Icon_Side_HD.png
+mm_icon_side_sd=pkg:/images/MainMenu_Icon_Side_SD43.png
+
+###  Splash Screen + Loading Screen Artwork 
+#### Image sizes are FHD: 1920x1080px | HD: 1280x720px | SD: 720x480px
+splash_screen_fhd=pkg:/images/splash_fhd.jpg
+splash_screen_hd=pkg:/images/splash_hd.jpg
+splash_screen_sd=pkg:/images/splash_sd.jpg
+
+ui_resolutions=hd
+sg_component_libs_required=Roku_Analytics

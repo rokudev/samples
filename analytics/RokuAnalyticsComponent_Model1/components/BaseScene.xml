@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********--> 
+
+<!-- Component element defines the name of the component and the type of node whose behavior it extends.
+This is the base node which handles home screen children.
+Also this is the place where XSD is included. XSD requires that the order of elements be deterministic, 
+and so for validation to work, Scene Graph node elements must be contained in an element themselves). -->
+<component name="BaseScene" extends="Scene" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+
+    <interface>
+        <field id="content" type="node" onChange="OnMainContent"/>
+    </interface>
+    
+    <!-- Script element allows the definition of functions to initialize the component, and to respond to events (including key events) 
+    and field value changes. The BrightScript interfaces for the Scene Graph nodes used by BrightScript are the same interfaces
+    defined for roSGNode objects. -->
+    <script type="text/brightscript" uri="pkg:/components/BaseScene.brs"/>
+    
+    <!-- Children element contains all the Scene Graph node elements in a Scene Graph XML component. -->
+    <children>
+         <Video
+            id = "VideoPlayer"
+            width="1280"
+            height="720"
+        />
+    
+    </children> 
+</component>
