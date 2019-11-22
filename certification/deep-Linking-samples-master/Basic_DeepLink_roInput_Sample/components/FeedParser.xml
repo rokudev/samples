@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component name="FeedParser" extends="Task">
+    <interface>
+            <field id="content" type="node" />
+            <field id="mediaIndex" type="assocarray"/>
+    </interface>
+
+    <script type="text/brightscript" uri="pkg:/components/FeedParser.brs" />
+</component>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<component name="PosterItem" extends="Group">
+    <interface>
+        <field id="width"       type="float" onChange="updateLayout"/>
+        <field id="height"      type="float" onChange="updateLayout"/>
+        <field id="itemContent" type="node" onChange="itemContentChanged"/>
+    </interface>
+
+    <script type="text/brightscript">
+        <![CDATA[
+            Sub Init()
+                m.Poster = m.top.findNode("poster")
+            End Sub
+            Sub itemContentChanged()
+                m.Poster.uri = m.top.itemContent.HDPOSTERURL
+                updateLayout()
+            End Sub
+            Sub updateLayout()
+                If m.top.height > 0 And m.top.width > 0 Then
+                    m.Poster.width  = m.top.width
+                    m.Poster.height = m.top.height
+                End If
+            End Sub]]>
+    </script>
+    <children>
+        <Poster id="poster">
+        </Poster>
+    </children>
+</component>

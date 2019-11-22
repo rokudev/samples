@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component name="HomeScene" extends="Scene">
+  <interface>
+    <field id="contentId" type="string"/>
+    <field id="mediaType" type="string"/>
+  </interface>
+    <script type="text/brightscript" uri="pkg:/components/HomeScene.brs" />
+
+    <!-- All nodes must be inside <children> headers -->
+    <children>
+    <!-- Shaded background behind the RowList -->
+    <Rectangle
+        id = "shader"
+        height = "1080"
+        width = "1920"
+        color = "0x000000FF"
+        opacity = "0.7"/>
+
+    <!-- RowList node -->
+    <RowList
+        id= "RowList"
+        translation= "[0,500]"
+        itemComponentName= "PosterItem"
+        numRows= "4"
+        rowitemSize="[[351,197]]"
+        rowItemSpacing= "[[20,0]]"
+        itemSize= "[1920,270]"
+        rowLabelOffset= "[[50,10]]"
+        focusXOffset = "[50]"
+        showRowLabel= "[true]"
+        rowFocusAnimationStyle= "floatingfocus"
+    />
+
+    <Video
+        id = "Video"
+        height = "1080"
+        width = "1920"
+	loop = "false"
+        visible = "false"
+    />
+
+    <!-- Shaded overhang to display the focused content in the RowList -->
+    <Rectangle
+        id = "Overhang"
+        height = "400"
+        width = "1920"
+        color = "0x00000080" >
+
+        <!-- Passed into a group node to make the formatting easier. All child nodes inherit the translation field of Group -->
+	    <Group translation = "[150,75]">
+	    <!--  Content title of the item focused. This label inherits translation from Group node -->
+	    <Label
+	      id = "Title"
+	      height = "30"
+	      width = "650"
+	      font = "font:LargeBoldSystemFont"/>
+	    <!-- Content description of the item focused . Also inherits translation from Group node -->
+	    <Label
+	      id = "Description"
+	      height = "250"
+	      width = "800"
+	      color = "0xA3A3C2FF"
+	      translation = "[0,75]"
+	      wrap = "true"/>
+	    <!-- Artwork of the item focused. Inherits translation of the Group node and adds onto the translation. Final translation on the screen is [150+850, 75+10] -->
+	    <Poster
+	      id = "Poster"
+	      height = "281"
+	      width = "500"
+	      loadWidth = "500"
+	      loadHeight = "281"
+	      loadDisplayMode = "scaleToFit"
+	      translation = "[850,10]"/>
+	    </Group>
+    </Rectangle>
+
+    <Animation
+      id = "moveOverhangPanelUp"
+      duration = "3"
+      easeFunction = "linear" >
+
+      <Vector2DFieldInterpolator
+        key = "[ 0.0, 1.0 ]"
+        keyValue = "[ [0.0,0.0], [0.0,-400.0] ]"
+        fieldToInterp = "Overhang.translation" />
+
+    </Animation>
+
+    <Animation
+      id = "moveOverhangPanelDown"
+      duration = "1.5"
+      easeFunction = "linear" >
+
+      <Vector2DFieldInterpolator
+        key = "[ 0.0, 1.0 ]"
+        keyValue = "[ [0.0,-400.0], [0.0,0.0] ]"
+        fieldToInterp = "Overhang.translation" />
+
+    </Animation>
+    </children>
+</component>
