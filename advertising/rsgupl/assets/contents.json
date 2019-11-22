@@ -1,0 +1,33 @@
+{
+    "contents": [
+        {
+            "title" : "VOD Uplynk",
+            "id"    : "f284749a124f4fb18fc24883dbd11a1d",
+            "description" : "VOD example using Uplynk Preplay API v3. JSON response will be parsed into list of RAF Pods and given to RAF.stitchedAdsInit() then RAF.stitchedAdHandledEvent() called when POSITION events. App may not call RAF.fireTrackingEvents()",
+            "live"  : false,
+            "url"   : "http://content.uplynk.com/api/v3/preplay/f284749a124f4fb18fc24883dbd11a1d.json?ad=e3ads&ad.sssb=1"
+        },
+        {
+            "title" : "VOD Uplynk fireTrackingEvents() only",
+            "id"    : "f284749a124f4fb18fc24883dbd11a1d",
+            "description" : "Using Preplay API v3, JSON response is pased into list of RAF Pods but not given to RAF.stitchedAdsInit() nor calling RAF.stitchedAdHandledEvent(). App is responsible to call RAF.fireTrackingEvents() when adopter invoke callbacks when POSITION match RAF Pods",
+            "useStitched": false,
+            "live"  : false,
+            "url"   : "http://content.uplynk.com/api/v3/preplay/f284749a124f4fb18fc24883dbd11a1d.json?ad=e3ads&ad.sssb=1"
+        },
+        {
+            "title" : "VOD Uplynk, load preplay",
+            "id"    : "f284749a124f4fb18fc24883dbd11a1d",
+            "description" : "VOD example using Uplynk Preplay API v3. This example makes Preplay request without using adapter.requestStream(), then pass preplayInfo to adapter.",
+            "live"  : false,
+            "url"   : "http://content.uplynk.com/api/v3/preplay/f284749a124f4fb18fc24883dbd11a1d.json?ad=e3ads&ad.sssb=1"
+        },
+        {
+            "title" : "Your TestAsset",
+            "id"    : "test_asset_id",
+            "description" : "Add your test asset title and URL. Set live:true when using Uplynk Ping method, The adopter will invoke Ping URL with pt= parameter appended",
+            "live"  : false,
+            "url"   : "http://  master URL of your test asset"
+        }
+    ]
+}

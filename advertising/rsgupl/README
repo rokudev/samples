@@ -1,0 +1,51 @@
+RAFX_SSAI SDK
+
+RAFX SSAI SDK adopter provides:
+  Enables Video Ad, Interactive Ad and Client-Side Ad Tracking with RAF.stitchedAdHandledEvent()
+  Common interfaces to App and to RAF
+  Custom interfaces to SSAI manifest servers to fetch, ping, parse and compose RAF-Ad Metadata
+  AdEvent callbacks and AdPod snap utilities
+  Option to configure not using RAF.stitchedAdHandledEvent()
+
+
+RAFX SSAI Scope
+  The adopter calls following RAF APIs
+    stitchedAdInit()
+    stitchedAdHandledEvent()
+    getAds()
+    fireTrackingEvents()
+  The adopter requests Ad Metadata to SSAI manifest servers and/or subscribe to video stream, parses to RAF Ad Metadata, tracks AdEvents and invokes callbacks.
+
+
+Callbacks and Snap utility
+  When configured not using RAF.stitchedAdHandledEvent(), App is required to set AdEvent callback functions and responsible to fire all AdEvent pixels by using RAF.fireTrackingEvents()
+  Adopter provides utility function to App snap the seeked position at the begging or ending of AdBreak when the new seeked position fall in the middle of AdPod.
+
+
+Supported SSAIs
+Following SSAIs are tested, and sample Apps are available as reference implementation and usage example.
+Adobe
+  simple tested
+  X-MARKER tested
+  Sample, rsgadb.zip
+Uplynk
+  Preplay tested
+  Ping tested
+  Sample, rsgupl.zip
+Brightcove OnceUX
+  VOD tested
+  Sample, rsgoux.zip
+Other SSAIs not supported
+  Google : provides own SDK for Roku devices, using RAF.stitchedAdHandledEvent() when Interactive Ad otherwise RAF.fireTrackingEvents() only
+  Yospace : provides own SDK for Roku devices, using RAF.fireTrackingEvents() only
+
+
+How To Playback SSAI Content with Adopter
+Adopter must be instantiated in a Task, and used only within the Task. Actual parameters to adopter API are vary. See each SSAI sample and how-to bellow this section. The steps to playback SSAI content is:
+
+Load and initialize adopter
+Make initial request to SSAI manifest server
+Configure adopter, content and SGNodes
+Playback loop
+Handle Callbacks
+
