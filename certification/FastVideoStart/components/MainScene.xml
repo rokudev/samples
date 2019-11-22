@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+
+<component name="MainScene" extends="Scene">
+
+<script type="text/brightscript">
+<![CDATA[
+function init()
+    m.top.backgroundUri = "pkg:/images/background.jpg"
+	
+    m.list = m.top.findNode("playbackOptionList")
+	m.list.SetFocus(true)	
+	m.list.observeField("itemSelected", "onItemSelected")
+	m.videoComponent = invalid
+end function
+
+function onItemSelected() as void
+    if (m.videoComponent = invalid)
+        print "MainScene.onItemSelected"
+        m.videoComponent = m.top.CreateChild("DetailsScreen")
+        if (m.list.itemSelected = 0)
+	        m.videoComponent.prebuffer = false
+        else
+	        m.videoComponent.prebuffer = true
+	    endif
+	    m.videoComponent.render = true
+	    m.top.findNode("grp").visible = false
+	end if
+end function
+]]>
+</script>
+
+<children>
+<Group id="grp">
+<LabelList
+  id = "playbackOptionList"
+  translation = "[160,92]"
+  itemSize = "[300,48]"
+  focusedColor="0x000000ff"
+  color="0x0000ffff">
+ 
+  <ContentNode id = "playbackOptionContent" role = "content" >
+ 
+    <ContentNode title = "Don't Prebuffer" />
+    <ContentNode title = "Prebuffer" />
+ 
+  </ContentNode>
+ 
+</LabelList>
+</Group>
+</children>
+
+</component>

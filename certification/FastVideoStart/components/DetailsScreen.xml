@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+
+<component name="DetailsScreen">
+<interface>
+    <field id="prebuffer" type="boolean" value="false" />
+	<field id="render" type="boolean" value="false" />
+</interface>
+
+<script type="text/brightscript">
+<![CDATA[
+function init()
+    m.top.observeField("render", "onRender")
+    m.playButton = m.top.findNode("playButton")
+	m.playButton.setFocus(true)
+    m.playButton.observeField("buttonSelected", "playVideo")		
+    m.video = m.top.findNode("video")
+    vidContent = createObject("RoSGNode", "ContentNode")
+    vidContent.title = "Test Video"
+    vidContent.streamformat = "mp4"
+    vidContent.url = "http://roku.cpl.delvenetworks.com/media/59021fabe3b645968e382ac726cd6c7b/f8de8daf2ba34aeb90edc55b2d380c3f/b228eeaba0f248c48e01e158f99cd96e/rr_123_segment_1_072715.mp4"
+    m.video.content = vidContent
+end function
+
+function onRender() as void
+print "onRender"
+    m.top.visible = true
+    m.playButton.setFocus(true)
+	if (m.top.prebuffer = true)
+	    print "Prebuffering..."
+        m.video.control = "prebuffer"
+	end if	
+end function
+
+function playVideo() as void
+    m.video.visible = true
+    m.video.setFocus(true)
+    m.video.control = "play"
+end function
+]]>
+</script>
+
+<children>
+  <Group id="grp">
+    <Button id="playButton" translation="[100, 100]" text="Play Video" />
+	<LayoutGroup id="lg" layoutDirection="vert" horizAlignment="center" addItemSpacingAfterChild="true" itemSpacings="[20]" translation="[800, 100]">
+		<Label id="lbl" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ornare eget nunc faucibus facilisis. Vestibulum consectetur volutpat lectus, tempor euismod orci vestibulum vel. Vestibulum suscipit dui at consequat efficitur. Nunc faucibus dignissim dui quis consequat." width="500" maxLines="7" wrap="true" color="0x645a5aff"/>
+	</LayoutGroup>
+    <Video id="video" width="1280" height="720" visible="false" />
+  </Group>
+</children>
+
+</component>
