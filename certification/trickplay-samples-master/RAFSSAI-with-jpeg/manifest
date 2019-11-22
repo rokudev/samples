@@ -1,0 +1,21 @@
+#
+#  Copyright (c) 2016-2019 Roku, Inc. All rights reserved.
+#  Roku Channel Manifest File
+#  Full spec at https://sdkdocs.roku.com/display/sdkdoc/Roku+Channel+Manifest
+#
+
+title=RAFSSAISample
+major_version=1
+minor_version=1
+build_version=2
+bs_libs_required=roku_ads_lib
+mm_icon_focus_hd=pkg:/images/MainMenu_Icon_Center_HD.png
+mm_icon_focus_sd=pkg:/images/MainMenu_Icon_Center_SD43.png
+subtitle=A Scene Graph Markup Demo with trick play thumbnails
+mm_icon_side_hd=pkg:/images/MainMenu_Icon_Side_HD.png
+mm_icon_side_sd=pkg:/images/MainMenu_Icon_Side_SD43.png
+splash_screen_hd=pkg:/images/splash_hd.jpg
+splash_screen_sd=pkg:/images/splash_sd.jpg
+splash_color=#000000
+splash_min_time=1000
+ui_resolutions=fhd

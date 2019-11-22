@@ -1,0 +1,137 @@
+<vmap:VMAP version="1.0.1" xmlns:vmap="http://www.iab.net/videosuite/vmap">
+	<vmap:AdBreak timeOffset="00:00:00.000" breakType="linear" breakId="0">
+		<vmap:AdSource>
+			<vmap:VASTAdData>
+				<VAST version="3.0">
+					<Ad id="1" sequence="1">
+						<InLine>
+							<AdSystem>Auditude</AdSystem>
+							<AdTitle>Preroll</AdTitle>
+							<Impression>https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=0</Impression>
+							<Creatives>
+								<Creative AdID="1">
+									<Linear>
+										<Duration>00:00:30.000</Duration>
+										<TrackingEvents>
+											<Tracking event="start">https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=0</Tracking>
+											<Tracking event="firstQuartile">https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=7.5</Tracking>
+											<Tracking event="midpoint">https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=15</Tracking>
+											<Tracking event="thirdQuartile">https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=22.5</Tracking>
+											<Tracking event="complete">https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=30</Tracking>
+										</TrackingEvents>
+										<MediaFiles>
+											<MediaFile id="Auditude" delivery="progressive" type="video/mp4" width="1280" height="720">rtmp://roku.csl.delvenetworks.com/a8918/v1/mp4:media/59021fabe3b645968e382ac726cd6c7b/d1c7f2bebaf14b829d320c3ed824e79e/3685fdb0ab6b4aaf887b7f2fb32a9056/video.mp4</MediaFile>
+										</MediaFiles>
+									</Linear>
+								</Creative>
+							</Creatives>
+						</InLine>
+					</Ad>
+				</VAST>
+			</vmap:VASTAdData>
+		</vmap:AdSource>
+		<vmap:TrackingEvents>
+			<vmap:Tracking event="breakStart">https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=0</vmap:Tracking>
+			<vmap:Tracking event="breakEnd">https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=30</vmap:Tracking>
+		</vmap:TrackingEvents>
+		<vmap:Extensions />
+	</vmap:AdBreak>
+	<vmap:AdBreak timeOffset="00:01:16.583" breakType="linear" breakId="2">
+		<vmap:AdSource>
+			<vmap:VASTAdData>
+				<VAST version="3.0">
+					<Ad id="2" sequence="1">
+						<InLine>
+							<AdSystem>Auditude</AdSystem>
+							<AdTitle>Midroll #1</AdTitle>
+							<Impression>https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=0</Impression>
+							<Creatives>
+								<Creative AdID="2">
+									<Linear>
+										<Duration>00:00:15.000</Duration>
+										<TrackingEvents>
+											<Tracking event="start">https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=0</Tracking>
+											<Tracking event="firstQuartile">https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=3.75</Tracking>
+											<Tracking event="midpoint">https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=7.5</Tracking>
+											<Tracking event="thirdQuartile">https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=11.25</Tracking>
+											<Tracking event="complete">https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=15</Tracking>
+										</TrackingEvents>
+										<MediaFiles>
+											<MediaFile id="Auditude" delivery="progressive" type="video/mp4" width="1280" height="720">rtmp://roku.csl.delvenetworks.com/a8918/v1/mp4:media/59021fabe3b645968e382ac726cd6c7b/d1c7f2bebaf14b829d320c3ed824e79e/3685fdb0ab6b4aaf887b7f2fb32a9056/video.mp4</MediaFile>
+										</MediaFiles>
+									</Linear>
+								</Creative>
+							</Creatives>
+						</InLine>
+					</Ad>
+					<Ad id="3" sequence="2">
+						<InLine>
+							<AdSystem>Auditude</AdSystem>
+							<AdTitle>Midroll #2</AdTitle>
+							<Impression>https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=0</Impression>
+							<Creatives>
+								<Creative AdID="3">
+									<Linear>
+										<Duration>00:00:15.000</Duration>
+										<TrackingEvents>
+											<Tracking event="start">https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=0</Tracking>
+											<Tracking event="firstQuartile">https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=3.75</Tracking>
+											<Tracking event="midpoint">https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=7.5</Tracking>
+											<Tracking event="thirdQuartile">https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=11.25</Tracking>
+											<Tracking event="complete">https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=15</Tracking>
+										</TrackingEvents>
+										<MediaFiles>
+											<MediaFile id="Auditude" delivery="progressive" type="video/mp4" width="1280" height="720">rtmp://roku.csl.delvenetworks.com/a8918/v1/mp4:media/59021fabe3b645968e382ac726cd6c7b/d1c7f2bebaf14b829d320c3ed824e79e/3685fdb0ab6b4aaf887b7f2fb32a9056/video.mp4</MediaFile>
+										</MediaFiles>
+									</Linear>
+								</Creative>
+							</Creatives>
+						</InLine>
+					</Ad>
+				</VAST>
+			</vmap:VASTAdData>
+		</vmap:AdSource>
+		<vmap:TrackingEvents>
+			<vmap:Tracking event="breakStart">https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=0</vmap:Tracking>
+			<vmap:Tracking event="breakEnd">https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=30</vmap:Tracking>
+		</vmap:TrackingEvents>
+		<vmap:Extensions />
+	</vmap:AdBreak>
+	<vmap:AdBreak timeOffset="00:03:50.583" breakType="linear" breakId="4">
+		<vmap:AdSource>
+			<vmap:VASTAdData>
+				<VAST version="3.0">
+					<Ad id="4" sequence="1">
+						<InLine>
+							<AdSystem>Auditude</AdSystem>
+							<AdTitle>Postroll</AdTitle>
+							<Impression>https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=0</Impression>
+							<Creatives>
+								<Creative AdID="4">
+									<Linear>
+										<Duration>00:00:15.000</Duration>
+										<TrackingEvents>
+											<Tracking event="start">https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=0</Tracking>
+											<Tracking event="firstQuartile">https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=3.75</Tracking>
+											<Tracking event="midpoint">https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=7.5</Tracking>
+											<Tracking event="thirdQuartile">https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=11.25</Tracking>
+											<Tracking event="complete">https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=15</Tracking>
+										</TrackingEvents>
+										<MediaFiles>
+											<MediaFile id="Auditude" delivery="progressive" type="video/mp4" width="1280" height="720">rtmp://roku.csl.delvenetworks.com/a8918/v1/mp4:media/59021fabe3b645968e382ac726cd6c7b/d1c7f2bebaf14b829d320c3ed824e79e/3685fdb0ab6b4aaf887b7f2fb32a9056/video.mp4</MediaFile>
+										</MediaFiles>
+									</Linear>
+								</Creative>
+							</Creatives>
+						</InLine>
+					</Ad>
+				</VAST>
+			</vmap:VASTAdData>
+		</vmap:AdSource>
+		<vmap:TrackingEvents>
+			<vmap:Tracking event="breakStart">https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=0</vmap:Tracking>
+			<vmap:Tracking event="breakEnd">https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif?trackingEvent=15</vmap:Tracking>
+		</vmap:TrackingEvents>
+		<vmap:Extensions />
+	</vmap:AdBreak>
+</vmap:VMAP>

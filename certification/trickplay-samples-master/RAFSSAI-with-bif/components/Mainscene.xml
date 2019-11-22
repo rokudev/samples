@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2016-2019 Roku Corp.  All Rights Reserved. -->
+<component name="Mainscene" extends="Scene" >
+
+<script type="text/brightscript" uri = "pkg:/components/Mainscene.brs"/>
+
+<children>
+<!-- Initialize video node -->
+    <Video id="myVideo" width="1920" height="1080" />
+</children>
+
+</component>

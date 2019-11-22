@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2016-2019 Roku Corp.  All Rights Reserved. -->
+<component name="PlayerUI" extends="Group" >
+
+<script type="text/brightscript" uri = "pkg:/components/PlayerUI.brs"/>
+
+<interface>
+    <field id="adPods" type="array" />
+    <field id="thumbnailHostPrefix" type="string" />
+    <field id="thumbnailIntervalInSecs" type="int" />
+</interface>
+
+<children>
+	<Group id="progress" translation="[200,900]">
+		<Rectangle id="outlineRect" width="1520" height="40" color="0xFFFFFFFF" opacity="0.1"/>
+		<Rectangle id="progressRect" width="1" height="40"/>
+		<Label id="leftProgressLabel" text="00:00" translation="[-140,5]"/>
+		<Label id="rightProgressLabel" text="00:00" translation="[1540,5]"/>
+    <Poster id="progressModeBackground" translation="[690, -80]" width="92" height="60"
+            uri="pkg:/images/TrickPlay_ButtonBackground_HD.png" opacity="0.8">
+        <Poster id="progressMode" translation="[15,12]" width="60" height="36" opacity="1.0"/>
+    </Poster>
+	</Group>
+
+  <Group id="loading" translation="[740,760]">
+    <Rectangle id="loadOutlineRect" width="400" height="20" color="0xFFFFFFFF" opacity="0.1"/>
+    <Rectangle id="loadProgressRect" width="1" height="20"/>
+  </Group>
+
+	<Group id="thumbnails" translation="[100,500]">
+		<Rectangle id="rect_outline_minus2" width="240" height="180"
+							color="0x101010C0" translation="[0, 0]" opacity="1.0"/>
+		<Rectangle id="rect_outline_minus1" width="240" height="180"
+							color="0x101010C0" translation="[300, 0]" opacity="1.0"/>
+		<Rectangle id="rect_outline_center" width="480" height="360"
+						  color="0x101010C0" translation="[600, -100]" opacity="1.0"/>
+		<Rectangle id="rect_outline_plus1"  width="240" height="180"
+							color="0x101010C0" translation="[1160, 0]" opacity="1.0"/>
+		<Rectangle id="rect_outline_plus2"  width="240" height="180"
+							color="0x101010C0" translation="[1460, 0]" opacity="1.0"/>
+
+		<Poster id="poster_thumb_minus2" width="240" height="180"
+							loadDisplayMode="ScaleToFit" translation="[0, 0]" />
+		<Poster id="poster_thumb_minus1" width="240" height="180"
+							loadDisplayMode="ScaleToFit" translation="[300, 0]" />
+		<Poster id="poster_thumb_center" width="480" height="360"
+							loadDisplayMode="ScaleToFit" translation="[600, -100]" />
+		<Poster id="poster_thumb_plus1" width="240" height="180"
+							loadDisplayMode="ScaleToFit" translation="[1160, 0]" />
+		<Poster id="poster_thumb_plus2" width="240" height="180"
+							loadDisplayMode="ScaleToFit" translation="[1460, 0]" />
+	</Group>
+</children>
+
+</component>

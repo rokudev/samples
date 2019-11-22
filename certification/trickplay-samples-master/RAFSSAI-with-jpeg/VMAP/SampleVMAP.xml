@@ -1,0 +1,304 @@
+<vmap:VMAP version="1.0.1" xmlns:vmap="http://www.iab.net/videosuite/vmap">
+	<vmap:AdBreak timeOffset="00:00:00.000" breakType="linear" breakId="0">
+		<vmap:AdSource>
+			<vmap:VASTAdData>
+				<VAST version="3.0">
+					<Ad id="326882" sequence="1">
+						<InLine>
+							<AdSystem>Auditude</AdSystem>
+							<AdTitle>Got Milk 15s Contagious Yawn</AdTitle>
+							<Impression>http://ad.auditude.com/adserver/e?type=adimp&amp;a=326882&amp;w=0&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=1&amp;pod=id:1,ctype:l,ptype:p,dur:35,lot:1,cpos:1&amp;ax=0,0,0,0&amp;sq=1</Impression>
+							<Creatives>
+								<Creative AdID="326882">
+									<Linear>
+										<Duration>00:00:15.000</Duration>
+										<TrackingEvents>
+											<Tracking event="creativeView">http://ad.auditude.com/adserver/i/;uid=XPl_NarMSx6RzDdHCkDvTA;s=bc8b3d4a;t=1498077088;u=9a2893fd893cab27da24059ff034b78d;z=173475;cid=1228505302;br=1;pod=id:1,ctype:l,ptype:p,dur:35,lot:1,cpos:1;ax=0,0,0,0;sq=1;a1=105;a=326882;w=0/c1920x1080.mp4</Tracking>
+											<Tracking event="start">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326882&amp;a1=105&amp;ref=urn:asset:326882:105&amp;unit=percent&amp;progress=0&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=1&amp;pod=id:1,ctype:l,ptype:p,dur:35,lot:1,cpos:1&amp;ax=0,0,0,0&amp;sq=1</Tracking>
+											<Tracking event="firstQuartile">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326882&amp;a1=105&amp;ref=urn:asset:326882:105&amp;unit=percent&amp;progress=25&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=1&amp;pod=id:1,ctype:l,ptype:p,dur:35,lot:1,cpos:1&amp;ax=0,0,0,0&amp;sq=1</Tracking>
+											<Tracking event="midpoint">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326882&amp;a1=105&amp;ref=urn:asset:326882:105&amp;unit=percent&amp;progress=50&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=1&amp;pod=id:1,ctype:l,ptype:p,dur:35,lot:1,cpos:1&amp;ax=0,0,0,0&amp;sq=1</Tracking>
+											<Tracking event="thirdQuartile">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326882&amp;a1=105&amp;ref=urn:asset:326882:105&amp;unit=percent&amp;progress=75&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=1&amp;pod=id:1,ctype:l,ptype:p,dur:35,lot:1,cpos:1&amp;ax=0,0,0,0&amp;sq=1</Tracking>
+											<Tracking event="complete">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326882&amp;a1=105&amp;ref=urn:asset:326882:105&amp;unit=percent&amp;progress=100&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=1&amp;pod=id:1,ctype:l,ptype:p,dur:35,lot:1,cpos:1&amp;ax=0,0,0,0&amp;sq=1</Tracking>
+										</TrackingEvents>
+										<MediaFiles>
+											<MediaFile id="Auditude" delivery="streaming" type="application/x-mpegURL" width="0" height="0">http://cdn2.auditude.com/assets/repackage/production/zen/154/59034/fe60399be9fe8db0726c630261783bf9.m3u8</MediaFile>
+										</MediaFiles>
+									</Linear>
+								</Creative>
+							</Creatives>
+						</InLine>
+					</Ad>
+				</VAST>
+			</vmap:VASTAdData>
+		</vmap:AdSource>
+		<vmap:TrackingEvents>
+			<vmap:Tracking event="breakStart">http://ad.auditude.com/adserver/e?type=podprogress&amp;event=start&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=1&amp;pod=id:1,ctype:l,ptype:p,dur:35,lot:1,cpos:1</vmap:Tracking>
+			<vmap:Tracking event="breakEnd">http://ad.auditude.com/adserver/e?type=podprogress&amp;event=complete&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=1&amp;pod=id:1,ctype:l,ptype:p,dur:35,lot:1,cpos:1</vmap:Tracking>
+		</vmap:TrackingEvents>
+		<vmap:Extensions />
+	</vmap:AdBreak>
+	<vmap:AdBreak timeOffset="00:01:23.583" breakType="linear" breakId="2">
+		<vmap:AdSource>
+			<vmap:VASTAdData>
+				<VAST version="3.0">
+					<Ad id="326882" sequence="1">
+						<InLine>
+							<AdSystem>Auditude</AdSystem>
+							<AdTitle>Got Milk 15s Contagious Yawn</AdTitle>
+							<Impression>http://ad.auditude.com/adserver/e?type=adimp&amp;a=326882&amp;w=0&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=3&amp;pod=id:3,ctype:l,ptype:m,dur:95,lot:3,cpos:2&amp;ax=0,0,0,0&amp;sq=1</Impression>
+							<Creatives>
+								<Creative AdID="326882">
+									<Linear>
+										<Duration>00:00:15.000</Duration>
+										<TrackingEvents>
+											<Tracking event="creativeView">http://ad.auditude.com/adserver/i/;uid=XPl_NarMSx6RzDdHCkDvTA;s=bc8b3d4a;t=1498077088;u=9a2893fd893cab27da24059ff034b78d;z=173475;cid=1228505302;br=3;pod=id:3,ctype:l,ptype:m,dur:95,lot:3,cpos:2;ax=0,0,0,0;sq=1;a1=105;a=326882;w=0/c1920x1080.mp4</Tracking>
+											<Tracking event="start">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326882&amp;a1=105&amp;ref=urn:asset:326882:105&amp;unit=percent&amp;progress=0&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=3&amp;pod=id:3,ctype:l,ptype:m,dur:95,lot:3,cpos:2&amp;ax=0,0,0,0&amp;sq=1</Tracking>
+											<Tracking event="firstQuartile">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326882&amp;a1=105&amp;ref=urn:asset:326882:105&amp;unit=percent&amp;progress=25&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=3&amp;pod=id:3,ctype:l,ptype:m,dur:95,lot:3,cpos:2&amp;ax=0,0,0,0&amp;sq=1</Tracking>
+											<Tracking event="midpoint">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326882&amp;a1=105&amp;ref=urn:asset:326882:105&amp;unit=percent&amp;progress=50&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=3&amp;pod=id:3,ctype:l,ptype:m,dur:95,lot:3,cpos:2&amp;ax=0,0,0,0&amp;sq=1</Tracking>
+											<Tracking event="thirdQuartile">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326882&amp;a1=105&amp;ref=urn:asset:326882:105&amp;unit=percent&amp;progress=75&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=3&amp;pod=id:3,ctype:l,ptype:m,dur:95,lot:3,cpos:2&amp;ax=0,0,0,0&amp;sq=1</Tracking>
+											<Tracking event="complete">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326882&amp;a1=105&amp;ref=urn:asset:326882:105&amp;unit=percent&amp;progress=100&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=3&amp;pod=id:3,ctype:l,ptype:m,dur:95,lot:3,cpos:2&amp;ax=0,0,0,0&amp;sq=1</Tracking>
+										</TrackingEvents>
+										<MediaFiles>
+											<MediaFile id="Auditude" delivery="streaming" type="application/x-mpegURL" width="0" height="0">http://cdn2.auditude.com/assets/repackage/production/zen/154/59034/fe60399be9fe8db0726c630261783bf9.m3u8</MediaFile>
+										</MediaFiles>
+									</Linear>
+								</Creative>
+							</Creatives>
+						</InLine>
+					</Ad>
+					<Ad id="326883" sequence="2">
+						<InLine>
+							<AdSystem>Auditude</AdSystem>
+							<AdTitle>Princess Cruises 30s Promenade</AdTitle>
+							<Impression>http://ad.auditude.com/adserver/e?type=adimp&amp;a=326883&amp;w=0&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=3&amp;pod=id:3,ctype:l,ptype:m,dur:95,lot:3,cpos:2&amp;ax=0,0,0,0&amp;sq=2</Impression>
+							<Creatives>
+								<Creative AdID="326883">
+									<Linear>
+										<Duration>00:00:30.000</Duration>
+										<TrackingEvents>
+											<Tracking event="creativeView">http://ad.auditude.com/adserver/i/;uid=XPl_NarMSx6RzDdHCkDvTA;s=bc8b3d4a;t=1498077088;u=9a2893fd893cab27da24059ff034b78d;z=173475;cid=1228505302;br=3;pod=id:3,ctype:l,ptype:m,dur:95,lot:3,cpos:2;ax=0,0,0,0;sq=2;a1=105;a=326883;w=0/c1920x1080.mp4</Tracking>
+											<Tracking event="start">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326883&amp;a1=105&amp;ref=urn:asset:326883:105&amp;unit=percent&amp;progress=0&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=3&amp;pod=id:3,ctype:l,ptype:m,dur:95,lot:3,cpos:2&amp;ax=0,0,0,0&amp;sq=2</Tracking>
+											<Tracking event="firstQuartile">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326883&amp;a1=105&amp;ref=urn:asset:326883:105&amp;unit=percent&amp;progress=25&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=3&amp;pod=id:3,ctype:l,ptype:m,dur:95,lot:3,cpos:2&amp;ax=0,0,0,0&amp;sq=2</Tracking>
+											<Tracking event="midpoint">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326883&amp;a1=105&amp;ref=urn:asset:326883:105&amp;unit=percent&amp;progress=50&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=3&amp;pod=id:3,ctype:l,ptype:m,dur:95,lot:3,cpos:2&amp;ax=0,0,0,0&amp;sq=2</Tracking>
+											<Tracking event="thirdQuartile">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326883&amp;a1=105&amp;ref=urn:asset:326883:105&amp;unit=percent&amp;progress=75&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=3&amp;pod=id:3,ctype:l,ptype:m,dur:95,lot:3,cpos:2&amp;ax=0,0,0,0&amp;sq=2</Tracking>
+											<Tracking event="complete">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326883&amp;a1=105&amp;ref=urn:asset:326883:105&amp;unit=percent&amp;progress=100&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=3&amp;pod=id:3,ctype:l,ptype:m,dur:95,lot:3,cpos:2&amp;ax=0,0,0,0&amp;sq=2</Tracking>
+										</TrackingEvents>
+										<MediaFiles>
+											<MediaFile id="Auditude" delivery="streaming" type="application/x-mpegURL" width="0" height="0">http://cdn2.auditude.com/assets/repackage/production/zen/158/59038/46a89a6a59ad7576dce3473241d7f6af.m3u8</MediaFile>
+										</MediaFiles>
+									</Linear>
+								</Creative>
+							</Creatives>
+						</InLine>
+					</Ad>
+					<Ad id="326880" sequence="3">
+						<InLine>
+							<AdSystem>Auditude</AdSystem>
+							<AdTitle>Doritos 30s Joyride</AdTitle>
+							<Impression>http://ad.auditude.com/adserver/e?type=adimp&amp;a=326880&amp;w=0&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=3&amp;pod=id:3,ctype:l,ptype:m,dur:95,lot:3,cpos:2&amp;ax=0,0,0,0&amp;sq=3</Impression>
+							<Creatives>
+								<Creative AdID="326880">
+									<Linear>
+										<Duration>00:00:30.000</Duration>
+										<TrackingEvents>
+											<Tracking event="creativeView">http://ad.auditude.com/adserver/i/;uid=XPl_NarMSx6RzDdHCkDvTA;s=bc8b3d4a;t=1498077088;u=9a2893fd893cab27da24059ff034b78d;z=173475;cid=1228505302;br=3;pod=id:3,ctype:l,ptype:m,dur:95,lot:3,cpos:2;ax=0,0,0,0;sq=3;a1=105;a=326880;w=0/c1920x1080.mp4</Tracking>
+											<Tracking event="start">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326880&amp;a1=105&amp;ref=urn:asset:326880:105&amp;unit=percent&amp;progress=0&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=3&amp;pod=id:3,ctype:l,ptype:m,dur:95,lot:3,cpos:2&amp;ax=0,0,0,0&amp;sq=3</Tracking>
+											<Tracking event="firstQuartile">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326880&amp;a1=105&amp;ref=urn:asset:326880:105&amp;unit=percent&amp;progress=25&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=3&amp;pod=id:3,ctype:l,ptype:m,dur:95,lot:3,cpos:2&amp;ax=0,0,0,0&amp;sq=3</Tracking>
+											<Tracking event="midpoint">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326880&amp;a1=105&amp;ref=urn:asset:326880:105&amp;unit=percent&amp;progress=50&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=3&amp;pod=id:3,ctype:l,ptype:m,dur:95,lot:3,cpos:2&amp;ax=0,0,0,0&amp;sq=3</Tracking>
+											<Tracking event="thirdQuartile">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326880&amp;a1=105&amp;ref=urn:asset:326880:105&amp;unit=percent&amp;progress=75&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=3&amp;pod=id:3,ctype:l,ptype:m,dur:95,lot:3,cpos:2&amp;ax=0,0,0,0&amp;sq=3</Tracking>
+											<Tracking event="complete">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326880&amp;a1=105&amp;ref=urn:asset:326880:105&amp;unit=percent&amp;progress=100&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=3&amp;pod=id:3,ctype:l,ptype:m,dur:95,lot:3,cpos:2&amp;ax=0,0,0,0&amp;sq=3</Tracking>
+										</TrackingEvents>
+										<MediaFiles>
+											<MediaFile id="Auditude" delivery="streaming" type="application/x-mpegURL" width="0" height="0">http://cdn2.auditude.com/assets/repackage/production/zen/157/59037/a3668c6c08fa41094ffdfcad829cab83.m3u8</MediaFile>
+										</MediaFiles>
+									</Linear>
+								</Creative>
+							</Creatives>
+						</InLine>
+					</Ad>
+				</VAST>
+			</vmap:VASTAdData>
+		</vmap:AdSource>
+		<vmap:TrackingEvents>
+			<vmap:Tracking event="breakStart">http://ad.auditude.com/adserver/e?type=podprogress&amp;event=start&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=3&amp;pod=id:3,ctype:l,ptype:m,dur:95,lot:3,cpos:2</vmap:Tracking>
+			<vmap:Tracking event="breakEnd">http://ad.auditude.com/adserver/e?type=podprogress&amp;event=complete&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=3&amp;pod=id:3,ctype:l,ptype:m,dur:95,lot:3,cpos:2</vmap:Tracking>
+		</vmap:TrackingEvents>
+		<vmap:Extensions />
+	</vmap:AdBreak>
+	<vmap:AdBreak timeOffset="00:05:40.583" breakType="linear" breakId="4">
+		<vmap:AdSource>
+			<vmap:VASTAdData>
+				<VAST version="3.0">
+					<Ad id="326882" sequence="1">
+						<InLine>
+							<AdSystem>Auditude</AdSystem>
+							<AdTitle>Got Milk 15s Contagious Yawn</AdTitle>
+							<Impression>http://ad.auditude.com/adserver/e?type=adimp&amp;a=326882&amp;w=0&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=5&amp;pod=id:5,ctype:l,ptype:m,dur:95,lot:3,cpos:3&amp;ax=0,0,0,0&amp;sq=1</Impression>
+							<Creatives>
+								<Creative AdID="326882">
+									<Linear>
+										<Duration>00:00:15.000</Duration>
+										<TrackingEvents>
+											<Tracking event="creativeView">http://ad.auditude.com/adserver/i/;uid=XPl_NarMSx6RzDdHCkDvTA;s=bc8b3d4a;t=1498077088;u=9a2893fd893cab27da24059ff034b78d;z=173475;cid=1228505302;br=5;pod=id:5,ctype:l,ptype:m,dur:95,lot:3,cpos:3;ax=0,0,0,0;sq=1;a1=105;a=326882;w=0/c1920x1080.mp4</Tracking>
+											<Tracking event="start">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326882&amp;a1=105&amp;ref=urn:asset:326882:105&amp;unit=percent&amp;progress=0&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=5&amp;pod=id:5,ctype:l,ptype:m,dur:95,lot:3,cpos:3&amp;ax=0,0,0,0&amp;sq=1</Tracking>
+											<Tracking event="firstQuartile">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326882&amp;a1=105&amp;ref=urn:asset:326882:105&amp;unit=percent&amp;progress=25&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=5&amp;pod=id:5,ctype:l,ptype:m,dur:95,lot:3,cpos:3&amp;ax=0,0,0,0&amp;sq=1</Tracking>
+											<Tracking event="midpoint">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326882&amp;a1=105&amp;ref=urn:asset:326882:105&amp;unit=percent&amp;progress=50&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=5&amp;pod=id:5,ctype:l,ptype:m,dur:95,lot:3,cpos:3&amp;ax=0,0,0,0&amp;sq=1</Tracking>
+											<Tracking event="thirdQuartile">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326882&amp;a1=105&amp;ref=urn:asset:326882:105&amp;unit=percent&amp;progress=75&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=5&amp;pod=id:5,ctype:l,ptype:m,dur:95,lot:3,cpos:3&amp;ax=0,0,0,0&amp;sq=1</Tracking>
+											<Tracking event="complete">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326882&amp;a1=105&amp;ref=urn:asset:326882:105&amp;unit=percent&amp;progress=100&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=5&amp;pod=id:5,ctype:l,ptype:m,dur:95,lot:3,cpos:3&amp;ax=0,0,0,0&amp;sq=1</Tracking>
+										</TrackingEvents>
+										<MediaFiles>
+											<MediaFile id="Auditude" delivery="streaming" type="application/x-mpegURL" width="0" height="0">http://cdn2.auditude.com/assets/repackage/production/zen/154/59034/fe60399be9fe8db0726c630261783bf9.m3u8</MediaFile>
+										</MediaFiles>
+									</Linear>
+								</Creative>
+							</Creatives>
+						</InLine>
+					</Ad>
+					<Ad id="326883" sequence="2">
+						<InLine>
+							<AdSystem>Auditude</AdSystem>
+							<AdTitle>Princess Cruises 30s Promenade</AdTitle>
+							<Impression>http://ad.auditude.com/adserver/e?type=adimp&amp;a=326883&amp;w=0&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=5&amp;pod=id:5,ctype:l,ptype:m,dur:95,lot:3,cpos:3&amp;ax=0,0,0,0&amp;sq=2</Impression>
+							<Creatives>
+								<Creative AdID="326883">
+									<Linear>
+										<Duration>00:00:30.000</Duration>
+										<TrackingEvents>
+											<Tracking event="creativeView">http://ad.auditude.com/adserver/i/;uid=XPl_NarMSx6RzDdHCkDvTA;s=bc8b3d4a;t=1498077088;u=9a2893fd893cab27da24059ff034b78d;z=173475;cid=1228505302;br=5;pod=id:5,ctype:l,ptype:m,dur:95,lot:3,cpos:3;ax=0,0,0,0;sq=2;a1=105;a=326883;w=0/c1920x1080.mp4</Tracking>
+											<Tracking event="start">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326883&amp;a1=105&amp;ref=urn:asset:326883:105&amp;unit=percent&amp;progress=0&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=5&amp;pod=id:5,ctype:l,ptype:m,dur:95,lot:3,cpos:3&amp;ax=0,0,0,0&amp;sq=2</Tracking>
+											<Tracking event="firstQuartile">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326883&amp;a1=105&amp;ref=urn:asset:326883:105&amp;unit=percent&amp;progress=25&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=5&amp;pod=id:5,ctype:l,ptype:m,dur:95,lot:3,cpos:3&amp;ax=0,0,0,0&amp;sq=2</Tracking>
+											<Tracking event="midpoint">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326883&amp;a1=105&amp;ref=urn:asset:326883:105&amp;unit=percent&amp;progress=50&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=5&amp;pod=id:5,ctype:l,ptype:m,dur:95,lot:3,cpos:3&amp;ax=0,0,0,0&amp;sq=2</Tracking>
+											<Tracking event="thirdQuartile">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326883&amp;a1=105&amp;ref=urn:asset:326883:105&amp;unit=percent&amp;progress=75&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=5&amp;pod=id:5,ctype:l,ptype:m,dur:95,lot:3,cpos:3&amp;ax=0,0,0,0&amp;sq=2</Tracking>
+											<Tracking event="complete">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326883&amp;a1=105&amp;ref=urn:asset:326883:105&amp;unit=percent&amp;progress=100&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=5&amp;pod=id:5,ctype:l,ptype:m,dur:95,lot:3,cpos:3&amp;ax=0,0,0,0&amp;sq=2</Tracking>
+										</TrackingEvents>
+										<MediaFiles>
+											<MediaFile id="Auditude" delivery="streaming" type="application/x-mpegURL" width="0" height="0">http://cdn2.auditude.com/assets/repackage/production/zen/158/59038/46a89a6a59ad7576dce3473241d7f6af.m3u8</MediaFile>
+										</MediaFiles>
+									</Linear>
+								</Creative>
+							</Creatives>
+						</InLine>
+					</Ad>
+					<Ad id="326880" sequence="3">
+						<InLine>
+							<AdSystem>Auditude</AdSystem>
+							<AdTitle>Doritos 30s Joyride</AdTitle>
+							<Impression>http://ad.auditude.com/adserver/e?type=adimp&amp;a=326880&amp;w=0&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=5&amp;pod=id:5,ctype:l,ptype:m,dur:95,lot:3,cpos:3&amp;ax=0,0,0,0&amp;sq=3</Impression>
+							<Creatives>
+								<Creative AdID="326880">
+									<Linear>
+										<Duration>00:00:30.000</Duration>
+										<TrackingEvents>
+											<Tracking event="creativeView">http://ad.auditude.com/adserver/i/;uid=XPl_NarMSx6RzDdHCkDvTA;s=bc8b3d4a;t=1498077088;u=9a2893fd893cab27da24059ff034b78d;z=173475;cid=1228505302;br=5;pod=id:5,ctype:l,ptype:m,dur:95,lot:3,cpos:3;ax=0,0,0,0;sq=3;a1=105;a=326880;w=0/c1920x1080.mp4</Tracking>
+											<Tracking event="start">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326880&amp;a1=105&amp;ref=urn:asset:326880:105&amp;unit=percent&amp;progress=0&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=5&amp;pod=id:5,ctype:l,ptype:m,dur:95,lot:3,cpos:3&amp;ax=0,0,0,0&amp;sq=3</Tracking>
+											<Tracking event="firstQuartile">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326880&amp;a1=105&amp;ref=urn:asset:326880:105&amp;unit=percent&amp;progress=25&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=5&amp;pod=id:5,ctype:l,ptype:m,dur:95,lot:3,cpos:3&amp;ax=0,0,0,0&amp;sq=3</Tracking>
+											<Tracking event="midpoint">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326880&amp;a1=105&amp;ref=urn:asset:326880:105&amp;unit=percent&amp;progress=50&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=5&amp;pod=id:5,ctype:l,ptype:m,dur:95,lot:3,cpos:3&amp;ax=0,0,0,0&amp;sq=3</Tracking>
+											<Tracking event="thirdQuartile">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326880&amp;a1=105&amp;ref=urn:asset:326880:105&amp;unit=percent&amp;progress=75&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=5&amp;pod=id:5,ctype:l,ptype:m,dur:95,lot:3,cpos:3&amp;ax=0,0,0,0&amp;sq=3</Tracking>
+											<Tracking event="complete">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326880&amp;a1=105&amp;ref=urn:asset:326880:105&amp;unit=percent&amp;progress=100&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=5&amp;pod=id:5,ctype:l,ptype:m,dur:95,lot:3,cpos:3&amp;ax=0,0,0,0&amp;sq=3</Tracking>
+										</TrackingEvents>
+										<MediaFiles>
+											<MediaFile id="Auditude" delivery="streaming" type="application/x-mpegURL" width="0" height="0">http://cdn2.auditude.com/assets/repackage/production/zen/157/59037/a3668c6c08fa41094ffdfcad829cab83.m3u8</MediaFile>
+										</MediaFiles>
+									</Linear>
+								</Creative>
+							</Creatives>
+						</InLine>
+					</Ad>
+				</VAST>
+			</vmap:VASTAdData>
+		</vmap:AdSource>
+		<vmap:TrackingEvents>
+			<vmap:Tracking event="breakStart">http://ad.auditude.com/adserver/e?type=podprogress&amp;event=start&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=5&amp;pod=id:5,ctype:l,ptype:m,dur:95,lot:3,cpos:3</vmap:Tracking>
+			<vmap:Tracking event="breakEnd">http://ad.auditude.com/adserver/e?type=podprogress&amp;event=complete&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=5&amp;pod=id:5,ctype:l,ptype:m,dur:95,lot:3,cpos:3</vmap:Tracking>
+		</vmap:TrackingEvents>
+		<vmap:Extensions />
+	</vmap:AdBreak>
+	<vmap:AdBreak timeOffset="00:11:18.875" breakType="linear" breakId="6">
+		<vmap:AdSource>
+			<vmap:VASTAdData>
+				<VAST version="3.0">
+					<Ad id="326882" sequence="1">
+						<InLine>
+							<AdSystem>Auditude</AdSystem>
+							<AdTitle>Got Milk 15s Contagious Yawn</AdTitle>
+							<Impression>http://ad.auditude.com/adserver/e?type=adimp&amp;a=326882&amp;w=0&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=7&amp;pod=id:7,ctype:l,ptype:m,dur:95,lot:3,cpos:4&amp;ax=0,0,0,0&amp;sq=1</Impression>
+							<Creatives>
+								<Creative AdID="326882">
+									<Linear>
+										<Duration>00:00:15.000</Duration>
+										<TrackingEvents>
+											<Tracking event="creativeView">http://ad.auditude.com/adserver/i/;uid=XPl_NarMSx6RzDdHCkDvTA;s=bc8b3d4a;t=1498077088;u=9a2893fd893cab27da24059ff034b78d;z=173475;cid=1228505302;br=7;pod=id:7,ctype:l,ptype:m,dur:95,lot:3,cpos:4;ax=0,0,0,0;sq=1;a1=105;a=326882;w=0/c1920x1080.mp4</Tracking>
+											<Tracking event="start">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326882&amp;a1=105&amp;ref=urn:asset:326882:105&amp;unit=percent&amp;progress=0&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=7&amp;pod=id:7,ctype:l,ptype:m,dur:95,lot:3,cpos:4&amp;ax=0,0,0,0&amp;sq=1</Tracking>
+											<Tracking event="firstQuartile">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326882&amp;a1=105&amp;ref=urn:asset:326882:105&amp;unit=percent&amp;progress=25&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=7&amp;pod=id:7,ctype:l,ptype:m,dur:95,lot:3,cpos:4&amp;ax=0,0,0,0&amp;sq=1</Tracking>
+											<Tracking event="midpoint">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326882&amp;a1=105&amp;ref=urn:asset:326882:105&amp;unit=percent&amp;progress=50&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=7&amp;pod=id:7,ctype:l,ptype:m,dur:95,lot:3,cpos:4&amp;ax=0,0,0,0&amp;sq=1</Tracking>
+											<Tracking event="thirdQuartile">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326882&amp;a1=105&amp;ref=urn:asset:326882:105&amp;unit=percent&amp;progress=75&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=7&amp;pod=id:7,ctype:l,ptype:m,dur:95,lot:3,cpos:4&amp;ax=0,0,0,0&amp;sq=1</Tracking>
+											<Tracking event="complete">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326882&amp;a1=105&amp;ref=urn:asset:326882:105&amp;unit=percent&amp;progress=100&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=7&amp;pod=id:7,ctype:l,ptype:m,dur:95,lot:3,cpos:4&amp;ax=0,0,0,0&amp;sq=1</Tracking>
+										</TrackingEvents>
+										<MediaFiles>
+											<MediaFile id="Auditude" delivery="streaming" type="application/x-mpegURL" width="0" height="0">http://cdn2.auditude.com/assets/repackage/production/zen/154/59034/fe60399be9fe8db0726c630261783bf9.m3u8</MediaFile>
+										</MediaFiles>
+									</Linear>
+								</Creative>
+							</Creatives>
+						</InLine>
+					</Ad>
+					<Ad id="326883" sequence="2">
+						<InLine>
+							<AdSystem>Auditude</AdSystem>
+							<AdTitle>Princess Cruises 30s Promenade</AdTitle>
+							<Impression>http://ad.auditude.com/adserver/e?type=adimp&amp;a=326883&amp;w=0&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=7&amp;pod=id:7,ctype:l,ptype:m,dur:95,lot:3,cpos:4&amp;ax=0,0,0,0&amp;sq=2</Impression>
+							<Creatives>
+								<Creative AdID="326883">
+									<Linear>
+										<Duration>00:00:30.000</Duration>
+										<TrackingEvents>
+											<Tracking event="creativeView">http://ad.auditude.com/adserver/i/;uid=XPl_NarMSx6RzDdHCkDvTA;s=bc8b3d4a;t=1498077088;u=9a2893fd893cab27da24059ff034b78d;z=173475;cid=1228505302;br=7;pod=id:7,ctype:l,ptype:m,dur:95,lot:3,cpos:4;ax=0,0,0,0;sq=2;a1=105;a=326883;w=0/c1920x1080.mp4</Tracking>
+											<Tracking event="start">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326883&amp;a1=105&amp;ref=urn:asset:326883:105&amp;unit=percent&amp;progress=0&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=7&amp;pod=id:7,ctype:l,ptype:m,dur:95,lot:3,cpos:4&amp;ax=0,0,0,0&amp;sq=2</Tracking>
+											<Tracking event="firstQuartile">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326883&amp;a1=105&amp;ref=urn:asset:326883:105&amp;unit=percent&amp;progress=25&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=7&amp;pod=id:7,ctype:l,ptype:m,dur:95,lot:3,cpos:4&amp;ax=0,0,0,0&amp;sq=2</Tracking>
+											<Tracking event="midpoint">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326883&amp;a1=105&amp;ref=urn:asset:326883:105&amp;unit=percent&amp;progress=50&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=7&amp;pod=id:7,ctype:l,ptype:m,dur:95,lot:3,cpos:4&amp;ax=0,0,0,0&amp;sq=2</Tracking>
+											<Tracking event="thirdQuartile">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326883&amp;a1=105&amp;ref=urn:asset:326883:105&amp;unit=percent&amp;progress=75&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=7&amp;pod=id:7,ctype:l,ptype:m,dur:95,lot:3,cpos:4&amp;ax=0,0,0,0&amp;sq=2</Tracking>
+											<Tracking event="complete">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326883&amp;a1=105&amp;ref=urn:asset:326883:105&amp;unit=percent&amp;progress=100&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=7&amp;pod=id:7,ctype:l,ptype:m,dur:95,lot:3,cpos:4&amp;ax=0,0,0,0&amp;sq=2</Tracking>
+										</TrackingEvents>
+										<MediaFiles>
+											<MediaFile id="Auditude" delivery="streaming" type="application/x-mpegURL" width="0" height="0">http://cdn2.auditude.com/assets/repackage/production/zen/158/59038/46a89a6a59ad7576dce3473241d7f6af.m3u8</MediaFile>
+										</MediaFiles>
+									</Linear>
+								</Creative>
+							</Creatives>
+						</InLine>
+					</Ad>
+					<Ad id="326880" sequence="3">
+						<InLine>
+							<AdSystem>Auditude</AdSystem>
+							<AdTitle>Doritos 30s Joyride</AdTitle>
+							<Impression>http://ad.auditude.com/adserver/e?type=adimp&amp;a=326880&amp;w=0&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=7&amp;pod=id:7,ctype:l,ptype:m,dur:95,lot:3,cpos:4&amp;ax=0,0,0,0&amp;sq=3</Impression>
+							<Creatives>
+								<Creative AdID="326880">
+									<Linear>
+										<Duration>00:00:30.000</Duration>
+										<TrackingEvents>
+											<Tracking event="creativeView">http://ad.auditude.com/adserver/i/;uid=XPl_NarMSx6RzDdHCkDvTA;s=bc8b3d4a;t=1498077088;u=9a2893fd893cab27da24059ff034b78d;z=173475;cid=1228505302;br=7;pod=id:7,ctype:l,ptype:m,dur:95,lot:3,cpos:4;ax=0,0,0,0;sq=3;a1=105;a=326880;w=0/c1920x1080.mp4</Tracking>
+											<Tracking event="start">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326880&amp;a1=105&amp;ref=urn:asset:326880:105&amp;unit=percent&amp;progress=0&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=7&amp;pod=id:7,ctype:l,ptype:m,dur:95,lot:3,cpos:4&amp;ax=0,0,0,0&amp;sq=3</Tracking>
+											<Tracking event="firstQuartile">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326880&amp;a1=105&amp;ref=urn:asset:326880:105&amp;unit=percent&amp;progress=25&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=7&amp;pod=id:7,ctype:l,ptype:m,dur:95,lot:3,cpos:4&amp;ax=0,0,0,0&amp;sq=3</Tracking>
+											<Tracking event="midpoint">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326880&amp;a1=105&amp;ref=urn:asset:326880:105&amp;unit=percent&amp;progress=50&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=7&amp;pod=id:7,ctype:l,ptype:m,dur:95,lot:3,cpos:4&amp;ax=0,0,0,0&amp;sq=3</Tracking>
+											<Tracking event="thirdQuartile">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326880&amp;a1=105&amp;ref=urn:asset:326880:105&amp;unit=percent&amp;progress=75&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=7&amp;pod=id:7,ctype:l,ptype:m,dur:95,lot:3,cpos:4&amp;ax=0,0,0,0&amp;sq=3</Tracking>
+											<Tracking event="complete">http://ad.auditude.com/adserver/e?type=AD_PROGRESS&amp;a=326880&amp;a1=105&amp;ref=urn:asset:326880:105&amp;unit=percent&amp;progress=100&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=7&amp;pod=id:7,ctype:l,ptype:m,dur:95,lot:3,cpos:4&amp;ax=0,0,0,0&amp;sq=3</Tracking>
+										</TrackingEvents>
+										<MediaFiles>
+											<MediaFile id="Auditude" delivery="streaming" type="application/x-mpegURL" width="0" height="0">http://cdn2.auditude.com/assets/repackage/production/zen/157/59037/a3668c6c08fa41094ffdfcad829cab83.m3u8</MediaFile>
+										</MediaFiles>
+									</Linear>
+								</Creative>
+							</Creatives>
+						</InLine>
+					</Ad>
+				</VAST>
+			</vmap:VASTAdData>
+		</vmap:AdSource>
+		<vmap:TrackingEvents>
+			<vmap:Tracking event="breakStart">http://ad.auditude.com/adserver/e?type=podprogress&amp;event=start&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=7&amp;pod=id:7,ctype:l,ptype:m,dur:95,lot:3,cpos:4</vmap:Tracking>
+			<vmap:Tracking event="breakEnd">http://ad.auditude.com/adserver/e?type=podprogress&amp;event=complete&amp;uid=XPl_NarMSx6RzDdHCkDvTA&amp;s=bc8b3d4a&amp;t=1498077088&amp;u=9a2893fd893cab27da24059ff034b78d&amp;z=173475&amp;cid=1228505302&amp;br=7&amp;pod=id:7,ctype:l,ptype:m,dur:95,lot:3,cpos:4</vmap:Tracking>
+		</vmap:TrackingEvents>
+		<vmap:Extensions />
+	</vmap:AdBreak>
+</vmap:VMAP>

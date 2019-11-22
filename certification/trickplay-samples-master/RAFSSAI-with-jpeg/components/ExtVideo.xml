@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2016-2019 Roku Corp.  All Rights Reserved. -->
+<component name="ExtVideo" extends="Video" >
+
+<script type="text/brightscript" uri = "pkg:/components/ExtVideo.brs"/>
+
+<interface>
+	<field id="thumbnailHostPrefix" type="string" />
+	<field id="thumbnailIntervalInSecs" type="int" />
+</interface>
+
+<children>
+	<PlayerUI id="playerUI" />
+</children>
+
+</component>
