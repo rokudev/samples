@@ -1,0 +1,38 @@
+{
+    "contents": [
+        {
+            "title" : "tracking mode simple",
+            "trackingmode" : "simple",
+            "description"  : "VOD example using pttrackingmode=simple, pttrackingversion=v2. JSON response will be parsed into list of RAF Pods and given to RAF.stitchedAdsInit() then RAF.stitchedAdHandledEvent() called when POSITION events. App may not call RAF.fireTrackingEvents()\n\nNote: This test stream includes incorrect Program Map table and position event may not be sent properly.",
+            "url"   : "http://manifest.auditude.com/auditude/variant/7LTc86_kMUDFcCjoH9X7K_2auwb_gnWM/aHR0cDovL3B0ZGVtb3MuY29tL3ZpZGVvcy90b3NoZHVuZW5jcnlwdGVkL2hscy90ZXN0Mi5tM3U4.m3u8?u=9a2893fd893cab27da24059ff034b78d&z=173475&g=1000010&pttrackingmode=simple&pttrackingversion=v2&__sid__=123"
+        },
+        {
+            "title" : "tracking mode simple, fireTrackingEvents() only",
+            "trackingmode" : "simple",
+            "description"  : "VOD example using pttrackingmode=simple, pttrackingversion=v2. JSON response will be parsed into list of RAF Pods but not given to RAF.stitchedAdsInit() nor RAF.stitchedAdHandledEvent() called. App may not call RAF.fireTrackingEvents().  App is responsible to call RAF.fireTrackingEvents() when adopter invoke callbacks when POSITION match RAF Pods.\n\nNote: This test stream includes incorrect Program Map table and position event may not be sent properly.",
+            "useStitched": false,
+            "url"   : "http://manifest.auditude.com/auditude/variant/7LTc86_kMUDFcCjoH9X7K_2auwb_gnWM/aHR0cDovL3B0ZGVtb3MuY29tL3ZpZGVvcy90b3NoZHVuZW5jcnlwdGVkL2hscy90ZXN0Mi5tM3U4.m3u8?u=9a2893fd893cab27da24059ff034b78d&z=173475&g=1000010&pttrackingmode=simple&pttrackingversion=v2&__sid__=123"
+        },
+
+        {
+            "title" : "tracking mode X-MARKER",
+            "trackingmode" : "xmkr",
+            "description"  : "Using EXT-X-MARKER directive in HTTP Live Streaming to extract Ad Tracking info. PodBegin,PodEnd,AdBegin will be parsed into list of RAF Pods and given to RAF.stitchedAdsInit() then RAF.stitchedAdHandledEvent() called when POSITION events. App may not call RAF.fireTrackingEvents().  Note, Adobe is updating EXT-X-MARKER directive tag including AdCount of incoming Pod.\n\nNote: This test stream includes incorrect Program Map table and position event may not be sent properly.",
+            "url"   : "http://manifest.auditude.com/auditude/variant/7LTc86_kMUDFcCjoH9X7K_2auwb_gnWM/aHR0cDovL3B0ZGVtb3MuY29tL3ZpZGVvcy90b3NoZHVuZW5jcnlwdGVkL2hscy90ZXN0Mi5tM3U4.m3u8?u=9a2893fd893cab27da24059ff034b78d&z=173475&g=1000010&__sid__=123"
+        },
+
+        {
+            "title" : "tracking mode X-MARKER, fireTrackingEvents() only",
+            "trackingmode" : "xmkr",
+            "description"  : "Using EXT-X-MARKER directive in HTTP Live Streaming, but RAF Pods not given to RAF.stitchedAdsInit() nor RAF.stitchedAdHandledEvent() called. App is responsible to call RAF.fireTrackingEvents()\n\nNote: This test stream includes incorrect Program Map table and position event may not be sent properly.",
+            "useStitched": false,
+            "url"   : "http://manifest.auditude.com/auditude/variant/7LTc86_kMUDFcCjoH9X7K_2auwb_gnWM/aHR0cDovL3B0ZGVtb3MuY29tL3ZpZGVvcy90b3NoZHVuZW5jcnlwdGVkL2hscy90ZXN0Mi5tM3U4.m3u8?u=9a2893fd893cab27da24059ff034b78d&z=173475&g=1000010&__sid__=123"
+        },
+        {
+            "title" : "Your TestAsset",
+            "trackingmode" : "simple",
+            "description"  : "Add your test asset title and URL. Set trackingmode=simple or xmkr to fetch Ad Tracking info",
+            "url"   : "http://  master URL of your test asset"
+        }
+    ]
+}

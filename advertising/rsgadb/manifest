@@ -1,0 +1,16 @@
+title=Adobe SSAI
+subtitle=Server side ad insertion
+
+major_version=0
+minor_version=1
+build_version=00000
+
+mm_icon_focus_sd=pkg:/images/rde_mm_focus_sd.jpg
+mm_icon_focus_hd=pkg:/images/rde_mm_focus_hd.jpg
+splash_screen_sd=pkg:/images/rde_splash_sd.jpg
+splash_screen_hd=pkg:/images/rde_splash_hd.jpg
+splash_screen_fhd=pkg:/images/rde_splash_fhd.jpg
+splash_color=#662D91
+splash_min_time=1000
+ui_resolutions=hd
+bs_libs_required=roku_ads_lib
