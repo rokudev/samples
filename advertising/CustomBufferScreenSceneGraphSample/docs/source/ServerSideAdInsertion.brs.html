@@ -1,0 +1,80 @@
+<b>ServerSideAdInsertion.brs</b><br/>
+/simple_raf_sdk2_sample/source/ServerSideAdInsertion.brs<br/>
+<br/>
+<b>PlayContentWithServerSideAdInsertion</b>()<br/>
+<dl>
+</dl>
+
+<br/>
+<div class="description">
+RAF implementation with Nielsen and ads being server stitched (Server-Side Ad Insertion)<br>- Enable Nielsen.<br>- Pass all parameters to Nielsen beacons with examples of genre, program id and content.<br>- Use fireTrackingEvents() to pass ad structure with Nielsen beacons to RAF.<br>- Nilsen APIs are updated for each content stream.<br>
+</div>
+
+<p>
+<dl class="param">
+<dt class="sectionName">
+Parameters:
+</dt>
+<dd class="item"><code class="itemName">
+videoContent - 
+</code>
+<span class="itemDescr">
+[AA] object that has valid data for playing video with roVideoScreen.
+</span>
+</dd>
+</dl>
+
+</dl>
+<br/>
+<br/>
+<b>EvaluateRenderTime</b>(adPods as roObject)<br/>
+<dl>
+</dl>
+
+<br/>
+<div class="description">
+adding fields of duration and render time to each ad<br>in adPods data structure to ease processing of fireTracking<br>
+</div>
+
+<p>
+<dl class="param">
+<dt class="sectionName">
+Parameters:
+</dt>
+<dd class="item"><code class="itemName">
+adPods - 
+</code>
+<span class="itemDescr">
+[A] array of adPod objects that has valid data of adPod returned from Raf by GetAds() function
+</span>
+</dd>
+</dl>
+
+</dl>
+<br/>
+<br/>
+<b>IsAdPodTracked</b>(ads as roObject)<br/>
+<dl>
+</dl>
+
+<br/>
+<div class="description">
+checks is pod currently viewed<br>by summarize all views of enclos ads<br>
+</div>
+
+<p>
+<dl class="param">
+<dt class="sectionName">
+Parameters:
+</dt>
+<dd class="item"><code class="itemName">
+ads - 
+</code>
+<span class="itemDescr">
+[A] array of ads objects
+</span>
+</dd>
+</dl>
+
+</dl>
+<br/>
