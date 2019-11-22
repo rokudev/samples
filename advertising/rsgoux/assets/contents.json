@@ -1,0 +1,32 @@
+{
+    "contents": [
+        {
+            "title" : "VOD mlbam",
+            "id"    : "vod",
+            "description" : "VOD example using OnceUX API. XML response will be parsed into list of RAF Pods and given to RAF.stitchedAdsInit() then RAF.stitchedAdHandledEvent() called when POSITION events. App may not call RAF.fireTrackingEvents()",
+            "adURL"   : "http://onceux.unicornmedia.com/now/ads/vmap/od/auto/4d993388-8b49-4f34-9e48-87906e690281/85957be9-026a-415e-a8ce-7bfdc19d5e23/c61f4d5d-5225-4179-a7f5-0f66df16ad33/content.once?UMADPARAMreferer=http://www.espn.com/video/clip?id=21435613",
+            "mediaURL" : "http://once.unicornmedia.com/now/od/auto/4d993388-8b49-4f34-9e48-87906e690281/85957be9-026a-415e-a8ce-7bfdc19d5e23/c61f4d5d-5225-4179-a7f5-0f66df16ad33/content.once?UMADPARAMreferer=http://www.espn.com/video/clip?id=21435613"
+        },
+        {
+            "title" : "VOD mlbam, fireTrackingEvents() only",
+            "id"    : "vod_nostitch",
+            "description" : "XML response is pased into list of RAF Pods but not given to RAF.stitchedAdsInit() nor calling RAF.stitchedAdHandledEvent(). App is responsible to call RAF.fireTrackingEvents() when adopter invoke callbacks when POSITION match RAF Pods",
+            "useStitched": false,
+            "adURL"   : "http://onceux.unicornmedia.com/now/ads/vmap/od/auto/4d993388-8b49-4f34-9e48-87906e690281/85957be9-026a-415e-a8ce-7bfdc19d5e23/c61f4d5d-5225-4179-a7f5-0f66df16ad33/content.once?UMADPARAMreferer=http://www.espn.com/video/clip?id=21435613",
+            "mediaURL" : "http://once.unicornmedia.com/now/od/auto/4d993388-8b49-4f34-9e48-87906e690281/85957be9-026a-415e-a8ce-7bfdc19d5e23/c61f4d5d-5225-4179-a7f5-0f66df16ad33/content.once?UMADPARAMreferer=http://www.espn.com/video/clip?id=21435613"
+        },
+        {
+            "title" : "Using Brightcove PlaybackAPI v1.",
+            "id"    : "playbackapi",
+            "description" : "Sample using Brightcove PlaybackAPI. When using PlaybackAPI, App calls GetVideoByID(masterURL) with url parameter ad_config_id, then select adURL and mediaURL out of JSON response.  App may call masterURL in separate Task then pass retrieved adURL/meidaURL to video playback Task. You must come up with your account_id, video_id and ad_config_id and update /assets/contents.json  to enable this PlaybackAPIs sample.",
+            "masterURL"   : "https://edge.api.brightcove.com/playback/v1/accounts/{account_id}/videos/{video_id}?ad_config_id={ad_config_id}"
+        },
+        {
+            "title" : "Your TestAsset",
+            "id"    : "test_asset_id",
+            "description" : "Add your test asset title ad url and mediaURL.",
+            "adURL"    : "http://  Ad URL of your test asset",
+            "mediaURL" : "http://  media URL of your test asset"
+        }
+    ]
+}
