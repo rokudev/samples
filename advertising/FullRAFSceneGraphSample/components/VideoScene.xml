@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********--> 
+
+<!-- main node which handles home screen children -->
+<component name="VideoScene" extends="Scene">
+
+<!-- main handler -->
+<script type="text/brightscript" uri="pkg:/components/VideoScene.brs"/>
+
+<children>
+	<!-- video -->
+    <MainVideo id="MainVideo" visible="false"/>
+    <!-- menu -->
+    <LabelList id="MenuList" translation="[200,100]" itemSize="[720,100]" />
+    <!-- facade -->
+    <Rectangle id="LoadingScreen"
+	  color="0x000000FF" 
+	  width="1920" 
+	  height="1080" 
+	  translation="[0,0]" 
+	  visible="false">
+
+	  <Label 
+		  id="LoadingScreenText"			  	
+		  width="720"
+		  height="20"
+		  font="font:MediumBoldSystemFont"
+		  text=""
+		  horizAlign="center"
+		  vertAlign="center"
+		  translation="[575,535]" 
+      />
+
+	</Rectangle>
+</children>
+
+</component>
