@@ -1,0 +1,39 @@
+{
+    "contents": [
+        {
+            "title" : "VOD",
+            "id"    : "vod",
+            "description" : "Taken from sdksample. Adapter makes preplay request and fetch VMAP XML.\nXML response will be parsed into list of RAF Pods and given to RAF.stitchedAdsInit() then RAF.stitchedAdHandledEvent() called when POSITION events. App may not call RAF.fireTrackingEvents()",
+            "url"   : "http://csm-e.cds1.dev.yospace.com/access/d/400/u/0/1/525199825?f=0000525197611&format=vmap"
+        },
+        {
+            "title" : "VOD Yospace, fireTrackingEvents() only",
+            "id"    : "vod_nostitch",
+            "description" : "XML response is pased into list of RAF Pods but not given to RAF.stitchedAdsInit() nor calling RAF.stitchedAdHandledEvent(). App is responsible to call RAF.fireTrackingEvents() when adopter invoke callbacks when POSITION match RAF Pods.",
+            "useStitched": false,
+            "url"   : "http://csm-e.cds1.dev.yospace.com/access/d/400/u/0/1/525199825?f=0000525197611&format=vmap"
+        },
+        {
+            "title" : "LivePing Yospace, HLS",
+            "live"  : true,
+            "id"    : "live",
+            "description" : "Taken from sdksample.\n\n Adapter makes Ping request and fetch VAST tag.\n\nXML response will be parsed into list of RAF Pods and given to RAF.stitchedAdsInit() then RAF.stitchedAdHandledEvent() called when ID3 tag in PES includes matching AdID. App may not call RAF.fireTrackingEvents()",
+            "streamformat": "hls",
+            "url"   : "http://csm-e.cds1.yospace.com/csm/extlive/yospace02,sampledroid.m3u8?yo.br=false&yo.ac=true"
+        },
+        {
+            "title" : "MPEG-DASH DFW",
+            "live"  : true,
+            "id"    : "dash_dfw",
+            "description" : "Taken from sdksample MPEG-DASH DFW. Content may be scranbled.\n\n Adapter makes Ping request and fetch VAST tag.\n\nXML response will be parsed into list of RAF Pods and given to RAF.stitchedAdsInit() then RAF.stitchedAdHandledEvent() called when emsg in DASH includes matching AdID.",
+            "streamformat": "dash",
+            "url": "http://csm-e.cds1.yospace.com/csm/extlive/aegdfwprd01,/Content/DASH.abre/Live/channel(WESPNUHD-2355.dfw.720.mobile)/manifest.mpd?yo.ac=true&yo.br=false&yo.up=https://dfwlive-sponsored.akamaized.net/Content/DASH.abre/Live/channel(WESPNUHD-2355.dfw.720.mobile)/"
+        },
+        {
+            "title" : "Your TestAsset",
+            "id"    : "test_asset_id",
+            "description" : "Add your test asset title, streamFormat, live flag and masterURL.",
+            "url"   : "http://  masterURL of your test asset"
+        }
+    ]
+}
