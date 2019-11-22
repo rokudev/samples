@@ -1,0 +1,13 @@
+title=Roku_analytics_component_video_player_with_case_2_analytics
+major_version=1
+minor_version=0
+build_version=1
+mm_icon_focus_hd=pkg:/images/MainMenu_Icon_Center_HD.png
+mm_icon_focus_sd=pkg:/images/MainMenu_Icon_Center_SD43.png
+mm_icon_side_hd=pkg:/images/MainMenu_Icon_Side_HD.png
+mm_icon_side_sd=pkg:/images/MainMenu_Icon_Side_SD43.png
+splash_screen_fhd=pkg:/images/splash_fhd.jpg
+splash_screen_hd=pkg:/images/splash_hd.jpg
+splash_screen_sd=pkg:/images/splash_sd.jpg
+ui_resolutions=hd
+sg_component_libs_required=Roku_Analytics
