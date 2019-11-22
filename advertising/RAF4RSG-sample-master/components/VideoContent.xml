@@ -1,0 +1,11 @@
+<component name = "VideoContent" extends = "ContentNode" >
+    
+    <!-- expanding ContentNode with additional fields, so can set them all with a setFields() -->
+    <interface>
+        <field id = "ad_url" type = "string" />
+        <field id = "nielsen_app_id" type = "string" />
+        <field id = "nielsen_genre" type = "string" />
+        <field id = "nielsen_program_id" type = "string" />
+    </interface>
+
+</component>

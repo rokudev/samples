@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!-- RAF player for playing ad supported content.  -->
+<component name="Player" extends="Group">
+    <interface>
+        <!-- video content descriptor, ContentNode-based; includes ad_url if non-default -->
+        <field id="content" type="node" />
+
+        <!-- state - Same as Task states. --> 
+        <field id="state" type="string" alwaysNotify="true"/>
+
+        <!-- control - "play" starts content playback -->
+        <field id="control" type="string" alwaysNotify="true" onChange="controlChanged"/>
+    </interface>
+
+    <script type="text/brightscript" uri="pkg:/components/Player.brs" />
+</component>
