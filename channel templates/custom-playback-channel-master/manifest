@@ -1,0 +1,15 @@
+title=Custom Playback Screen
+subtitle=SDK2 Custom Playback Screen
+
+mm_icon_focus_hd=pkg:/images/mm-icon-focus-hd.jpg
+mm_icon_side_hd=pkg:/images/mm-icon-side-hd.jpg
+mm_icon_focus_sd=pkg:/images/mm-icon-focus-sd.jpg
+mm_icon_side_sd=pkg:/images/mm-icon-side-sd.jpg
+splash_color=#000000
+splash_min_time=1000
+
+major_version=1
+minor_version=0
+build_version=00000
+
+ui_resolutions=fhd

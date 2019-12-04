@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- main node which handles the screen -->
+<component name="MainScene" extends="Scene">
+
+  <children>
+  	<!-- video -->
+    <Video
+      id="Video"
+      visible="true"
+      width="1920"
+      height="1080"
+      translation="[0,0]"/>
+
+    <!-- menu -->
+    <LabelList
+      id="MenuList"
+      translation="[100,50]"
+      itemSize="[600,100]"
+      visible="false">
+      <ContentNode id="menucontent" role="content">
+        <ContentNode
+          title="Jeff Han Demos his Breakthrough Touchscreen"
+          url="http://video.ted.com/talks/podcast/JeffHan_2006_480.mp4"
+          description="mp4" />
+        <ContentNode
+          title="David Kelley on Human-Centered Design"
+          url="http://video.ted.com/talks/podcast/DavidKelley_2002_480.mp4"
+          description="mp4" />
+        <ContentNode
+          title="Imogen Heap Plays 'Wait It Out'"
+          url="http://video.ted.com/talks/podcast/ImogenHeap_WaitItOut_2009G_480.mp4"
+          description="mp4" />
+        <ContentNode
+          title="Naturally 7 Beatboxes a Whole Band"
+          url="http://video.ted.com/talks/podcast/Naturally7FLYBABY_2009_480.mp4"
+          description="mp4" />
+        <ContentNode
+          title="Juan Enriquez Wants to Grow Energy"
+          url="http://video.ted.com/talks/podcast/JuanEnriquez_2007S_480.mp4"
+          description="mp4" />
+        <ContentNode
+          title="INSERT CONTENT HERE"
+          url="http://video.ted.com/talks/podcast/JeffHan_2006_480.mp4"
+          description="mp4" />
+        <ContentNode
+          title="INSERT CONTENT HERE"
+          url="http://video.ted.com/talks/podcast/JeffHan_2006_480.mp4"
+          description="mp4" />
+        <ContentNode
+          title="INSERT CONTENT HERE"
+          url="http://video.ted.com/talks/podcast/JeffHan_2006_480.mp4"
+          description="mp4" />
+        <ContentNode
+          title="INSERT CONTENT HERE"
+          url="http://video.ted.com/talks/podcast/JeffHan_2006_480.mp4"
+          description="mp4" />
+      </ContentNode>
+    </LabelList>
+  </children>
+
+  <!-- main handler -->
+  <script type="text/brightscript" uri="pkg:/components/MainScene.brs"/>
+</component>
