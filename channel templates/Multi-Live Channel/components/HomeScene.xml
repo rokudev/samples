@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Copyright 2016 Roku Corp.  All Rights Reserved. -->
+
+<component name="HomeScene" extends="Scene" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+	<script type = "text/brightscript" uri = "pkg:/components/HomeScene.brs" />	
+	<script type= "text/brightscript" uri = "pkg:/components/Config.brs"/>
+	
+	<children>
+		<Video
+			id = "Video"
+			translation = "[0,0]"
+			width = "1920"
+			height = "1080"
+			enableUI = "true"
+			loop = "true"
+		/>
+		<Rectangle
+			id = "BottomBar"
+			translation = "[0,1080]"
+			width = "1920"
+			height = "335"
+			color = "0x000000FF"
+			opacity = "0.7">
+			<RowList
+				id = "RowList"
+				itemComponentName = "RowListItems"
+				translation = "[100,65]"
+				numRows = "1"
+				rowItemSize = "[[267,150]]"
+				rowItemSpacing = "[[30,0]]"
+				itemSize = "[1720,300]"
+				rowFocusAnimationStyle = "floatingFocus">
+			</RowList>
+		</Rectangle>
+		<Animation
+			id = "ShowBar"
+			repeat = "false"
+			duration = ".2"
+			easeFunction = "linear">
+			<Vector2DFieldInterpolator 
+				fieldToInterp = "BottomBar.translation"
+				key = "[0,1]"
+				keyValue = "[[0,1080],[0,745]]"
+			/>
+		</Animation>
+		<Animation
+			id = "HideBar"
+			repeat = "false"
+			duration = ".2"
+			easeFunction = "linear">
+			<Vector2DFieldInterpolator 
+				fieldToInterp = "BottomBar.translation"
+				key = "[0,1]"
+				keyValue = "[[0,745],[0,1080]]"
+			/>
+		</Animation>
+		<Label
+			id = "Hint"
+			height = "50"
+			width = "400"
+			text = "Press UP/DOWN for Channels"
+			font = "font:SmallBoldSystemFont"
+			translation = "[1500,50]"
+		/>
+		<Timer
+			id = "Timer"
+			repeat = "false"
+			duration = "3"
+		/>
+		<Timer
+			id = "AdTimer"
+			repeat = "true"
+			duration = "1200"
+		/>
+	</children>
+</component>

@@ -1,0 +1,11 @@
+title=MultiLive
+major_version=1
+minor_version=0
+build_version=247
+mm_icon_focus_hd=pkg:/images/multi-channel-poster.png
+requires_audiometadata=1
+bs_libs_required=roku_ads_lib
+splash_screen_fhd=pkg:/images/multi-channel-splash-FHD.jpg
+splash_color=#808080
+splash_min_time=0
+ui_resolutions=fhd

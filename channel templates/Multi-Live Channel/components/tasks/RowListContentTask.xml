@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+
+<component name="RowListContentTask" extends="Task">
+
+    <interface>
+        <field id="content" type="node" />
+    </interface>
+	
+	<script type= "text/brightscript" uri = "pkg:/components/Config.brs"/>
+    <script type="text/brightscript">
+
+        <![CDATA[
+			Sub Init()
+			    m.top.functionName = "loadContent"
+			End Sub
+    
+			Sub loadContent()
+				array = loadConfig()
+			    oneRow = GetApiArray(array)
+			    list = [
+			        {
+			            Title:"My Channels"
+			            ContentList : oneRow
+			        }
+			    ]
+			    m.top.content = ParseXMLContent(list)
+			End Sub
+			
+			Function ParseXMLContent(list As Object)
+			    RowItems = createObject("RoSGNode","ContentNode")
+			    
+			    for each rowAA in list
+			        row = createObject("RoSGNode","ContentNode")
+			        row.Title = rowAA.Title
+			
+			        for each itemAA in rowAA.ContentList
+			            item = createObject("RoSGNode","ContentNode")
+			            item.SetFields(itemAA)
+			            row.appendChild(item)
+			        end for
+			        RowItems.appendChild(row)
+			    end for
+			
+			    return RowItems
+			End Function
+			
+			
+			Function GetApiArray(array as Object)
+			    result = []
+			    for each element in array
+			    	item = {}
+			    	item.Title = element.Title
+			    	item.streamFormat = element.streamFormat
+			    	item.HDPosterUrl = element.Logo
+			    	item.Url = element.Stream
+			        result.push(item)
+			    end for
+			    return result
+			End Function
+]]>
+    </script>
+</component>
+
