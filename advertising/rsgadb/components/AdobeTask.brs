@@ -51,7 +51,12 @@ function loadStream(adapter as object) as void
     '
     request = {
         url:  m.top.testConfig.url,  ' Required, masterURL
-        kbps: 3000                   ' Required  when trackingmode:simple,  max kbps to select URL from multiple bit rate streams.
+        '  Either kbps or callback is required bellow when trackingmode: simple
+        kbps: 3000                   ' Max kbps to select URL from multiple bit rate streams.
+        '  callback : function(m3u8str as string) as string 
+        '     Write your own stream selector here
+        '     return valid_selected_stream_url
+        '  end function
     }
     requestResult = adapter.requestStream(request) ' Required
     if requestResult["error"] <> invalid

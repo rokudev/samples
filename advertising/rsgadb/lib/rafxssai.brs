@@ -1,4 +1,4 @@
-' ********** Copyright 2019 Roku, Inc.  All Rights Reserved. **********
+' ********** Copyright 2020 Roku, Inc.  All Rights Reserved. **********
 function RAFX_getSSAIPluginBase(params as object) as Object
 daisdk = {}
 daisdk.init = function(params=invalid as object) as Void
@@ -992,6 +992,9 @@ if invalid = m.streamManager
 m.streamManager = m.sdk.createStreamManager()
 m.streamManager.mediaURL = m.prplyInfo["mediaURL"]
 end if
+if invalid <> params.filter_xmkr_by
+m.streamManager.xid = params.filter_xmkr_by
+end if
 end function
 impl.onMetadata = function(msg as object) as void
 m.streamManager.onMetadata(msg, m.useStitched, m.wrpdPlayer.sgnode)
@@ -999,44 +1002,28 @@ end function
 strmMgr = rafssai["streamManager"]
 strmMgr.adBreaks = invalid
 strmMgr.adBreakID = invalid
+strmMgr.xid = "data" 
+strmMgr.getXid = function(xobj as object) as string
+if "data" = m.xid then
+return xobj.xdata
+else
+return xobj.id
+end if
+end function
+strmMgr.setXid = function(xobj as object, xdata as string) as void
+if "data" = m.xid then
+xobj.xdata = xdata 
+else
+xobj.xdata = xobj.id
+end if
+end function
 strmMgr.isPodBegin = function(podbegin as string) as boolean
 return (podbegin <> invalid and podbegin.right(8) = "PodBegin")
 end function
 strmMgr.isPodEnd = function(podend as string) as boolean
 return (podend <> invalid and podend.right(6) = "PodEnd")
 end function
-strmMgr.onMetadata = function(msg as object, useStitched as boolean, sgnode as object) as void
-if msg.getField() <> "timedMetaData2" then return
-if invalid = m.adBreaks
-adIface = m.sdk.getRokuAds()
-m.adBreaks = [{rendersequence:"midroll",renderTime:0,tracking:[],duration:0,ads:[]}]
-if useStitched then adIface.stitchedAdsInit(m.adBreaks)
-end if
-obj = msg.getData()
-position = obj["position"]
-if obj["data"] <> invalid and obj.data[m.sdk.HLSDir.EXT_X_MARKER] <> invalid
-m.sdk.log(["X-Marker at ", position.tostr(), "  current: ", m.crrntPosSec.tostr()], 20)
-xobj = m.parseXMarker(obj.data[m.sdk.HLSDir.EXT_X_MARKER])
-if m.isPodBegin(xobj.xtype)
-m.sdk.logToRAF("Request", {retry:0, url:m["mediaURL"]})
-if invalid <> xobj.data
-adBreak = xobj.data
-adBreak.duration = 0
-adBreak.BREAKDUR = xobj.podduration
-adBreak.renderTime = position
-if int(position) <= m.crrntPosSec
-adBreak.renderTime = m.crrntPosSec + 1
-adBreak.duration -= (adBreak.renderTime - position)
-end if
-m.adBreaks[0] = adBreak      
-m.sdk.log(["Pod renderTime: ", adBreak.renderTime.tostr(), "  dur: ", adBreak.duration.tostr()], 20)
-m.sdk.eventCallbacks.doCall(m.sdk.AdEvent.PODS, {event:m.sdk.AdEvent.PODS, adPods:m.adBreaks, position:position})
-m.adBreakID = adBreak["xid"]
-else
-m.sdk.logToRAF("ErrorResponse", {error:"invalid xml", time:0,
-label:"XMarker", url:m["mediaURL"]})
-end if
-else if "AdBegin" = xobj.xtype
+strmMgr.onMetadataAdBegin = function(position, xobj as object) as void
 if invalid = m.adBreakID 
 m.setEmptyAdBreak(position)
 end if
@@ -1075,10 +1062,59 @@ end if
 end for
 end if
 m.createTimeToEventMap(m.adBreaks)
+end function
+strmMgr.onMetadata = function(msg as object, useStitched as boolean, sgnode as object) as void
+if msg.getField() <> "timedMetaData2" then return
+if invalid = m.adBreaks
+adIface = m.sdk.getRokuAds()
+m.adBreaks = [{rendersequence:"midroll",renderTime:0,tracking:[],duration:0,ads:[]}]
+if useStitched then adIface.stitchedAdsInit(m.adBreaks)
+end if
+obj = msg.getData()
+position = obj["position"]
+ext_x_marker = invalid
+if obj["data"] <> invalid and obj.data[m.sdk.HLSDir.EXT_X_MARKER] <> invalid
+ext_x_marker = obj.data[m.sdk.HLSDir.EXT_X_MARKER]
+if 0 = position and 0 < m.crrntPosSec then
+m.sdk.log(["X-Marker ", ext_x_marker.left(60), "... as position 0, ignored. current strm pos: ", m.crrntPosSec.tostr()], 20)
+return
+end if
+end if
+if invalid <> ext_x_marker
+m.sdk.log(["X-Marker at position: ", position.tostr(), "  current strm pos: ", m.crrntPosSec.tostr()], 20)
+xobj = m.parseXMarker(ext_x_marker)
+if m.isPodBegin(xobj.xtype)
+m.sdk.logToRAF("Request", {retry:0, url:m["mediaURL"]})
+if invalid <> xobj.data
+adBreak = xobj.data
+adBreak.duration = 0
+adBreak.BREAKDUR = xobj.podduration
+if 15 < abs(position - sgnode.position)
+m.sdk.log(["WARNING: PodBegin X-Marker position: ", position.tostr(), " video.position: ", sgnode.position.tostr(), " diff more than 15sec"], 10)
+end if
+adBreak.renderTime = position
+if int(position) <= m.crrntPosSec
+adBreak.renderTime = m.crrntPosSec + 1
+adBreak.duration -= (adBreak.renderTime - position)
+end if
+m.adBreaks[0] = adBreak      
+m.sdk.log(["Pod renderTime: ", adBreak.renderTime.tostr(), "  dur: ", adBreak.BREAKDUR.tostr()], 20)
+m.sdk.eventCallbacks.doCall(m.sdk.AdEvent.PODS, {event:m.sdk.AdEvent.PODS, adPods:m.adBreaks, position:position})
+m.adBreakID = adBreak["xid"]
+else
+m.sdk.logToRAF("ErrorResponse", {error:"invalid xml", time:0,
+label:"XMarker", url:m["mediaURL"]})
+end if
+else if "AdBegin" = xobj.xtype
+m.onMetadataAdBegin(position, xobj)
 else if m.isPodEnd(xobj.xtype)
 eopByMarker = position
 if 0 < xobj.offset
+if invalid <> sgnode.streamingSegment and sgnode.streamingSegment.doesExist("segStartTime")
 eopByMarker = xobj.offset + sgnode.streamingSegment.segStartTime
+else
+eopByMarker += xobj.offset
+end if
 end if
 eopByMarker = int(eopByMarker)
 if eopByMarker <= m.crrntPosSec
@@ -1176,13 +1212,14 @@ id: m.extract(ext_x_marker, m.rgx_id, "")
 xtype: m.extract(ext_x_marker, m.rgx_xtype, "")
 data: invalid
 }
-m.sdk.log(["X-Marker ", ext_x_marker], 50)
-data = m.extract(ext_x_marker, m.rgx_data, "")
-if data.left(1) = chr(34)
-data = data.right(len(data)-1)
+m.sdk.log(["X-Marker ", ext_x_marker.left(80), "..."], 50)
+xdata = m.extract(ext_x_marker, m.rgx_data, "")
+if xdata.left(1) = chr(34)
+xdata = xdata.right(len(xdata)-1)
 end if
+m.setXid(xobj, xdata)
 ba = createObject("roByteArray")
-ba.fromBase64String(data)
+ba.fromBase64String(xdata)
 xmlstr = ba.toAsciiString()
 if invalid = xmlstr then return xobj
 xmlstr = m.rgx_outer.replaceAll(xmlstr, "")
@@ -1190,10 +1227,24 @@ if m.isPodBegin(xobj.xtype)
 xobj.adcount = m.extract(ext_x_marker, m.rgx_adcount, 0)
 xobj.podduration = val(m.extract(ext_x_marker, m.rgx_podduration, "0"))
 for each ab in m.adBreaks
-if ab["xid"] = xobj.id then return xobj
+if ab.xid = m.getXid(xobj) then
+m.sdk.log(["Duplicate PodBegin. ID: ", xobj.id], 30)
+xobj.xtype = "dupPodBegin"
+return xobj
+end if
 end for
 m.parsePodBegin(xmlstr, xobj)
 else if "AdBegin" = xobj.xtype
+if invalid <> m.adBreaks
+adBreak = m.adBreaks[0]
+for each ad in adBreak.ads
+if ad.xid = m.getXid(xobj)
+m.sdk.log(["Duplicate AdBegin. ID: ", xobj.id, "   LastID: ", ad.idid], 30)
+xobj.xtype = "dupAdBegin"
+return xobj
+end if
+end for
+end if
 xobj.duration = val(m.extract(ext_x_marker, m.rgx_duration, "0"))
 m.parseAdBegin(xmlstr, xobj)
 else if m.isPodEnd(xobj.xtype)
@@ -1204,7 +1255,7 @@ return xobj
 end function
 strmMgr.PLACEHOLDERPOD = "placeholder"
 strmMgr.setEmptyAdBreak = function(position)
-xobj = {id:m.PLACEHOLDERPOD, adcount:"3", data:invalid}
+xobj = {id:m.PLACEHOLDERPOD, adcount:"3", data:invalid, xdata:m.PLACEHOLDERPOD}
 m.parsePodBegin("", xobj)
 if invalid <> xobj.data
 adBreak = xobj.data
@@ -1223,7 +1274,7 @@ if "" <> xmlstr then
 adBreak = m.parseMultiVMAP(xmlstr)
 end if
 adBreak["duration"] = 0
-adBreak["xid"] = xobj.id
+adBreak["xid"] = m.getXid(xobj)
 if "" <> xobj.adcount
 adCount = xobj.adcount.toInt()
 adBreak.ads = createObject("roArray", adCount, true)
@@ -1277,6 +1328,7 @@ end if
 end for
 if invalid <> xobj.data and 0 < events.count()
 ad = xobj.data[0]
+ad["xid"] = m.getXid(xobj)
 if invalid <> ad["tracking"] then
 ad.tracking.append(events)
 else
@@ -1301,6 +1353,8 @@ xobj.data = ads
 else if obj_type = "roArray" and 1 <= obj.count() and invalid <> obj[0]["ads"]
 xobj.data = obj[0].ads
 end if
+xobj.data[0].xid = m.getXid(xobj)
+xobj.data[0].idid = xobj.id
 end function
 strmMgr.parsePodEnd = function(xmlstr as string, xobj as object) as void
 ab = invalid
@@ -1308,12 +1362,19 @@ if invalid <> m.adBreakID and invalid <> m.adBreaks
 ab = m.adBreaks[0]
 if m.adBreakID <> ab.xid or 0 < ab.tracking.count() 
 ab = invalid                                    
+end if                                              
 end if
+if invalid <> ab and m.PLACEHOLDERPOD = ab.xid
+m.sdk.log("parsePodEnd() stream must have begun in the middle of AdPod", 17)
+podend = m.parseMultiVMAP(xmlstr)
+if 0 < podend.tracking.count()
+for each trck in podend.tracking
+if "PodComplete" = trck.event
+ab.tracking.push(trck)
 end if
-if invalid <> ab
-wrongab = m.parseMultiVMAP(xmlstr)
-if 0 < wrongab.tracking.count()
-ab.tracking.append(wrongab.tracking)
+end for
+ab.xid = m.getXid(xobj)
+m.adBreakID = ab.xid  
 end if
 end if
 end function
@@ -1321,8 +1382,8 @@ strmMgr.parseMultiVMAP = function(xmlstr) as object
 adBreak = {rendersequence:"midroll", renderTime:0, tracking:[], viewed:false, ads:[]}
 token = "</vmap:VMAP>"
 vmaps = xmlstr.split(token)
-m.sdk.log(["parseMultiVMAP() XML: ", xmlstr], 11)
-m.sdk.log(["parseMultiVMAP() token spilt: ", vmaps.count().tostr()], 10)
+m.sdk.log(["parseMultiVMAP() XML: ", xmlstr], 19)
+m.sdk.log(["parseMultiVMAP() token spilt: ", vmaps.count().tostr()], 80)
 if 0 < vmaps.count()
 adIface = m.sdk.getRokuAds()
 for each vmap in vmaps
@@ -1360,7 +1421,7 @@ function RAFX_SSAI(params as object) as object
         else if "simple" = params["trackingmode"]'
             p = RAFX_getAdobeSimplePlugin(params)'
         end if
-        p["__version__"] = "0b.42.32.15"
+        p["__version__"] = "0b.42.35.15"
         p["__name__"] = params["name"]
         return p
     end if
