@@ -40,11 +40,11 @@ TILE=1
 STARTTILE=1
 cd ..
 
-# Special handling for 1x1 tiles, just copy the files to ${OUTPREFIX}-${COLS}x${ROWS}-${TILE}.jpg
+# Special handling for 1x1 tiles, just copy the files to ${OUTPREFIX}_${TILE}.jpg
 if [ ${ROWS} -eq 1 ] && [ ${COLS} -eq 1 ]; then
 	while [ $TILE -le $THUMBCOUNT ]
 	do
-    	mv $INDIR/$INPREFIX-`printf %03d ${TILE}`.jpg ${OUTPREFIX}-${COLS}x${ROWS}-${TILE}.jpg
+    	mv $INDIR/$INPREFIX-`printf %03d ${TILE}`.jpg ${OUTPREFIX}_${TILE}.jpg
     	let "TILE= $TILE + 1"
 	done
 	exit 0
@@ -69,8 +69,8 @@ do
 		cp $INDIR/$INPREFIX-`printf %03d ${i}`.jpg tile${TILE}
 	done
 
-	echo "montage -mode concatenate -tile ${COLS}x${ROWS} tile${TILE}/${INPREFIX}-*.jpg ${OUTPREFIX}-${COLS}x${ROWS}-${TILE}.jpg"
-	montage -mode concatenate -tile ${COLS}x${ROWS} tile${TILE}/${INPREFIX}-*.jpg ${OUTPREFIX}-${COLS}x${ROWS}-${TILE}.jpg
+	echo "montage -mode concatenate -tile ${COLS}x${ROWS} tile${TILE}/${INPREFIX}-*.jpg ${OUTPREFIX}_${TILE}.jpg"
+	montage -mode concatenate -tile ${COLS}x${ROWS} tile${TILE}/${INPREFIX}-*.jpg ${OUTPREFIX}_${TILE}.jpg
 
 	let "STARTTILE= $TILE * $TILESIZE + 1"
 	let "TILE= $TILE + 1"

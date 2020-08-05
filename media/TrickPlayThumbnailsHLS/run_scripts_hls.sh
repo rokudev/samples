@@ -27,7 +27,7 @@ INTERVAL=$6
 # The $INTERVAL is specified in seconds
 #
 # One example of running this command:
-# $ ./run_scripts.sh master.m3u8 thumb-tile 320x180 5 4 10
+# $ ./run_scripts_hls.sh master.m3u8 thumb-tile 320x180 5 4 10
 #  
 
 DIR=test-$RESOLUTION
@@ -39,13 +39,13 @@ mkdir $DIR
 
 # The outputs files are saved in directory ${RESOLUTION}-${COLS}x${ROWS}
 # - playlist file ${RESOLUTION}-${COLS}x${ROWS}.m3u8 
-# - tile files ${OUTPREFIX}-*.jpg
+# - tile files ${OUTPREFIX}_*.jpg
 #echo "mkdir ${COLS}x${ROWS}_${RESOLUTION}"
 mkdir ${COLS}x${ROWS}_${RESOLUTION}
 #echo "mv ${RESOLUTION}-${COLS}x${ROWS}.m3u8 $PWD/${COLS}x${ROWS}_${RESOLUTION}"
 mv ${RESOLUTION}-${COLS}x${ROWS}.m3u8 $PWD/${COLS}x${ROWS}_${RESOLUTION}
-#echo "mv ${OUTPREFIX}-*.jpg $PWD/${COLS}x${ROWS}_${RESOLUTION}"
-mv ${OUTPREFIX}-*.jpg $PWD/${COLS}x${ROWS}_${RESOLUTION}
+#echo "mv ${OUTPREFIX}_*.jpg $PWD/${COLS}x${ROWS}_${RESOLUTION}"
+mv ${OUTPREFIX}_*.jpg $PWD/${COLS}x${ROWS}_${RESOLUTION}
 echo "Thumbnail files saved in directory ${COLS}x${ROWS}_${RESOLUTION}"
 
 # Cleanup
