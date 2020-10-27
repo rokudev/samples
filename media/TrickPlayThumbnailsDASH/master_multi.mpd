@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MPD mediaPresentationDuration="PT634.566S" minBufferTime="PT2.00S" profiles="urn:hbbtv:dash:profile:isoff-live:2012,urn:mpeg:dash:profile:isoff-live:2011" type="static" xmlns="urn:mpeg:dash:schema:mpd:2011" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:mpeg:DASH:schema:MPD:2011 DASH-MPD.xsd">
+ <BaseURL>.</BaseURL>
+  <Period id="0" duration="PT9S">
+    <AdaptationSet mimeType="audio/mp4" startWithSAP="1" segmentAlignment="true" lang="en">
+      <Role schemeIdUri="urn:mpeg:dash:role:2011" value="main"></Role>
+      <SegmentTemplate duration="285696" initialization="bunny/audio/init.mp4" media="bunny/audio/segment$Number$.mp4" startNumber="0" timescale="48000"></SegmentTemplate>
+      <Representation audioSamplingRate="48000" bandwidth="3000" codecs="mp4a.40.2" id="6a14376f-a1e1-47e0-9cc6-728a22368905"></Representation>
+      <Representation audioSamplingRate="48000" bandwidth="3000" codecs="mp4a.40.2" id="c2f8f67e-1175-4a71-a5bb-4e7cdd118203"></Representation>
+      <Representation audioSamplingRate="48000" bandwidth="3000" codecs="mp4a.40.2" id="f633347f-9db8-4a12-9dbc-010f4ee3c921"></Representation>
+    </AdaptationSet>
+    <AdaptationSet mimeType="video/mp4" startWithSAP="1" scanType="progressive" segmentAlignment="true">
+      <Role schemeIdUri="urn:mpeg:dash:role:2011" value="main"></Role>
+      <SegmentTemplate duration="144144" initialization="bunny/video/init.mp4" media="bunny/video/segment$Number$.mp4" startNumber="0" timescale="24000"></SegmentTemplate>
+      <Representation bandwidth="451000" codecs="avc1.420015" frameRate="2997/125" height="270" id="4bc9f6c7-925e-4ce6-b84c-a05d14e936b6" width="480"></Representation>
+      <Representation bandwidth="695000" codecs="avc1.42001e" frameRate="2997/125" height="360" id="a70369ef-0a28-4f27-9790-66c905e0321d" width="640"></Representation>
+      <Representation bandwidth="891000" codecs="avc1.4d001e" frameRate="2997/125" height="360" id="3f56c0c6-671b-42a0-a0d5-d5184b17ebfa" width="640"></Representation>
+      <Representation bandwidth="1181000" codecs="avc1.4d001f" frameRate="2997/125" height="540" id="5ea2d8d0-4d64-4657-9c52-ff4a4b72daaa" width="960"></Representation>
+      <Representation bandwidth="1673000" codecs="avc1.4d001f" frameRate="2997/125" height="540" id="e3454689-f5b2-49fa-821d-ed4b5422a90f" width="960"></Representation>
+      <Representation bandwidth="1978000" codecs="avc1.4d001f" frameRate="2997/125" height="720" id="e03ed836-7814-42b4-960e-98951b23be9a" width="1280"></Representation>
+    </AdaptationSet>
+    <AdaptationSet id="3" mimeType="image/jpeg" contentType="image">
+      <SegmentTemplate media="$RepresentationID$/ad_$Number$.jpg" startNumber="1" duration="20"/>
+      <Representation bandwidth="24000" id="thumbnails_256x144" width="1280" height="576">
+        <EssentialProperty schemeIdUri="http://dashif.org/guidelines/thumbnail_tile" value="5x4"/>
+      </Representation>
+    </AdaptationSet>
+  </Period>
+ 
+ <Period id="1" duration="PT2M.00S">
+  <AdaptationSet id="1" mimeType="video/mp4" contentType="video" subsegmentAlignment="true" subsegmentStartsWithSAP="1" par="16:9">
+   <SegmentTemplate duration="120" timescale="30" media="$RepresentationID$/$RepresentationID$_$Number$.m4v" startNumber="1" initialization="$RepresentationID$/$RepresentationID$_0.m4v"/>
+   <Representation id="bbb_30fps_1024x576_2500k" codecs="avc1.64001f" bandwidth="3134488" width="1024" height="576" frameRate="30" sar="1:1" scanType="progressive"/>
+   <Representation id="bbb_30fps_640x360_800k" codecs="avc1.64001e" bandwidth="1013310" width="640" height="360" frameRate="30" sar="1:1" scanType="progressive"/>
+  </AdaptationSet>
+  <AdaptationSet id="2" mimeType="audio/mp4" contentType="audio" subsegmentAlignment="true" subsegmentStartsWithSAP="1">
+   <Accessibility schemeIdUri="urn:tva:metadata:cs:AudioPurposeCS:2007" value="6"/>
+   <Role schemeIdUri="urn:mpeg:dash:role:2011" value="main"/>
+   <SegmentTemplate duration="192512" timescale="48000" media="$RepresentationID$/$RepresentationID$_$Number$.m4a" startNumber="1" initialization="$RepresentationID$/$RepresentationID$_0.m4a"/>
+   <Representation id="bbb_a64k" codecs="mp4a.40.5" bandwidth="67071" audioSamplingRate="48000">
+    <AudioChannelConfiguration schemeIdUri="urn:mpeg:dash:23003:3:audio_channel_configuration:2011" value="2"/>
+   </Representation>
+  </AdaptationSet>
+
+  <AdaptationSet id="3" mimeType="image/jpeg" contentType="image">
+    <SegmentTemplate media="$RepresentationID$/tile_$Number$.jpg" duration="40" startNumber="1"/>
+      <Representation bandwidth="24000" id="thumbnails_256x144" width="1280" height="288">
+        <EssentialProperty schemeIdUri="http://dashif.org/guidelines/thumbnail_tile" value="5x2"/>
+      </Representation>
+  </AdaptationSet>
+
+ </Period>
+</MPD>
