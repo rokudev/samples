@@ -61,3 +61,13 @@ done
 
 echo >> $OUTFILE
 echo "#EXT-X-ENDLIST" >> $OUTFILE
+
+# this assumes resolution is either 320x180 or 640x360
+BW="16460"
+if [ "$RESOLUTION" = "640x360" ] ; then
+	BW="32920"
+fi
+
+echo
+echo "Add this line to the master playlist:"
+echo "#EXT-X-IMAGE-STREAM-INF:BANDWIDTH=${BW},RESOLUTION=${RESOLUTION},CODECS=\"jpeg\",URI=\"${COLS}x${ROWS}_${RESOLUTION}/${OUTFILE}\""

@@ -26,8 +26,9 @@ INTERVAL=$6
 # The $ROWS parameter is tile horizontal count, e.g. 4
 # The $INTERVAL is specified in seconds
 #
-# One example of running this command:
+# Two examples of running this command:
 # $ ./run_scripts_hls.sh master.m3u8 thumb-tile 320x180 5 4 10
+# $ ./run_scripts_hls.sh master.m3u8 thumb-tile 640x360 5 4 10
 #  
 
 DIR=test-$RESOLUTION
