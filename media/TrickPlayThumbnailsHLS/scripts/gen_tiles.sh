@@ -7,17 +7,25 @@
 # http://www.imagemagick.org/script/command-line-options.php#append
 # https://github.com/image-media-playlist/spec/blob/master/image_media_playlist_v0_4.pdf
 # https://www.tecmint.com/install-imagemagick-in-linux/
+# https://stackoverflow.com/questions/39504522/create-blank-image-in-imagemagick
+# https://stackoverflow.com/questions/5688576/how-to-use-mod-operator-in-bash
 
-if [ $# -lt 5 ]; then
-	echo "Usage: $0 <thumbnails-dir> <input-prefix> <output-prefix> <cols> <rows>"
+if [ $# -lt 6 ]; then
+	echo "Usage: $0 <thumbnails-dir> <input-prefix> <output-prefix> <resolution> <cols> <rows>"
 	exit 1
 fi
 
 INDIR=$1
 INPREFIX=$2
 OUTPREFIX=$3
-COLS=$4
-ROWS=$5
+RESOLUTION=$4
+COLS=$5
+ROWS=$6
+
+# Extract width and height, to force tile width and height in case of odd last tile
+#[[ $RESOLUTION =~ ^([0-9]+)[xX]([0-9]+) ]]
+#let "WIDTH=${BASH_REMATCH[1]} * $COLS"
+#let "HEIGHT=${BASH_REMATCH[2]} * $ROWS"
 
 # All parameters need to be specified
 # The $INDIR parameter is a directory containing the thumbnails
@@ -50,8 +58,36 @@ if [ ${ROWS} -eq 1 ] && [ ${COLS} -eq 1 ]; then
 	exit 0
 fi
 
-# normal handling of tile generation
+# calculate thumbs need to fill N tiles, result is TILETHUMBS
+# and LASTTILE is the tile that may need to be padded
 let "TILESIZE=$COLS * $ROWS"
+let "TILETHUMBS=$TILESIZE"
+let "LASTTILE=1"
+while [ $TILETHUMBS -lt $THUMBCOUNT ]
+do
+	let "TILETHUMBS=$TILETHUMBS + $TILESIZE"
+	let "LASTTILE=$LASTTILE + 1"
+done
+
+# generation of padding for the last tile, if padding is needed
+if [ $TILETHUMBS -gt $THUMBCOUNT ]; then
+	let "ALIGNCOUNT=$TILETHUMBS - $THUMBCOUNT"
+	echo "ALIGNCOUNT = $ALIGNCOUNT"
+	COUNT=1
+	mkdir tile${LASTTILE}
+	while [ $COUNT -le $ALIGNCOUNT ]
+	do
+		let "TILENUM=$THUMBCOUNT + $COUNT"
+		let "COUNT=$COUNT + 1"
+		convert -size ${RESOLUTION} xc:black tile${LASTTILE}/$INPREFIX-${TILENUM}.jpg
+	done
+
+	# finally, reset THUMBCOUNT to include padded tiles
+	#let "THUMBCOUNT=$THUMBCOUNT + $ALIGNCOUNT"
+	#echo "THUMBCOUNT = $THUMBCOUNT"
+fi
+
+# normal handling of tile generation
 while [ $STARTTILE -lt $THUMBCOUNT ]
 do
 	let "ENDTILE= $STARTTILE + $TILESIZE - 1"

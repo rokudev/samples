@@ -35,7 +35,7 @@ DIR=test-$RESOLUTION
 PWD=`pwd` 
 mkdir $DIR
 ./scripts/gen_thumbs.sh $INFILE $DIR/ind $RESOLUTION $INTERVAL
-./scripts/gen_tiles.sh $DIR ind $OUTPREFIX $COLS $ROWS
+./scripts/gen_tiles.sh $DIR ind $OUTPREFIX $RESOLUTION $COLS $ROWS
 ./scripts/gen_playlist.sh $OUTPREFIX $RESOLUTION $COLS $ROWS $INTERVAL 
 
 # The outputs files are saved in directory ${RESOLUTION}-${COLS}x${ROWS}
