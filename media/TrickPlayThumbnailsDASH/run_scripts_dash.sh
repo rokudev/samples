@@ -34,7 +34,7 @@ DIR=test-$RESOLUTION
 PWD=`pwd` 
 mkdir $DIR
 ./scripts/gen_thumbs.sh $INFILE $DIR/ind $RESOLUTION $INTERVAL
-./scripts/gen_tiles.sh $DIR ind $OUTPREFIX $COLS $ROWS
+./scripts/gen_tiles.sh $DIR ind $OUTPREFIX $RESOLUTION $COLS $ROWS
 echo
 echo "Output for thumbnails: add the image adaptation set to master mpd file"
 ./scripts/gen_manifest.sh $INFILE $OUTPREFIX $RESOLUTION $COLS $ROWS $INTERVAL 
