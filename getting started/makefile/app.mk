@@ -134,6 +134,9 @@ endif
 ifeq ($(HOST_OS),cygwin)
 	# This assumes that the Windows ping command is used, not cygwin's.
 	QUICK_PING_ARGS = -n 1 -w 1000
+else ifeq ($(HOST_OS),macos)
+	# macos doesn't support -w flag
+	QUICK_PING_ARGS = -c 1
 else # Linux
 	QUICK_PING_ARGS = -c 1 -w 1
 endif
