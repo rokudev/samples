@@ -23,6 +23,7 @@
       contentxml = createObject("roXMLElement")
 
       readInternet = createObject("roUrlTransfer")
+      readInternet.SetCertificatesFile("common:/certs/ca-bundle.crt")
       readInternet.setUrl(m.top.contenturi)
       contentxml.parse(readInternet.GetToString())
 
