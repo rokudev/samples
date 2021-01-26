@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<component name="TestContent" extends="ContentNode" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
-    <interface>
-        <field id="useStitched" type="bool"   value="true" />
-        <field id="mediaURL"    type="string" value="" />
-        <field id="params"      type="assocarray"    />
-    </interface>
-</component>
-
