@@ -738,476 +738,417 @@ dd(ue)
 end function
 return daisdk
 end function
-function RAFX_getUplynkPlugin(params as dynamic) as Object
+function RAFX_getAmagiHLSAdapter(params as object) as Object
 rafssai = RAFX_getSSAIPluginBase(params)
+rafssai.HLSDir = {
+EXT_X_AD_START : "#EXT-X-AD-START:",
+EXT_X_AD_END : "#EXT-X-AD-END"
+}
 impl = rafssai["impl"]
-impl.uplynkToRAFEvent = {
-"impressions" : rafssai.AdEvent.IMPRESSION
-"firstquartiles" : rafssai.AdEvent.FIRST_QUARTILE
-"midpoints" : rafssai.AdEvent.MIDPOINT
-"thirdquartiles" : rafssai.AdEvent.THIRD_QUARTILE
-"completes" : rafssai.AdEvent.COMPLETE
+impl.amagiToRAFEventPod = {
+"Impression" : rafssai.AdEvent.POD_START,
+"Complete"   : rafssai.AdEvent.POD_END
 }
-impl.uplynkToRAFEventPod = {
-"impressions" : rafssai.AdEvent.POD_START
-"completes" : rafssai.AdEvent.POD_END
+impl.amagiToRAFEvent = {
+"start" : rafssai.AdEvent.IMPRESSION
+"creativeView" : rafssai.AdEvent.IMPRESSION
+"firstQuartile" : rafssai.AdEvent.FIRST_QUARTILE
+"midpoint" : rafssai.AdEvent.MIDPOINT
+"thirdQuartile" : rafssai.AdEvent.THIRD_QUARTILE
+"complete" : rafssai.AdEvent.COMPLETE
 }
-impl.getStreamInfo = function() as object
-if m.prplyInfo <> invalid
-return {
-prefix: m.prplyInfo["prefix"],
-sid: m.prplyInfo["sid"],
-playURL: m.prplyInfo["playURL"]
-}
-end if
-return {}
-end function
+impl.runningPods = []
 impl.setStreamInfo = function(streamInfo as object) as void
 if invalid = m["prplyInfo"] then m.prplyInfo = {}
-for each key in ["prefix","sid","pingURL","ads"]
-if invalid <> streamInfo[key]
-m.prplyInfo[key] = streamInfo[key]
-end if
-end for
-m.prplyInfo["strmType"] = m.sdk.StreamType.LIVE
-if invalid <> streamInfo["type"]
-m.prplyInfo["strmType"] = streamInfo["type"]
-end if
+m.prplyInfo["strmType"] = m.sdk.StreamType.LIVE  
+url = streamInfo.url
+devInfo = createObject("roDeviceInfo")
+url = url.replace("ROKU_ADS_TRACKING_ID", devInfo.getRIDA())
+lat = "0"
+if devInfo.isRIDADisabled() then lat = "1"
+url = url.replace("ROKU_ADS_LIMIT_TRACKING", lat)
+m.prplyInfo["mediaURL"] = url
+streamInfo.url = url
 m.loader = m.createLoader(m.prplyInfo.strmType)
-m.loader.composePingURL(m.prplyInfo)
 end function
-impl.enableAdsBase = impl.enableAds
-impl.enableAds = function(params as object) as void
-m.enableAdsBase(params)
-if m.useStitched and m.prplyInfo.strmType = m.sdk.StreamType.LIVE
+impl.enableAds = function(params as object) as Void
+ei = false
 player = params["player"]
-selected = false
-skeys = []
-for each key in player.sgnode.timedMetaDataSelectionKeys
-if key = m.streamManager.TXXX or key = "*"
-selected = true
-exit for
-else
-skeys.push(key)
+if type(player) = "roAssociativeArray"
+if player.doesexist("port") and player.doesexist("sgnode")
+ei = true
 end if
-end for
-if not selected
-skeys.push(m.streamManager.TXXX)
-player.sgnode.timedMetaDataSelectionKeys = skeys
+m.wrpdPlayer = player
 end if
-player.sgnode.observeField("timedMetaData", player.port)
+m.useStitched = (true = params.useStitched)
+if not ei
+return
+end if
+player.sgnode.timedMetaDataSelectionKeys = [m.sdk.HLSDir.EXT_X_AD_START, m.sdk.HLSDir.EXT_X_AD_END]
+player.sgnode.observeField("timedMetaData2", player.port)
+player.sgnode.observeField("streamingSegment", player.port)
+if invalid = m.streamManager
+m.streamManager = m.sdk.createStreamManager()
+m.streamManager.mediaURL = m.prplyInfo["mediaURL"]
+m.streamManager.nukeTimeToEventMap = true
+end if
+if invalid <> params.RIA
+m.RIA = params.RIA
 end if
 end function
 impl.onMetadata = function(msg as object) as void
-if not m.useStitched then return
-ret = m.streamManager.onMetadata(msg)
-if ret["shortDuration"]
-if invalid <> m.pingInfo and invalid <> m.pingInfo["next_time"] and m.streamManager.crrntPosSec < m.pingInfo.next_time
-next_time = m.streamManager.crrntPosSec + m.streamManager.SLICE_SIZE
-if next_time < m.pingInfo.next_time then m.pingInfo.next_time = next_time
+xobj = m.streamManager.onMetadata(msg, m.useStitched, m.wrpdPlayer.sgnode)
+if invalid <> xobj then
+if invalid <> xobj.url and 4 < len(xobj.url) then
+m.loader.setPingUrl(xobj.url)
+m.xobj = xobj
+m.pendingPods = invalid
 end if
-else if invalid <> ret["pendingPod"]
-pendingPod = ret["pendingPod"]
-m.setRAFAdPods([pendingPod])
-podBeginSec = int(pendingPod.renderTime)
-while podBeginSec <= m.streamManager.crrntPosSec
-m.streamManager.handlePosition(podBeginSec, {})
-podBeginSec += 1
-end while
 end if
 end function
-impl.parsePrplyInfo = function() as object
-if invalid <> m.prplyInfo
-if m.prplyInfo.strmType = m.sdk.StreamType.LIVE
-if invalid <> m.pingInfo and invalid <> m.pingInfo["ads"]
-obj = m.upl2raf(m.pingInfo.ads)
-if 0 = obj["adBreaks"].count() then return obj
-pod = obj["adBreaks"][0]
-if m.streamManager.crrntPosSec < pod.renderTime
-return obj
+impl.parsePods = function(adPods as object) as object
+pods = []
+lacmsn = -2
+for each amgPod in adPods
+adBreak = {}
+toAppendPod = (invalid = amgPod.tracking) and (amgPod.renderMediaSequenceNo = (lacmsn + 1))
+if toAppendPod and 0 < pods.count() then
+adBreak = pods.peek()
 else
-m.streamManager.appendPod(pod)
+adBreak = m.parseNewPod(amgPod)
+pods.push(adBreak)
 end if
-else if invalid <> m.prplyInfo["ads"]
-obj = m.upl2raf(m.prplyInfo.ads)
-m.prplyInfo.delete("ads")
-return obj
+ret = m.parseAds(adBreak, amgPod.ads)
+if toAppendPod then
+adBreak.duration += amgPod.duration
 end if
-else if m.prplyInfo.strmType = m.sdk.StreamType.VOD and invalid <> m.prplyInfo["ads"]
-return m.upl2raf(m.prplyInfo.ads)
-end if
-else
-end if
-return {adOpportunities:0, adBreaks:[]}
+lacmsn = ret.lastAdCompleteMediaSequenceNumber
+end for
+return pods
 end function
-impl.upl2raf = function(ads as object) as object
-adOpportunities = 0
-rafBreaks = []
-if ads["breaks"] <> invalid
-for each upBreak in ads.breaks
+impl.parseNewPod = function(amgPod as object) as object
 adBreak = {
 viewed: false,
-renderTime: 0.0,
-renderSequence: "",
+renderTime: -1.0,
+renderSequence: "midroll",
 duration: 0.0,
 tracking: [],
 ads: []
 }
-adBreak.duration = upBreak.duration
-adBreak.renderSequence = upBreak.position
-adBreak.renderTime = upBreak.timeOffset
-if upBreak["events"] <> invalid
-m.parseEvents(adBreak.tracking, upBreak.events, m.uplynkToRAFEventPod)
-end if
-if upBreak["ads"] <> invalid
-m.parseAds(adBreak, upBreak.ads)
-end if
-if 0 < adBreak.ads.count()
-rafBreaks.push(adBreak)
-adOpportunities += adBreak.ads.count()
-end if
+adBreak.id = amgPod.renderMediaSequenceNo.toStr()
+adBreak.duration = amgPod.duration
+adBreak.renderSequence = amgPod.renderSequence
+adBreak.renderMediaSequenceNo = amgPod.renderMediaSequenceNo
+if invalid <> amgPod.tracking
+for each ev in amgPod.tracking
+eventKey = m.amagiToRAFEventPod[ev.event]
+if invalid = eventKey then eventKey = ev.event
+adBreak.tracking.push({
+event: eventKey,
+url: ev.url,
+triggered: false
+})
 end for
 end if
-return {adOpportunities:adOpportunities, adBreaks:rafBreaks}
+return adBreak
 end function
-impl.parseAds = function(adBreak as object, srcads as object) as void
-timeOffset = adBreak.renderTime
-for each ad in srcads
+impl.parseAds = function(adBreak as object, amgAds as object) as object
+lacmsn = -2
+for each ad in amgAds
 rAd = {
-adid: ad.creative,    
+adid: ad.adId.tostr(),
 duration: ad.duration,
 streamFormat: "",
-adServer: m.strmURL,
+adServer: m.loader.pingURL,
 streams: [],
 tracking: []
 }
-if ad["events"] <> invalid
-m.parseEvents(rAd.tracking, ad.events, m.uplynkToRAFEvent)
-m.sdk.setTrackingTime(timeOffset, rAd)
+if invalid <> ad.tracking
+for each ev in ad.tracking
+eventKey = m.amagiToRAFEvent[ev.event]
+if invalid = eventKey then eventKey = ev.event
+rAd.tracking.push({
+event: eventKey,
+url: ev.url,
+triggered: false,
+mediaSequenceNumber : ev.mediaSequenceNumber
+})
+if "complete" = ev.event then
+lacmsn = ev.mediaSequenceNumber
 end if
-apiFramework = ad["apiFramework"]
-if invalid <> apiFramework
-m.parseInteractive(apiFramework, rAd, ad)
-rAd.tracking.sortby("time")
-else if ad["mimeType"] <> invalid and right(ad["mimeType"], 5) = "/m3u8"
-rAd.streamFormat = "hls"
+end for
 end if
 m.setRIAParameters(rAd, ad)
 adBreak.ads.push(rAd)
-timeOffset += rAd.duration
 end for
+return {lastAdCompleteMediaSequenceNumber:lacmsn}
 end function
-impl.parseCompanions = function(apiFramework as string, companions as object) as object
-companionAds = []
-for each ca in companions
-if ca["mimeType"] = "application/json"
-rca = {
-mimetype: ca.mimeType,
-provider: ca["apiFramework"],
-url: ca["creative"],
-width: ca["width"],
-height: ca["height"],
-tracking: []
-}
-if invalid = rca.provider
-rca.provider = apiFramework
+impl.amagi2raf = function(adPods as object, signature as String) as boolean
+ret = False
+pods = m.parsePods(adPods)
+if pods.count() = 0 then return ret
+if invalid = m.pendingPods
+m.pendingPods = pods
+else
+m.pendingPods.append(pods)
 end if
-if invalid <> ca["events"]
-m.parseEvents(rca.tracking, ca.events, m.uplynkToRAFEvent)
+if m.pendingPods[0].renderTime < 0
+pod = m.pendingPods[0]
+seg = m.wrpdPlayer.sgnode.streamingSegment
+if pod.renderMediaSequenceNo <= seg.segSequence+1
+m.streamManager.setPodRenderTime(pod, {startTime:seg.segStartTime, delta:0})
+ret = True
 end if
-companionAds.push(rca)
 end if
-end for
-return companionAds
+return ret
 end function
-impl.parseInteractive = function(apiFramework as string, rAd as object, ad as object) as void
-apiFramework = LCase(apiFramework)
-if apiFramework = "innovid" or apiFramework = "iroll"
-if invalid <> ad["companions"] and 0 < ad.companions.count()
-streams = m.parseCompanions(apiFramework, ad.companions)
-if 0 < streams.count()
-rAd["streamFormat"] = "iroll"
-rAd["streams"] = streams
-if 1 = streams.count()
-rAd["adserver"] = streams[0].url
-end if
-rAd["companionAds"] = []
-end if
-else if invalid <> ad["creative"]
-rAd["streamFormat"] = "iroll"
-rAd["streams"] = [{url: ad.creative}]
-end if
-else if left(apiFramework,10) = "brightline"
-if invalid <> ad["companions"] and 0 < ad.companions.count()
-companionAds = m.parseCompanions(apiFramework, ad.companions)
-if 0 < companionAds.count()
-rAd.streamFormat = apiFramework
-rAd.companionAds = companionAds
-rAd.streams = [{url:""}]
-end if
-end if
-end if
-end function
-impl.parseEvents = function(destObj as object, events as object, eventMap as object) as void
-if type(events) = "roAssociativeArray"
-for each key in events
-eventName = eventMap[key]
-if invalid = eventName
-eventName = key  
-end if
-if "roArray" = type(events[key])
-for each url in events[key]
-rafEvent = {event:eventName, url:url, triggered:false}
-destObj.push(rafEvent)
-end for
-end if
-end for
-else if type(events) = "roArray"
-for each adobj in events
-if adobj["events"] <> invalid
-m.parseEventObj(destObj, adobj.events)
-end if
-end for
-end if
-end function
-impl.onPositionBase = impl.onPosition
-impl.onPosition = function (msg as object) as void
-if m.streamManager.crrntPosSec = -1
-if invalid <> m.loader then m.loader.ping(invalid)
-m.pingInfo = invalid
-end if
-m.onPositionBase(msg)
-end function
-impl.parsePing = function() as void
+impl.parsePing = function() as boolean
+ret = False
 jsn = m.loader.getPingResponse()
 if invalid <> jsn and "" <> jsn
-pingInfo = parsejson(jsn)
-if pingInfo <> invalid
-m.pingInfo = pingInfo
+resObj = parsejson(jsn)
+if resObj <> invalid
+if invalid <> resObj.RetryAfter
+if -1 = resObj.RetryAfter
+m.loader.setPingUrl("")
+else
+m.loader.retryAfter = resObj.RetryAfter
+end if
+end if
+if invalid <> resObj.adPods and 0 < resObj.adPods.count()
+ret = m.amagi2raf(resObj.adPods, resObj.signature)
+end if
+end if
+end if
+return ret
+end function
+impl.rollPod = function(readyPod as object) as void
+if m.useStitched then
+m.runningPods.push(readyPod)
+if 1 = m.runningPods.count()
+m.setRAFAdPods(m.runningPods)
+else
+m.streamManager.createTimeToEventMap([readyPod])
+end if
+else
+m.streamManager.createTimeToEventMap([readyPod])
+end if
+end function
+impl.onUnknown = function(msg as object) as void
+if "streamingSegment" = msg.getField()
+if invalid <> m.pendingPods and 0 < m.pendingPods.count()
+if m.streamManager.onSegment(msg.getData(), m.pendingPods, m.runningPods)
+readyPod = m.pendingPods.shift()
+m.rollPod(readyPod)
+end if
+end if
+if invalid = m.pendingPods or m.pendingPods.count() < 1
+m.pendingPods = invalid
 end if
 end if
 end function
 impl.onMessageLIVE = function(msg as object, curAd as object) as void
 if m.sdk.StreamType.LIVE <> m.prplyInfo.strmType then return
+if invalid = m.pendingPods
 posSec = msg.getData()
 if m.streamManager.pastLastAdBreak(posSec)
 m.streamManager.createTimeToEventMap(invalid)
+if 0 < m.runningPods.count() then
+m.runningPods = []
 end if
-if invalid <> m.pingInfo
-m.pingInfo["ads"] = invalid
 end if
-m.parsePing()
-if invalid <> m.pingInfo and invalid <> m.pingInfo["ads"]
-m.setRAFAdPods()
 end if
-if m.shouldPing(posSec)
-m.loader.ping({position:posSec})
+if m.parsePing() then
+if invalid <> m.pendingPods and 0 < m.pendingPods.count() and 0 < m.pendingPods[0].renderTime then
+readyPod = m.pendingPods.shift()
+m.rollPod(readyPod)
 end if
-end function
-impl.shouldPing = function(posSec as float) as boolean
-if m.loader.hasPinged() then return false
-pingThreshold = 1
-itis = createObject("roDateTime").asSeconds()
-if invalid = m.pingInfo or invalid = m.pingInfo["ads"] and invalid = m.pingInfo["next_time"]
-if invalid <> m.prplyInfo["ads"] and invalid <> m.prplyInfo.ads["breaks"]
-for each brk in m.prplyInfo.ads.breaks
-if invalid <> brk["ts"] and itis < brk.ts and brk.ts - itis < pingThreshold
-return true
 end if
-end for
+if m.loader.shouldPing()
+m.loader.ping()
 end if
-else if invalid <> m.pingInfo["next_time"] and m.pingInfo.next_time < posSec
-return -1 <> m.pingInfo.next_time
-end if
-return false
-end function
-impl.createLoader = function(live_or_vod as string) as object
-obj = m.sdk.createLoader(live_or_vod)
-if live_or_vod = m.sdk.StreamType.VOD
-return obj
-end if
-obj.pingURL = ""
-obj.isPinging = false
-obj.pingPort = createObject("roMessagePort")
-obj.ping_json = invalid
-obj.lastEndTs = 0
-obj.tsDuration = 3600
-obj.dateTime = createObject("roDateTime")
-baseobj = m.sdk["vodloader"]
-obj.getJSON = baseobj.getJSON
-obj.isValidString = baseobj.isValidString
-return obj
 end function
 strmMgr = rafssai["streamManager"]
-strmMgr.lastAssetId = invalid
-strmMgr.TXXX = "TXXX"     
-strmMgr.PTS = "_decodeInfo_pts"
-strmMgr.ADS_COUNT = 16    
-strmMgr.SLICE_SIZE = 4.096
-strmMgr.last_pts = 0
-strmMgr.onMetadata = function(msg as object) as object
-ret = {shortDuration:false, pendingPod:invalid}
-if "timedMetaData" <> msg.getField() then return ret
+strmMgr.onMetadata = function(msg as object, useStitched as boolean, sgnode as object) as object
+xobj = invalid
 obj = msg.getData()
-if invalid = obj[m.TXXX] or "" = obj[m.TXXX] then return ret
-asset_ray_slice = obj[m.TXXX].split("_")
-assetId = asset_ray_slice[0]
-m.last_pts = obj[m.PTS]
-if invalid = m.lastAssetId
+msgfld = msg.getField()
+data = invalid
+if "timedMetaData2" = msgfld then
+position = obj["position"]
+if invalid <> obj.data then
+if invalid <> obj.data[m.sdk.HLSDir.EXT_X_AD_START]
+data = obj.data[m.sdk.HLSDir.EXT_X_AD_START]
+else if invalid <> obj.data[m.sdk.HLSDir.EXT_X_AD_END]
 if invalid <> m.currentAdBreak
+endAt = m.currentAdBreak.renderTime + m.currentAdBreak.duration
+if position + 4 < endAt then
+m.currentAdBreak.duration -= (endAt - position)
+endAt = m.currentAdBreak.renderTime + m.currentAdBreak.duration
+timeKey = int(endAt+1).tostr()
+m.adTimeToEventMap = {}
+m.adTimeToEventMap[timeKey] = [m.sdk.AdEvent.POD_END]
 end if
-m.lastAssetId = assetId
 end if
-if invalid <> m.currentAdBreak
-ret["shortDuration"] = m.compareAssetId(asset_ray_slice, obj)
-else if invalid <> m.pendingPod
-idx = -1
-for i=0 to m.pendingPod.ads.count()-1
-if assetId = m.pendingPod.ads[i]["adid"]
-idx = i
-exit for
 end if
-end for
-if 0 <= idx
-if 0 < idx
-i = 0
-while i < idx
-m.pendingPod.ads.shift()
-m.pendingPod.ads.push( m.emptyAd() )
-i += 1
-end while
 end if
-m.pendingPod.renderTime = obj[m.PTS]
-timeOffset = m.pendingPod.renderTime
-for each ad in m.pendingPod.ads
+end if
+if invalid <> data then
+xobj = m.parseXAdStart(obj.data[m.sdk.HLSDir.EXT_X_AD_START])
+end if
+return xobj
+end function
+strmMgr.adjustPodRenderTime = function(segStartTime as double, runningPods) as double
+startTimeDelta = 0.0
+if invalid = m.currentAdBreak or 0 = runningPods.count() then return startTimeDelta
+curPod = m.currentAdBreak
+podEnd = curPod.renderTime + curPod.duration
+if podEnd < m.crrntPosSec then return startTimeDelta
+adjustedStartTime = podEnd + 0.5
+if adjustedStartTime < segStartTime then return startTimeDelta
+startTimeDelta = adjustedStartTime - segStartTime
+return startTimeDelta
+end function
+strmMgr.lastSegStartTime = -1
+strmMgr.assertSegStartTime = function(data) as Boolean
+if invalid <> data.segStartTime
+if data.segStartTime < m.lastSegStartTime
+print "WARNING: strmMgr.assertSegStartTime() segStartTime goes backward."
+end if
+m.lastSegStartTime = data.segStartTime
+end if
+return true
+end function
+strmMgr.setPodRenderTime = function(pendingPod as object, params as object)
+pendingPod.renderTime = params.startTime
+delta = params.delta
+if 0 < delta then
+pendingPod.duration = pendingPod.duration - delta
+pendingPod.ads[0].duration = pendingPod.ads[0].duration - delta
+end if
+timeOffset = pendingPod.renderTime
+m.sdk.setTrackingTime(timeOffset, pendingPod)
+timeOffset = pendingPod.renderTime
+for each ad in pendingPod.ads
 m.sdk.setTrackingTime(timeOffset, ad)
 timeOffset += ad.duration
 end for
-m.pendingPod.duration = timeOffset - m.pendingPod.renderTime
-ret["pendingPod"] = m.pendingPod
-m.pendingPod = invalid
-end if
-end if
-return ret
 end function
-strmMgr.compareAssetId = function(asset_ray_slice as object, msgobj as object) as boolean
-ret = false
-pts = msgobj[m.PTS]
-if pts - m.currentAdBreak.renderTime < m.SLICE_SIZE then return ret
-assetId = asset_ray_slice[0]
-sliceId = val("0x"+asset_ray_slice[2])
-if m.lastAssetId <> assetId  or  0 = sliceId
-m.lastAssetId = assetId
-adIdx = -1
-for each ad in m.currentAdBreak.ads
-adIdx += 1
-if assetId = ad["adid"]
-if 0 = adIdx and invalid <> pts and m.currentAdBreak.renderTime < pts and 1 < m.currentAdBreak.ads.count()
-timeOffset = 0.2 + pts - m.SLICE_SIZE * sliceId
-if timeOffset < 0 then timeOffset = 0
-m.currentAdBreak.renderTime = timeOffset
-for i=1 to m.currentAdBreak.ads.count()-1
-a = m.currentAdBreak.ads[i]
-m.sdk.setTrackingTime(timeOffset, a)
-timeOffset += a.duration
-end for
+strmMgr.onSegment = function(data as object, pendingPods as object, runningPods as object) as boolean
+if invalid = pendingPods then return false
+if 0 <> data.segType and 2 <> data.segType then return false
+m.assertSegStartTime(data)
+pendingPod = pendingPods[0]
+if pendingPod.renderTime < 0 and data.segSequence+1 = pendingPod.renderMediaSequenceNo
+delta = m.adjustPodRenderTime(data.segStartTime, runningPods)
+startTime = data.segStartTime + delta
+m.setPodRenderTime(pendingPod, {startTime:startTime, delta:delta})
+if false
+nextEventPosition = int(m.crrntPosSec + 1)
+if int(pendingPod.renderTime) < nextEventPosition
+pendingPod.renderTime = nextEventPosition
 end if
-return ret
+m.createTimeToEventMap([pendingPod])
+pendingPod.renderTime = startTime
 end if
+return true
+end if
+return false
+end function
+strmMgr.getSortedKeys = function(objin as object) as object
+tmKeys = objin
+if "roAssociativeArray" = type(objin)
+tmKeys = objin.keys()
+end if
+if 1 = tmKeys.count() then return [tmKeys[0].toInt()]
+tmKeysInt = []
+for each k in tmKeys
+tmKeysInt.push(k.toInt())
 end for
-actualDuration = m.lastPosSec - m.currentAdBreak.renderTime
-if 0 < actualDuration
-m.currentAdBreak.duration = actualDuration
+tmKeysInt.sort()
+return tmKeysInt
+end function
+strmMgr.createTimeToEventMapBase = strmMgr.createTimeToEventMap
+strmMgr.createTimeToEventMap = function(adBreaks as object) as Void
+if invalid = adBreaks or invalid = m.adTimeToEventMap or 0 = m.adTimeToEventMap.count()
+m.createTimeToEventMapBase(adBreaks)
+if invalid <> adBreaks
+end if
 else
-m.currentAdBreak.duration = 1
+timeToEventMap = m.adTimeToEventMap
+timeKeys = timeToEventMap.keys()
+m.createTimeToEventMapBase(adBreaks)
+if 0 < timeKeys.count()
+tmKeysIncoming = m.getSortedKeys(m.adTimeToEventMap)
+earliestAt = tmKeysIncoming[0]
+tmKeysRunning = m.getSortedKeys(timeKeys)
+if 1 < tmKeysRunning.count() then tmKeysRunning.reverse()
+for each k in tmKeysRunning
+kstr = k.tostr()
+mapVal = timeToEventMap[kstr]
+if earliestAt < k  
+k = earliestAt 
+kstr = k.tostr()
 end if
-ret = true
-m.adTimeToBeginEnd = invalid
-m.adTimeToEventMap = m.appendBreakEnd({}, int(m.crrntPosSec+1).tostr())
+if m.adTimeToEventMap.doesExist(kstr)
+mapVal.append(m.adTimeToEventMap[kstr])
+else
+earliestAt = k
 end if
-return ret
-end function
-strmMgr.appendAdToBreak = function(newPod as object, destPod as object) as void
-adsNotAppended = []
-for each rAd in newPod.ads
-timeOffset = destPod.renderTime
-appended = false
-for i=0 to destPod.ads.count()-1
-currentAd = destPod.ads[i]
-if invalid = currentAd["adid"]
-m.sdk.setTrackingTime(timeOffset, rAd)
-destPod.ads[i] = rAd            
-destPod.duration += rAd.duration
-appended = true
-exit for
-else if rAd["adid"] = currentAd["adid"]
-appended = true     
-exit for
-end if
-timeOffset += currentAd.duration
+m.adTimeToEventMap[kstr] = mapVal
 end for
-if not appended then adsNotAppended.push(rAd)
-end for
-newPod.ads = adsNotAppended
-end function
-strmMgr.appendPod = function (newPod as object) as object
-if invalid <> m.currentAdBreak
-m.appendAdToBreak(newPod, m.currentAdBreak)
 end if
-if invalid <> m.pendingPod
-m.appendAdToBreak(newPod, m.pendingPod)
-end if
-if 0 < newPod.ads.count()
-while newPod.ads.count() < m.ADS_COUNT
-newPod.ads.push( m.emptyAd() )
-end while
-m.pendingPod = newPod
 end if
 end function
-strmMgr.emptyAd = function () as object
-return {
-adid: invalid,    
-duration: 0,
-streamFormat: "",
-adServer: ""
-streams: [],
-tracking: []
+strmMgr.rgx_breakdur = createObject("roRegEx", "BREAKDUR=([\d+[\.\d+]*)", "")
+strmMgr.rgx_uri = createObject("roRegEx", "URI=" + chr(34) + "(https?://[^\s]+)", "")
+strmMgr.extract = function(s as string, rgx as object, defaultval as dynamic) as dynamic
+matches = rgx.match(s)
+if invalid <> matches and  1 < matches.count()
+return matches[1]
+end if
+return defaultval
+end function
+strmMgr.parseXAdStart = function(ext_x_ad as string) as object
+xobj = {
+breakdur: m.extract(ext_x_ad, m.rgx_breakdur, "0").toInt(),
+url: ""
 }
+url = m.extract(ext_x_ad, m.rgx_uri, "")
+if url.right(1) = chr(34)
+url = url.left(len(url)-1)
+end if
+xobj.url = url
+return xobj
+end function
+strmMgr.appendEvtMap = function(rAd as Object)
 end function
 liveloader = rafssai["liveloader"]
-liveloader.requestPreplay = function(requestObj as object) as string
-if not m.isValidString(m.strmURL)
-m.strmURL = requestObj.url
-end if
-itis = m.dateTime.asSeconds()
-if 0 < m.strmURL.instr("cping=1")
-url = m.strmURL
-else if 0 < m.strmURL.instr("ts=")
-url = substitute("{0}&ad.cping=1&ad.pingf=5", m.strmURL)
-else
-m.lastEndTs = itis + m.tsDuration
-url = substitute("{0}&ad.cping=1&ad.pingf=5&ts={1}&endts={2}", m.strmURL, itis.tostr(), (m.lastEndTs).tostr())
-end if
-s = m.getJSON({url:url})
-return s
+liveloader.pingURL = ""
+liveloader.isPinging = false
+liveloader.pingPort = createObject("roMessagePort")
+liveloader.last_ping = 0
+liveloader.retryAfter = 30
+liveloader.setPingUrl = function(url as string) as void
+m.last_ping = 0
+m.isPinging = false
+m.pingURL = url
 end function
-liveloader.ping = function(params as dynamic) as void
+liveloader.ping = function() as void
 if "" = m.pingURL then return
 url = m.pingURL
-if invalid = params or invalid = params["position"]
-url = substitute("{0}&ev=start&pt=0", url)
-else if invalid <> params["position"]
-url = substitute("{0}&pt={1}", url, params["position"].tostr())
-end if
 m.pingXfer = m.sdk.createUrlXfer(m.sdk.httpsRegex.isMatch(url))
 m.pingXfer.setMessagePort(m.pingPort)
 m.pingXfer.setUrl(url)
 m.pingXfer.addHeader("Accept", "application/json")
 m.pingXfer.asyncGetToString()
 m.isPinging = true
+m.last_ping = createObject("roDateTime").asSeconds()
 end function
-liveloader.hasPinged = function() as boolean
-return m.isPinging
+liveloader.shouldPing = function() as boolean
+if "" = m.pingUrl then return false
+if m.isPinging then return false
+return (m.last_ping + m.retryAfter) < createObject("roDateTime").asSeconds()
 end function
 liveloader.getPingResponse = function() as string
 res = ""
@@ -1224,25 +1165,12 @@ m.isPinging = false
 end if
 return res
 end function
-liveloader.PINGV2 = "{0}/session/ping/{1}.json?v=2"
-liveloader.PINGV3 = "{0}/api/v3/ping/ad/{1}.json?v=3"
-liveloader.composePingURL = function(prplyInfo as object) as void
-if invalid <> prplyInfo["pingURL"]
-m.pingURL = prplyInfo.pingURL
-else if invalid <> prplyInfo.sid and invalid <> prplyInfo.prefix
-pingfmt = m.PINGV2
-if invalid <> m.strmURL and 0 < m.strmURL.inStr("/api/v3")
-pingfmt = m.PINGV3
-end if
-m.pingURL = substitute(pingfmt, prplyInfo.prefix, prplyInfo.sid)
-end if
-end function
 return rafssai
 end function
 function RAFX_SSAI(params as object) as object
     if invalid <> params and invalid <> params["name"]
-        p = RAFX_getUplynkPlugin(params)
-        p["__version__"] = "0b.44.31"
+        p = RAFX_getAmagiHLSAdapter(params)
+        p["__version__"] = "0b.44.5"
         p["__name__"] = params["name"]
         return p
     end if

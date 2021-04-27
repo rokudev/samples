@@ -1,0 +1,14 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<component name = "playerTask" extends = "Task">
+<interface>
+  <field id="testConfig"   type="assocarray" />
+  <field id="video"        type="Node" />
+  <field id="errors"       type="stringarray" />
+  <field id="adPlaying"    type="boolean" />
+</interface>
+
+<script type = "text/brightscript" uri="../lib/rafxssai.brs" />
+<script type = "text/brightscript" uri="./AmagiTask.brs" />
+
+</component>

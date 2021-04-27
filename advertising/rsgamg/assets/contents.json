@@ -1,0 +1,15 @@
+{
+    "contents": [
+		{
+			"title": "Dec.2020 track X-MARKER",
+            "id": "RedboxDec2020",
+			"description": "Using EXT-X-MARKER directive in HTTP Live Streaming to extract AdMetadata URL. Adapter will periodically makes request to AdMetadata URL and read AdMetadata. Given segSequenceNum will be compared to those in the stream. When matched, adapter will call event callback functions and App is responsible to make RAF.fireTrackingEvents().",
+			"url": "https://redbox-raftest.amagi.tv/hls/amagi_hls_data_redboxAAA-raf-test/CDN/playlist.m3u8?DID=5944cf48-55c5-53e7-84f0-f5ff0f4837fb&DNT=false&ai=5944cf48-55c5-53e7-84f0-f5ff0f4837fb&coppa=0&device=4200X&deviceid=5944cf48-55c5-53e7-84f0-f5ff0f4837fb&genre=Comedy&idtype=rida&inv_type=sp&is_lat=false&is_raf=1&is_roku=1&is_roku_lat=false&p=redbox&rdid=e7fba54e-1474-50c2-9f99-135ce4d08dab&roku_cust_param=redbox_amagi&rtid=ZIo7aEoJFqAGnTnIoKX2BceOqp7SFwCL2Fr-5SzqV0w&source=redboxroku&ssai_req=1&subp=RedboxRoku&sz=1280x720"
+		},
+        {
+            "title" : "Your TestAsset",
+            "description"  : "Add your test asset title and URL",
+            "url"   : "http://  master URL of your test asset"
+        }
+    ]
+}

@@ -96,6 +96,9 @@ m.useStitched = (invalid = params["useStitched"]  or  params["useStitched"])
 if m.useStitched
 adIface = m.sdk.getRokuAds()
 adIface.stitchedAdsInit([])
+if invalid <> params.RIA
+m.RIA = params.RIA
+end if
 end if
 if not ei
 m.sdk.log("Warning: Invalid object for interactive ads.")
@@ -235,6 +238,19 @@ adIface = m.sdk.getRokuAds()
 adIface.stitchedAdsInit([])
 end if
 return curAd
+end function
+impl.isnonemptystr = function(obj) as boolean
+return ((obj <> invalid) and (GetInterface(obj, "ifString") <> invalid) and (len(obj) > 0))
+end function
+impl.setRIAParameters = function(rAd as object, srcAd as object) as void
+if m.useStitched
+if m.isnonemptystr(srcAd.adParameters) then
+rAd.adParameters = srcAd.adParameters
+return
+else if invalid <> m.RIA and invalid <> m.RIA.getAdParameters
+rAd.adParameters = m.RIA.getAdParameters()
+end if
+end if
 end function
 daisdk["impl"] = impl
 daisdk.createLoader = function(live_or_vod as string) as object
@@ -873,6 +889,7 @@ m.parseEvents(rAd.tracking, mediaFiles.trackingEvents)
 end if
 m.parseInteractive(mediaFiles, rAd)
 end if
+m.setRIAParameters(rAd, ad)
 if 0 < rAd.duration
 adBreak.ads.push(rAd)
 timeOffset += rAd.duration
@@ -1402,7 +1419,7 @@ end function
 function RAFX_SSAI(params as object) as object
     if invalid <> params and invalid <> params["name"]
         p = RAFX_getEMTAdapter(params)
-        p["__version__"] = "0b.43.15"
+        p["__version__"] = "0b.44.16"
         p["__name__"] = params["name"]
         return p
     end if
