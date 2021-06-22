@@ -32,14 +32,12 @@ end function
 function loadAdapter() as object
     '  not calling callStitchedAdHandledEvent(). App is responsible to call RAF.fireTrackingEvents()
     if invalid <> m.top.testConfig["useStitched"] and false = m.top.testConfig.useStitched then m.useStitched = false
-    m.useStitched = true
-    m.useStitched = false
     '
     '  1. Load and instanciate Adopter
     '
     adapter = RAFX_SSAI({name:"awsemt"}) ' Required
     if adapter <> invalid
-        adapter.init({logLevel:89}) ' Required
+        adapter.init() ' Required
         print "RAFX_SSAI version ";adapter["__version__"]
     end if
     return adapter
@@ -48,7 +46,7 @@ end function
 function loadStream(adapter as object) as void
     if invalid = adapter then return
     streamInfo = invalid
-    if false
+    if true
         '
         '   2.1  Compose request info and fetch Manifest and Tracking URLs
         '
@@ -69,9 +67,9 @@ function loadStream(adapter as object) as void
     else
         '   2.2  Optional, for Apps manifest_url and tracking_url known already:
         streamInfo = {
-            type:  "live",
-            tracking_url: "https://prod-ukor.fubo.tv/v1/tracking/6c9193257c0eed8ca3f1eabccc4444f9477500f1/production/65bb4bda-97b1-4c48-a290-70a9aa186c1a",
-            manifest_url: "https://prod-ukor.fubo.tv/v1/dash/6c9193257c0eed8ca3f1eabccc4444f9477500f1/production/master.mpd?ads._fw_h_user_agent=Roku%2FDVP-9.40+%28049.40E04190A%29&ads._fw_ip=24.6.241.163&ads._fw_is_lat=0&ads._fw_station=816750002&ads._fw_vcid2=fuboTV%3A5f4e939054bd660001386859&ads.device=roku&ads.fw_device_id=_fw_did%3Db8c209a2-943b-5597-85ac-0600debab1ef&ads.fw_nw_id=393638&ads.fw_playback_type=live&ads.fw_site=fubo_roku_live&ads.fw_site_section=fubo_connected_tv_roku_live&alternate-feed=0&aws.sessionId=65bb4bda-97b1-4c48-a290-70a9aa186c1a&callsign=FXMHD_TEST&device=ALL&hdnts=ip%3D24.6.241.163~st%3D1605984095~exp%3D1606070495~acl%3D%2F%2A~data%3D1606070495~hmac%3Dfef8ada11b031bf04a7aefd3859f100df9affe05ecf6d045f0acb93c913c1c30&watchToken=eyJhbGciOiJIUzI1NiIsInRva2VuVHlwZSI6IlVzYUJhc2VXYXRjaFRva2VuIiwidHlwIjoiSldUIn0.eyJ3YXRjaFRva2VuIjp7ImNhbGxTaWduIjoiRlhNSERfVEVTVCIsImRldmljZSI6IkFMTCIsImJhbmR3aWR0aCI6Ik1BU1RFUiIsImNvdW50cnkiOiJVU0EiLCJ1c2VySWQiOiI1ZjRlOTM5MDU0YmQ2NjAwMDEzODY4NTkiLCJyZXF1ZXN0VHlwZSI6ImxpdmUiLCJyZWdpb24iOiJ3ZXN0In0sImhvbWVaaXAiOiIxMDAxOSIsImdlb1ppcCI6Ijk1MDUxIn0.xhVjpZAj1lY3veeX94C6Nxn4RI5LEqUP5FPAy9JdWtk"
+            type:  m.top.testConfig.type,      ' Required
+            tracking_url: m.top.tracking_url,  ' Required. App must provide valid URL
+            manifest_url: m.top.manifest_url   ' Required. App must provide valid URL
         }
         adapter.setStreamInfo(streamInfo)
     end if

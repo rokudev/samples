@@ -99,6 +99,9 @@ adIface.stitchedAdsInit([])
 if invalid <> params.RIA
 m.RIA = params.RIA
 end if
+if invalid <> params.IROLL
+m.IROLL = params.IROLL
+end if
 end if
 if not ei
 m.sdk.log("Warning: Invalid object for interactive ads.")
@@ -250,6 +253,11 @@ return
 else if invalid <> m.RIA and invalid <> m.RIA.getAdParameters
 rAd.adParameters = m.RIA.getAdParameters()
 end if
+end if
+end function
+impl.setIRollParameters = function(rAd as object) as void
+if m.useStitche and invalid <> m.IROLL and invalid <> m.IROLL.getIRollAd
+rAd.append(m.IROLL.getIRollAd())
 end if
 end function
 daisdk["impl"] = impl
@@ -521,9 +529,13 @@ for each evnt in adBreak.tracking
 evnt.triggered = triggered
 end for
 end function
+strmMgr.adBreakEnded = function(params as object) as boolean
+return ((invalid <> params.endAt and params.endAt < m.crrntPosSec) or (invalid <> m.adBreakEndedId and invalid <> params.id and m.adBreakEndedId = params.id))
+end function
 strmMgr.cleanupAdBreakInfo = function(triggered=false as boolean) as void
 if m.currentAdBreak <> invalid
 m.updateAdBreakEvents(m.currentAdBreak, triggered)
+m.adBreakEndedId = m.currentAdBreak.id
 end if
 m.whenAdBreakStart = -1
 m.currentAdBreak = invalid
@@ -631,7 +643,7 @@ xfer.addHeader("Accept-Language", m.locale.Accept_Language)
 xfer.addHeader("Content-Language", m.locale.Content_Language)
 return xfer
 end function
-daisdk.setTrackingTime = function(timeOffset as float, rAd as object) as void
+daisdk.setTrackingTime = function(timeOffset as float, rAd as object, capComplete=-1.0 as float) as void
 duration = rAd.duration
 for each evt in rAd.tracking
 if evt.event = m.AdEvent.IMPRESSION
@@ -644,6 +656,7 @@ else if evt.event = m.AdEvent.THIRD_QUARTILE
 evt.time = duration * 0.75 + timeOffset
 else if evt.event = m.AdEvent.COMPLETE
 evt.time = duration + timeOffset
+if 0.0 < capComplete and capComplete < evt.time then evt.time = capComplete
 end if
 end for
 end function
@@ -748,6 +761,8 @@ impl.emtToRAFEvent = {
 "midpoint" : rafssai.AdEvent.MIDPOINT
 "thirdQuartile" : rafssai.AdEvent.THIRD_QUARTILE
 "complete" : rafssai.AdEvent.COMPLETE
+"breakStart" : rafssai.AdEvent.POD_START
+"breakEnd" : rafssai.AdEvent.POD_END
 }
 impl.readUrlFromAA = function(aa as object, aakeys as object) as string
 urlstr = ""
@@ -809,7 +824,10 @@ else
 midroll.push(ab)
 end if
 end for
-m.streamManager.appendPods(midroll)
+ret = m.streamManager.appendPods(midroll, m.MIN_AD_DUR, m.prplyInfo.strmType)
+if ret.appendedToRunningPod
+preroll = [m.streamManager.currentAdBreak]
+end if
 m.streamManager.nukeTimeToEventMap = true
 end if
 end if
@@ -831,16 +849,7 @@ duration: 0.0,
 tracking: [],
 ads: []
 }
-adBreak.segSeq = emtBreak.availId.toInt()
-adBreak.id = emtBreak.availId
-adBreak.duration = emtBreak.durationInSeconds
-renderTime = emtBreak.startTimeInSeconds - periodStartSec
-if abs(renderTime) < 0.1
-adBreak.renderSequence = "preroll"
-else
-adBreak.renderSequence = "midroll"
-end if
-adBreak.renderTime = renderTime
+m.parseEmtAdBreak(adBreak, emtBreak, periodStartSec)
 if invalid <> emtBreak["ads"]
 m.parseAds(adBreak, emtBreak.ads)
 end if
@@ -864,6 +873,35 @@ end if
 end for
 return {adOpportunities:adOpportunities, adBreaks:rafBreaks}
 end function
+impl.parseEmtAdBreak = function(adBreak as object, emtBreak as object, periodStartSec as float) as void
+adBreak.segSeq = emtBreak.availId.toInt()
+adBreak.id = emtBreak.availId
+adBreak.duration = emtBreak.durationInSeconds
+renderTime = emtBreak.startTimeInSeconds - periodStartSec
+if abs(renderTime) < 0.1
+adBreak.renderSequence = "preroll"
+else
+adBreak.renderSequence = "midroll"
+end if
+adBreak.renderTime = renderTime
+if invalid <> emtBreak.adBreakTrackingEvents
+adBreak.tracking = []
+for each evt in emtBreak.adBreakTrackingEvents
+eventName = m.emtToRAFEvent[evt.eventType]
+if invalid <> eventName
+for each url in evt.beaconUrls
+if invalid <> url and 0 < url.len()
+rafEvent = {
+event:eventName,
+url:url,
+triggered:false}
+adBreak.tracking.push(rafEvent)
+end if
+end for
+end if
+end for
+end if
+end function
 impl.parseAds = function(adBreak as object, srcads as object) as void
 timeOffset = adBreak.renderTime
 lastAd = invalid
@@ -874,20 +912,18 @@ duration: 0,
 streamFormat: "hls",
 adServer: m.strmURL,
 streams: [],
-tracking: []
+tracking: [],
+nativeAd: ad      
 }
 if invalid <> ad["trackingEvents"]
 rAd.duration = ad.durationInSeconds
-m.parseEvents(rAd.tracking, ad.trackingEvents)
-else if invalid <> ad["mediaFiles"]
-mediaFiles = ad["mediaFiles"]
-if invalid <> mediaFiles["durationInSeconds"]
-rAd.duration = mediaFiles.durationInSeconds
+if (timeOffset + rAd.duration + m.MIN_AD_DUR) < m.streamManager.crrntPosSec then
+else
+m.parseEvents(ad.adId, rAd.tracking, ad.trackingEvents)
 end if
-if invalid <> mediaFiles["trackingEvents"]
-m.parseEvents(rAd.tracking, mediaFiles.trackingEvents)
 end if
-m.parseInteractive(mediaFiles, rAd)
+if invalid <> ad.adSystem and "Innovid Ads" = ad.adSystem
+m.parseInteractive(rAd, ad)
 end if
 m.setRIAParameters(rAd, ad)
 if 0 < rAd.duration
@@ -913,12 +949,13 @@ end if
 end if
 end if
 end function
-impl.parseEvents = function(destObj as object, events as object) as string
+impl.parseEvents = function(adId as string, destObj as object, events as object) as string
 periodStartSec = m.get1stPeriodStart()
 clickthrough = ""
 for each evt in events
 eventName = m.emtToRAFEvent[evt.eventType]
 for each url in evt.beaconUrls
+if url <> invalid and 0 < url.len()
 if eventName <> invalid
 rafEvent = {
 event:eventName,
@@ -936,7 +973,7 @@ event:evt.eventType
 url:url,
 eventId:evt.eventId,
 triggered:false}
-destObj.push(rafEvent)
+end if
 end if
 end if
 end for
@@ -947,14 +984,14 @@ impl.parseMediaFile = function(mf as object) as object
 rca = invalid
 if "application/json" = mf["mediaType"]
 rca = {
-mimeType: mf["mediaType"],
+mimeType: mf.mediaType,
 url: ca["mediaFileUri"],
 width: ca["width"],
 height: ca["height"],
 tracking: []
 }
 if invalid <> mf["trackingEvents"]
-clickthrough = m.parseEvents(rca.tracking, mf.trackingEvents)
+clickthrough = m.parseEvents(m.mediaType, rca.tracking, mf.trackingEvents)
 if 0 < clickthrough.len()
 rca.clickThrough = clickthrough
 end if
@@ -962,33 +999,37 @@ end if
 end if
 return rca
 end function
-impl.parseInteractive = function(mediaFiles as object, rAd as object) as void
+impl.parseInteractive = function(rAd as object, ad as object) as void
 apiFramework = invalid
-companionAds = []
-for each mf in mediaFiles.mediaFilesList
-if invalid <> mf["apiFramework"]
-apiFramework = mf["apiFramework"]
+innovidFound = false
+if "Innovid Ads" = ad.adSystem and invalid <> ad.companionAds
+innoAdUpdate = { width: 16, height: 9
+streams:[{mimetype:"application/json",
+url: ""}],
+streamformat: "iroll"
+tracking: []
+}
+if 0 < ad.companionAds.count() then
+for each ca in ad.companionAds
+if false and invalid <> ca.attributes
+attr = ca.attributes
+if invalid <> attr.apiFramework then innoAd.provider = attr.apiFramework
+if invalid <> attr.height then innoAd.height = attr.height.toInt()
+if invalid <> attr.width then innoAd.width = attr.width.toInt()
 end if
-rca = m.parseMediaFile(mf)
-if invalid <> rca
-companionAds.push(rca)
+if invalid <> ca.trackingEvents
+innoAdUpdate.tracking = ca.trackingEvents
+end if
+if invalid <> ca.staticResource
+innoAdUpdate.streams[0].url = ca.staticResource
+innovidFound = true
+exit for
 end if
 end for
-if invalid <> apiFramework and 0 < companionAds.count()
-for each rca in companionAds
-rca["provider"] = apiFramework
-end for
-if "iroll" = apiFramework or "innovid" = apiFramework
-rAd["streamFormat"] = "iroll"
-rAd["streams"] = companionAds
-if 1 = rAd.streams.count()
-rAd["adserver"] = rAd.streams[0].url
 end if
-rAd["companionAds"] = []
-else if "brightline" = left(apiFramework,10)
-rAd["streamFormat"] = apiFramework
-rAd["companionAds"]= companionAds
-rAd["streams"] = [{url:""}]
+if innovidFound then
+rAd.companionAds = []
+rAd.append(innoAdUpdate)
 end if
 end if
 end function
@@ -1015,7 +1056,7 @@ pendingPod = invalid
 if m.lastSeq <> ss.segSequence
 m.lastSeq = ss.segSequence
 ret = m.streamManager.compareSegmentHLS({sequence:ss.segSequence+1,
-startTime:ss.segStartTime,
+startTime:ss.segStartTime, minAdDur:m.MIN_AD_DUR,
 strmType:m.prplyInfo.strmType})
 pendingPod = ret["pendingPod"]
 end if
@@ -1148,11 +1189,30 @@ end for
 end if
 end for
 end function
+impl.MIN_AD_DUR = 4
+impl.isCompleteEmtAdBreak = function(pingInfo as object) as boolean
+yesComplete = false
+if 0 < pingInfo.avails.count() then
+emtBreak = pingInfo.avails[pingInfo.avails.count()-1]
+sumAdsDuration = 0
+for each ad in emtBreak.ads
+sumAdsDuration += ad.durationInSeconds
+end for
+yesComplete = (emtBreak.durationInSeconds < (sumAdsDuration + m.MIN_AD_DUR))
+end if
+return yesComplete
+end function
 impl.parsePingHLS = function(pingInfo as object) as void
 a = pingInfo.avails.peek()
-if m.streamManager.crrntPosSec <= a.startTimeInSeconds
+crrntPosSec = m.streamManager.crrntPosSec
+if crrntPosSec <= a.startTimeInSeconds
 m.pingInfo = pingInfo
+if m.isCompleteEmtAdBreak(pingInfo)
 m.last_ping = a.durationInSeconds + a.startTimeInSeconds
+end if
+else
+m.pingInfo = pingInfo
+m.last_ping = m.last_ping - (m.PING_INTERVAL * 0.9)
 end if
 end function
 impl.parsePingDASH = function(pingInfo as object) as void
@@ -1181,6 +1241,14 @@ jsn = m.loader.getPingResponse()
 if invalid <> jsn and "" <> jsn
 pingInfo = parsejson(jsn)
 if pingInfo <> invalid and invalid <> pingInfo.avails and 0 < pingInfo.avails.count()
+if 1 = pingInfo.avails.count()
+a = pingInfo.avails[0]
+if m.streamManager.adBreakEnded({id:a.availId,
+endAt: a.startTimeInSeconds + a.durationInSeconds })
+m.pingInfo = invalid
+return
+end if
+end if
 if m.isDASH()
 m.parsePingDASH(pingInfo)
 else
@@ -1282,72 +1350,93 @@ end function
 strmMgr = rafssai["streamManager"]
 strmMgr.POD_TO_RAF=1.4
 strmMgr.pendingPods = []
-strmMgr.replacePendingPod = function(xPod as object, nPod as object) as boolean
-appendPod = false
-if (m.crrntPosSec + m.POD_TO_RAF) < xPod.renderTime
-if xPod.ads.count() < nPod.ads.count() or xPod.duration < nPod.duration
-for each itm in nPod.items()
-xPod[itm.key] = itm.value
-end for
-end if
-else
-appendPod = true
-end if
-return appendPod
-end function
-strmMgr.mergeRunningPod = function(nPod as object) as void
+strmMgr.mergeRunningPod = function(nPod as object, min_ad_dur as integer) as boolean
+adAppended = 0
+hasInteractive = true
 cab = m.currentAdBreak
 if cab.duration < nPod.duration
 cab.duration = nPod.duration
-adAppended = false
+end if
 timeOffset = nPod.renderTime
-for i=0 to nPod.ads.count()-1
+cab_ads_count = cab.ads.count()
+cab_end_at = cab.renderTime + cab.duration
+for i=0 to cab_ads_count-1
+cad = cab.ads[i]
 nad = nPod.ads[i]
-if cab.ads.count() <= i OR (cab.ads[i].duration < nad.duration)
-if m.crrntPosSec < timeOffset
-m.sdk.setTrackingTime(timeOffset, nad)
-cab.ads.setEntry(i, nad)
-adAppended = true
+if cad.adid <> nad.adid
+STOP
+end if
+if 0 = nad.tracking.count() then
+cad.tracking = []
 else
+m.sdk.setTrackingTime(timeOffset, nad, cab_end_at)
+u2t = {}
+for each ce in cad.tracking
+u2t[ce.url] = ce.triggered
+end for
+while 0 < nad.tracking.count()
+ne = nad.tracking.pop()
+if not u2t.doesExist(ne.url)
+cad.tracking.push(ne)
+adAppended += 1
 end if
+end while
 end if
+hasInteractive = (hasInteractive or "iroll"=cad.streamFormat)
 timeOffset += nad.duration
 end for
-if adAppended
+for i=cab_ads_count to nPod.ads.count()-1
+nad = nPod.ads[i]
+m.sdk.setTrackingTime(timeOffset, nad, cab_end_at)
+cab.ads.push(nad)
+adAppended += 1
+timeOffset += nad.duration
+end for
+if 0 < adAppended then
 m.createTimeToEventMap([cab])
 end if
-end if
+return hasInteractive
 end function
 strmMgr.addEventToEvtMapBase = strmMgr.addEventToEvtMap
 strmMgr.addEventToEvtMap = function(timeToEvtMap as object, timeKey as string, evtStr as dynamic) as void
-if m.crrntPosSec < val(timeKey)
+if m.crrntPosSec <= val(timeKey)
 m.addEventToEvtMapBase(timeToEvtMap, timeKey, evtStr)
 end if
 end function
-strmMgr.appendPods = function (newPods as object) as object
+strmMgr.appendPods = function (newPods as object, min_ad_dur as integer, strmType as string) as object
+ret = {appendedToPendingPod:false, appendedToRunningPod:false}
 for each nab in newPods
 appendPod = true
-for each ab in m.pendingPods
+if invalid <> m.currentAdBreak and nab.id = m.currentAdBreak.id then
+adCount = m.currentAdBreak.ads.count()
+hasInteractive = m.mergeRunningPod(nab, min_ad_dur)
+ret.appendedToRunningPod = (adCount < m.currentAdBreak.ads.count() and (not hasInteractive))
+appendPod = false
+else if 0 < m.pendingPods.count()
+for i=0 to m.pendingPods.count()-1
+ab = m.pendingPods[i]
 if ab.id = nab.id
-appendPod = m.replacePendingPod(ab, nab)
+m.pendingPods[i] = nab
+appendPod = false
 exit for
 end if
 end for
-if appendPod and nab.renderTime <= (m.crrntPosSec + m.POD_TO_RAF) and invalid <> m.currentAdBreak and nab.id = m.currentAdBreak.id then
-m.mergeRunningPod(nab)
-appendPod = false
+else if m.sdk.StreamType.LIVE = strmType and 1 = newPods.count()
+m.pendingPods = [nab]
 end if
 if appendPod then
 timeOffset = nab.renderTime
 for each ad in nab.ads
-if (timeOffset + ad.duration) < m.crrntPosSec
+if (timeOffset + ad.duration + min_ad_dur) < m.crrntPosSec
 ad.tradking = []
 end if
 timeOffset += ad.duration
 end for
 m.pendingPods.push(nab)
+ret.appendedToPendingPod = true
 end if
 end for
+return ret
 end function
 strmMgr.onPositionDASH = function(params as object) as object
 ret = {}
@@ -1392,13 +1481,20 @@ ab.duration = timeOffset - ab.renderTime
 end function
 strmMgr.compareSegmentHLS = function(params as object) as object
 ret = {}
-if 0 < m.pendingPods.count() and m.pendingPods[0].segSeq <= params.sequence
+if invalid = m.currentAdBreak then
+ab = m.pendingPods.peek()
+if invalid <> ab and m.adBreakEnded({id:ab.id, endAt:ab.renderTime+ab.duration}) then
+ab = m.pendingPods.shift()
+ab = invalid
+end if
+if invalid <> ab and (ab.segSeq <= params.sequence or (ab.renderTime < params.startTime+params.minAdDur))
 ab = m.pendingPods.shift()
 if ab.segSeq = params.sequence or params.startTime < ab.renderTime
 m.updateRenderTime(ab, params)
 else
 end if
 ret["pendingPod"] = ab
+end if
 end if
 if invalid = ret["pendingPod"] and invalid <> m.currentAdBreak and m.sdk.StreamType.LIVE = params.strmType
 lastAd = m.currentAdBreak.ads[m.currentAdBreak.ads.count()-1]
@@ -1419,7 +1515,7 @@ end function
 function RAFX_SSAI(params as object) as object
     if invalid <> params and invalid <> params["name"]
         p = RAFX_getEMTAdapter(params)
-        p["__version__"] = "0b.44.16"
+        p["__version__"] = "0b.45.19"
         p["__name__"] = params["name"]
         return p
     end if
