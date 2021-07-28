@@ -2,7 +2,7 @@
 
 This sample demonstrates how to generate thumbnails and the thumbnails playlist for HLS.
 
-> Do not use this sample as a test stream. Use the following hosted stream to test the HLS trickplay thumbnails: https://image.roku.com/ZHZscHItc2Ft/roku/trickplay/master.m3u8"
+> Do not use this sample as a test stream. Use the following hosted stream to test the HLS trickplay thumbnails: https://image.roku.com/ZHZscHItc2Ft/roku/trickplay/master.m3u8
 
 ## Standard-thumbnail file creation
 
