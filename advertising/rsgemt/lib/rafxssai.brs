@@ -140,10 +140,7 @@ m.streamManager.onPosition(msg)
 end function
 impl.onMessage = function(msg as object) as object
 msgType = m.sdk.getMsgType(msg, m.wrpdPlayer)
-if msgType = m.sdk.msgType.FINISHED     
-m.sdk.log("All video is completed - full result")
-m.sdk.eventCallbacks.doCall(m.sdk.AdEvent.STREAM_END, {})
-else if msgType = m.sdk.msgType.METADATA
+if msgType = m.sdk.msgType.METADATA
 m.onMetadata(msg)
 else if msgType = m.sdk.msgType.POSITION
 m.onPosition(msg)
@@ -155,7 +152,9 @@ if invalid <> m.prplyInfo and msgType = m.sdk.msgType.POSITION
 m.streamManager.onMessageVOD(msg, curAd)
 m.onMessageLIVE(msg, curAd)
 else if msgType = m.sdk.msgType.FINISHED     
-m.streamManager.deinit()
+m.sdk.log("All video is completed - full result. Last pos: "+m.streamManager.crrntPosSec.tostr())
+m.streamManager.deinit({curAd:curAd, strmEnd:m.sgnode.duration, strmType:m.prplyInfo.strmType})
+m.sdk.eventCallbacks.doCall(m.sdk.AdEvent.STREAM_END, {})
 end if
 return curAd
 end function
@@ -362,12 +361,16 @@ strmMgr.addEventToEvtMapString = function(timeToEvtMap as object, timeKey as str
 if timeToEvtMap[timeKey] = invalid
 timeToEvtMap[timeKey] = [evtStr]
 else
+mapList = timeToEvtMap[timeKey]
 eExist = false
-for each e in timeToEvtMap[timeKey]
+for each e in mapList
 eExist =   eExist or (e = evtStr)
 end for
 if not eExist
-timeToEvtMap[timeKey].push(evtStr)
+mapList.push(evtStr)
+if m.sdk.AdEvent.COMPLETE = evtStr and 1 < mapList.count() and m.sdk.AdEvent.POD_END = mapList[0]
+mapList.sort()
+end if
 end if
 end if
 end function
@@ -401,18 +404,21 @@ timeToBeginEnd = []
 for each adBreak in adBreaks
 brkBegin = int(adBreak.renderTime)
 brkTimeKey = brkBegin.tostr()
-timeToEvtMap[brkTimeKey] = [m.sdk.AdEvent.POD_START]
+podstartevts = [m.sdk.AdEvent.POD_START]
+if 0 < adBreak.ads.count() then podstartevts.push(m.sdk.AdEvent.IMPRESSION)
+timeToEvtMap[brkTimeKey] = podstartevts
 timeToBreakMap[brkTimeKey] = adBreak
 adRenderTime = adBreak.renderTime
+brkEnd = int(adBreak.renderTime+adBreak.duration)
 for each rAd in adBreak.ads
 hasCompleteEvent = m.trackingToMap(rAd.tracking, timeToEvtMap)
 adRenderTime = adRenderTime + rAd.duration
 if not hasCompleteEvent and 0 < rAd.tracking.count() and 0 < rAd.duration
+if brkEnd < adRenderTime then adRenderTime = brkEnd
 timeKey = int(adRenderTime - 0.5).tostr()
 m.addEventToEvtMap(timeToEvtMap, timeKey, m.sdk.AdEvent.COMPLETE)
 end if
 end for
-brkEnd = int(adBreak.renderTime+adBreak.duration)
 timeKey = brkEnd.tostr()
 m.appendBreakEnd(timeToEvtMap, timeKey)
 timeToBeginEnd.push({"begin":brkBegin, "end":brkEnd, "renderSequence":adBreak.renderSequence})
@@ -541,7 +547,7 @@ m.whenAdBreakStart = -1
 m.currentAdBreak = invalid
 m.lastEvents = {}
 end function
-strmMgr.deinit = function() as void
+strmMgr.deinit = function(params as object) as void
 m.adTimeToEventMap = invalid
 m.adTimeToBreakMap = invalid
 m.adTimeToBeginEnd = invalid
@@ -643,10 +649,10 @@ xfer.addHeader("Accept-Language", m.locale.Accept_Language)
 xfer.addHeader("Content-Language", m.locale.Content_Language)
 return xfer
 end function
-daisdk.setTrackingTime = function(timeOffset as float, rAd as object, capComplete=-1.0 as float) as void
+daisdk.setTrackingTime = function(timeOffset as float, rAd as object, capComplete=-1 as integer) as void
 duration = rAd.duration
 for each evt in rAd.tracking
-if evt.event = m.AdEvent.IMPRESSION
+if evt.event = m.AdEvent.IMPRESSION or evt.event = m.AdEvent.POD_START
 evt.time = 0.0 + timeOffset
 else if evt.event = m.AdEvent.FIRST_QUARTILE
 evt.time = duration * 0.25 + timeOffset
@@ -654,7 +660,7 @@ else if evt.event = m.AdEvent.MIDPOINT
 evt.time = duration * 0.5 + timeOffset
 else if evt.event = m.AdEvent.THIRD_QUARTILE
 evt.time = duration * 0.75 + timeOffset
-else if evt.event = m.AdEvent.COMPLETE
+else if evt.event = m.AdEvent.COMPLETE or evt.event = m.AdEvent.POD_END
 evt.time = duration + timeOffset
 if 0.0 < capComplete and capComplete < evt.time then evt.time = capComplete
 end if
@@ -799,12 +805,16 @@ end function
 impl.setStreamInfo = function(streamInfo as object) as void
 if invalid = m["prplyInfo"] then m.prplyInfo = {}
 for each key in ["tracking_url", "manifest_url"]
+if invalid <> streamInfo[key]
 m.prplyInfo[key] = streamInfo[key]
+end if
 end for
 if invalid <> streamInfo["type"]
 m.prplyInfo["strmType"] = streamInfo["type"]
 end if
+if invalid = m.loader or "" = m.loader.pingURL
 m.loader = m.createLoader(m.prplyInfo.strmType)
+end if
 m.loader.composePingURL(m.prplyInfo)
 end function
 impl.parsePrplyInfo = function() as object
@@ -827,6 +837,8 @@ end for
 ret = m.streamManager.appendPods(midroll, m.MIN_AD_DUR, m.prplyInfo.strmType)
 if ret.appendedToRunningPod
 preroll = [m.streamManager.currentAdBreak]
+else
+m.noMorePingTilPodEnd(m.streamManager.currentAdBreak)
 end if
 m.streamManager.nukeTimeToEventMap = true
 end if
@@ -834,6 +846,28 @@ end if
 else
 end if
 return {adOpportunities:0, adBreaks:preroll}
+end function
+impl.noMorePingTilPodEnd =  function(cab as object)
+if invalid <> cab then
+adDurSum = 0
+for each cad in cab.ads
+adDurSum += cad.duration
+end for
+if (cab.renderTime + cab.duration * 0.75) < m.streamManager.crrntPosSec and abs(adDurSum - cab.duration) < m.MIN_AD_DUR
+hasComplete = false
+ad = cab.ads.peek()
+for each evt in ad.tracking
+if m.sdk.AdEvent.COMPLETE = evt.event
+hasComplete = true
+exit for
+end if
+end for
+if hasComplete
+m.last_ping = (cab.renderTime + cab.duration) + m.MIN_AD_DUR
+print "<> <> <> impl.noMorePingTilPodEnd() set m.last_ping AFTER Pod End: ";m.last_ping;"  ads.count: ";cab.ads.count();"  DurationSum: ";adDurSum;"  HasCOMPLETE: ";hasComplete.tostr()
+end if
+end if
+end if
 end function
 impl.BREAK_TOL = 1.002
 impl.emt2raf = function(avails as object) as object
@@ -853,8 +887,8 @@ m.parseEmtAdBreak(adBreak, emtBreak, periodStartSec)
 if invalid <> emtBreak["ads"]
 m.parseAds(adBreak, emtBreak.ads)
 end if
-if 0 < rafBreaks.count() and 0 < adBreak.ads.count()
-lb = rafBreaks[rafBreaks.count()-1]
+if 0 < rafBreaks.count() and (0 < adBreak.ads.count() or 0 < adBreak.tracking.count())
+lb = rafBreaks.peek()
 start_end = adBreak.renderTime - (lb.renderTime + lb.duration)
 if start_end < m.BREAK_TOL
 if 0 < start_end
@@ -862,11 +896,15 @@ lb.ads[lb.ads.count()-1].duration += start_end
 lb.duration += (start_end + adBreak.duration)
 end if
 lb.ads.append(adBreak.ads)
+if 0 < adBreak.tracking.count() then
+lb.tracking.append(adBreak.tracking)
+adBreak.tracking = []
+end if
 adOpportunities += adBreak.ads.count()
 adBreak.ads = []
 end if
 end if
-if 0 < adBreak.ads.count()
+if 0 < adBreak.ads.count() or 0 < adBreak.tracking.count()
 rafBreaks.push(adBreak)
 adOpportunities += adBreak.ads.count()
 end if
@@ -917,8 +955,7 @@ nativeAd: ad
 }
 if invalid <> ad["trackingEvents"]
 rAd.duration = ad.durationInSeconds
-if (timeOffset + rAd.duration + m.MIN_AD_DUR) < m.streamManager.crrntPosSec then
-else
+if m.streamManager.crrntPosSec <= (timeOffset + rAd.duration + m.MIN_AD_DUR) then
 m.parseEvents(ad.adId, rAd.tracking, ad.trackingEvents)
 end if
 end if
@@ -945,11 +982,22 @@ end if
 end for
 if forget
 adBreak.ads = []
+lastAd = invalid
 end if
 end if
 end if
 end function
+impl.assertEventId = function(adId as string, evt as object)
+adImpSeg = val(adId, 0)
+if val(evt.eventId, 0) < adImpSeg then
+STOP
+end if
+end function
 impl.parseEvents = function(adId as string, destObj as object, events as object) as string
+strm_end_at = 0
+if m.sdk.StreamType.VOD = m.prplyInfo.strmType and 0 < m.sgnode.duration then
+strm_end_at = int(m.sgnode.duration)
+end if
 periodStartSec = m.get1stPeriodStart()
 clickthrough = ""
 for each evt in events
@@ -957,10 +1005,12 @@ eventName = m.emtToRAFEvent[evt.eventType]
 for each url in evt.beaconUrls
 if url <> invalid and 0 < url.len()
 if eventName <> invalid
+eventTime = evt.startTimeInSeconds - periodStartSec
+if 0 < strm_end_at and strm_end_at < eventTime then eventTime = strm_end_at
 rafEvent = {
 event:eventName,
 url:url,
-time:evt.startTimeInSeconds - periodStartSec,
+time:eventTime,
 eventId:evt.eventId,
 triggered:false}
 destObj.push(rafEvent)
@@ -1045,8 +1095,10 @@ player = params["player"]
 m.sgnode = player.sgnode
 if m.isDASH()
 m.sgnode.observeField("manifestData",  player.port)
-else if m.useStitched and (m.sdk.StreamType.VOD = m.prplyInfo["strmType"])
+else if m.useStitched then
+if m.sdk.StreamType.VOD = m.prplyInfo.strmType or invalid <> params.rollPodBySegment then
 m.sgnode.observeField("streamingSegment",  player.port)
+end if
 end if
 end function
 impl.onPositionHLS = function() as void
@@ -1057,18 +1109,29 @@ if m.lastSeq <> ss.segSequence
 m.lastSeq = ss.segSequence
 ret = m.streamManager.compareSegmentHLS({sequence:ss.segSequence+1,
 startTime:ss.segStartTime, minAdDur:m.MIN_AD_DUR,
+strmEnd:m.sgnode.duration,
 strmType:m.prplyInfo.strmType})
 pendingPod = ret["pendingPod"]
 end if
 if invalid <> pendingPod
+m.rollPendingPod(pendingPod)
+end if
+end if
+end function
+impl.rollPendingPod = function(pendingPod as object) as void
+if m.useStitched and 0 = pendingPod.ads.count() and 0 < pendingPod.tracking.count() and pendingPod.duration < 1
+adIface = m.sdk.getRokuAds()
+adIface.fireTrackingEvents(pendingPod, {type: m.sdk.AdEvent.POD_START})
+adIface.fireTrackingEvents(pendingPod, {type: m.sdk.AdEvent.POD_END})
+end if
+if m.useStitched and 0 < pendingPod.ads.count() and 1 < pendingPod.duration
 m.setRAFAdPods([pendingPod])
+end if
 podBeginSec = int(pendingPod.renderTime)
 while podBeginSec <= m.streamManager.crrntPosSec
 m.streamManager.handlePosition(podBeginSec, {})
 podBeginSec += 1
 end while
-end if
-end if
 end function
 impl.onPositionDASH = function(msg as object) as void
 if -1 = m.availabilityStartTimeEpoch then return
@@ -1164,9 +1227,22 @@ if (0 = ss.segSequence) then
 m.segSeqOffset = 1
 end if
 end if
-if invalid <> m.streamManager.adTimeToBreakMap
-m.streamManager.onStreamingSegment({sequence:ss.segSequence+m.segSeqOffset,
-startTime:ss.segStartTime})
+newSegSeq = ss.segSequence + m.segSeqOffset
+if invalid <> m.streamManager.adTimeToBreakMap and m.sdk.StreamType.VOD = m.prplyInfo.strmType
+m.streamManager.onStreamingSegment({sequence:newSegSeq,
+startTime:ss.segStartTime, minAdDur:m.MIN_AD_DUR,
+strmEnd:m.sgnode.duration,
+strmType:m.prplyInfo.strmType})
+else if m.sdk.StreamType.LIVE = m.prplyInfo.strmType and invalid = m.streamManager.currentAdBreak
+m.lastSeq = ss.segSequence
+ret = m.streamManager.compareSegmentHLS({sequence:newSegSeq,
+startTime:ss.segStartTime, minAdDur:m.MIN_AD_DUR,
+strmEnd:m.sgnode.duration,
+strmType:m.prplyInfo.strmType})
+pendingPod = ret["pendingPod"]
+if invalid <> pendingPod
+m.rollPendingPod(pendingPod)
+end if
 end if
 end if
 end if
@@ -1335,7 +1411,7 @@ end if
 return res
 end function
 liveloader.composePingURL = function(prplyInfo as object) as void
-if invalid <> prplyInfo["tracking_url"]
+if invalid <> prplyInfo.tracking_url
 m.pingURL = prplyInfo.tracking_url
 end if
 end function
@@ -1357,7 +1433,7 @@ cab = m.currentAdBreak
 if cab.duration < nPod.duration
 cab.duration = nPod.duration
 end if
-timeOffset = nPod.renderTime
+timeOffset = cab.renderTime
 cab_ads_count = cab.ads.count()
 cab_end_at = cab.renderTime + cab.duration
 for i=0 to cab_ads_count-1
@@ -1369,25 +1445,35 @@ end if
 if 0 = nad.tracking.count() then
 cad.tracking = []
 else
-m.sdk.setTrackingTime(timeOffset, nad, cab_end_at)
+m.sdk.setTrackingTime(timeOffset, nad, int(cab_end_at))
 u2t = {}
 for each ce in cad.tracking
 u2t[ce.url] = ce.triggered
 end for
+eventsToAdd = []
 while 0 < nad.tracking.count()
 ne = nad.tracking.pop()
 if not u2t.doesExist(ne.url)
-cad.tracking.push(ne)
-adAppended += 1
+eventsToAdd.push(ne)
 end if
 end while
+if 0 < eventsToAdd.count()
+params = {duration:cad.duration, tracking:eventsToAdd}
+remaining_dur = cab_end_at - timeOffset
+if remaining_dur < params.duration and 0 < remaining_dur then
+params.duration = remaining_dur
+end if
+m.sdk.setTrackingTime(timeOffset, params, int(cab_end_at))
+adAppended += eventsToAdd.count()
+cad.tracking.append(eventsToAdd)
+end if
 end if
 hasInteractive = (hasInteractive or "iroll"=cad.streamFormat)
 timeOffset += nad.duration
 end for
 for i=cab_ads_count to nPod.ads.count()-1
 nad = nPod.ads[i]
-m.sdk.setTrackingTime(timeOffset, nad, cab_end_at)
+m.sdk.setTrackingTime(timeOffset, nad, int(cab_end_at))
 cab.ads.push(nad)
 adAppended += 1
 timeOffset += nad.duration
@@ -1421,6 +1507,8 @@ appendPod = false
 exit for
 end if
 end for
+else if m.sdk.StreamType.LIVE = strmType and 0 = nab.ads.count() and nab.duration < 1 and nab.renderTime < m.crrntPosSec
+appendPod = false
 else if m.sdk.StreamType.LIVE = strmType and 1 = newPods.count()
 m.pendingPods = [nab]
 end if
@@ -1455,26 +1543,34 @@ strmMgr.isPendingPodAboutToRAF = function() as boolean
 return (0 < m.pendingPods.count() and (m.pendingPods[0].renderTime + m.POD_TO_RAF) < m.crrntPosSec)
 end function
 strmMgr.onStreamingSegment = function(params as object)
-abFound = false
+abUpdated = false
 adBreaks = []
 for each kv in m.adTimeToBreakMap.items()
 ab = kv.value 
-if invalid <> ab.segSeq and params.sequence = ab.segSeq and params.startTime < ab.renderTime
+if invalid <> ab.segSeq and params.sequence = ab.segSeq and (ab.renderTime - params.startTime) < params.minAdDur
 m.updateRenderTime(ab, params)
 ab.delete("segSeq")
-abFound = true
+abUpdated = true
 end if
 adBreaks.push(ab)
 end for
-if abFound
+if abUpdated
 m.createTimeToEventMap(adBreaks)
 end if
 end function
 strmMgr.updateRenderTime = function(ab as object, params as object)
 ab.renderTime = params.startTime
+cab_end_at = int(ab.renderTime + ab.duration)
+if m.sdk.StreamType.VOD = params.strmType and params.startTime < params.strmEnd and params.strmEnd < cab_end_at
+cab_end_at = params.strmEnd
+end if
 timeOffset = ab.renderTime
 for each ad in ab.ads
-m.sdk.setTrackingTime(timeOffset, ad)
+remaining_dur = cab_end_at - timeOffset
+if remaining_dur < ad.duration and 0 < remaining_dur
+ad.duration = remaining_dur
+end if
+m.sdk.setTrackingTime(timeOffset, ad, cab_end_at)
 timeOffset += ad.duration
 end for
 ab.duration = timeOffset - ab.renderTime
@@ -1510,12 +1606,25 @@ end for
 end if
 return ret
 end function
+strmMgr.deinitBase = strmMgr.deinit
+strmMgr.deinit = function(params as object) as void
+if invalid <> m.currentAdBreak and 0 < params.strmEnd and m.sdk.StreamType.VOD = params.strmType and invalid <> params.curAd
+posSec = m.crrntPosSec
+if (params.strmEnd - posSec) <= 10
+while posSec < params.strmEnd
+posSec += 1
+m.handlePosition(posSec, params.curAd)
+end while
+end if
+end if
+m.deinitBase(params)
+end function
 return rafssai
 end function
 function RAFX_SSAI(params as object) as object
     if invalid <> params and invalid <> params["name"]
         p = RAFX_getEMTAdapter(params)
-        p["__version__"] = "0b.45.19"
+        p["__version__"] = "0b.47.21"
         p["__name__"] = params["name"]
         return p
     end if

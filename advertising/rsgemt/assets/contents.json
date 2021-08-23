@@ -3,7 +3,7 @@
         {
             "title" : "VOD",
             "id"    : "vod_stream",
-            "description" : "VOD content example, replace this with your test asset",
+            "description" : "VOD content example. VOD mode fetches ad Metadata once. Replace url with your test asset",
             "streamformat": "hls",
             "url"   : "https://mediatailor.us-east-1.amazonaws.com/v1/session/hashed_account_ID/originID/master.m3u8",
             "params": {"adsParams":{}}
@@ -12,7 +12,7 @@
             "title" : "Live",
             "id"    : "live_stream",
             "live"  : true,
-            "description" : "Live content example, replace this with your test asset",
+            "description" : "Live content example, Live mode keeps pinging ad Metadata throughout streaming. Replace url with your test asset",
             "streamformat": "hls",
             "url"   : "https://mediatailor.us-east-1.amazonaws.com/v1/session/hashed_account_ID/originID/master.m3u8"
         },
