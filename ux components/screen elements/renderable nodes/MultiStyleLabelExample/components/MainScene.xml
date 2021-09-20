@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name="MainScene" extends="Scene" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+	<!-- importing main handler -->
+    <script type="text/brightscript" uri="pkg:/components/MainScene.brs" />
+    
+    <children>
+        <MultiStyleLabel
+            translation="[200, 200]"
+            id = "mslb1"
+            width="1080"
+            wrap="true"
+        />
+        <MultiStyleLabel
+            translation="[200, 300]"
+            id = "mslb2"
+            width="1080"
+            wrap="true"
+        />
+        
+    
+            </children>
+</component>
