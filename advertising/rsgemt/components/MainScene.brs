@@ -38,8 +38,8 @@ function onTestItemSelected(msg as Object)
     itemIdx = msg.getData()
     cont = m.testItems.content.getChild(itemIdx)
     ' ~~~ Let adopter know test data
-    testConfig = {url: cont.url, title: cont.title, type: "vod"}
-    if cont.live then testConfig["type"] = "live"
+    testConfig = {url: cont.url, title: cont.title, type: "live"}
+    if false = cont.live then testConfig["type"] = "vod"
     ' ~~~ Optional, with or without calling stich
     if not cont.useStitched then testConfig["useStitched"] = false
     if invalid <> cont["streamformat"] then testConfig["streamformat"] = cont.streamformat

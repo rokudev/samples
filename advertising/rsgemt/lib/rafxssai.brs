@@ -1,4 +1,4 @@
-' ********** Copyright 2021 Roku, Inc.  All Rights Reserved. **********
+' ********** Copyright 2022 Roku, Inc.  All Rights Reserved. **********
 function RAFX_getSSAIPluginBase(params as object) as Object
 daisdk = {}
 daisdk.init = function(params=invalid as object) as Void
@@ -864,7 +864,6 @@ end if
 end for
 if hasComplete
 m.last_ping = (cab.renderTime + cab.duration) + m.MIN_AD_DUR
-print "<> <> <> impl.noMorePingTilPodEnd() set m.last_ping AFTER Pod End: ";m.last_ping;"  ads.count: ";cab.ads.count();"  DurationSum: ";adDurSum;"  HasCOMPLETE: ";hasComplete.tostr()
 end if
 end if
 end if
@@ -1087,34 +1086,36 @@ impl.isDASH = function() as boolean
 return invalid <> m.sgnode and invalid <> m.sgnode.content and "dash" = m.sgnode.content.streamformat
 end function
 impl.enableAdsBase = impl.enableAds
+impl.rollPodBy = "position"
 impl.dash1stPeriodStart = -1 
 impl.enableAds = function(params as object) as void
 m.lastSeq = 0
+m.lastSegmentStartTime = 0
 m.enableAdsBase(params)
 player = params["player"]
 m.sgnode = player.sgnode
+if invalid <> params.rollPodBy then m.rollPodBy = params.rollPodBy
 if m.isDASH()
 m.sgnode.observeField("manifestData",  player.port)
 else if m.useStitched then
-if m.sdk.StreamType.VOD = m.prplyInfo.strmType or invalid <> params.rollPodBySegment then
+if m.sdk.StreamType.VOD = m.prplyInfo.strmType or "segment" = m.rollPodBy then
 m.sgnode.observeField("streamingSegment",  player.port)
 end if
 end if
 end function
-impl.onPositionHLS = function() as void
-if invalid <> m.sgnode.streamingSegment
+impl.onPositionHLS = function(msg as object) as void
 ss = m.sgnode.streamingSegment
-pendingPod = invalid
-if m.lastSeq <> ss.segSequence
+if invalid <> ss and (m.lastSeq <> ss.segSequence or "position" = m.rollPodBy) then
 m.lastSeq = ss.segSequence
 ret = m.streamManager.compareSegmentHLS({sequence:ss.segSequence+1,
-startTime:ss.segStartTime, minAdDur:m.MIN_AD_DUR,
-strmEnd:m.sgnode.duration,
+segStartTime: ss.segStartTime,
+minAdDur: m.MIN_AD_DUR,
+rollPodBy: m.rollPodBy,
+onPositionSec: msg.getData(),
+strmEnd: m.sgnode.duration,
 strmType:m.prplyInfo.strmType})
-pendingPod = ret["pendingPod"]
-end if
-if invalid <> pendingPod
-m.rollPendingPod(pendingPod)
+if invalid <> ret.pendingPod then
+m.rollPendingPod(ret.pendingPod)
 end if
 end if
 end function
@@ -1159,7 +1160,7 @@ end if
 if m.isDASH()
 m.onPositionDASH(msg)
 else
-m.onPositionHLS()
+m.onPositionHLS(msg)
 end if
 m.onPositionBase(msg)
 end function
@@ -1230,13 +1231,15 @@ end if
 newSegSeq = ss.segSequence + m.segSeqOffset
 if invalid <> m.streamManager.adTimeToBreakMap and m.sdk.StreamType.VOD = m.prplyInfo.strmType
 m.streamManager.onStreamingSegment({sequence:newSegSeq,
-startTime:ss.segStartTime, minAdDur:m.MIN_AD_DUR,
+segStartTime:ss.segStartTime, minAdDur:m.MIN_AD_DUR,
 strmEnd:m.sgnode.duration,
 strmType:m.prplyInfo.strmType})
 else if m.sdk.StreamType.LIVE = m.prplyInfo.strmType and invalid = m.streamManager.currentAdBreak
+m.lastSegmentStartTime = ss.segStartTime
 m.lastSeq = ss.segSequence
 ret = m.streamManager.compareSegmentHLS({sequence:newSegSeq,
-startTime:ss.segStartTime, minAdDur:m.MIN_AD_DUR,
+segStartTime:ss.segStartTime, minAdDur:m.MIN_AD_DUR,
+rollPodBy: m.rollPodBy,
 strmEnd:m.sgnode.duration,
 strmType:m.prplyInfo.strmType})
 pendingPod = ret["pendingPod"]
@@ -1246,24 +1249,6 @@ end if
 end if
 end if
 end if
-end function
-impl.dumpPingInfo = function (pingInfo as object) as void
-periodStartSec = m.get1stPeriodStart()
-for each avail in pingInfo.avails
-strtAt = avail.startTimeInSeconds - periodStartSec
-endAt = avail.durationInSeconds + avail.startTimeInSeconds - periodStartSec
-if endAt < (m.streamManager.crrntPosSec + 10)
-if 1 < pingInfo.avails.count() then print "<> <> <> impl.dumpPingInfo.avails remnant pod start: ";int(strtAt);"  end: ";int(endAt);"  currentPos: ";m.streamManager.crrntPosSec
-else
-for each ad in avail.ads
-if invalid <> ad.startTimeInSeconds
-print "  adId: ";ad.adId;"  Title: ";ad.adTitle;"  offsetStartTime: ";int(ad.startTimeInSeconds - periodStartSec);"  duration: ";ad.duration
-else
-print "  adId: ";ad.adId;"  Title: ";ad.adTitle;"  startTime: ";int(ad.startTimeInSeconds);"  duration: ";ad.duration
-end if
-end for
-end if
-end for
 end function
 impl.MIN_AD_DUR = 4
 impl.isCompleteEmtAdBreak = function(pingInfo as object) as boolean
@@ -1417,9 +1402,9 @@ end if
 end function
 liveloader.domainRegex = createObject("roRegex", "^[^:/?#]+:?//[^/?#]*", "i")
 liveloader.getBaseURL = function() as string
-m = m.domainRegex.match(m.strmURL)
-if 0 < m.count()
-return m[0]
+mtch = m.domainRegex.match(m.strmURL)
+if 0 < mtch.count()
+return mtch[0]
 end if
 return ""
 end function
@@ -1430,6 +1415,8 @@ strmMgr.mergeRunningPod = function(nPod as object, min_ad_dur as integer) as boo
 adAppended = 0
 hasInteractive = true
 cab = m.currentAdBreak
+if cab.duration <> nPod.duration or cab.ads.count() <> nPod.ads.count() then
+end if
 if cab.duration < nPod.duration
 cab.duration = nPod.duration
 end if
@@ -1441,6 +1428,8 @@ cad = cab.ads[i]
 nad = nPod.ads[i]
 if cad.adid <> nad.adid
 STOP
+end if
+if cad.tracking.count() < nad.tracking.count() then
 end if
 if 0 = nad.tracking.count() then
 cad.tracking = []
@@ -1510,7 +1499,7 @@ end for
 else if m.sdk.StreamType.LIVE = strmType and 0 = nab.ads.count() and nab.duration < 1 and nab.renderTime < m.crrntPosSec
 appendPod = false
 else if m.sdk.StreamType.LIVE = strmType and 1 = newPods.count()
-m.pendingPods = [nab]
+appendPod = true
 end if
 if appendPod then
 timeOffset = nab.renderTime
@@ -1547,7 +1536,7 @@ abUpdated = false
 adBreaks = []
 for each kv in m.adTimeToBreakMap.items()
 ab = kv.value 
-if invalid <> ab.segSeq and params.sequence = ab.segSeq and (ab.renderTime - params.startTime) < params.minAdDur
+if invalid <> ab.segSeq and params.sequence = ab.segSeq and (ab.renderTime - params.segStartTime) < params.minAdDur
 m.updateRenderTime(ab, params)
 ab.delete("segSeq")
 abUpdated = true
@@ -1559,9 +1548,12 @@ m.createTimeToEventMap(adBreaks)
 end if
 end function
 strmMgr.updateRenderTime = function(ab as object, params as object)
-ab.renderTime = params.startTime
+ab.renderTime = params.segStartTime
+if invalid <> params.onPositionSec then
+ab.renderTime = params.onPositionSec
+end if
 cab_end_at = int(ab.renderTime + ab.duration)
-if m.sdk.StreamType.VOD = params.strmType and params.startTime < params.strmEnd and params.strmEnd < cab_end_at
+if m.sdk.StreamType.VOD = params.strmType and params.segStartTime < params.strmEnd and params.strmEnd < cab_end_at
 cab_end_at = params.strmEnd
 end if
 timeOffset = ab.renderTime
@@ -1575,6 +1567,17 @@ timeOffset += ad.duration
 end for
 ab.duration = timeOffset - ab.renderTime
 end function
+strmMgr.shouldRollPod = function(ab as object, params as object) as boolean
+rollIt = false
+if "segment" = params.rollPodBy then
+rollIt = (ab.segSeq <= params.sequence or (ab.renderTime < params.segStartTime+params.minAdDur))
+else if invalid <> params.onPositionSec then
+rollIt = (ab.renderTime <= (params.onPositionSec+2))
+end if
+if rollIt then
+end if
+return rollIt
+end function
 strmMgr.compareSegmentHLS = function(params as object) as object
 ret = {}
 if invalid = m.currentAdBreak then
@@ -1583,9 +1586,9 @@ if invalid <> ab and m.adBreakEnded({id:ab.id, endAt:ab.renderTime+ab.duration})
 ab = m.pendingPods.shift()
 ab = invalid
 end if
-if invalid <> ab and (ab.segSeq <= params.sequence or (ab.renderTime < params.startTime+params.minAdDur))
+if invalid <> ab and m.shouldRollPod(ab, params) then
 ab = m.pendingPods.shift()
-if ab.segSeq = params.sequence or params.startTime < ab.renderTime
+if "segment" = params.rollPodBy and (ab.segSeq = params.sequence or params.segStartTime < ab.renderTime) then
 m.updateRenderTime(ab, params)
 else
 end if
@@ -1624,7 +1627,7 @@ end function
 function RAFX_SSAI(params as object) as object
     if invalid <> params and invalid <> params["name"]
         p = RAFX_getEMTAdapter(params)
-        p["__version__"] = "0b.47.21"
+        p["__version__"] = "0b.47.24"
         p["__name__"] = params["name"]
         return p
     end if

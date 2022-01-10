@@ -37,7 +37,7 @@ function loadAdapter() as object
     '
     adapter = RAFX_SSAI({name:"awsemt"}) ' Required
     if adapter <> invalid
-        adapter.init() ' Required
+        adapter.init({logLevel:31}) ' Required
         print "RAFX_SSAI version ";adapter["__version__"]
     end if
     return adapter
@@ -51,7 +51,7 @@ function loadStream(adapter as object) as void
         '   2.1  Compose request info and fetch Manifest and Tracking URLs
         '
         request = {
-            type: m.top.testConfig.type,    ' Required, live or vod
+            type: m.top.testConfig.type,    ' Required, adapter.StreamType.LIVE or VOD
             url:  m.top.testConfig.url      ' Required, master-URL
         }
         if invalid <> m.top.testConfig["params"]
@@ -67,7 +67,7 @@ function loadStream(adapter as object) as void
     else
         '   2.2  Optional, for Apps manifest_url and tracking_url known already:
         streamInfo = {
-            type:  m.top.testConfig.type,      ' Required
+            type:  m.top.testConfig.type,      ' Required. adapter.StreamType.LIVE or VOD
             tracking_url: m.top.tracking_url,  ' Required. App must provide valid URL
             manifest_url: m.top.manifest_url   ' Required. App must provide valid URL
         }
