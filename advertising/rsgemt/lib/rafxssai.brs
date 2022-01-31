@@ -153,7 +153,9 @@ m.streamManager.onMessageVOD(msg, curAd)
 m.onMessageLIVE(msg, curAd)
 else if msgType = m.sdk.msgType.FINISHED     
 m.sdk.log("All video is completed - full result. Last pos: "+m.streamManager.crrntPosSec.tostr())
-m.streamManager.deinit({curAd:curAd, strmEnd:m.sgnode.duration, strmType:m.prplyInfo.strmType})
+if invalid <> m.wrpdPlayer and invalid <> m.wrpdPlayer.sgnode then
+m.streamManager.deinit({curAd:curAd, strmEnd:m.wrpdPlayer.sgnode.duration, strmType:m.prplyInfo.strmType})
+end if
 m.sdk.eventCallbacks.doCall(m.sdk.AdEvent.STREAM_END, {})
 end if
 return curAd
@@ -848,23 +850,27 @@ end if
 return {adOpportunities:0, adBreaks:preroll}
 end function
 impl.noMorePingTilPodEnd =  function(cab as object)
-if invalid <> cab then
+if invalid <> cab and 0 < cab.ads.count() then
 adDurSum = 0
 for each cad in cab.ads
 adDurSum += cad.duration
 end for
-if (cab.renderTime + cab.duration * 0.75) < m.streamManager.crrntPosSec and abs(adDurSum - cab.duration) < m.MIN_AD_DUR
 hasComplete = false
+if abs(adDurSum - cab.duration) < m.MIN_AD_DUR then
 ad = cab.ads.peek()
+if invalid <> m.lastSeq and ad.adid.toInt() <= m.lastSeq
+hasComplete = true
+else if (cab.renderTime + cab.duration * 0.9) < m.streamManager.crrntPosSec then
 for each evt in ad.tracking
 if m.sdk.AdEvent.COMPLETE = evt.event
 hasComplete = true
 exit for
 end if
 end for
+end if
+end if
 if hasComplete
 m.last_ping = (cab.renderTime + cab.duration) + m.MIN_AD_DUR
-end if
 end if
 end if
 end function
@@ -1049,7 +1055,6 @@ end if
 return rca
 end function
 impl.parseInteractive = function(rAd as object, ad as object) as void
-apiFramework = invalid
 innovidFound = false
 if "Innovid Ads" = ad.adSystem and invalid <> ad.companionAds
 innoAdUpdate = { width: 16, height: 9
@@ -1121,11 +1126,14 @@ end if
 end function
 impl.rollPendingPod = function(pendingPod as object) as void
 if m.useStitched and 0 = pendingPod.ads.count() and 0 < pendingPod.tracking.count() and pendingPod.duration < 1
+if invalid = m.emptyPodId or m.emptyPodId <> pendingPod.id then
 adIface = m.sdk.getRokuAds()
 adIface.fireTrackingEvents(pendingPod, {type: m.sdk.AdEvent.POD_START})
 adIface.fireTrackingEvents(pendingPod, {type: m.sdk.AdEvent.POD_END})
+m.emptyPodId = pendingPod.id
 end if
-if m.useStitched and 0 < pendingPod.ads.count() and 1 < pendingPod.duration
+end if
+if 0 < pendingPod.ads.count() and 1 < pendingPod.duration
 m.setRAFAdPods([pendingPod])
 end if
 podBeginSec = int(pendingPod.renderTime)
@@ -1133,6 +1141,9 @@ while podBeginSec <= m.streamManager.crrntPosSec
 m.streamManager.handlePosition(podBeginSec, {})
 podBeginSec += 1
 end while
+if m.streamManager.currentAdBreak = invalid and 0 < pendingPod.ads.count() then
+m.streamManager.currentAdBreak = pendingPod
+end if
 end function
 impl.onPositionDASH = function(msg as object) as void
 if -1 = m.availabilityStartTimeEpoch then return
@@ -1265,12 +1276,9 @@ return yesComplete
 end function
 impl.parsePingHLS = function(pingInfo as object) as void
 a = pingInfo.avails.peek()
-crrntPosSec = m.streamManager.crrntPosSec
-if crrntPosSec <= a.startTimeInSeconds
+if m.sdk.StreamType.VOD = m.prplyInfo.strmType
 m.pingInfo = pingInfo
-if m.isCompleteEmtAdBreak(pingInfo)
 m.last_ping = a.durationInSeconds + a.startTimeInSeconds
-end if
 else
 m.pingInfo = pingInfo
 m.last_ping = m.last_ping - (m.PING_INTERVAL * 0.9)
@@ -1411,7 +1419,7 @@ end function
 strmMgr = rafssai["streamManager"]
 strmMgr.POD_TO_RAF=1.4
 strmMgr.pendingPods = []
-strmMgr.mergeRunningPod = function(nPod as object, min_ad_dur as integer) as boolean
+strmMgr.mergeRunningPod = function(nPod as object) as boolean
 adAppended = 0
 hasInteractive = true
 cab = m.currentAdBreak
@@ -1472,6 +1480,17 @@ m.createTimeToEventMap([cab])
 end if
 return hasInteractive
 end function
+strmMgr.createTimeToEventMapBase = strmMgr.createTimeToEventMap
+strmMgr.createTimeToEventMap = function(adBreaks=invalid as object)
+if invalid <> m.currentAdBreak then
+if invalid <> adBreaks and 0 < adBreaks.count() then
+m.createTimeToEventMapBase(adBreaks)
+else
+end if
+else
+m.createTimeToEventMapBase(adBreaks)
+end if
+end function
 strmMgr.addEventToEvtMapBase = strmMgr.addEventToEvtMap
 strmMgr.addEventToEvtMap = function(timeToEvtMap as object, timeKey as string, evtStr as dynamic) as void
 if m.crrntPosSec <= val(timeKey)
@@ -1484,7 +1503,7 @@ for each nab in newPods
 appendPod = true
 if invalid <> m.currentAdBreak and nab.id = m.currentAdBreak.id then
 adCount = m.currentAdBreak.ads.count()
-hasInteractive = m.mergeRunningPod(nab, min_ad_dur)
+hasInteractive = m.mergeRunningPod(nab)
 ret.appendedToRunningPod = (adCount < m.currentAdBreak.ads.count() and (not hasInteractive))
 appendPod = false
 else if 0 < m.pendingPods.count()
@@ -1524,7 +1543,7 @@ for each ad in ab.ads
 m.sdk.setTrackingTime(timeOffset, ad)
 timeOffset += ad.duration
 end for
-ret["pendingPod"] = ab
+ret.pendingPod = ab
 end if
 return ret
 end function
@@ -1574,6 +1593,10 @@ rollIt = (ab.segSeq <= params.sequence or (ab.renderTime < params.segStartTime+p
 else if invalid <> params.onPositionSec then
 rollIt = (ab.renderTime <= (params.onPositionSec+2))
 end if
+if invalid <> m.currentAdBreak then
+if m.currentAdBreak.id = ab.id then
+end if
+end if
 if rollIt then
 end if
 return rollIt
@@ -1592,10 +1615,10 @@ if "segment" = params.rollPodBy and (ab.segSeq = params.sequence or params.segSt
 m.updateRenderTime(ab, params)
 else
 end if
-ret["pendingPod"] = ab
+ret.pendingPod = ab
 end if
 end if
-if invalid = ret["pendingPod"] and invalid <> m.currentAdBreak and m.sdk.StreamType.LIVE = params.strmType
+if invalid = ret.pendingPod and invalid <> m.currentAdBreak and invalid <> m.currentAdBreak.ads and 0 < m.currentAdBreak.ads.count() and m.sdk.StreamType.LIVE = params.strmType
 lastAd = m.currentAdBreak.ads[m.currentAdBreak.ads.count()-1]
 for each evt in lastAd.tracking
 if m.sdk.AdEvent.COMPLETE = evt.event  and  false=evt.triggered
@@ -1627,7 +1650,7 @@ end function
 function RAFX_SSAI(params as object) as object
     if invalid <> params and invalid <> params["name"]
         p = RAFX_getEMTAdapter(params)
-        p["__version__"] = "0b.47.24"
+        p["__version__"] = "0b.48.25"
         p["__name__"] = params["name"]
         return p
     end if
