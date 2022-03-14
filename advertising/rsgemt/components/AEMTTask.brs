@@ -37,7 +37,7 @@ function loadAdapter() as object
     '
     adapter = RAFX_SSAI({name:"awsemt"}) ' Required
     if adapter <> invalid
-        adapter.init({logLevel:31}) ' Required
+        adapter.init() ' Required
         print "RAFX_SSAI version ";adapter["__version__"]
     end if
     return adapter

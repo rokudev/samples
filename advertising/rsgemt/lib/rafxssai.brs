@@ -839,6 +839,8 @@ end for
 ret = m.streamManager.appendPods(midroll, m.MIN_AD_DUR, m.prplyInfo.strmType)
 if ret.appendedToRunningPod
 preroll = [m.streamManager.currentAdBreak]
+else if ret.runningPodChopped
+m.noMorePingTilPodEnd(m.streamManager.currentAdBreak, true)
 else
 m.noMorePingTilPodEnd(m.streamManager.currentAdBreak)
 end if
@@ -849,29 +851,24 @@ else
 end if
 return {adOpportunities:0, adBreaks:preroll}
 end function
-impl.noMorePingTilPodEnd =  function(cab as object)
+impl.noMorePingTilPodEnd =  function(cab as object, forceNoMore=false as boolean)
+hasComplete = forceNoMore
 if invalid <> cab and 0 < cab.ads.count() then
 adDurSum = 0
 for each cad in cab.ads
 adDurSum += cad.duration
 end for
-hasComplete = false
 if abs(adDurSum - cab.duration) < m.MIN_AD_DUR then
 ad = cab.ads.peek()
 if invalid <> m.lastSeq and ad.adid.toInt() <= m.lastSeq
 hasComplete = true
 else if (cab.renderTime + cab.duration * 0.9) < m.streamManager.crrntPosSec then
-for each evt in ad.tracking
-if m.sdk.AdEvent.COMPLETE = evt.event
 hasComplete = true
-exit for
 end if
-end for
 end if
 end if
 if hasComplete
 m.last_ping = (cab.renderTime + cab.duration) + m.MIN_AD_DUR
-end if
 end if
 end function
 impl.BREAK_TOL = 1.002
@@ -946,6 +943,7 @@ end for
 end if
 end function
 impl.parseAds = function(adBreak as object, srcads as object) as void
+cab_end_at = int(adBreak.renderTime + adBreak.duration)
 timeOffset = adBreak.renderTime
 lastAd = invalid
 for each ad in srcads
@@ -962,6 +960,9 @@ if invalid <> ad["trackingEvents"]
 rAd.duration = ad.durationInSeconds
 if m.streamManager.crrntPosSec <= (timeOffset + rAd.duration + m.MIN_AD_DUR) then
 m.parseEvents(ad.adId, rAd.tracking, ad.trackingEvents)
+if m.sdk.StreamType.LIVE = m.prplyInfo.strmType then
+m.sdk.setTrackingTime(timeOffset, rAd, cab_end_at)
+end if
 end if
 end if
 if invalid <> ad.adSystem and "Innovid Ads" = ad.adSystem
@@ -1262,18 +1263,6 @@ end if
 end if
 end function
 impl.MIN_AD_DUR = 4
-impl.isCompleteEmtAdBreak = function(pingInfo as object) as boolean
-yesComplete = false
-if 0 < pingInfo.avails.count() then
-emtBreak = pingInfo.avails[pingInfo.avails.count()-1]
-sumAdsDuration = 0
-for each ad in emtBreak.ads
-sumAdsDuration += ad.durationInSeconds
-end for
-yesComplete = (emtBreak.durationInSeconds < (sumAdsDuration + m.MIN_AD_DUR))
-end if
-return yesComplete
-end function
 impl.parsePingHLS = function(pingInfo as object) as void
 a = pingInfo.avails.peek()
 if m.sdk.StreamType.VOD = m.prplyInfo.strmType
@@ -1419,6 +1408,73 @@ end function
 strmMgr = rafssai["streamManager"]
 strmMgr.POD_TO_RAF=1.4
 strmMgr.pendingPods = []
+strmMgr.chopRunningPod = function(nPod as object)
+cad_count = m.currentAdBreak.ads.count()
+nad_count = nPod.ads.count()
+tracking = []
+for each evt in nPod.tracking
+if m.crrntPosSec < evt.time then
+tracking.push(evt)
+end if
+end for
+nPod.tracking = tracking
+brkEnd = int(nPod.renderTime+nPod.duration)
+timeOffset = nPod.renderTime
+for each ad in nPod.ads
+m.sdk.setTrackingTime(timeOffset, ad, brkEnd)
+tracking = []
+for each evt in ad.tracking
+if m.crrntPosSec < evt.time then
+tracking.push(evt)
+end if
+end for
+ad.tracking = tracking
+timeOffset += ad.duration
+end for
+m.currentAdBreak.duration = nPod.duration
+m.currentAdBreak.ads = nPod.ads
+cab = m.currentAdBreak
+timeToEvtMap = {}
+if m.crrntPosSec < cab.renderTime then
+timeToEvtMap[int(cab.renderTime).tostr()] = [m.sdk.AdEvent.POD_START,m.sdk.AdEvent.IMPRESSION]
+m.lastEvents = {}
+end if
+timeOffset = nPod.renderTime
+for each ad in cab.ads
+quartiles = {}
+quartiles[m.sdk.AdEvent.IMPRESSION] = 0.0
+quartiles[m.sdk.AdEvent.FIRST_QUARTILE] = 0.25
+quartiles[m.sdk.AdEvent.MIDPOINT] = 0.5
+quartiles[m.sdk.AdEvent.THIRD_QUARTILE] = 0.75
+quartiles[m.sdk.AdEvent.COMPLETE] = 1.0
+remTracking = []
+for each evt in ad.tracking
+quartiles.delete(evt.event)
+if m.crrntPosSec < evt.time then
+remTracking.push(evt)
+end if
+end for
+if 0 < quartiles.count() then
+for each item in quartiles.items()
+evt = {
+event: item.key,
+url:"",
+time:timeOffset + item.value * ad.duration,
+triggered:false}
+if m.crrntPosSec < evt.time then
+remTracking.push(evt)
+end if
+end for
+end if
+if 0 < remTracking.count() then
+m.trackingToMap(remTracking, timeToEvtMap)
+end if
+timeOffset += ad.duration
+end for
+timeKey = brkEnd.tostr()
+m.appendBreakEnd(timeToEvtMap, timeKey)
+m.adTimeToEventMap = timeToEvtMap
+end function
 strmMgr.mergeRunningPod = function(nPod as object) as boolean
 adAppended = 0
 hasInteractive = true
@@ -1434,8 +1490,9 @@ cab_end_at = cab.renderTime + cab.duration
 for i=0 to cab_ads_count-1
 cad = cab.ads[i]
 nad = nPod.ads[i]
-if cad.adid <> nad.adid
+if invalid = nad or cad.adid <> nad.adid
 STOP
+exit for
 end if
 if cad.tracking.count() < nad.tracking.count() then
 end if
@@ -1498,13 +1555,18 @@ m.addEventToEvtMapBase(timeToEvtMap, timeKey, evtStr)
 end if
 end function
 strmMgr.appendPods = function (newPods as object, min_ad_dur as integer, strmType as string) as object
-ret = {appendedToPendingPod:false, appendedToRunningPod:false}
+ret = {appendedToPendingPod:false, appendedToRunningPod:false, runningPodChopped:false}
 for each nab in newPods
 appendPod = true
 if invalid <> m.currentAdBreak and nab.id = m.currentAdBreak.id then
 adCount = m.currentAdBreak.ads.count()
+if nab.ads.count() < adCount then
+m.chopRunningPod(nab)
+ret.runningPodChopped = true
+else
 hasInteractive = m.mergeRunningPod(nab)
 ret.appendedToRunningPod = (adCount < m.currentAdBreak.ads.count() and (not hasInteractive))
+end if
 appendPod = false
 else if 0 < m.pendingPods.count()
 for i=0 to m.pendingPods.count()-1
@@ -1603,8 +1665,8 @@ return rollIt
 end function
 strmMgr.compareSegmentHLS = function(params as object) as object
 ret = {}
-if invalid = m.currentAdBreak then
-ab = m.pendingPods.peek()
+if invalid = m.currentAdBreak and 0 < m.pendingPods.count() then
+ab = m.pendingPods[0]
 if invalid <> ab and m.adBreakEnded({id:ab.id, endAt:ab.renderTime+ab.duration}) then
 ab = m.pendingPods.shift()
 ab = invalid
@@ -1650,7 +1712,7 @@ end function
 function RAFX_SSAI(params as object) as object
     if invalid <> params and invalid <> params["name"]
         p = RAFX_getEMTAdapter(params)
-        p["__version__"] = "0b.48.25"
+        p["__version__"] = "0b.48.26"
         p["__name__"] = params["name"]
         return p
     end if
