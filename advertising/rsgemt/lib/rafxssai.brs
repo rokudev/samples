@@ -996,7 +996,7 @@ end function
 impl.assertEventId = function(adId as string, evt as object)
 adImpSeg = val(adId, 0)
 if val(evt.eventId, 0) < adImpSeg then
-STOP
+print "impl.assertEventId() Data integrity: eventId must be equal or grater than adId"
 end if
 end function
 impl.parseEvents = function(adId as string, destObj as object, events as object) as string
@@ -1491,7 +1491,7 @@ for i=0 to cab_ads_count-1
 cad = cab.ads[i]
 nad = nPod.ads[i]
 if invalid = nad or cad.adid <> nad.adid
-STOP
+print "strmMgr.mergeRunningPod() Data integrity: newAd invalid or adIds do not match"
 exit for
 end if
 if cad.tracking.count() < nad.tracking.count() then
@@ -1712,7 +1712,7 @@ end function
 function RAFX_SSAI(params as object) as object
     if invalid <> params and invalid <> params["name"]
         p = RAFX_getEMTAdapter(params)
-        p["__version__"] = "0b.48.26"
+        p["__version__"] = "0b.48.27"
         p["__name__"] = params["name"]
         return p
     end if
