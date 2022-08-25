@@ -6,7 +6,7 @@ The **MarkupList** node class provides a customizable list that can include mult
 
 For example, `MarkupListExample.zip` is a list where each item has two graphic images (an icon and a small poster image), a label, and a custom underline focus indicator:
 
-![img](https://sdkdocs.roku.com/download/attachments/4266153/markuplistdoc.jpg?version=1&modificationDate=1498664357873&api=v2)
+![img](https://image.roku.com/ZHZscHItMTc2/markuplist-node.png)
 
 The method to configure a custom list like this is to have a separate component definition of the appearance and behavior of the list items. The name of this component is set as the `itemComponentName` field value of the **MarkupList** node. Then as the user moves focus to an individual item in the list, the appearance and behavior of the item is configured according to the item component scripting. In the example, as each item is focused, the red underline focus indicator appears, along with the small poster image. The icon, label, and small poster image for each item are contained in the **ContentNode** node set as the `content` field value of the **MarkupList** node, the same way the graphic images and other content meta-data are set in [**PosterGrid Markup**](https://github.com/rokudev/samples/tree/master/ux%20components/screen%20elements/renderable%20nodes).
 
