@@ -1355,14 +1355,16 @@ liveloader.pingURL = ""
 liveloader.isPinging = false
 liveloader.pingPort = createObject("roMessagePort")
 liveloader.ping_json = invalid
+liveloader.pingKeys = ["body","headers"]
 liveloader.requestPreplay = function(requestObj as object) as dynamic
 m.strmURL = requestObj.url
-res = invalid
-if invalid = requestObj["body"]
-res = m.getJSON({url:m.strmURL, retry:0})
-else
-res = m.getJSON({url:m.strmURL, body:requestObj.body, retry:0})
+params = {url:m.strmURL, retry:0}
+for each key in m.pingKeys
+if invalid <> requestObj[key]
+params[key] = requestObj[key]
 end if
+end for
+res = m.getJSON(params)
 return res
 end function
 liveloader.ping = function(params as dynamic) as void
@@ -1712,7 +1714,7 @@ end function
 function RAFX_SSAI(params as object) as object
     if invalid <> params and invalid <> params["name"]
         p = RAFX_getEMTAdapter(params)
-        p["__version__"] = "0b.48.27"
+        p["__version__"] = "0b.48.28"
         p["__name__"] = params["name"]
         return p
     end if
