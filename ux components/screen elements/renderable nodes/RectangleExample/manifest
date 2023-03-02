@@ -18,4 +18,6 @@ splash_screen_fhd=pkg:/images/rde_splash_fhd.jpg
 splash_color=#662D91
 splash_min_time=1000
 
-ui_resolutions = "hd"
+ui_resolutions = hd, fhd
+
+run_as_process = 1
