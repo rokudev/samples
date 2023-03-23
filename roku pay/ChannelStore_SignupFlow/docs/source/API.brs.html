@@ -1,0 +1,108 @@
+<b>API.brs</b><br/>
+/RokuSignupFlow_sample/source/API.brs<br/>
+<br/>
+<b>API</b>()<br/>
+<dl>
+</dl>
+
+<br/>
+<div class="description">
+Returns singleton object for handling channel-specific API calls.<br>For this sample, this is just a mockup simulating actual API calls.<br>
+</div>
+<br/>
+<br/>
+<b>API__GetInstance</b>()<br/>
+<dl>
+</dl>
+
+<br/>
+<div class="description">
+API object instance constructor<br>
+</div>
+<br/>
+<br/>
+<b>API__Login</b>(userData as roObject)<br/>
+<dl>
+</dl>
+
+<br/>
+<div class="description">
+Login API mockup. Actual API call for user logging in should be implemented here.<br>
+</div>
+
+<p>
+<dl class="param">
+<dt class="sectionName">
+Parameters:
+</dt>
+<dd class="item"><code class="itemName">
+userData - 
+</code>
+<span class="itemDescr">
+[Object] associative array: {email, password}
+</span>
+</dd>
+</dl>
+
+</dl>
+
+<dl class="return">
+<dt class="sectionName">
+Returns:
+</dt>
+<dd class="item"><span class="itemDescr">
+[Boolean] login API result: True means user is successfully logged in.
+</span>
+</dd>
+</dl>
+
+</dl>
+<br/>
+<br/>
+<b>API__SignupAndLogin</b>(userData as roObject)<br/>
+<dl>
+</dl>
+
+<br/>
+<div class="description">
+Signup API mockup. Actual API call for creating user account and logging in with it should be implemented here.<br>
+</div>
+
+<p>
+<dl class="param">
+<dt class="sectionName">
+Parameters:
+</dt>
+<dd class="item"><code class="itemName">
+userData - 
+</code>
+<span class="itemDescr">
+associative array: {email, password}
+</span>
+</dd>
+</dl>
+
+</dl>
+
+<dl class="return">
+<dt class="sectionName">
+Returns:
+</dt>
+<dd class="item"><span class="itemDescr">
+[Boolean] signup API result: True means user account is created and user is successfully logged in via channel API using this account
+</span>
+</dd>
+</dl>
+
+</dl>
+<br/>
+<br/>
+<b>API__GetTermsOfUse</b>()<br/>
+<dl>
+</dl>
+
+<br/>
+<div class="description">
+Mockup for API returning Terms Of Use text. Actual API call for getting Terms Of Use should be implemented here.<br>Note: Terms Of Use should be returned as plain text without any HTML tags.<br>
+</div>
+<br/>

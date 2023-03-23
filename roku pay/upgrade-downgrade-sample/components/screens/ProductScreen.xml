@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--********** Copyright 2020 Roku Corp.  All Rights Reserved. **********-->
+
+<component name="ProductScreen" extends="Group" >
+
+  <script type="text/brightscript" uri="pkg:/components/screens/ProductScreen.brs" />
+
+  <interface>
+      <field id="billing" type="node" />
+      <field id="groups" type="assocarray" />
+      <field id="orders" type="assocarray" />
+      <field id="result" type="assocarray" />
+  </interface>
+
+  <children>
+      <!-- Vertical row of labels on the left side of screen -->
+      <LabelList
+          id="commandList"
+          focusRow="0"
+          itemSize="[180,100]"
+          translation="[50, 100]"
+          numRows="3" />
+
+      <!-- Note: this is created in code for each product group and set visible as needed
+      <RadioButtonList
+          id="productList"
+          itemSize = "[300,100]"
+          translation = "[280, 100]" /-->
+
+      <Group
+          id="homeScreen"
+          translation="[360,120]">
+
+            <Label
+            id="titleLabel"
+            height="80"
+            width="800"
+            text = "Sample Channel"
+            font="font:LargeBoldSystemFont"
+            translation="[0,0]" />
+
+            <Label
+            id="descriptionLabel"
+            height="200"
+            width="800"
+            wrap="true"
+            text = "Demonstrates upgrade/downgrade"
+            font="font:MediumSystemFont"
+            translation="[0,100]" />
+
+            <Label
+            id="howToUseLabel"
+            height="400"
+            width="800"
+            wrap="true"
+            text = "How to use"
+            font="font:MediumSystemFont"
+            translation="[0,340]" />
+
+      </Group>
+
+      <Group
+          id="productInfo"
+          translation = "[640, 100]">
+            <ScrollableText
+                id="productInfoText"
+                width = "640"
+                height = "800"
+                text=""
+                font="font:MediumSystemFont"
+                horizAlign="left"
+                vertAlign="top" />
+      </Group>
+
+  </children>
+</component>

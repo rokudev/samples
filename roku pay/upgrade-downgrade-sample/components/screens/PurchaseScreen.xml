@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--********** Copyright 2020 Roku Corp.  All Rights Reserved. **********-->
+
+<component name="PurchaseScreen" extends="Group" >
+
+  <script type="text/brightscript" uri="pkg:/components/screens/PurchaseScreen.brs" />
+
+  <interface>
+      <field id="productName" type="string" />
+      <field id="productCode" type="string" />
+      <!--field id="planType" type="string" /-->
+      <!--field id="purchasedPlanData" type="assocarray" /-->
+      <!--field id="purchaseData" type="assocarray" /-->
+      <field id="billing" type="node" />
+  </interface>
+
+  <children>
+      <Label id="purchaseProductLabel"
+              height = "30"
+              width = "650"
+              translation = "[50,100]"
+              font = "font:LargeBoldSystemFont"/>
+      <Button id="purchaseButton"
+              text = "Purchase"
+              translation = "[100, 400]"
+              showFocusFootprint="true"
+              minWidth="240"/>
+      <Button id="backPurchButton"
+              text = "Back"
+              translation = "[400, 400]"
+              showFocusFootprint="true"
+              minWidth="240"/>
+  </children>
+</component>

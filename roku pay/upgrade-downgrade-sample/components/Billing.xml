@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--********** Copyright 2020 Roku Corp.  All Rights Reserved. **********-->
+
+<component name="Billing" extends="Node" >
+
+<interface>
+    <!-- OUTPUT fields -->
+    <field id="productList" type="assocarray"/>
+    <field id="purchaseList" type="assocarray"/>
+    <field id="extPurchaseList" type="assocarray"/>
+    <field id="purchaseResult" type="assocarray"/>
+    <field id="upgradeResult" type="assocarray"/>
+
+    <function name="getProductList" />
+    <function name="getPurchaseList" />
+    <function name="getExtPurchaseList" />
+    <function name="makePurchase" />
+    <function name="makeUpgrade" />
+
+</interface>
+
+<script type="text/brightscript" uri="pkg:/components/Billing.brs" />
+
+</component>

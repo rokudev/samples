@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--********** Copyright 2020 Roku Corp.  All Rights Reserved. **********-->
+
+<component name="UpgradeScreen" extends="Group" >
+
+  <script type="text/brightscript" uri="pkg:/components/screens/UpgradeScreen.brs" />
+
+  <interface>
+      <field id="productName" type="string" />
+      <field id="productCode" type="string" />
+      <field id="requestType" type="string" />
+      <!--field id="purchasedPlanData" type="assocarray" /-->
+      <field id="purchasedName" type="string" />
+      <!--field id="purchaseData" type="assocarray" /-->
+      <field id="billing" type="node" />
+  </interface>
+
+  <children>
+    <Label id="upgradeProductLabel"
+            height = "30"
+            width = "850"
+            translation = "[50,100]"
+            font = "font:LargeBoldSystemFont"/>
+    <Label id="currentProductLabel"
+            height = "30"
+            width = "850"
+            translation = "[50,150]"
+            font = "font:LargeBoldSystemFont"/>
+    <Button id="upgradeButton"
+            text = "Upgrade"
+            translation = "[100, 400]"
+            showFocusFootprint="true"
+            minWidth="240" />
+    <Button id="backUpgButton"
+            text = "Back"
+            translation = "[400, 400]"
+            showFocusFootprint="true"
+            minWidth="240"/>
+  </children>
+</component>

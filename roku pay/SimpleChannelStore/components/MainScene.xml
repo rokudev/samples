@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+
+<component name="MainScene" extends="Scene" >
+
+<script type="text/brightscript" uri="pkg:/components/MainScene.brs" />
+
+<children>
+    <Group>
+	<Label
+	    id="lbl"
+	    horizAlign="center"
+	    width="1280"
+	    text="Make A Purchase"
+	    color="0x6c3b97ff"
+	    font="font:LargeBoldSystemFont"
+            translation="[0, 50]" />
+
+        <MarkupGrid
+            id="productGrid"
+	    itemComponentName="ChannelStoreProduct"
+            itemSpacing="[20, 20]"
+	    rowHeights="[150, 150]"
+	    columnWidths="[350,350,350]"
+	    numColumns="4"
+	    numRows="3"
+	    translation="[50, 100]" />
+
+        <ChannelStore
+            id="store"
+            fakeServer="true"
+            command="getCatalog" />
+    </Group>
+</children>
+
+</component>

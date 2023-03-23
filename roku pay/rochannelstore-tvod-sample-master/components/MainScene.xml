@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--********** Copyright 2017 Roku Inc.  All Rights Reserved. **********-->
+
+<component name="MainScene" extends="Scene" >
+    <interface>
+        <field id="selectedContent" type="assocarray" />
+        <field id="action" type="string" />
+        <function name="ShowPurchaseStatus" />
+    </interface>
+
+    <script type="text/brightscript" uri="pkg:/components/MainScene.brs" />
+
+    <children>
+        <SimpleRowList id="contentRowList" translation="[110,50]" />
+    </children>
+</component>

@@ -1,0 +1,38 @@
+<result xmlns="http://api.roku.com/order" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+        <errorCode i:nil="true" xmlns=""/>
+        <errorDetails i:nil="true" xmlns=""/>
+        <errorMessage xmlns=""/>
+        <status xmlns="">Success</status>
+        <order>
+                <id xmlns="">6150b008-c494-4b15-9afe-ab6e5563e16a</id>
+                <items xmlns="">
+                        <orderItem>
+                                <amount>$1.99</amount>
+                                <code>TS1</code>
+                                <description i:nil="true"/>
+                                <name i:nil="true"/>
+                                <purchaseId>12345</purchaseId>
+                                <qty>1</qty>
+                                <total>$1.99</total>
+                        </orderItem>
+                        <orderItem>
+                                <amount>$0.00</amount>
+                                <code>SKUTAX</code>
+                                <description i:nil="true"/>
+                                <name i:nil="true"/>
+                                <purchaseId i:nil="true"/>
+                                <qty>1</qty>
+                                <total>$0.00</total>
+                        </orderItem>
+                </items>
+                <shipping xmlns="">$0.00</shipping>
+                <shippingCode i:nil="true" xmlns=""/>
+                <shippingOptions i:nil="true" xmlns=""/>
+                <subtotal xmlns="">$1.99</subtotal>
+                <tax xmlns="">$0.00</tax>
+                <total xmlns="">$1.99</total>
+        </order>
+</result>
+

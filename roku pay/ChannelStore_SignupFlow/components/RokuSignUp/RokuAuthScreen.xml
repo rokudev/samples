@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<!-- ********** Copyright 2016 Roku Corp.  All Rights Reserved. ********** -->
+
+<!--
+    SceneGraph component node which implements typical authorization selection screen
+    (background poster and two buttons for login and signup flow) in case when
+    using channel-specific API is used for authentication.
+    
+    Background splash poster and buttons for login/signup are customizable via interface fields.
+    This component is used inside RokuSignUp component.
+    
+    Sample:
+    
+    m.authScreen = m.top.CreateChild("authScreen")
+    
+    ' customize splash poster
+    m.authScreen.posterSplash.uri = "pkg:/images/splash.jpg"
+    
+    ' customize login flow selection button
+    m.authScreen.buttonLogin.SetFields({
+        focusBitmapUri  : "pkg:/images/button_on.9.png"
+        focusedIconUri  : "pkg:/images/login.png"
+        iconUri         : "pkg:/images/login.png"
+        translation     : [300,850]
+    })
+    
+    ' customize signup flow selection button
+    m.authScreen.buttonSignup.SetFields({
+        focusBitmapUri  : "pkg:/images/button_on.9.png"
+        focusedIconUri  : "pkg:/images/signup.png"
+        iconUri         : "pkg:/images/signup.png"
+        translation     : [1000,850]
+    })
+-->
+<component name="RokuAuthScreen" extends="Group">
+
+<interface>
+    <!-- WRITE-ONLY. Shows/hides the component on the scene. True = show; False = hide. -->
+    <field id="show"          type="boolean"  value="false"  alwaysNotify="true"  onChange="On_show"/>
+    
+    
+    <!-- READ-ONLY. Provides access to background splash Poster. -->
+    <field id="posterSplash"  type="node"/>
+    
+    <!-- READ-ONLY. Provides access to login flow selection Button. -->
+    <field id="buttonLogin"   type="node"/>
+    
+    <!-- READ-ONLY. Provides access to signup flow selection Button. -->
+    <field id="buttonSignup"  type="node"/>
+</interface> 
+
+
+<script type="text/brightscript" uri="pkg:/components/RokuSignUp/RokuAuthScreen.brs"/>
+
+</component>

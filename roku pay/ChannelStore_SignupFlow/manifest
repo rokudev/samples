@@ -1,0 +1,31 @@
+#
+#  Copyright (c) 2016 Roku, Inc. All rights reserved.
+#  Roku Channel Manifest File 
+#  Full spec at bit.ly/roku-manifest-file
+#
+
+##   Channel Details
+title=Simple Sign Up RSG Sample
+major_version=1
+minor_version=0
+build_version=3
+
+##   Channel Assets
+###  Main Menu Icons / Channel Poster Artwork 
+#### Image sizes are FHD: 540x405px | HD: 290x218px | SD: 214x144px
+mm_icon_focus_fhd=pkg:/images/channel-poster_fhd.png
+mm_icon_focus_hd=pkg:/images/channel-poster_hd.png
+mm_icon_focus_sd=pkg:/images/channel-poster_sd.png
+
+### Legacy Required Manifest Attributes
+#### Image sizes are HD: 108x69px | SD: 248x140px
+mm_icon_side_hd=pkg:/images/channel_icon_side_hd.png
+mm_icon_side_sd=pkg:/images/channel_icon_side_sd.png
+
+###  Splash Screen + Loading Screen Artwork 
+#### Image sizes are FHD: 1920x1080px | HD: 1280x720px | SD: 720x480px
+splash_screen_fhd=pkg:/images/splash_fhd.jpg
+splash_screen_hd=pkg:/images/splash_hd.jpg
+splash_screen_sd=pkg:/images/splash_sd.jpg
+
+ui_resolutions=hd

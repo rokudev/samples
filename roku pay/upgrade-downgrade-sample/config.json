@@ -1,0 +1,14 @@
+{
+	"partnerId": "5ee81fec-ab3d-4cf0-a822-9b4c6328d194",
+	"partnerName": "D0",
+	"userId": "2cfff445-2d0d-4b8f-bf0b-e7daf869213a",
+	"groups":
+	{
+		"Subscriptions":
+		[
+			{ "name": "MSS2", "type": "monthly", "upgrade": "SDS4", "downgrade": "MTP3"},
+			{ "name": "MTP3", "type": "monthly", "upgrade": "MSS2", "downgrade": "" },
+			{ "name": "SDS4", "type": "yearly", "upgrade": "", "downgrade": "MSS2"}
+		]
+	}
+}

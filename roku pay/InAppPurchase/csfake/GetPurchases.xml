@@ -1,0 +1,49 @@
+<result xmlns="http://api.roku.com/products" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+        <errorCode i:nil="true" xmlns=""/>
+        <errorDetails i:nil="true" xmlns=""/>
+        <errorMessage xmlns=""/>
+        <status xmlns="">Success</status>
+        <products>
+                <product xmlns="">
+                        <HDPosterUrl i:nil="true"/>
+                        <SDPosterUrl i:nil="true"/>
+                        <code>TS1</code>
+                        <cost>$1.99</cost>
+                        <description/>
+                        <expirationDate>2014-04-29T22:17:48</expirationDate>
+                        <freeTrialQuantity>12</freeTrialQuantity>
+                        <freeTrialType>None</freeTrialType>
+                        <fulfills i:nil="true" xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+                        <inStock>false</inStock>
+                        <maxQty i:nil="true"/>
+                        <name>Test Subscription</name>
+                        <productType>Consumable</productType>
+                        <purchaseDate>2013-04-29T22:17:48</purchaseDate>
+                        <purchaseId>871e9522ace140a99821a1ab010bb0d7</purchaseId>
+                        <qty>3</qty>
+                        <renewalDate>2014-04-29T22:17:48</renewalDate>
+                        <upsellProduct i:nil="true"/>
+                </product>
+                <product xmlns="">
+                        <HDPosterUrl i:nil="true"/>
+                        <SDPosterUrl i:nil="true"/>
+                        <code>NW1</code>
+                        <cost>$0.99</cost>
+                        <description>Nifty Widget Number 2</description>
+                        <expirationDate i:nil="true"/>
+                        <freeTrialQuantity>0</freeTrialQuantity>
+                        <freeTrialType>None</freeTrialType>
+                        <fulfills i:nil="true" xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+                        <inStock>false</inStock>
+                        <maxQty i:nil="true"/>
+                        <name>Nifty Widget</name>
+                        <productType>NonConsumable</productType>
+                        <purchaseDate>2013-04-29T23:29:20</purchaseDate>
+                        <purchaseId>c27ff6d04f3847c3b238a1af0130b0df</purchaseId>
+                        <qty>1</qty>
+                        <renewalDate i:nil="true"/>
+                        <upsellProduct i:nil="true"/>
+                </product>
+        </products>
+</result>
+

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--********** Copyright 2019-2020 Roku Corp.  All Rights Reserved. **********-->
+
+<!--    Retriever accepts a request with following format (NOTE: Caller observes the request.context.response) :
+		    request (associative array): {
+		        context (node):
+		            <field> parameters (associative array): { ... }
+					<field> response (associative array): {}
+			}
+-->
+
+<component name="retriever" extends="task">
+
+<interface>
+	<field id="request" type="assocarray"/>
+</interface>
+
+<script type="text/brightscript" uri="pkg:/components/tasks/Retriever.brs" />
+
+</component>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<!-- ********** Copyright 2016 Roku Corp.  All Rights Reserved. ********** -->
+
+<!--
+    Overridden KeyboardDialog component node which handles "back" remote key press as fake 
+    dialog button selection. When pressing "back" remote key, "buttonSelected" field is set to -1.
+-->
+
+<component name="BackKeyboardDialog" extends="KeyboardDialog">
+
+<script type="text/brightscript"  uri="pkg:/components/RokuSignUp/BackKeyboardDialog.brs"/>
+
+</component>

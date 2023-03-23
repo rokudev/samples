@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--********** Copyright 2017 Roku Inc.  All Rights Reserved. **********-->
+
+<component name="SimpleRowList" extends="RowList">
+    <interface>
+        <field id="selectedContent" type="assocarray"/>
+    </interface>
+
+    <script type="text/brightscript" uri="pkg:/components/SimpleRowList.brs" />
+</component>

@@ -1,0 +1,11 @@
+title=In-App Purchase
+subtitle=Sample In-App Purchase Channel
+major_version=1
+minor_version=0
+build_version=0
+mm_icon_focus_hd=pkg:/images/homescreen_hd_focus.png
+mm_icon_side_hd=pkg:/images/homescreen_hd_side.png
+mm_icon_focus_sd=pkg:/images/homescreen_sd_focus.png
+mm_icon_side_sd=pkg:/images/homescreen_sd_side.png
+splash_screen_hd=pkg:/images/splashscreen_hd.jpg
+splash_screen_sd=pkg:/images/splashscreen_sd.jpg

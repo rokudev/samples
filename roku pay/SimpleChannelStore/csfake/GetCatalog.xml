@@ -1,0 +1,71 @@
+<result xmlns="http://api.roku.com/products" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+        <errorCode i:nil="true" xmlns=""/>
+        <errorDetails i:nil="true" xmlns=""/>
+        <errorMessage xmlns=""/>
+        <status xmlns="">Success</status>
+        <products>
+                <product xmlns="">
+                        <HDPosterUrl i:nil="true"/>
+                        <SDPosterUrl i:nil="true"/>
+                        <code>TS1</code>
+                        <cost>$1.99</cost>
+                        <description/>
+                        <expirationDate i:nil="true"/>
+                        <freeTrialQuantity>12</freeTrialQuantity>
+                        <freeTrialType>Months</freeTrialType>
+                        <fulfills xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+                        <inStock>true</inStock>
+                        <maxQty>8</maxQty>
+                        <name>Test Subscription</name>
+                        <productType>Consumable</productType>
+                        <purchaseDate>0001-01-01T00:00:00</purchaseDate>
+                        <purchaseId i:nil="true"/>
+                        <qty>1</qty>
+                        <renewalDate i:nil="true"/>
+                        <upsellProduct i:nil="true"/>
+                </product>
+                <product xmlns="">
+                        <HDPosterUrl i:nil="true"/>
+                        <SDPosterUrl i:nil="true"/>
+                        <code>TCSMS1</code>
+                        <cost>$4.99</cost>
+                        <description/>
+                        <expirationDate i:nil="true"/>
+                        <freeTrialQuantity>0</freeTrialQuantity>
+                        <freeTrialType>None</freeTrialType>
+                        <fulfills xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+                        <inStock>true</inStock>
+                        <maxQty>8</maxQty>
+                        <name>Monthly Subscription</name>
+                        <productType>MonthlySub</productType>
+                        <purchaseDate>0001-01-01T00:00:00</purchaseDate>
+                        <purchaseId i:nil="true"/>
+                        <qty>1</qty>
+                        <renewalDate i:nil="true"/>
+                        <upsellProduct i:nil="true"/>
+                </product>
+                <product xmlns="">
+                        <HDPosterUrl i:nil="true"/>
+                        <SDPosterUrl i:nil="true"/>
+                        <code>NW1</code>
+                        <cost>$0.99</cost>
+                        <description>Nifty Widget</description>
+                        <expirationDate i:nil="true"/>
+                        <freeTrialQuantity>0</freeTrialQuantity>
+                        <freeTrialType>None</freeTrialType>
+                        <fulfills xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+                        <inStock>true</inStock>
+                        <maxQty>8</maxQty>
+                        <name>Nifty Widget Number 2</name>
+                        <productType>NonConsumable</productType>
+                        <purchaseDate>0001-01-01T00:00:00</purchaseDate>
+                        <purchaseId i:nil="true"/>
+                        <qty>1</qty>
+                        <renewalDate i:nil="true"/>
+                        <upsellProduct i:nil="true"/>
+                </product>
+        </products>
+</result>
+

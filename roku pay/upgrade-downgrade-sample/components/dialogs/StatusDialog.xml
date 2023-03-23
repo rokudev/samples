@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!--********** Copyright 2019 Roku Corp.  All Rights Reserved. **********-->
+
+<component name="StatusDialog" extends="Dialog" >
+<script type="text/brightscript" uri="pkg:/components/dialogs/StatusDialog.brs" />
+</component>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2016 Roku Corp.  All Rights Reserved. -->
+<component name="UriHandler" extends="Task">
+  <interface>
+    <!-- Field to issue a request to the handler -->
+  	<field id="request" type="assocarray"/>
+    <field id="linked" type="boolean" alwaysNotify="true"/>
+    <field id="disconnect" type="boolean" alwaysNotify="true"/>
+    <field id="response" type="string" alwaysNotify="true"/>
+    <field id="oauth_token" type="string" alwaysNotify="true"/>
+  </interface>
+
+  <script type="text/brightscript" uri="pkg:/components/SGHelperFunctions.brs"/>
+  <script type="text/brightscript" uri="pkg:/components/UriHandler.brs"/>
+</component>

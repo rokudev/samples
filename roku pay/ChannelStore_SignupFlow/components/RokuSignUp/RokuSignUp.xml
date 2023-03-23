@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<!-- ********** Copyright 2016 Roku Corp.  All Rights Reserved. ********** -->
+
+<!--
+    SceneGraph component node which implements the standard Roku Billing sign up flow.
+    Allows interaction with channel-specific API for user login/signup if needed.
+    
+    Background splash poster and buttons for login/signup selection screen, regexes for
+    email address and password validation, all user interaction dialogs and their generic
+    properties are customizable via interface fields. 
+    
+    Sample:
+    
+    m.rokuSignUp = m.top.CreateChild("RokuSignUp")
+    
+    ' use channel-specific API for authorization (this will enable login/signup selection screen)
+    m.rokuSignUp.isAuthNeeded = true
+    
+    ' customize splash poster
+    m.rokuSignUp.posterSplash.uri = "pkg:/images/splash.jpg"
+    
+    ' customize login flow selection button
+    m.rokuSignUp.buttonLoginFlow.SetFields({
+        focusBitmapUri  : "pkg:/images/button_on.9.png"
+        focusedIconUri  : "pkg:/images/login.png"
+        iconUri         : "pkg:/images/login.png"
+    })
+    
+    ' customize signup flow selection button
+    m.rokuSignUp.buttonSignupFlow.SetFields({
+        focusBitmapUri  : "pkg:/images/button_on.9.png"
+        focusedIconUri  : "pkg:/images/signup.png"
+        iconUri         : "pkg:/images/signup.png"
+    })
+    
+    ' set button background for all dialogs
+    m.rokuSignUp.dialogsButtonConfig = {
+        focusBitmapUri : "pkg:/images/button_on.9.png"
+    }
+    
+    ' accept only passwords containing at least 6 characters
+    m.rokuSignup.regexPassword = ".{6,}"
+    m.rokuSignup.dialogLoginErrPassword.message = "Please enter password containing at least 6 characters"
+    m.rokuSignup.dialogSignupErrPassword.message = "Please use password containing at least 6 characters for new account"
+    
+    ' set custom text for Roku Billing subscription checking progress dialog
+    m.rokuSignUp.pdialogCheckSubs.title = "Please wait, checking subscriptions..."
+-->
+<component name="RokuSignUp" extends="Group">
+
+<interface>
+    <!-- WRITE-ONLY. Specifies usage of channel-specific API on login/signup. 
+         True = use channel API (see also "isLoginAPISuccess", "isSignupAPISuccess"), this will enable
+         login/signup selection screen; False = use Roku Billing only. -->
+    <field id="isAuthNeeded"          type="boolean"  value="false"/>
+    
+    <!-- WRITE-ONLY. Specifies regular expression for email address validation. -->
+    <field id="regexEmail"            type="string"   value="^[A-Za-z0-9_%+-]+(\.[A-Za-z0-9_%+-]+)*@([A-Za-z0-9-]+\.)+[A-Za-z]{2,6}$"  onChange="On_regexEmail"/>
+    
+    <!-- WRITE-ONLY. Specifies regular expression for password validation. -->
+    <field id="regexPassword"         type="string"   value=".{1,}"  onChange="On_regexPassword"/>
+    
+    <!-- WRITE-ONLY. Specifies the text of Terms-Of-Use agreement for related dialog (see dialogTermsOfUse).
+         If empty string then Terms-Of-Use dialog is not used and not shown. -->
+    <field id="textTermsOfUse"        type="string"   value=""  onChange="On_textTermsOfUse"/>
+    
+    <!-- WRITE-ONLY. Sets generic attributes for all component dialogs. -->
+    <field id="dialogsConfig"         type="assocarray"  onChange="On_dialogsConfig"/>
+    
+    <!-- WRITE-ONLY. Sets generic attributes for all buttons of component dialogs. -->
+    <field id="dialogsButtonConfig"   type="assocarray"  onChange="On_dialogsButtonConfig"/>
+
+    <!-- WRITE-ONLY. Shows/hides the component on the scene. True = show and start signup flow; False = hide. -->
+    <field id="show"                  type="boolean"  value="false"  alwaysNotify="true"  onChange="On_show"/>
+    
+    <!-- WRITE-ONLY. Use only if isAuthNeeded = true. Allows to set result of channel-specific login API. 
+         Used for interaction with the Main thread where API call should be implemented (see also "loginUserData"). 
+         True = user is successfully logged in via channel API; False = failed to log in via API.
+         Invokes setting "isAuthorized" and "isAfterLoginAuthFlow" fields. -->
+    <field id="isLoginAPISuccess"     type="boolean"  alias="loginAuthFlow.isAPISuccess"/>
+    
+    <!-- WRITE-ONLY. Use only if isAuthNeeded = true. Allows to set result of channel-specific signup API.
+         Used for interaction with the Main thread where API call should be implemented (see also "signupUserData").  
+         True = user is successfully signed up via channel API (means user account was created and user 
+         was logged in with it); False = failed to sign up via API.
+         Invokes setting "isAuthorized" and "isAfterLoginAuthFlow" fields. -->
+    <field id="isSignupAPISuccess"    type="boolean"  alias="signupAuthFlow.isAPISuccess"/>
+    
+    
+    <!-- READ-ONLY. Provides access to background splash Poster. -->
+    <field id="posterSplash"          type="node"     alias="authScreen.posterSplash"/>
+    
+    <!-- READ-ONLY. Provides access to login flow selection Button. -->
+    <field id="buttonLoginFlow"       type="node"     alias="authScreen.buttonLogin"/>
+    
+    <!-- READ-ONLY. Provides access to signup flow selection Button. -->
+    <field id="buttonSignupFlow"      type="node"     alias="authScreen.buttonSignup"/>
+    
+    <!-- READ-ONLY. Provides access to login flow email address entry KeyboardDialog. Should have 2 buttons,
+         they will be used for "Continue" and "Back" actions respectively. -->
+    <field id="kbdialogLoginEmail"    type="node"     alias="loginAuthFlow.kbdialogEmail"/>
+    
+    <!-- READ-ONLY. Provides access to login flow password entry KeyboardDialog. Should have 3 buttons,
+         they will be used for "Show/hide password", "Continue" and "Back" actions respectively. -->
+    <field id="kbdialogLoginPassword" type="node"     alias="loginAuthFlow.kbdialogPassword"/>
+    
+    <!-- READ-ONLY. Provides access to login flow email address validation error message Dialog.
+         Should have one button, it will be used for confirmation ("OK") action. -->
+    <field id="dialogLoginErrEmail"   type="node"     alias="loginAuthFlow.dialogErrEmail"/>
+    
+    <!-- READ-ONLY. Provides access to login flow password validation error message Dialog.
+         Should have one button, it will be used for confirmation ("OK") action. --> 
+    <field id="dialogLoginErrPassword"   type="node"  alias="loginAuthFlow.dialogErrPassword"/>
+    
+    <!-- READ-ONLY. Provides access to login operation ProgressDialog. -->
+    <field id="pdialogLogin"          type="node"     alias="loginAuthFlow.pdialogAuth"/>
+    
+    <!-- READ-ONLY. Provides access to login failure message Dialog. Should have 2 buttons,
+         they will be used for "Try again" and "Cancel" actions respectively. -->
+    <field id="dialogLoginFailed"     type="node"     alias="loginAuthFlow.dialogAuthFailed"/>
+    
+    <!-- READ-ONLY. Provides access to signup flow email address entry KeyboardDialog. Should have 2 buttons,
+         they will be used for "Continue" and "Back" actions respectively. -->
+    <field id="kbdialogSignupEmail"   type="node"     alias="signupAuthFlow.kbdialogEmail"/>
+    
+    <!-- READ-ONLY. Provides access to signup flow password entry KeyboardDialog. Should have 3 buttons,
+         they will be used for "Show/hide password", "Continue" and "Back" actions respectively. -->
+    <field id="kbdialogSignupPassword"   type="node"  alias="signupAuthFlow.kbdialogPassword"/>
+    
+    <!-- READ-ONLY. Provides access to signup flow email address validation error message Dialog. 
+         Should have one button, it will be used for confirmation ("OK") action. -->
+    <field id="dialogSignupErrEmail"     type="node"  alias="signupAuthFlow.dialogErrEmail"/>
+    
+    <!-- READ-ONLY. Provides access to signup flow password validation error message Dialog.
+         Should have one button, it will be used for confirmation ("OK") action. -->
+    <field id="dialogSignupErrPassword"  type="node"  alias="signupAuthFlow.dialogErrPassword"/>
+    
+    <!-- READ-ONLY. Provides access to signup operation ProgressDialog. -->
+    <field id="pdialogSignup"         type="node"     alias="signupAuthFlow.pdialogAuth"/>
+    
+    <!-- READ-ONLY. Provides access to signup failure message Dialog. Should have 2 buttons,
+         they will be used for "Try again" and "Cancel" actions respectively. -->
+    <field id="dialogSignupFailed"    type="node"     alias="signupAuthFlow.dialogAuthFailed"/>
+    
+    <!-- READ-ONLY. Provides access to Terms-Of-Use message Dialog. Should have 2 buttons,
+         they will be used for "Accept" and "Decline" actions respectively. If dialog's "message" field
+         is empty string then Terms-Of-Use dialog is not used and not shown (see also "textTermsOfUse") -->
+    <field id="dialogTermsOfUse"      type="node"     alias="signupAuthFlow.dialogTermsOfUse"/>
+    
+    <!-- READ-ONLY. Provides access to Roku Billing subscription selection Dialog. Buttons will be replaced
+         with actual subscription products. -->
+    <field id="dialogSelectSub"       type="node"/>
+    
+    <!-- READ-ONLY. Provides access to error message Dialog indicating that there are no available Roku Billing
+         subscriptions to purchase, and user needs to check their Roku account for previously purchased products.
+         Should have one button, it will be used for confirmation ("OK") action. -->
+    <field id="dialogNoSubToPurchase" type="node"/>
+    
+    <!-- READ-ONLY. Provides access to error message Dialog indicating that Roku Billing subscription service
+         is currently unavailable. Should have one button, it will be used for confirmation ("OK") action. -->
+    <field id="dialogBillingNA"       type="node"/>
+    
+    <!-- READ-ONLY. Provides access to Roku Billing subscription checking operation ProgressDialog -->
+    <field id="pdialogCheckSubs"      type="node"/>
+    
+    <!-- READ-ONLY. Provides access to Roku Billing purchase operation ProgressDialog -->
+    <field id="pdialogPurchase"       type="node"/>
+    
+    <!-- READ-ONLY. Valid only if channel-specific API is used on login/signup (see "isAuthNeeded",
+         "isLoginAPISuccess", "isSignupAPISuccess"). Provides the authorization flow (login/signup) result.
+         True = user was successfully authorized; False = not authorized. Flow type (login or signup) 
+         is stored in "isAfterLoginAuthFlow" field. -->
+    <field id="isAuthorized"          type="boolean"  alwaysNotify="true"  value="false"/>
+
+    
+    <!-- OBSERVE-ONLY. Valid only if channel-specific API is used on login/signup (see "isAuthNeeded").
+         Set when user data is obtained from login flow. Used to pass user data to the Main thread 
+         where login API call should be implemented (see also isLoginAPISuccess). -->
+    <field id="loginUserData"         type="assocarray"  alias="loginAuthFlow.userData"/>
+    
+    <!-- OBSERVE-ONLY. Valid only if channel-specific API is used on login/signup (see "isAuthNeeded"). 
+         Set when user data is obtained from signup flow. Used to pass user data to the Main thread 
+         where signup API call should be implemented (see also isLoginAPISuccess) -->
+    <field id="signupUserData"        type="assocarray"  alias="signupAuthFlow.userData"/>
+    
+    <!-- OBSERVE-ONLY. Valid only if channel-specific API is used on login/signup (see "isAuthNeeded").
+         Set when user authorization flow (login/signup) is complete, and specifies its type: login or signup.
+         True = login flow; False = signup flow. The flow result (whether user was authorized via API) is stored
+         in "isAuthorized" field. -->
+    <field id="isAfterLoginAuthFlow"  type="boolean"  alwaysNotify="true"  onChange="On_isAfterLoginAuthFlow"/>
+    
+    <!-- OBSERVE-ONLY. Set when user billing subscription flow is complete. True = success (user subscribed);
+         False = failure (user not subscribed). -->
+    <field id="isSubscribed"          type="boolean"  alwaysNotify="true"  value="false"/>
+
+</interface> 
+
+
+<script type="text/brightscript"  uri="pkg:/components/RokuSignUp/RokuSignUp.brs"/>
+<script type="text/brightscript"  uri="pkg:/components/RokuSignUp/utils.brs"/>
+
+
+<children>
+    <ChannelStore id="billing"/>
+    <RokuAuthScreen id="authScreen"/>
+    <RokuAuthFlow id="loginAuthFlow"/>
+    <RokuAuthFlow id="signupAuthFlow"/>
+</children>
+
+</component>

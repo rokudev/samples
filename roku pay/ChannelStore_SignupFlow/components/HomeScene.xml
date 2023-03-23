@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<!-- ********** Copyright 2016 Roku Corp.  All Rights Reserved. ********** -->
+
+<!--
+    SceneGraph component node implementing scene containing RokuSignUp component.
+-->
+<component name="HomeScene" extends="Scene">
+
+<script type="text/brightscript"  uri="pkg:/components/HomeScene.brs"/>
+
+<children>
+    <RokuSignUp
+        id="rokuSignUp"
+    />
+</children>
+
+</component>

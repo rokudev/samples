@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+ 
+<component name="ChannelStoreProduct" extends="Group">
+ 
+<interface> 
+  <field id="itemContent" type="node" onChange="itemContentChanged"/> 
+</interface>
+ 
+<script type="text/brightscript" >
+<![CDATA[ 
+  function itemContentChanged() 
+    itemData = m.top.itemContent
+    m.productName.text = itemData.productName
+    m.productCode.text = itemData.productCode
+    m.productPrice.text = itemData.productPrice
+  end function
+    
+  function init() 
+    m.productName = m.top.findNode("productName") 
+    m.productCode = m.top.findNode("productCode") 
+    m.productPrice = m.top.findNode("productPrice") 
+  end function
+]]>
+</script>
+
+<children>
+<LayoutGroup layoutDirection="vert" vertAlignment="top" itemSpacings="30" >
+    <LayoutGroup layoutDirection="horiz" horizAlignment="center" itemSpacings="[15]">
+        <Label color="0x00ff00ff" font="font:SmallSystemFont" text="Product:" />	
+        <Label id="productName" color="0xffff00ff" font="font:SmallSystemFont" />
+	</LayoutGroup>
+    <LayoutGroup layoutDirection="horiz" horizAlignment="center" itemSpacings="[15]">
+        <Label color="0x00ff00ff" font="font:SmallSystemFont" text="Code:" />	
+	    <Label id="productCode" font="font:SmallSystemFont" />
+	</LayoutGroup>
+    <LayoutGroup layoutDirection="horiz" horizAlignment="center" itemSpacings="[15]">	
+        <Label color="0x00ff00ff" font="font:SmallSystemFont" text="Price:" />		
+        <Label id="productPrice" font="font:SmallSystemFont" />
+	</LayoutGroup>
+</LayoutGroup>
+</children>
+
+</component>

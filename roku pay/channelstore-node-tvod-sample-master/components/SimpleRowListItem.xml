@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--********** Copyright 2017 Roku Inc.  All Rights Reserved. **********-->
+
+<component name="SimpleRowListItem" extends="Group">
+  <interface>
+    <field id="itemContent" type="node" onChange="itemContentChanged"/>
+    <field id="focusPercent" type="float" onChange="onFocusPercent"/>
+    <field id="rowFocusPercent" type="float" onChange="onRowFocusPercent"/>
+  </interface>
+
+  <script type="text/brightscript" uri="pkg:/components/SimpleRowListItem.brs" />
+
+  <children>
+    <Rectangle id="focusRect" translation="[0,0]" width="196" height="148" color="0xffff00ff" visible="false"/>
+    <Poster id="itemPoster" translation="[3,3]" width="190" height="142" />
+    <Label id="itemTitle" horizAlign="center" translation="[0,180]" font="font:MediumSystemFont" width="196" height="65" />
+    <Label id="itemPriceDisplay" horizAlign="center" translation="[0,250]" font="font:MediumSystemFont" width="196" height="65" />
+  </children>
+</component>

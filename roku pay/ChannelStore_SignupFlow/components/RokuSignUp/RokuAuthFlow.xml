@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<!-- ********** Copyright 2016 Roku Corp.  All Rights Reserved. ********** -->
+
+<!--
+    SceneGraph component node which implements the standard flow for authorization (login/signup)
+    using channel-specific API: entering email address, password, accepting Terms Of Use etc.
+    Needs interaction with channel-specific login/signup API. 
+    Email address and password validation and all user interaction dialogs properties 
+    are customizable via interface fields.
+    This component is used inside RokuSignUp component.
+    
+    Sample:
+    
+    m.loginAuthFlow = m.top.CreateChild("RokuAuthFlow")
+    
+    ' customize dialog titles
+    m.signupAuthFlow = m.top.CreateChild("RokuAuthFlow")
+    m.signupAuthFlow.kbdialogEmail.title = "Enter the email address for new account creation"
+    m.signupAuthFlow.kbdialogPassword.title = "Create the password"
+    m.signupAuthFlow.dialogAuthFailed.title = "User account creation failed"
+    
+    ' accept only passwords containing at least 6 characters
+    m.signupAuthFlow.regexPassword = ".{6,}"
+    m.signupAuthFlow.dialogErrPassword.message = "Please enter password containing at least 6 characters"
+-->
+<component name="RokuAuthFlow" extends="Group">
+
+<interface>
+    <!-- WRITE-ONLY. Specifies result of channel-specific authorization API (login, signup). 
+         Used for interaction with the Main thread where API call should be implemented (see also userData). 
+         True = user is successfully authorized in via channel API; False = failed to authorize via API. -->
+	<field id="isAPISuccess"		type="boolean" 	onChange="On_isAPISuccess"	alwaysNotify="true"/>
+    
+    <!-- WRITE-ONLY. Specifies regular expression for email address validation. -->
+	<field id="regexEmail"			type="string" 	value="^[A-Za-z0-9_%+-]+(\.[A-Za-z0-9_%+-]+)*@([A-Za-z0-9-]+\.)+[A-Za-z]{2,6}$"/>
+    
+    <!-- WRITE-ONLY. Specifies regular expression for password validation. -->
+	<field id="regexPassword"		type="string" 	value=".{1,}"/>
+	
+	<!-- WRITE-ONLY. Shows/hides the component on the scene.
+         True = show and start authorization flow; False = hide. -->
+	<field id="show"				type="boolean" 	onChange="On_show"			alwaysNotify="true"/>
+    
+    
+	<!-- READ-ONLY. Provides access to email address entry KeyboardDialog. Should have 2 buttons,
+         they will be used for "Continue" and "Back" actions respectively. -->
+	<field id="kbdialogEmail"		type="node"/>
+    
+    <!-- READ-ONLY. Provides access to password entry KeyboardDialog. Should have 3 buttons,
+         they will be used for "Show/hide password", "Continue" and "Back" actions respectively. -->
+	<field id="kbdialogPassword"	type="node"/>
+	
+    <!-- READ-ONLY. Provides access to email address validation error message Dialog.
+         Should have one button, it will be used for confirmation ("OK") action. -->
+    <field id="dialogErrEmail"		type="node"/>
+	
+    <!-- READ-ONLY. Provides access to password validation error message Dialog.
+         Should have one button, it will be used for confirmation ("OK") action. -->
+    <field id="dialogErrPassword"	type="node"/>
+	
+    <!-- READ ONLY. Provides access to Terms-Of-Use message Dialog. Should have 2 buttons,
+         they will be used for "Accept" and "Decline" actions respectively. If dialog's "message" field
+         is empty string then Terms-Of-Use dialog is not used and not shown -->
+    <field id="dialogTermsOfUse"	type="node"/>
+	
+    <!-- READ-ONLY. Provides access to authorization operation ProgressDialog. -->
+    <field id="pdialogAuth"			type="node"/>
+	
+    <!-- READ-ONLY. Provides access to authorization failure message Dialog. Should have 2 buttons,
+         they will be used for "Try again" and "Cancel" actions respectively. -->
+    <field id="dialogAuthFailed"	type="node"/>
+
+    
+	<!-- OBSERVE-ONLY. Set when user data is obtained from authorization flow. Used for interaction 
+         with the Main thread where authorization API call should be implemented to pass user data
+         (see also isAPISuccess). -->
+	<field id="userData"			type="assocarray"	alwaysNotify="true"/>
+    
+    <!-- OBSERVE-ONLY. Set when user authorization flow is complete. True = user authorized; False = not authorized. -->
+	<field id="isAuthorized"		type="boolean"		alwaysNotify="true"/>
+</interface> 
+
+
+<script type="text/brightscript"  uri="pkg:/components/RokuSignUp/RokuAuthFlow.brs"/>
+<script type="text/brightscript"  uri="pkg:/components/RokuSignUp/utils.brs"/>
+
+</component>

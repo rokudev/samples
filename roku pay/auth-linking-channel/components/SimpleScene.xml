@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2016 Roku Corp.  All Rights Reserved. -->
+<component name="SimpleScene" extends="Scene">
+  <children>
+    <RegistryTask
+      id="RegistryTask"/>
+
+    <Rectangle
+      id="Box"
+      opacity=".4"
+      color="#000000"
+      width="1200"
+      height="760"
+      translation="[375,200]" />
+
+    <Label
+      id="Login"
+      font="font:LargeBoldSystemFont"
+      height="100"
+      width="700"
+      text="Token Login"
+      translation="[645,275]" />
+
+    <Label
+      id="HowTo"
+      font="font:MediumBoldSystemFont"
+      height="1000"
+      width="1000"
+      wrap="true"
+      text="Go to 'http://rokuleow.pythonanywhere.com/activate' on a web browser and enter the following code to connect:"
+      translation="[500,470]" />
+
+    <Label
+      id="Token"
+      font="font:LargeBoldSystemFont"
+      horizAlign="center"
+      width="1150"
+      text="TOKEN"
+      translation="[400,650]" />
+
+    <Button
+      id="Button"
+      text="Generate A New Code"
+      textFont="font:LargeBoldSystemFont"
+      focusedTextFont="font:LargeBoldSystemFont"
+      translation="[645,780]" />
+
+    <Timer
+      id="LoginTimer"
+      duration="6" />
+  </children>
+
+  <interface>
+    <field id="token" type="node" onChange="onUpdateToken" />
+  </interface>
+
+  <script type="text/brightscript" uri="pkg:/components/SimpleScene.brs"/>
+</component>

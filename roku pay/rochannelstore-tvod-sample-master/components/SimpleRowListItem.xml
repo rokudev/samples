@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--********** Copyright 2017 Roku Inc.  All Rights Reserved. **********-->
+
+<component name="SimpleRowListItem" extends="Group">
+    <interface>
+        <field id="itemContent" type="node" onChange="itemContentChanged"/>
+        <field id="focusPercent" type="float" onChange="onFocusPercent"/>
+        <field id="rowFocusPercent" type="float" onChange="onRowFocusPercent"/>
+    </interface>
+
+    <script type="text/brightscript" >
+    <![CDATA[
+        function itemContentChanged() as void
+            itemData = m.top.itemContent
+            m.itemPoster.uri = itemData.posterUrl
+            m.itemTitle.text = itemData.title
+            m.itemPriceDisplay.text = itemData.priceDisplay
+        end function
+
+        function init() as void
+            m.itemPoster = m.top.findNode("itemPoster")
+            m.itemTitle = m.top.findNode("itemTitle")
+            m.itemPriceDisplay = m.top.findNode("itemPriceDisplay")
+        end function
+    ]]>
+    </script>
+
+    <children>
+        <Poster
+            id="itemPoster"
+            width="196"
+            height="148"
+        />
+        <Label
+            id="itemTitle"
+            horizAlign="center"
+            translation="[0,170]"
+            font="font:MediumSystemFont"
+            width="196"
+            height="65"
+        />
+        <Label
+            id="itemPriceDisplay"
+            horizAlign="center"
+            translation="[0,210]"
+            font="font:MediumSystemFont"
+            width="196"
+            height="65"
+        />
+    </children>
+</component>

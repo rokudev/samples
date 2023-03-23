@@ -1,0 +1,22 @@
+<result xmlns="http://api.roku.com/order" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+        <errorCode i:nil="true" xmlns=""/>
+        <errorDetails i:nil="true" xmlns=""/>
+        <errorMessage xmlns=""/>
+        <status xmlns="">Success</status>
+
+                <id xmlns="">6150b008-c494-4b15-9afe-ab6e5563e16a</id>
+                <items xmlns="">
+                        <item>
+                                <code>dev</code>
+                                <name>KickFit by NetFit</name>                                
+                                <description i:nil="true"/>                                
+                                <SDPosterUrl i:nil="true"/>
+                                <HDPosterUrl i:nil="true"/>
+                                <cost>$8.99</cost>
+                        </item>
+                </items>
+                
+</result>
+
