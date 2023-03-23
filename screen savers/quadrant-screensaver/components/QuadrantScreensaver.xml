@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="QuadrantScreensaver" extends="Scene">
+<!--These transitions will be done separately from the slide change. In this animation the poster slides are put into an array and changed from there.-->
+<!-- This way of picture loading is similar to the HomeScreensaver example. The image URI's are loaded into an array -->
+
+<script type = "text/brightscript" uri = "pkg:/components/QuadrantScreensaver.brs"/>
+
+<children>
+
+<!-- Poster node to display all the iamges -->
+	<Poster
+		id = "Background"
+		height = "720"
+		width = "1280"
+	/>
+	
+<!--  Creates a black rectangle for each quadrant. This will be used in the QuadrantTransition Animation -->
+	<Rectangle
+		id = "QuadrantOne"
+		height = "360"
+		width = "0"
+		color = "0x000000FF"
+		opacity = "1"
+	/>
+	<Rectangle
+		id = "QuadrantTwo"
+		height = "360"
+		width = "0"
+		color = "0x000000FF"
+		opacity = "1"
+	/>
+	<Rectangle
+		id = "QuadrantThree"
+		height = "360"
+		width = "0"
+		color = "0x000000FF"
+		opacity = "1"
+	/>
+	<Rectangle
+		id = "QuadrantFour"
+		height = "360"
+		width = "0"
+		color = "0x000000FF"
+		opacity = "1"
+	/>
+	
+
+<!-- Animation for four quadrant sliding transition between pictures -->
+<!-- Each Animation labeled AnimIn is for each individual rectangle sliding to cover the background -->
+<!-- Each Animation labeled AnimOut is for each individual rectangle sliding to show the new background -->
+	<SequentialAnimation
+		id = "QuadrantTransition"
+	>
+			<Animation
+				id = "AnimIn1"
+				easeFunction = "linear"
+				duration = ".5">
+				<Vector2DFieldInterpolator
+					id = "transinterp"
+					key = "[0,1]"
+					keyValue = "[[640,0],[0,0]]"
+					fieldToInterp = "QuadrantOne.translation"
+				/>
+				<FloatFieldInterpolator
+					id = "width"
+					key = "[0,1]"
+					keyValue = "[0,640]"
+					fieldToInterp = "QuadrantOne.width"
+				/>
+				<Vector2DFieldInterpolator
+					id = "transinterp2"
+					key = "[0,1]"
+					keyValue = "[[640,0],[0,0]]"
+					fieldToInterp = "QuadrantTwo.translation"
+				/>
+				<FloatFieldInterpolator
+					id = "width2"
+					key = "[0,1]"
+					keyValue = "[0,640]"
+					fieldToInterp = "QuadrantTwo.width"
+				/>
+				<Vector2DFieldInterpolator
+					id = "transinterp3"
+					key = "[0,1]"
+					keyValue = "[[640,0],[0,0]]"
+					fieldToInterp = "QuadrantThree.translation"
+				/>
+				<FloatFieldInterpolator
+					id = "width3"
+					key = "[0,1]"
+					keyValue = "[0,640]"
+					fieldToInterp = "QuadrantThree.width"
+				/>
+				<Vector2DFieldInterpolator
+					id = "transinterp4"
+					key = "[0,1]"
+					keyValue = "[[640,0],[0,0]]"
+					fieldToInterp = "QuadrantFour.translation"
+				/>
+				<FloatFieldInterpolator
+					id = "width"
+					key = "[0,1]"
+					keyValue = "[0,640]"
+					fieldToInterp = "QuadrantFour.width"
+				/>
+			</Animation>
+			<Animation
+				id = "AnimIn2"
+				easeFunction = "linear"
+				duration = ".5">
+				<Vector2DFieldInterpolator
+					id = "transinterp"
+					key = "[0,1]"
+					keyValue = "[[0,0],[0,360]]"
+					fieldToInterp = "QuadrantOne.translation"
+				/>
+				<Vector2DFieldInterpolator
+					id = "transinterp2"
+					key = "[0,1]"
+					keyValue = "[[0,0],[0,360]]"
+					fieldToInterp = "QuadrantThree.translation"
+				/>
+				<Vector2DFieldInterpolator
+					id = "transinterp3"
+					key = "[0,1]"
+					keyValue = "[[0,0],[0,360]]"
+					fieldToInterp = "QuadrantFour.translation"
+				/>
+			</Animation>
+			<Animation
+				id = "AnimIn3"
+				easeFunction = "linear"
+				duration = ".5">
+				<Vector2DFieldInterpolator
+					id = "transinterp"
+					key = "[0,1]"
+					keyValue = "[[0,360],[640,360]]"
+					fieldToInterp = "QuadrantOne.translation"
+				/>
+				<Vector2DFieldInterpolator
+					id = "transinterp2"
+					key = "[0,1]"
+					keyValue = "[[0,360],[640,360]]"
+					fieldToInterp = "QuadrantFour.translation"
+				/>
+			</Animation>
+			<Animation
+				id = "AnimIn4"
+				easeFunction = "linear"
+				duration = ".5">
+				<Vector2DFieldInterpolator
+					id = "transinterp"
+					key = "[0,1]"
+					keyValue = "[[640,360],[640,0]]"
+					fieldToInterp = "QuadrantOne.translation"
+				/>
+			</Animation>				
+			<Animation
+					id = "AnimOut"
+					easeFunction = "linear"
+					duration = ".5"
+					delay = ".5"
+					>
+					<Vector2DFieldInterpolator
+						id = "transinterp"
+						key = "[0,1]"
+						keyValue = "[[0,0],[0,360]]"
+						fieldToInterp = "QuadrantTwo.translation"
+					/>
+			</Animation>
+			<Animation
+					id = "AnimOut2"
+					easeFunction = "linear"
+					duration = ".5">
+					<Vector2DFieldInterpolator
+						id = "transinterp"
+						key = "[0,1]"
+						keyValue = "[[0,360],[640,360]]"
+						fieldToInterp = "QuadrantTwo.translation"
+					/>
+					<Vector2DFieldInterpolator
+						id = "transinterp"
+						key = "[0,1]"
+						keyValue = "[[0,360],[640,360]]"
+						fieldToInterp = "QuadrantThree.translation"
+					/>
+			</Animation>
+			<Animation
+					id = "AnimOut3"
+					easeFunction = "linear"
+					duration = ".5">
+					<Vector2DFieldInterpolator
+						id = "transinterp"
+						key = "[0,1]"
+						keyValue = "[[640,360],[640,0]]"
+						fieldToInterp = "QuadrantTwo.translation"
+					/>
+					<Vector2DFieldInterpolator
+						id = "transinterp"
+						key = "[0,1]"
+						keyValue = "[[640,360],[640,0]]"
+						fieldToInterp = "QuadrantThree.translation"
+					/>
+					<Vector2DFieldInterpolator
+						id = "transinterp"
+						key = "[0,1]"
+						keyValue = "[[640,360],[640,0]]"
+						fieldToInterp = "QuadrantFour.translation"
+					/>
+			</Animation>
+			<Animation
+					id = "AnimOut4"
+					easeFunction = "linear"
+					duration = ".5">
+					<FloatFieldInterpolator
+						id = "width"
+						key = "[0,1]"
+						keyValue = "[640,0]"
+						fieldToInterp = "QuadrantOne.width"
+					/>
+					<FloatFieldInterpolator
+						id = "width2"
+						key = "[0,1]"
+						keyValue = "[640,0]"
+						fieldToInterp = "QuadrantTwo.width"
+					/>
+					<FloatFieldInterpolator
+						id = "width3"
+						key = "[0,1]"
+						keyValue = "[640,0]"
+						fieldToInterp = "QuadrantThree.width"
+					/>
+					<FloatFieldInterpolator
+						id = "width"
+						key = "[0,1]"
+						keyValue = "[640,0]"
+						fieldToInterp = "QuadrantFour.width"
+					/>
+				</Animation>
+	</SequentialAnimation>
+
+</children>
+</component>

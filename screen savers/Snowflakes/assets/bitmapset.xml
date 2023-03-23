@@ -1,0 +1,42 @@
+<BitmapSet>
+	<ExtraInfo cellsize="100" />
+	
+	<Bitmap name="background" filespec="pkg:/assets/background.jpg" />
+	<Bitmap name="snowflake1" filespec="pkg:/assets/snowflake1.png">
+		<Region name="sf1" x="0" y="0" w="100" h="100" />
+		<Region name="sf2" x="100" y="0" w="100" h="100" />
+		<Region name="sf3" x="200" y="0" w="100" h="100" />
+		<Region name="sf4" x="300" y="0" w="100" h="100" />
+	</Bitmap>
+	<Bitmap name="snowflake2" filespec="pkg:/assets/snowflake2.png">
+		<Region name="sf1" x="0" y="0" w="100" h="100" />
+		<Region name="sf2" x="100" y="0" w="100" h="100" />
+		<Region name="sf3" x="200" y="0" w="100" h="100" />
+		<Region name="sf4" x="300" y="0" w="100" h="100" />
+	</Bitmap>
+	<Bitmap name="snowflake3" filespec="pkg:/assets/snowflake3.png">
+		<Region name="sf1" x="0" y="0" w="100" h="100" />
+		<Region name="sf2" x="100" y="0" w="100" h="100" />
+		<Region name="sf3" x="200" y="0" w="100" h="100" />
+		<Region name="sf4" x="300" y="0" w="100" h="100" />
+	</Bitmap>
+	
+	<Animation name="animated_snowflake1">
+		<frame use="snowflake1.sf1" />
+		<frame use="snowflake1.sf2" />
+		<frame use="snowflake1.sf3" />
+		<frame use="snowflake1.sf4" />		
+	</Animation>
+	<Animation name="animated_snowflake2">
+		<frame use="snowflake2.sf1" />
+		<frame use="snowflake2.sf2" />
+		<frame use="snowflake2.sf3" />
+		<frame use="snowflake2.sf4" />		
+	</Animation>
+			<Animation name="animated_snowflake3">
+		<frame use="snowflake3.sf1" />
+		<frame use="snowflake3.sf2" />
+		<frame use="snowflake3.sf3" />
+		<frame use="snowflake3.sf4" />		
+	</Animation>
+</BitmapSet>

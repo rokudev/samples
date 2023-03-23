@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="ScreensaverFade" extends="Scene" >
+<!-- These animations are done differently than the Quadrant screensaver. In this XML file, the poster URI change is predetermined and included inside the the animation-->
+
+<script type="text/brightscript" uri = "pkg:/components/ScreensaverFade.brs"/>
+
+
+
+<children>
+
+<!-- Creates poster node for background art -->
+	<Poster 
+		id = "BackgroundArt"
+		height = "720"
+		width = "1280"
+	/>
+	
+<!-- Creates Black rectangle node for fade animation. It is initialized as transparent (opacity = 0) -->	
+	<Rectangle
+		id = "FadeBackground"
+		color = "0x000000"
+		height = "720"
+		width = "1280"
+		opacity = "0"
+	/>
+
+<!--  Creates FadeAnimation node. It manipulates the black rectangle to go from transparent->visible->transparent for fade effect. -->
+	<Animation
+		id = "FadeAnimation"
+		repeat = "false"
+		easeFunction = "inQuad"
+		duration = "4.0">
+		<FloatFieldInterpolator
+			id = "FadeInterpolator"
+			key = "[0.0,0.25,0.75,1.0]"
+			KeyValue = "[0.0,1.0,1.0,0.0]"
+			fieldToInterp = "FadeBackground.opacity"
+		/>
+	</Animation>
+</children>
+
+</component>

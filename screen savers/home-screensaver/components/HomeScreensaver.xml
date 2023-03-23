@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="HomeScreensaver" extends="Scene">
+
+<script type="text/brightscript" uri = "pkg:/components/HomeScreensaver.brs"/>
+
+<children>
+
+<!-- Makes 2 Posters on top of each other -->
+	<Poster
+		id = "PosterOne"
+		width = "240"
+		height = "180"
+		opacity = "1"
+		translation = "[960,540]"
+		/>
+	
+	<Poster
+		id = "PosterTwo"
+		width = "240"
+		height = "180"
+		opacity = "0"
+		translation = "[960,540]"
+	/>
+
+
+<!-- Animations for Fading each poster in while the other fades out to create CrossFade Animation -->	
+	<Animation 
+		id = "PosterOneIn"
+		duration = "3"
+		easeFunction = "linear"
+	>
+	<FloatFieldInterpolator
+		id = "OneInterpIn"
+		fieldToInterp = "PosterOne.Opacity"
+		key = "[0,1]"
+		keyValue = "[0,1]"
+	/>
+	<FloatFieldInterpolator
+		id = "TwoInterpOut"
+		fieldToInterp = "PosterTwo.Opacity"
+		key = "[0,1]"
+		keyValue = "[1,0]"
+	/>
+	</Animation>
+	<Animation
+		id = "PosterTwoIn"
+		duration = "3"
+		easeFunction = "linear"
+	>
+	<FloatFieldInterpolator
+		id = "OneInterpOut"
+		fieldToInterp = "PosterOne.Opacity"
+		key = "[0,1]"
+		keyValue = "[1,0]"
+	/>
+	<FloatFieldInterpolator
+		id = "TwoInterpIn"
+		fieldToInterp = "PosterTwo.Opacity"
+		key = "[0,1]"
+		keyValue = "[0,1]"
+	/>
+	</Animation>
+	
+	
+	<!--Gigantic loop for bouncing animation -->
+	
+	<SequentialAnimation
+		id = "BounceAnimation"
+		repeat = "true"
+	>
+		<Animation
+			id = "AnimOne"
+			repeat = "false"
+			easeFunction = "linear"
+			duration = "8"
+		>
+		<Vector2DFieldInterpolator
+			id = "OneInterp"
+			key = "[0.0,1.0]"
+			keyValue = "[[960,540],[1630,250]]"
+			fieldToInterp = "PosterOne.translation"
+		/>
+		<Vector2DFieldInterpolator
+			id = "OneInterp"
+			key = "[0.0,1.0]"
+			keyValue = "[[960,540],[1630,250]]"
+			fieldToInterp = "PosterTwo.translation"
+		/>
+		</Animation>
+		<Animation
+			id = "AnimTwo"
+			repeat = "false"
+			easeFunction = "linear"
+			duration = "5"
+		>
+		<Vector2DFieldInterpolator
+			id = "OneInterp"
+			key = "[0.0,1.0]"
+			keyValue = "[[1630,250],[1350,10]]"
+			fieldToInterp = "PosterOne.translation"
+		/>
+		<Vector2DFieldInterpolator
+			id = "OneInterp"
+			key = "[0.0,1.0]"
+			keyValue = "[[1630,250],[1350,10]]"
+			fieldToInterp = "PosterTwo.translation"
+		/>
+		</Animation>
+				<Animation
+			id = "AnimThree"
+			repeat = "false"
+			easeFunction = "linear"
+			duration = "16"
+		>
+		<Vector2DFieldInterpolator
+			id = "OneInterp"
+			key = "[0.0,1.0]"
+			keyValue = "[[1350,10],[200,890]]"
+			fieldToInterp = "PosterOne.translation"
+		/>
+		<Vector2DFieldInterpolator
+			id = "OneInterp"
+			key = "[0.0,1.0]"
+			keyValue = "[[1350,10],[200,890]]"
+			fieldToInterp = "PosterTwo.translation"
+		/>
+		</Animation>
+				<Animation
+			id = "AnimFour"
+			repeat = "false"
+			easeFunction = "linear"
+			duration = "3.2"
+		>
+		<Vector2DFieldInterpolator
+			id = "OneInterp"
+			key = "[0.0,1.0]"
+			keyValue = "[[200,890],[30,750]]"
+			fieldToInterp = "PosterOne.translation"
+		/>
+		<Vector2DFieldInterpolator
+			id = "OneInterp"
+			key = "[0.0,1.0]"
+			keyValue = "[[200,890],[30,750]]"
+			fieldToInterp = "PosterTwo.translation"
+		/>
+		</Animation>
+		<Animation
+			id = "AnimFive"
+			repeat = "false"
+			easeFunction = "linear"
+			duration = "14"
+		>
+		<Vector2DFieldInterpolator
+			id = "OneInterp"
+			key = "[0.0,1.0]"
+			keyValue = "[[30,750],[1200,10]]"
+			fieldToInterp = "PosterOne.translation"
+		/>
+		<Vector2DFieldInterpolator
+			id = "OneInterp"
+			key = "[0.0,1.0]"
+			keyValue = "[[30,750],[1200,10]]"
+			fieldToInterp = "PosterTwo.translation"
+		/>
+		</Animation>
+		<Animation
+			id = "AnimSix"
+			repeat = "false"
+			easeFunction = "linear"
+			duration = "7"
+		>
+		<Vector2DFieldInterpolator
+			id = "OneInterp"
+			key = "[0.0,1.0]"
+			keyValue = "[[1200,10],[1670,300]]"
+			fieldToInterp = "PosterOne.translation"
+		/>
+		<Vector2DFieldInterpolator
+			id = "OneInterp"
+			key = "[0.0,1.0]"
+			keyValue = "[[1200,10],[1670,300]]"
+			fieldToInterp = "PosterTwo.translation"
+		/>
+		</Animation>
+		<Animation
+			id = "AnimSeven"
+			repeat = "false"
+			easeFunction = "linear"
+			duration = "15"
+		>
+		<Vector2DFieldInterpolator
+			id = "OneInterp"
+			key = "[0.0,1.0]"
+			keyValue = "[[1670,300],[150,935]]"
+			fieldToInterp = "PosterOne.translation"
+		/>
+		<Vector2DFieldInterpolator
+			id = "OneInterp"
+			key = "[0.0,1.0]"
+			keyValue = "[[1670,300],[150,935]]"
+			fieldToInterp = "PosterTwo.translation"
+		/>
+		</Animation>
+		<Animation
+			id = "AnimEight"
+			repeat = "false"
+			easeFunction = "linear"
+			duration = "2"
+		>
+		<Vector2DFieldInterpolator
+			id = "OneInterp"
+			key = "[0.0,1.0]"
+			keyValue = "[[150,935],[10,899.3]]"
+			fieldToInterp = "PosterOne.translation"
+		/>
+		<Vector2DFieldInterpolator
+			id = "OneInterp"
+			key = "[0.0,1.0]"
+			keyValue = "[[150,935],[10,899.3]]"
+			fieldToInterp = "PosterTwo.translation"
+		/>
+		</Animation>
+		<Animation
+			id = "AnimNine"
+			repeat = "false"
+			easeFunction = "linear"
+			duration = "11"
+		>
+		<Vector2DFieldInterpolator
+			id = "OneInterp"
+			key = "[0.0,1.0]"
+			keyValue = "[[10,899.3],[960,540]]"
+			fieldToInterp = "PosterOne.translation"
+		/>
+		<Vector2DFieldInterpolator
+			id = "OneInterp"
+			key = "[0.0,1.0]"
+			keyValue = "[[10,899.3],[960,540]]"
+			fieldToInterp = "PosterTwo.translation"
+		/>
+		</Animation>
+	</SequentialAnimation>
+	
+</children>
+</component>

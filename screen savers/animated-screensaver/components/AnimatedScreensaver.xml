@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="AnimatedScreensaver" extends="Scene" >
+
+<script type="text/brightscript" uri = "pkg:/components/AnimatedScreensaver.brs"/>
+
+	<children>
+	
+	<!-- Text Labels for background -->
+	
+		<Label id="TopLabel" 
+	      	text="SCREENSAVER!"
+	      	width="1920" 
+	      	height="1080" 
+	      	horizAlign="center"
+	      	vertAlign="center"
+	      	font="font:LargeBoldSystemFont"
+	    />
+	    <Label id="BottomLabel" 
+	      	text="This is a Screensaver"
+	      	width="1920" 
+	      	height="1080" 
+	      	horizAlign="center"
+	      	vertAlign="center"
+	      	translation = "[0,100]"
+	    />
+	    
+	<!-- Each Poster is grouped with its Animation node -->
+	<!-- For more info on how to manipulate the fields  -->
+	<!-- please see the linked SDK docs for Poster and Aniamtion -->
+		<Poster 
+			id = "Poster1"
+			uri = "pkg:/images/1.jpg"
+			width = "421.5"
+			height = "237"
+			translation = "[150,-450]"
+		/>
+		<Animation 
+			id = "Poster1UpDownAnimation"
+			repeat = "true"
+			duration = "15" easeFunction = "linear" >
+			<Vector2DFieldInterpolator
+				id = "1 Interp"
+				fieldToInterp="Poster1.translation"
+				key="[0,1]"
+				keyValue="[[150,-450],[150,1500]]"
+			/>		
+		</Animation>
+		
+		
+		<Poster 
+			id = "Poster2"
+			uri = "pkg:/images/2.jpg"
+			width = "540"
+			height = "304.5"
+			translation = "[-750,600]"
+		/>
+		<Animation 
+			id = "Poster2LeftRightAnimation"
+			duration = "23" easeFunction = "linear" >
+			<Vector2DFieldInterpolator
+				id = "2 Interp"
+				fieldToInterp="Poster2.translation"
+				key="[0,1]"
+				keyValue="[[-750,600],[2100,600]]"
+			/>		
+		</Animation>
+		
+		
+		<Poster 
+			id = "Poster3"
+			uri = "pkg:/images/3.jpg"
+			width = "225"
+			height = "126"
+			translation = "[750,-600]"
+		/>
+		<Animation 
+			id = "Poster3UpDownAnimation"
+			repeat = "true"
+			duration = "10" easeFunction = "linear" >
+			<Vector2DFieldInterpolator
+				id = "3 Interp"
+				fieldToInterp="Poster3.translation"
+				key="[0,1]"
+				keyValue="[[750,-600],[750,1350]]"
+			/>		
+		</Animation>
+		
+		
+		<Poster 
+			id = "Poster4"
+			uri = "pkg:/images/4.jpg"
+			width = "600"
+			height = "337.5"
+			translation = "[-300,-450]"
+		/>
+		<Animation 
+			id = "Poster4DiagonalAnimation"
+			repeat = "true"
+			duration = "30" easeFunction = "linear" >
+			<Vector2DFieldInterpolator
+				id = "4 Interp"
+				fieldToInterp="Poster4.translation"
+				key="[0,1]"
+				keyValue="[[-300,-450],[2100,1350]]"
+			/>		
+		</Animation>
+		
+		
+		<Poster 
+			id = "Poster5"
+			uri = "pkg:/images/5.jpg"
+			width = "421.5"
+			height = "237"
+			translation = "[1200,-600]"
+		/>
+		
+		
+		<Animation 
+			id = "Poster5UpDownAnimation"
+			repeat = "true"
+			duration = "12" easeFunction = "linear" >
+			<Vector2DFieldInterpolator
+				id = "5 Interp"
+				fieldToInterp="Poster5.translation"
+				key="[0,1]"
+				keyValue="[[1200,-600],[1200,1500]]"
+			/>		
+		</Animation>
+		
+		
+		<Poster 
+			id = "Poster6"
+			uri = "pkg:/images/6.jpg"
+			width = "225"
+			height = "126"
+			translation = "[-300,450]"
+		/>
+		
+		
+		<Animation 
+			id = "Poster6DiagonalAnimation"
+			repeat = "true"
+			duration = "20" easeFunction = "linear" >
+			<Vector2DFieldInterpolator
+				id = "6 Interp"
+				fieldToInterp="Poster6.translation"
+				key="[0,1]"
+				keyValue="[[-300,450],[900,-450]]"
+			/>		
+		</Animation>
+		
+		
+		<Poster 
+			id = "Poster7"
+			uri = "pkg:/images/7.jpeg"
+			width = "376.5"
+			height = "282"
+			translation = "[900,-600]"
+		/>
+		<Animation 
+			id = "Poster7UpDownAnimation"
+			repeat = "true"
+			duration = "30" easeFunction = "linear" >
+			<Vector2DFieldInterpolator
+				id = "7 Interp"
+				fieldToInterp="Poster7.translation"
+				key="[0,1]"
+				keyValue="[[900,-600],[900,2100]]"
+			/>		
+		</Animation>	
+	</children>
+</component>

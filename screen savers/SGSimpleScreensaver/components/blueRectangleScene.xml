@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<component name="BlueRectangleScene" extends="Scene" >
+
+<interface>
+    <field id="animControl" type="string" alwaysNotify="true" onChange="OnAnimChanged" />
+</interface>
+
+<script type="text/brightscript" >
+<![CDATA[
+    function onKeyEvent(key as String, press as Boolean) as Boolean
+	handled = false
+        if press
+            if key="up"
+                m.blueRectAnim.control="pause"
+		handled = true
+	    else if key="down"
+                m.blueRectAnim.control="resume"
+		handled = true
+	    else if key="left"
+	        m.blueRectAnim.control="stop"
+		handled = true
+	    else if key="right"
+	        m.blueRectAnim.control="start"
+		handled = true
+	    end if
+        end if
+	return handled
+    end function
+
+    function OnAnimChanged() as Void
+        print "set animation to ";m.top.animControl
+        m.blueRectAnim.control = m.top.animControl
+    end function
+
+    function onColorChanged() as Void
+        clr = &h000020FF + ( (m.global.TestField mod 255) << 16 )
+       m.top.findNode("BlueRectangle").color = clr 
+        print "new Color ";clr
+    end function
+
+    function init()
+        print "Blue on Init"
+        m.blueRectAnim = m.top.findNode("BlueRectangleMover")
+	    m.top.backgroundURI = "pkg:/images/bg.jpg"
+	    m.top.setFocus(true)
+        onColorChanged()
+
+        print "Global node ";m.global
+        m.global.observeField("TestField", "onColorChanged")
+        m.global.TestField = 200
+    end function
+]]>
+</script>
+
+<children>
+
+<Rectangle id="BlueRectangle"
+	   color="0x0000FFFF"
+	   width="300"
+	   height="200"
+	   translation="[300, 150]"
+>
+<Label text="SDK2" horizAlign="center" vertAlign="center" font="font:LargeBoldSystemFont" width="300" height="200"  color="0x200000FF"/>
+</Rectangle>
+
+<Animation id="BlueRectangleMover" repeat="true" 
+           duration="4" easeFunction="linear" >
+    <Vector2DFieldInterpolator id="BlueRectangleInterp" 
+			       fieldToInterp="BlueRectangle.translation" 
+			       key="[0.0, 0.25, 0.5, 0.75, 1.0]"
+			       keyValue="[[300,150],[700,150],[700,400],[300,400],[300,150]]"
+			       />
+</Animation>
+
+</children>
+
+</component>

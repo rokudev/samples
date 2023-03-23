@@ -1,0 +1,13 @@
+#
+#  Copyright (c) 2016 Roku, Inc. All rights reserved.
+#  Roku Channel Manifest File
+#  Full spec at bit.ly/roku-manifest-file
+#
+
+##   Channel Details
+screensaver_title=Quadrant Screensaver
+major_version=1
+minor_version=0
+build_version=0
+
+ui_resolutions=hd
