@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<component name="MovingFocusTargetWrapTestScene" extends="Scene" >
+
+<!-- Uses an RSG component that extends the TargetGroup node -->
+
+<script type="text/brightscript" >
+<![CDATA[
+    function init()
+        print "in MovingFocusTargetWrapTestScene init"
+	      tList = m.top.findNode("tList")
+	      m.tList = tList
+        tList.id = "theList"
+        ?"TList is :"; tList
+
+        m.fiiLabel = m.top.findNode("currFII")
+
+        focusedTargetSet1 = createObject("roSGNode", "TargetSet")
+        focusedTargetSet2 = createObject("roSGNode", "TargetSet")
+        focusedTargetSet3 = createObject("roSGNode", "TargetSet")
+        focusedTargetSet4 = createObject("roSGNode", "TargetSet")
+        focusedTargetSet5 = createObject("roSGNode", "TargetSet")
+        m.tList.focusedTargetSet = [ focusedTargetSet1, focusedTargetSet2, focusedTargetSet3, focusedTargetSet4, focusedTargetSet5 ]
+
+        focusedTargetSet1.targetRects = [
+	                          { x:-192, y:-64, width:100, height:128 },
+	                          { x:-192, y:-64, width:100, height:128 },
+        	                  { x:-192,  y:-90,  width:144, height:180 },
+	                          { x:-192,  y:-125,  width:200, height:250 },
+	                          { x:28,  y:-188,   width:300, height:376 }, ' focus
+	                          { x:348,  y:-125,  width:200, height:250 },
+        	                  { x:568,  y:-90,  width:144, height:180 },
+	                          { x:732, y:-64, width:100, height:128 },
+	                          { x:852, y:-64, width:100, height:128 },
+	                          { x:972, y:-64, width:100, height:128 },
+	                          { x:1092, y:-64, width:100, height:128 },
+	                          { x:1212, y:-64, width:100, height:128 },
+	                          { x:1332, y:-64, width:100, height:128 }
+				  ]
+        focusedTargetSet1.focusIndex = 4
+	      focusedTargetSet1.color = "0x00202020AA"
+
+        focusedTargetSet2.targetRects = [
+	                          { x:-164, y:-64, width:100, height:128 },
+	                          { x:-164, y:-64, width:100, height:128 },
+	                          { x:-164, y:-64, width:100, height:128 },
+        	                  { x:-164,  y:-90,  width:144, height:180 },
+	                          { x:0,  y:-125,  width:200, height:250 },
+	                          { x:220,  y:-188,   width:300, height:376 }, ' focus
+	                          { x:540,  y:-125,  width:200, height:250 },
+     	                          { x:760, y:-90,  width:144, height:180 },
+	                          { x:924, y:-64, width:100, height:128 },
+	                          { x:1044, y:-64, width:100, height:128 },
+	                          { x:1164, y:-64, width:100, height:128 },
+	                          { x:1284, y:-64, width:100, height:128 },
+	                          { x:1404,  y:-64, width:100, height:128 }
+				  ]
+        focusedTargetSet2.focusIndex = 5
+	      focusedTargetSet2.color = "0x00202020AA"
+
+        focusedTargetSet3.targetRects = [
+	                          { x:-134, y:-64, width:100, height:128 },
+	                          { x:-134, y:-64, width:100, height:128 },
+	                          { x:-134, y:-64, width:100, height:128 },
+	                          { x:-14,  y:-64, width:100, height:128 },
+        	                  { x:106,  y:-90,  width:144, height:180 },
+	                          { x:270,  y:-125,  width:200, height:250 },
+	                          { x:490,  y:-188,   width:300, height:376 }, ' focus
+	                          { x:810,  y:-125,  width:200, height:250 },
+     	                          { x:1030, y:-90,  width:144, height:180 },
+	                          { x:1194, y:-64, width:100, height:128 },
+	                          { x:1314, y:-64, width:100, height:128 },
+	                          { x:1314, y:-64, width:100, height:128 },
+	                          { x:1314, y:-64, width:100, height:128 }
+				  ]
+        focusedTargetSet3.focusIndex = 6
+	      focusedTargetSet3.color = "0x00202020AA"
+
+        focusedTargetSet4.targetRects = [
+	                          { x:-204, y:-64, width:100, height:128 }
+	                          { x:-204, y:-64, width:100, height:128 },
+	                          { x:16, y:-64, width:100, height:128 },
+	                          { x:136, y:-64, width:100, height:128 },
+	                          { x:256,  y:-64, width:100, height:128 },
+        	                  { x:376,  y:-90,  width:144, height:180 },
+	                          { x:540,  y:-125,  width:200, height:250 },
+	                          { x:760,  y:-188,   width:300, height:376 }, ' focus
+	                          { x:1080,  y:-125,  width:200, height:250 },
+     	                          { x:1300, y:-90,  width:144, height:180 },
+	                          { x:1464, y:-64, width:100, height:128 },
+	                          { x:1584, y:-64, width:100, height:128 },
+	                          { x:1704, y:-64, width:100, height:128 },
+				  ]
+        focusedTargetSet4.focusIndex = 7
+	      focusedTargetSet4.color = "0x00202020AA"
+
+        focusedTargetSet5.targetRects = [
+	                          { x:-152, y:-64, width:100, height:128 },
+	                          { x:-32, y:-64, width:100, height:128 }
+	                          { x:88, y:-64, width:100, height:128 },
+	                          { x:208, y:-64, width:100, height:128 },
+	                          { x:328, y:-64, width:100, height:128 },
+	                          { x:448,  y:-64, width:100, height:128 },
+        	                  { x:568,  y:-90,  width:144, height:180 },
+	                          { x:732,  y:-125,  width:200, height:250 },
+	                          { x:952,  y:-188,   width:300, height:376 }, ' focus
+	                          { x:1272,  y:-125,  width:200, height:250 },
+     	                          { x:1272, y:-90,  width:144, height:180 },
+	                          { x:1272, y:-64, width:100, height:128 },
+	                          { x:1272, y:-64, width:100, height:128 },
+				  ]
+        focusedTargetSet5.focusIndex = 8
+	      focusedTargetSet5.color = "0x00202020AA"
+
+        unfocusedTargetSet = createObject("roSGNode", "TargetSet")
+        m.tList.unfocusedTargetSet = unfocusedtargetSet
+
+        unfocusedTargetSet.targetRects = [
+	                          { x:-130, y:-64, width:100, height:128 },
+	                          { x:-10, y:-64, width:100, height:128 },
+	                          { x:110, y:-64, width:100, height:128 },
+	                          { x:230,  y:-64, width:100, height:128 },
+        	                  { x:350,  y:-64,  width:100, height:128 },
+	                          { x:470,  y:-64,  width:100, height:128 },
+	                          { x:590,  y:-64, width:100, height:128 }, ' focus
+	                          { x:710,  y:-64,  width:100, height:128 },
+     	                          { x:830,  y:-64,  width:100, height:128 },
+	                          { x:950,  y:-64, width:100, height:128 },
+	                          { x:1070, y:-64, width:100, height:128 },
+	                          { x:1190, y:-64, width:100, height:128 },
+	                          { x:1310, y:-64, width:100, height:128 }
+				  ]
+        unfocusedTargetSet.focusIndex = 6    ' should not matter?
+	      unfocusedTargetSet.color = "0x00202020AA"
+
+        tList.targetSet = m.tList.focusedTargetSet[0]
+        tList.showTargetRects = true
+	      tList.itemComponentName = "SimpleItemComponent"
+
+        dataModel = setUpDataModel()
+        print "DATA MODEL HAS "; dataModel.getChildCount(); " ELEMENTS"
+        tList.content = dataModel
+
+        tList.observeField("itemFocused", "itemFocusedChanged")
+        tList.observeField("itemUnfocused", "itemUnfocusedChanged")
+        tList.observeField("itemSelected", "itemSelectedChanged")
+	      tList.observeField("currFocusItemIndex", "fiiChanged")
+
+        print "setting List 1 to have focus"
+        tList.setFocus(true)
+        print "after setting List 1 to have focus"
+
+        tList.translation = [ 0, 360 ]
+        fiiChanged()
+
+    end function
+
+    function setUpDataModel()
+        contentRoot = createObject("roSGNode", "ContentNode")
+	      for i = 0 to 24
+            child = contentRoot.createChild("ContentNode")
+            child.title = "Item " + i.tostr()
+        end for
+        return contentRoot
+    end function
+
+    function itemFocusedChanged()
+        print "itemFocused changed to: "; m.tList.itemFocused
+    end function
+
+    function itemUnfocusedChanged()
+        print "itemUnfocused changed to: "; m.tList.itemUnfocused
+    end function
+
+    function itemSelectedChanged()
+        print "itemSelected changed to: "; m.tList.itemSelected
+    end function
+
+    function fiiChanged()
+        m.fiiLabel.text = "Item in focus position: " + m.tList.currFocusItemIndex.tostr()
+    end function
+
+    function onKeyEvent(key as string, press as boolean) as boolean
+        handled = false
+        if key = "up"
+            if press
+
+            end if
+        end if
+        if key = "down"
+            if press
+
+            end if
+        end if
+        return handled
+    end function
+
+]]>
+</script>
+
+<children>
+    <MovingFocusRowWithWrap id="tList" />
+    <Rectangle width="2" height="720" translation="[632, 0]" />
+    <Label id="currFII" translation="[50, 50]" />
+</children>
+
+</component>

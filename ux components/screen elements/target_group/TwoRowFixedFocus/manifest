@@ -1,0 +1,7 @@
+title=TargetList Focus Test
+major_version=1
+minor_version=1
+build_version=00001
+
+mm_icon_focus_hd=pkg:/images/channel-poster.jpg
+splash_screen_fhd=pkg:/images/splash-screen.jpg

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<component name="TargetListFocusTestScene" extends="Scene" >
+
+<script type="text/brightscript" >
+<![CDATA[
+    function init()
+        print "in FocusTestScene init"
+	      tList1 = m.top.findNode("tList1")
+	      m.tList1 = tList1
+        tList1.id = "List1"
+        ?"TList is :"; tList1
+
+        focusedTargetSet = createObject("roSGNode", "TargetSet")
+        m.tList1.focusedTargetSet = focusedTargetSet
+
+        focusedTargetSet.targetRects = [
+	                          { x:-134, y:-64, width:100, height:128 },
+	                          { x:-134, y:-64, width:100, height:128 },
+	                          { x:-134, y:-64, width:100, height:128 },
+	                          { x:-14,  y:-64, width:100, height:128 },
+        	                  { x:106,  y:-90,  width:144, height:180 },
+	                          { x:270,  y:-125,  width:200, height:250 },
+	                          { x:490,  y:-188,   width:300, height:376 }, ' focus
+	                          { x:810,  y:-125,  width:200, height:250 },
+     	                      { x:1030, y:-90,  width:144, height:180 },
+	                          { x:1194, y:-64, width:100, height:128 },
+	                          { x:1314, y:-64, width:100, height:128 },
+	                          { x:1314, y:-64, width:100, height:128 },
+	                          { x:1314, y:-64, width:100, height:128 }
+				]
+	      focusedTargetSet.color = "0x00202020AA"
+
+        unfocusedTargetSet = createObject("roSGNode", "TargetSet")
+        m.tList1.unfocusedTargetSet = unfocusedtargetSet
+
+        unfocusedTargetSet.targetRects = [
+	                          { x:-130, y:-64, width:100, height:128 },
+	                          { x:-10, y:-64, width:100, height:128 },
+	                          { x:110, y:-64, width:100, height:128 },
+	                          { x:230,  y:-64, width:100, height:128 },
+        	                  { x:350,  y:-64,  width:100, height:128 },
+	                          { x:470,  y:-64,  width:100, height:128 },
+	                          { x:590,  y:-64, width:100, height:128 }, ' focus
+	                          { x:710,  y:-64,  width:100, height:128 },
+     	                      { x:830,  y:-64,  width:100, height:128 },
+	                          { x:950,  y:-64, width:100, height:128 },
+	                          { x:1070, y:-64, width:100, height:128 },
+	                          { x:1190, y:-64, width:100, height:128 },
+	                          { x:1310, y:-64, width:100, height:128 }
+				]
+	      unfocusedTargetSet.color = "0x00202020AA"
+
+        tList1.targetSet = focusedTargetSet
+        tList1.showTargetRects = true
+	      tList1.itemComponentName = "SimpleItemComponent"
+
+        dataModel = setUpDataModel()
+        print "DATA MODEL HAS "; dataModel.getChildCount(); " ELEMENTS"
+        tList1.content = dataModel
+
+        tList1.observeField("itemFocused", "itemFocusedChanged")
+        tList1.observeField("itemUnfocused", "itemUnfocusedChanged")
+        tList1.observeField("itemSelected", "itemSelectedChanged")
+	      tList1.observeField("currFocusItemIndex", "currFocusItemIndexChanged")
+        m.progressLabel = m.top.findNode("ProgressLabel")
+
+	      tList2 = m.top.findNode("tList2")
+	      m.tList2 = tList2
+        tList2.id = "List2"
+        ?"TList is :"; tList2
+
+        m.tList2.focusedTargetSet = focusedTargetSet
+
+        m.tList2.unfocusedTargetSet = unfocusedtargetSet
+
+        tList2.targetSet = unfocusedTargetSet
+        tList2.showTargetRects = true
+	      tList2.itemComponentName = "SimpleItemComponent"
+
+        dataModel = setUpDataModel()
+        print "DATA MODEL HAS "; dataModel.getChildCount(); " ELEMENTS"
+        tList2.content = dataModel
+
+        tList2.observeField("itemFocused", "itemFocusedChanged")
+        tList2.observeField("itemUnfocused", "itemUnfocusedChanged")
+        tList2.observeField("itemSelected", "itemSelectedChanged")
+	      tList2.observeField("currFocusItemIndex", "currFocusItemIndexChanged")
+
+        print "setting List 1 to have focus"
+        tList1.setFocus(true)
+        print "after setting List 1 to have focus"
+
+        tList1.translation = [ 0, 218 ]
+        tList2.translation = [ 0, 500 ]
+    end function
+
+    function setUpDataModel()
+        contentRoot = createObject("roSGNode", "ContentNode")
+	      for i = 0 to 24
+            child = contentRoot.createChild("ContentNode")
+            child.title = "Item " + i.tostr()
+        end for
+        return contentRoot
+    end function
+
+    function itemFocusedChanged()
+        print "itemFocused changed to: "; m.tList1.itemFocused
+    end function
+
+    function itemUnfocusedChanged()
+        print "itemUnfocused changed to: "; m.tList1.itemUnfocused
+    end function
+
+    function itemSelectedChanged()
+        print "itemSelected changed to: "; m.tList1.itemSelected
+    end function
+
+    function currFocusItemIndexChanged()
+        m.progressLabel.text = "Item in focus position: " + m.tList1.currFocusItemIndex.tostr()
+    end function
+
+    function positionTLists()
+        ' the SimpleTargetRow's are set up to have their y=0 point in the vertical
+        ' center
+        tList1LocalRect = m.tList1.localBoundingRect()
+        tList2LocalRect = m.tList2.localBoundingRect()
+
+        ? "in positionTLists"
+        ? "tList1 lbr: "; m.tList1.localBoundingRect()
+        ? "tList2 lbr: "; m.tList1.localBoundingRect()
+
+	      spacing = 30
+        currY = spacing
+        m.tList1.translation = [ 0, currY + tList1LocalRect.height * 0.5]
+        currY = currY + tList1LocalRect.height + spacing
+        m.tList2.translation = [ 0, currY + tList2LocalRect.height * 0.5]
+
+        ? "NEW TRANSLATIONS: "; m.tList1.translation[1]; " "; m.tList2.translation[1]
+    end function
+
+    function onKeyEvent(key as string, press as boolean) as boolean
+        handled = false
+        if key = "up"
+            if press
+            ? "up key list2 has focus "; m.tList2.hasFocus()
+                if m.tList2.hasFocus()
+                    m.tList1.setFocus(true)
+                end if
+            end if
+	    handled = true
+        end if
+        if key = "down"
+            if press
+            ? "down key list1 has focus "; m.tList1.hasFocus()
+                if m.tList1.hasFocus()
+                    m.tList2.setFocus(true)
+                end if
+            end if
+	    handled = true
+        end if
+        return handled
+    end function
+]]>
+</script>
+
+<children>
+    <TargetList id="tList1" defaultTargetSetFocusIndex="6" advanceKey="right" reverseKey="left" />
+    <TargetList id="tList2" defaultTargetSetFocusIndex="6" advanceKey="right" reverseKey="left" />
+
+    <Label id="ProgressLabel" translation="[100, 75]" />
+</children>
+
+</component>

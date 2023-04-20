@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<component name="SimpleItemComponent" extends="Group" >
+
+<!-- Note that target and rect are both set during the interpolation -->
+<interface>
+    <field id="index"       type="int" />
+    <field id="groupHasFocus" type="boolean" onChange="focusPercentChanged"/>
+    <field id="itemContent" type="node"   onChange="itemContentChanged" />
+    <field id="currTarget"  type="float"  onChange="currTargetChanged" />
+    <field id="currRect"    type="rect2d" onChange="currRectChanged" />
+    <field id="focusPercent" type="float" onChange="focusPercentChanged" />
+</interface>
+
+<script type="text/brightscript" >
+<![CDATA[
+    function init()
+        m.theRect  = m.top.findNode("theRect")
+        m.theLabel = m.top.findNode("theLabel")
+        m.focusColorInterp = m.top.findNode("focusColorInterp")
+        m.focusColorInterp.fieldToInterp = "theRect.color"
+    end function
+
+    function itemContentChanged()
+        m.theLabel.text = m.top.itemContent.title
+    end function
+
+    function currTargetChanged()
+        if m.top.index = 0
+            print "currTarget for item "; m.top.index; " changed to "; m.top.currTarget
+        end if
+    end function
+
+    function currRectChanged()
+	      m.theRect.width       = m.top.currRect.width
+	      m.theRect.height      = m.top.currRect.height
+    end function
+
+    function focusPercentChanged()
+        print "focusPercent for item "; m.top.index; " changed to "; m.top.focusPercent
+        if (m.top.groupHasFocus)
+            m.focusColorInterp.fraction = m.top.focusPercent
+        else
+            m.focusColorInterp.fraction = 0
+        end if
+    end function
+]]>
+</script>
+
+<children>
+    <Rectangle id="theRect" color="0x00002080">
+        <Label id="theLabel" translation="[10, 10]" />
+    </Rectangle>
+    <ColorFieldInterpolator id="focusColorInterp" key="[0.0, 1.0]" keyValue="[0x00002080, 0x000080FF]" />
+</children>
+
+</component>
