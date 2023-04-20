@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!-- Copyright 2016 Roku Corp.  All Rights Reserved. -->
+
+<component name="HeroScene" extends="Scene" >
+
+  <children>
+    <!-- RowList on HeroScene -->
+    <HeroScreen
+      id="HeroScreen"
+      visible="true"
+      translation="[0,0]"/>
+
+    <!-- Overhang Node -->
+    <Overhang
+      showClock="true"
+      title="Hero-Grid-Channel" />
+
+    <!-- Details screen with play button -->
+    <DetailsScreen
+      id="DetailsScreen"
+      visible="false" />
+
+    <!-- Warning if bad URL request/timeout -->
+    <Dialog
+      id="WarningDialog"
+      title="Content Loading Failed"
+      message="The content is not available at this time. Press option '*' to continue to a blank channel or 'home' to exit."
+      visible="false" />
+
+    <!-- The spinning wheel for when content is loading -->
+    <LoadingIndicator
+      id="LoadingIndicator"
+      imageUri="pkg:/components/LoadingIndicator/loader.png"
+      clockwise="true"
+      spinInterval="2"
+      fadeInterval="0.5"
+      spacing="20"
+      imageWidth="100"
+      text="Loading..."
+      width="1920"
+      height="1080"
+      centered="false"
+      translation="[0, 0]"
+      textPadding="10"
+      font="font:SmallBoldSystemFont"
+      backgroundColor="0x551A8B"
+      backgroundOpacity="0"/>
+
+    <!-- Animation to fade the ScreenFade in/out -->
+    <ParallelAnimation id="FadeIn">
+      <Animation
+        id="HFadeOut"
+        duration=".4"
+        repeat="false"
+        easeFunction="inQuad">
+        <FloatFieldInterpolator
+          id="HFadeOutInterp"
+          key="[0,1]"
+          keyValue="[1.0, 0.0]"
+          fieldToInterp="HeroScreen.opacity"/>
+      </Animation>
+      <Animation
+        id="DSFadeIn"
+        duration=".4"
+        repeat="false"
+        easeFunction="inQuad">
+        <FloatFieldInterpolator
+          id="DSFadeInInterp"
+          key="[0,1]"
+          keyValue="[0.0, 1.0]"
+          fieldToInterp="DetailsScreen.opacity"/>
+      </Animation>
+    </ParallelAnimation>
+
+    <!-- Animation to fade the ScreenFade in/out -->
+    <ParallelAnimation id="FadeOut">
+      <Animation
+        id="HFadeIn"
+        duration=".4"
+        repeat="false"
+        easeFunction="inQuad">
+        <FloatFieldInterpolator
+          id="HFadeInInterp"
+          key="[0,1]"
+          keyValue="[0.0, 1.0]"
+          fieldToInterp="HeroScreen.opacity"/>
+      </Animation>
+      <Animation
+        id="DSFadeOut"
+        duration=".4"
+        repeat="false"
+        easeFunction="inQuad">
+        <FloatFieldInterpolator
+          id="DSFadeOutInterp"
+          key="[0,1]"
+          keyValue="[1.0, 0.0]"
+          fieldToInterp="DetailsScreen.opacity"/>
+      </Animation>
+    </ParallelAnimation>
+
+  </children>
+
+  <interface>
+    <field id="content" type="node" alias="HeroScreen.content" onChange="OnChangeContent" />
+    <field id="numBadRequests" type="integer" value="0" alias="HeroScreen.numBadRequests" />
+    <field id="rowItemSelected" type="intarray" alias="HeroScreen.rowItemSelected" alwaysNotify="true" onChange="OnRowItemSelected" />
+    <field id="itemFocused" type="intarray" alias="RowList.rowItemFocused" onChange="OnItemFocused"/>
+  </interface>
+
+  <script type="text/brightscript" uri="pkg:/components/HeroScene.brs" />
+
+</component>

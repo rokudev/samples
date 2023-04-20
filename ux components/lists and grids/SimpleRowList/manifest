@@ -1,0 +1,18 @@
+title=Simple Row List
+subtitle=A Scene Graph Markup Demo
+major_version=1
+minor_version=1
+build_version=00001
+
+mm_icon_focus_hd=pkg:/images/MainMenu_Icon_Center_HD.png
+mm_icon_side_hd=pkg:/images/MainMenu_Icon_Side_HD.png
+mm_icon_focus_sd=pkg:/images/MainMenu_Icon_Center_SD43.png
+mm_icon_side_sd=pkg:/images/MainMenu_Icon_Side_SD43.png
+
+splash_screen_sd=pkg:/images/splash_sd.jpg
+splash_screen_hd=pkg:/images/splash_hd.jpg
+splash_screen_fhd=pkg:/images/splash_fhd.jpg
+splash_color=#000000
+splash_min_time=1000
+ui_resolutions=hd
+

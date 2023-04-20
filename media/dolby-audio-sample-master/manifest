@@ -1,0 +1,12 @@
+# Channel Details
+title=Dolby Audio
+major_version=1
+minor_version=0
+build_version=1
+
+# Channel Assets
+mm_icon_focus_hd=pkg:/images/dolby-icon.png
+splash_screen_fhd=pkg:/images/dolby-splash.png
+
+# Resolution
+ui_resolutions=fhd

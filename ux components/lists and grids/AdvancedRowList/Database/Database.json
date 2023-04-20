@@ -1,0 +1,369 @@
+{
+  "artists": [
+    {
+      "name": "Band 1",
+      "albums": [
+        {
+          "title": "Album 1",
+          "tracks": [
+            {
+              "title": "Track 1",
+              "duration": 0,
+              "rating": 0
+            },
+            {
+              "title": "Track 2",
+              "duration": 0,
+              "rating": 0
+            }
+          ]		  
+        },
+        {
+          "title": "Album 2",
+          "tracks": [
+            {
+              "title": "Track 1",
+              "duration": 0,
+              "rating": 0
+            },
+            {
+              "title": "Track 2",
+              "duration": 0,
+              "rating": 0
+            }
+          ]		  		  
+        }		,
+        {
+          "title": "Album 3",
+          "tracks": [
+            {
+              "title": "Track 1",
+              "duration": 0,
+              "rating": 0
+            },
+            {
+              "title": "Track 2",
+              "duration": 0,
+              "rating": 0
+            },
+            {
+              "title": "Track 3",
+              "duration": 0,
+              "rating": 0
+            }			
+          ]		  		  
+        }				
+      ]
+    },
+    {
+      "name": "Band 2",
+      "albums": [
+        {
+          "title": "Album 1",
+          "tracks": [
+            {
+              "title": "Track 1",
+              "duration": 0,
+              "rating": 0
+            },
+            {
+              "title": "Track 2",
+              "duration": 0,
+              "rating": 0
+            }
+          ]		  
+        },
+        {
+          "title": "Album 2",
+          "tracks": [
+            {
+              "title": "Track 1",
+              "duration": 0,
+              "rating": 0
+            },
+            {
+              "title": "Track 2",
+              "duration": 0,
+              "rating": 0
+            }
+          ]		  		  
+        }		,
+        {
+          "title": "Album 3",
+          "tracks": [
+            {
+              "title": "Track 1",
+              "duration": 0,
+              "rating": 0
+            },
+            {
+              "title": "Track 2",
+              "duration": 0,
+              "rating": 0
+            },
+            {
+              "title": "Track 3",
+              "duration": 0,
+              "rating": 0
+            }			
+          ]		  		  
+        },
+        {
+          "title": "Album 4",
+          "tracks": [
+            {
+              "title": "Track 1",
+              "duration": 0,
+              "rating": 0
+            },
+            {
+              "title": "Track 2",
+              "duration": 0,
+              "rating": 0
+            },
+            {
+              "title": "Track 3",
+              "duration": 0,
+              "rating": 0
+            },
+            {
+              "title": "Track 4",
+              "duration": 0,
+              "rating": 0
+            }						
+          ]		  		  
+        }						
+      ]
+    },
+	
+    {
+      "name": "Band 3",
+      "albums": [
+        {
+          "title": "Album 1",
+          "tracks": [
+            {
+              "title": "Track 1",
+              "duration": 0,
+              "rating": 0
+            },
+            {
+              "title": "Track 2",
+              "duration": 0,
+              "rating": 0
+            }
+          ]		  
+        },
+        {
+          "title": "Album 2",
+          "tracks": [
+            {
+              "title": "Track 1",
+              "duration": 0,
+              "rating": 0
+            },
+            {
+              "title": "Track 2",
+              "duration": 0,
+              "rating": 0
+            }
+          ]		  		  
+        }		,
+        {
+          "title": "Album 3",
+          "tracks": [
+            {
+              "title": "Track 1",
+              "duration": 0,
+              "rating": 0
+            },
+            {
+              "title": "Track 2",
+              "duration": 0,
+              "rating": 0
+            },
+            {
+              "title": "Track 3",
+              "duration": 0,
+              "rating": 0
+            }			
+          ]		  		  
+        }				
+      ]
+    },
+
+    {
+      "name": "Band 4",
+      "albums": [
+        {
+          "title": "Album 1",
+          "tracks": [
+            {
+              "title": "Track 1",
+              "duration": 0,
+              "rating": 0
+            },
+            {
+              "title": "Track 2",
+              "duration": 0,
+              "rating": 0
+            }
+          ]		  
+        },
+        {
+          "title": "Album 2",
+          "tracks": [
+            {
+              "title": "Track 1",
+              "duration": 0,
+              "rating": 0
+            },
+            {
+              "title": "Track 2",
+              "duration": 0,
+              "rating": 0
+            }
+          ]		  		  
+        }		,
+        {
+          "title": "Album 3",
+          "tracks": [
+            {
+              "title": "Track 1",
+              "duration": 0,
+              "rating": 0
+            },
+            {
+              "title": "Track 2",
+              "duration": 0,
+              "rating": 0
+            },
+            {
+              "title": "Track 3",
+              "duration": 0,
+              "rating": 0
+            }			
+          ]		  		  
+        }				
+      ]
+    },
+	
+	
+	
+    {
+      "name": "Band 5",
+      "albums": [
+        {
+          "title": "Album 1",
+          "tracks": [
+            {
+              "title": "Track 1",
+              "duration": 0,
+              "rating": 0
+            },
+            {
+              "title": "Track 2",
+              "duration": 0,
+              "rating": 0
+            }
+          ]		  
+        },
+        {
+          "title": "Album 2",
+          "tracks": [
+            {
+              "title": "Track 1",
+              "duration": 0,
+              "rating": 0
+            },
+            {
+              "title": "Track 2",
+              "duration": 0,
+              "rating": 0
+            }
+          ]		  		  
+        }		,
+        {
+          "title": "Album 3",
+          "tracks": [
+            {
+              "title": "Track 1",
+              "duration": 0,
+              "rating": 0
+            },
+            {
+              "title": "Track 2",
+              "duration": 0,
+              "rating": 0
+            },
+            {
+              "title": "Track 3",
+              "duration": 0,
+              "rating": 0
+            }			
+          ]		  		  
+        }				
+      ]
+    },
+
+	
+    {
+      "name": "Band 6",
+      "albums": [
+        {
+          "title": "Album 1",
+          "tracks": [
+            {
+              "title": "Track 1",
+              "duration": 0,
+              "rating": 0
+            },
+            {
+              "title": "Track 2",
+              "duration": 0,
+              "rating": 0
+            }
+          ]		  
+        },
+        {
+          "title": "Album 2",
+          "tracks": [
+            {
+              "title": "Track 1",
+              "duration": 0,
+              "rating": 0
+            },
+            {
+              "title": "Track 2",
+              "duration": 0,
+              "rating": 0
+            }
+          ]		  		  
+        }		,
+        {
+          "title": "Album 3",
+          "tracks": [
+            {
+              "title": "Track 1",
+              "duration": 0,
+              "rating": 0
+            },
+            {
+              "title": "Track 2",
+              "duration": 0,
+              "rating": 0
+            },
+            {
+              "title": "Track 3",
+              "duration": 0,
+              "rating": 0
+            }			
+          ]		  		  
+        }				
+      ]
+    }
+	
+
+	
+  ]
+}

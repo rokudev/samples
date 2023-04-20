@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--********** Copyright 2017 Roku Corp.  All Rights Reserved. **********-->
+
+<component name="SeasonsHandler" extends="ContentHandler" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+    <interface>
+        <field id="seasons" type="array" />
+    </interface>
+	<script type="text/brightscript" uri="pkg:/components/content/SeasonsHandler.brs" />
+    <script type="text/brightscript" uri="pkg:/source/rsg_utils.brs" />
+</component>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<!--********** Copyright 2015 Roku Corp.  All Rights Reserved. **********-->
+
+<component name="posteranimationScene" extends="Scene" >
+
+<script type="text/brightscript" >
+<![CDATA[
+
+sub init()
+	m.top.backgroundURI = "pkg:/images/purplebg.jpg"
+
+	m.top.setFocus(true)
+end sub
+
+]]>
+</script>
+
+<children>
+    <Poster
+	id="channelPoster"
+	uri="pkg:/images/channel.png"
+	width="220"
+	height="100"
+	translation="[900,600]"
+	opacity="0.0" />
+
+    <Animation 
+	id="fadeinoutAnimation"
+	duration="10"
+	repeat="true"
+	control="start"
+	easeFunction="linear" >
+	<FloatFieldInterpolator 
+		id = "fadeinoutPoster"
+		key="[0.0, 0.5, 1.0]" 
+		keyValue="[ 0.0, 1.0, 0.0 ]"
+    		fieldToInterp="channelPoster.opacity" />
+    </Animation>
+</children>
+</component>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+ 
+<component name="SimpleRowListItem" extends="Group">
+ 
+<interface> 
+  <field id="itemContent" type="node" onChange="itemContentChanged"/> 
+</interface>
+ 
+<script type="text/brightscript" >
+<![CDATA[ 
+  function itemContentChanged() as void
+    itemData = m.top.itemContent
+    m.itemImage.uri = itemData.posterUrl
+    m.itemText.text = itemData.labelText
+  end function
+    
+  function init() as void
+    print "Inside init"
+    m.itemImage = m.top.findNode("itemImage") 
+    m.itemText = m.top.findNode("itemText") 
+    print "Leaving init"
+  end function
+]]>
+</script>
+
+<children>
+    <LayoutGroup layoutDirection="vert" vertAlignment="top" itemSpacings="20" translation="[0,0]" >
+        <Poster id="itemImage" translation="[0,0]" width="196" height="148" />
+        <Label id="itemText" horizAlign="center" translation="[0,0]" font="font:MediumSystemFont" width="196" height="65" />
+    </LayoutGroup>
+</children>
+
+</component>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- This component will create a PinPad node example -->
+<component name="PinPadExample" extends="Group" initialFocus="examplePinPad" >
+
+  <script type="text/brightscript" uri="pkg:/components/Widgets/PinPad/PinPadExample.brs" />
+
+  <children >
+    
+    <!--
+        The PinPad
+
+        In this example, we will have a PinPad component to input 6 numbers.
+    -->
+    <PinPad
+      id="examplePinPad"
+      pinLength="6"
+      translation="[0, 50]" />
+
+    <!--
+        We will have a button for the user to clear the pin within the
+        PinPad component. 
+    -->
+    <button
+      id="clearButton"
+      text="Clear"
+      iconUri=""
+      focusedIconUri=""
+      translation="[0, 350]" />
+
+  </children>
+
+</component>

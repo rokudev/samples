@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright (c) 2018 Roku, Inc. All rights reserved. -->
+
+<!-- Description
+FadingBackground - Background for all nodes. It is basically poster that gets picture Url from HDBackgroundImageUrl field of content meta-data of current focused item. Between switching uri, starts animation with fading out old image and fading in new picture after loading.
+-->
+<component name = "FadingBackground" extends="Group">
+    <interface>
+        <field id="uri" type="string" onChange="OnBackgroundUriChange" />
+        <field id="shadeOpacity" type="float" onChange="OnShadeOpacityChange" />
+        <field id="animationDuration" type="float" onChange="OnAnimationDurationChange" />
+        <field id="width" type="float" />
+        <field id="height" type="float" />
+    </interface>
+
+    <script type="text/brightscript" uri="FadingBackground.brs" />
+
+    <children>
+        <Poster
+            id="oldBackground"
+            loadDisplayMode="limitSize"
+        />
+        <Poster
+            id="background"
+            loadDisplayMode="limitSize"
+            opacity="0.0"
+        />
+        <Rectangle
+            id="shade"
+            color="0x000000"
+        />
+        <Animation id="fadeoutAnimation" easeFunction="linear" optional="true">
+            <FloatFieldInterpolator
+                id="oldbackgroundInterpolator"
+                key="[0.0, 1.0]"
+                fieldToInterp="oldBackground.opacity"
+            />
+        </Animation>
+        <Animation id="fadeinAnimation" easeFunction="linear" optional="true">
+            <FloatFieldInterpolator
+                id="backgroundInterpolator"
+                key="[0.0, 1.0]"
+                fieldToInterp="background.opacity"
+            />
+        </Animation>
+        <Animation id="shadeAnimation" easeFunction="linear" optional="true">
+            <FloatFieldInterpolator
+                id="shadeAnimationInterp"
+                key="[0.0, 1.0]"
+                fieldToInterp="shade.opacity"
+            />
+        </Animation>
+    </children>
+</component>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!--********** Copyright 2019 Roku Corp.  All Rights Reserved. **********--> 
+
+<component name="FeedTask" extends="Task">
+    
+    <interface>
+        <field id="requestUrl" type="String" />
+        <field id="response" type="Array" />
+    </interface>
+    
+    <!-- main handler -->
+    <script type="text/brightscript" uri="pkg:/components/Tasks/FeedTask.brs" />
+
+</component>

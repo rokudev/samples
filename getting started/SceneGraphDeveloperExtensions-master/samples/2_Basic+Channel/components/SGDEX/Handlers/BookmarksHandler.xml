@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="BookmarksHandler" extends="Task" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+	<interface>
+        <field id="videoView" type="node" onChange="onVideoViewSet"/>
+		<field id="interval"  type="integer" value="10"/>
+		<field id="minBookmark"  type="integer" value="30"/>
+		<field id="maxBookmark"  type="integer" value="30"/>
+
+		<field id="position" type="integer"/>
+		<field id="content"	 type="node"/>
+    </interface>
+	<script type="text/brightscript" uri="BookmarksHandler.brs" />
+</component>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<component name="MainScreen" extends="Group">
+
+<children>
+
+<Group id="MainGroup">
+
+<SampleComponentLib:LoadingIndicator
+        id="loadingIndicator3"
+        imageUri="pkg:/images/loader.png"
+        clockwise="true"
+        spinInterval="2"
+        fadeInterval="0.5"
+        spacing="20"
+        imageWidth="100"
+        text="Buffering..."
+        width="300"
+        height="300"
+        centered="false"
+        translation="[700, 200]"
+        textPadding="10"
+        font="font:SmallBoldSystemFont"
+        backgroundColor="0xa0a0a0ff"
+        backgroundOpacity="0.8"/>
+
+</Group>
+</children>
+
+</component>
+
+

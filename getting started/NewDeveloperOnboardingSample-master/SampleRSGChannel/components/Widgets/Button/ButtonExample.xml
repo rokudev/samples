@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- This component will create a Button node example -->
+<component name="ButtonExample" extends="Group" initialFocus="exampleButton1" >
+
+  <script type="text/brightscript" uri="pkg:/components/Widgets/Button/ButtonExample.brs" />
+
+  <children >
+    <!--
+        A button node. This button has predefined text and will have
+        feedback when the button is focused. This button will have
+        focus on launching this channel due to the initialFocus field
+        being set to this button id.
+    -->
+    <Button 
+      id="exampleButton1" 
+      text="Example Button" 
+      showFocusFootprint="true" 
+      minWidth="240" />
+
+    <!--
+        Another button node. This button has predefined text and will
+        have feedback when the button is focused.
+    -->
+    <Button
+      id="exampleButton2"
+      text="Another Button!"
+      showFocusFootprint="true"
+      minWidth="240"
+      translation="[ 0, 80 ]" />
+
+  </children>
+
+</component>

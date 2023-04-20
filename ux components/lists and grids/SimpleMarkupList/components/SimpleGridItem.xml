@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+ 
+<component name="SimpleGridItem" extends="Group">
+ 
+<interface> 
+  <field id="itemContent" type="node" onChange="itemContentChanged"/> 
+</interface>
+ 
+<script type="text/brightscript" >
+<![CDATA[ 
+  function itemContentChanged() 
+    itemData = m.top.itemContent
+    m.itemImage.uri = itemData.posterUrl
+    m.itemText.text = itemData.labelText
+  end function
+    
+  function init() 
+    m.itemImage = m.top.findNode("itemImage") 
+    m.itemText = m.top.findNode("itemText") 
+  end function
+]]>
+</script>
+
+<children> 
+<LayoutGroup layoutDirection="vert" vertAlignment="top" itemSpacings="20" translation="[0,0]" >
+    <Poster id="itemImage" translation="[17,3]" width="195" height="150" />
+
+    <LayoutGroup layoutDirection="horiz" horizAlignment="center" itemSpacings="0" >
+        <Label id="itemText" font="font:MediumSystemFont" />
+    </LayoutGroup>
+</LayoutGroup>
+</children>
+
+</component>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Copyright 2016 Roku Inc.  All Rights Reserved. -->
+
+<component name="RowListItems" extends="Group">
+	<interface>
+		<field id = "itemContent" type = "node" onChange = "itemContentChanged" />
+		<field id = "height" type = "float" onChange = "updateLayout" />
+		<field id = "width" type = "float" onChange = "updateLayout" />
+	</interface>
+
+	<script type = "text/brightscript">
+		<![CDATA[
+			Sub init()
+				m.Poster = m.top.findNode("poster")
+				m.Label = m.top.findNode("label")
+				m.Label.font.size = "20"
+			End Sub
+
+			Sub itemContentChanged()
+				m.Poster.uri = m.top.itemContent.HDPosterUrl
+				m.Label.text = m.top.itemContent.Title
+				updateLayout()
+			End Sub
+
+			Sub updateLayout()
+				if m.top.height > 0 and m.top.width > 0
+					m.Poster.width = m.top.width
+					m.Poster.height = m.top.height
+					m.Label.translation = [0, m.Poster.height + 30]
+					m.Label.width = m.Poster.width
+				end if
+			End Sub
+		]]>
+	</script>
+
+	<children>
+	<!-- Aspect ratio for thumbnails is 16:9 -->
+		<Poster
+			id = "poster"
+			height = "150"
+			width = "267"
+			loadWidth = "267"
+			loadHeight = "150"
+			loadDisplayMode = "scaleToFit">
+			<Label
+				id = "label"
+				height = "30"
+				width = "267"
+				horizAlign = "center"
+				color = "0xFFFFFFFF"
+				font = "font:SmallBoldSystemFont"
+			/>
+		</Poster>
+	</children>
+</component>

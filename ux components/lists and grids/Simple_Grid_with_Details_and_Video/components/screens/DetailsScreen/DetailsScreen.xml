@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!--********** Copyright 2019 Roku Corp.  All Rights Reserved. **********--> 
+
+<!--
+    node that renders details screen 
+    handles start of video playback
+ -->
+<component name="DetailsScreen" extends="Group" initialFocus="Buttons">
+    
+    <interface>
+        <!-- Button press handler -->
+        <field id="itemSelected" type="integer" alwaysnotify="true" alias="Buttons.itemSelected" onChange="onItemSelected" />
+
+        <!-- Playback flag -->
+        <field id="videoPlayerVisible" type="bool" alwaysnotify="true" alias="VideoPlayer.visible"  onChange="onVideoVisibleChange" />
+
+        <!-- Content fields -->
+        <field id="content" type="node" alwaysnotify="true" onChange="OnContentChange" />
+    </interface>
+    
+    <!-- main handler -->
+    <script type="text/brightscript" uri="pkg:/components/screens/DetailsScreen/DetailsScreen.brs" />
+    
+    <children>
+
+        <!-- Background poster -->
+        <Poster
+            id="Background"
+            width="1280"
+            height="720"
+            />
+        <Rectangle
+            translation="[0,0]"
+            width="1280"
+            height="720"
+            color="0x000000"
+            opacity="0.8"
+            />
+
+        <!-- Control buttons -->
+        <LabelList
+            id="Buttons"
+            translation="[800,120]"
+            color="0xFFFFFFFF"
+            focusedColor="0x333333FF"
+            numRows="7"
+            vertFocusAnimationStyle="floatingFocus"
+            itemSize="[250, 35]"
+            />
+
+        <!-- Black hud at bottom of the Details Screen -->
+        <Rectangle
+            id="testRectangle"
+            color="0x000000FF"
+            width="1280"
+            height="251"
+            translation="[0, 462]"  />
+
+        <!-- Item description -->
+        <Description 
+            id="Description"
+            translation="[430, 475]"
+            itemSpacings="[7, 16]"
+            />
+
+        <!-- Item poster -->
+        <Poster
+            id="Poster"
+            translation="[60, 495]"
+            width="317"
+            height="178" />
+
+        <Overhang
+            id="Overhang"
+            logoBaselineOffset="20"
+            translation="[-20, 0]" />
+
+        <!-- Playback node -->
+        <Video
+            id="VideoPlayer"
+            visible="false"
+            translation="[0, 0]"
+            width="1280"
+            height="720"
+            />
+
+    </children> 
+</component>

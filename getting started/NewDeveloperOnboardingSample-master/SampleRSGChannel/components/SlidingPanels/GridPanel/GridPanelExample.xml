@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!--
+    This component will create a GridPanel node example. This is different
+    from previous examples due to the use of the "extends" field, as this
+    will inherit all the properties (such as fields) from the component
+    being extended from. However, the user can override functions and
+    field values in order to customize the behavior of this custom
+    component. In this case, we want different behavior for the "GridPanelExample"
+    component than the built-in "GridPanel" component.
+ -->
+<component name="GridPanelExample" extends="GridPanel" initialFocus="exampleGridPanel" >
+<!--
+    This example won't use the user-created "gridContent" field,
+    but will be used for the PanelSet example. By setting this
+    field, it will trigger the callback function "updateGridContent".
+-->
+  <interface>
+    <field id="gridContent" type="node" onChange="updateGridContent" />
+  </interface>
+
+  <script type="text/brightscript" uri="pkg:/components/SlidingPanels/GridPanel/GridPanelExample.brs" />
+
+  <children >
+    
+    <!--
+        In this example, we will only have the GridPanel contain a
+        PosterGrid node. We will also specify some fields within
+        the PosterGrid.
+
+        For more information about PosterGrids, refer to the PosterGrid
+        example in pkg:/components/ListsAndGrids/PosterGrid
+    -->
+    <PosterGrid 
+              id="examplePosterGrid"
+              basePosterSize="[ 512, 288 ]"
+              numColumns="2"
+              numRows="5"
+              itemSpacing="[ 20, 20 ]" />
+
+  </children>
+
+</component>

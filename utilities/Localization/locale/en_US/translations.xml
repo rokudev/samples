@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+<file original="main.brs" source-language="en-US" target-language="en-US" datatype="x-brs">
+<body>
+	<trans-unit id="0">
+		<source>Welcome to The Channel Diner</source>
+		<target>Welcome to The Channel Diner</target>
+	</trans-unit>
+	<trans-unit id="1">
+		<source>Menu</source>
+		<target>Menu</target>
+	</trans-unit>
+	<trans-unit id="2">
+		<source>Breakfast</source>
+		<target>Breakfast</target>
+	</trans-unit>
+	<trans-unit id="3">
+		<source>Breakfast Menu</source>
+		<target>Breakfast Menu</target>
+	</trans-unit>
+	<trans-unit id="4">
+		<source>Select from our award winning offerings</source>
+		<target>Select from our award winning offerings</target>
+	</trans-unit>
+	<trans-unit id="5">
+		<source>Lunch</source>
+		<target>Lunch</target>
+	</trans-unit>
+	<trans-unit id="6">
+		<source>Lunch Menu</source>
+		<target>Lunch Menu</target>
+	</trans-unit>
+	<trans-unit id="7">
+		<source>Eating again already?</source>
+		<target>Eating again already?</target>
+	</trans-unit>
+	<trans-unit id="8">
+		<source>Dinner</source>
+		<target>Dinner</target>
+	</trans-unit>
+	<trans-unit id="9">
+		<source>Dinner Menu</source>
+		<target>Dinner Menu</target>
+	</trans-unit>
+	<trans-unit id="10">
+		<source>Chicken or Fish?</source>
+		<target>Chicken or Fish?</target>
+	</trans-unit>
+	<trans-unit id="11">
+		<source>Dessert</source>
+		<target>Dessert</target>
+	</trans-unit>
+	<trans-unit id="12">
+		<source>Dessert Menu</source>
+		<target>Dessert Menu</target>
+	</trans-unit>
+	<trans-unit id="13">
+		<source>Something for your sweet tooth</source>
+		<target>Something for your sweet tooth</target>
+	</trans-unit>
+	<trans-unit id="14">
+		<source>Contact</source>
+		<target>Contact</target>
+	</trans-unit>
+	<trans-unit id="15">
+		<source>The Channel Diner</source>
+		<target>The Channel Diner</target>
+	</trans-unit>
+	<trans-unit id="16">
+		<source>Phone: 1-(111)-111-1111</source>
+		<target>Phone: 1-(111)-111-1111</target>
+	</trans-unit>
+</body>
+</file>
+</xliff>

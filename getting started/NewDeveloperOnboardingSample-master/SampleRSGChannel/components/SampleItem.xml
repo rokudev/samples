@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********--> 
+
+<!-- Container in home screen's rowlist that displays the example -->
+<component name="SampleItem" extends="Group">
+
+  <interface > 
+    <field id = "itemContent" type = "node" onChange = "showcontent"/>
+  </interface>
+ 
+  <script type = "text/brightscript" uri="pkg:/components/SampleItem.brs" />
+
+  <children >
+
+    <!-- Poster displaying sample -->
+    <Poster 
+      id = "itemPoster" 
+      width = "512" 
+      height = "288"/>
+
+    <!-- Label displaying name of sample -->
+    <Label 
+      id = "itemLabel" 
+      translation = "[ 20, 264 ]" 
+      horizAlign = "right" 
+      width = "492"/>
+
+  </children>
+</component>

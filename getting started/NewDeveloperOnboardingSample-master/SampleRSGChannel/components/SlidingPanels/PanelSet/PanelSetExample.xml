@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- This component will create a PanelSet node example -->
+<component name="PanelSetExample" extends="Group" initialFocus="exampleListPanel">
+
+  <script type="text/brightscript" uri="pkg:/components/SlidingPanels/PanelSet/PanelSetExample.brs" />
+
+  <children >
+    
+    <!--
+        For this example, we will only create the PanelSet in this file,
+        but will create panels to add to the PanelSet within the init()
+        function.
+    -->
+    <PanelSet id="examplePanelSet" />
+
+  </children>
+
+</component>

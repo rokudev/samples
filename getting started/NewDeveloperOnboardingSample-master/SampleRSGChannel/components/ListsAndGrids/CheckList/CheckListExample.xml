@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- This component will create a CheckList node example -->
+<component name="CheckListExample" extends="Group" initialFocus="exampleCheckList" >
+
+  <script type="text/brightscript" uri="pkg:/components/ListsAndGrids/CheckList/CheckListExample.brs" />
+
+  <children>
+
+    <!-- 
+         The CheckList object. For this example, the CheckList component will be populated
+         with a ContentNode that will be the parent of other ContentNodes containing the
+         actual content for the CheckList object.
+    -->
+    <CheckList id="exampleCheckList" >
+
+      <ContentNode role="content" >
+        <ContentNode title="Renderable Nodes" />
+        <ContentNode title="Z-Order/Parent-Child" />
+        <ContentNode title="Animations" />
+        <ContentNode title="Events and Observers" />
+      </ContentNode>
+
+    </CheckList>
+
+  </children>
+
+</component>

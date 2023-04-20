@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- This component will create a MiniKeyboard node example -->
+<component name="MiniKeyboardExample" extends="Group" initialFocus="exampleMiniKeyboard" >
+
+  <script type="text/brightscript" uri="pkg:/components/Widgets/MiniKeyboard/MiniKeyboardExample.brs" />
+
+  <children >
+    
+    <!--
+        The MiniKeyboard
+
+        In this example, we will have a MiniKeyboard to input characters into
+        the built-in TextEditBox within the MiniKeyboard component.
+    -->
+    <MiniKeyboard
+      id="exampleMiniKeyboard"
+      translation="[0, 40]" />
+
+    <!--
+        We will have a button for the user to clear the text within the
+        TextEditBox/MiniKeyboard component. 
+    -->
+    <button
+      id="clearButton"
+      text="Clear"
+      iconUri=""
+      focusedIconUri=""
+      translation="[100, 490]" />
+
+  </children>
+
+</component>

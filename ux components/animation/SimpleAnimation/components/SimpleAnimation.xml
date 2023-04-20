@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<component name="SimpleAnimation" extends="Group" >
+
+<script type="text/brightscript" uri="pkg:/components/SimpleAnimation.brs" />
+
+<children>
+<Poster id="pleaseWaitSplash"
+    width="1280"
+	height="720"
+	translation="[0,0]"
+	visible="true"
+	uri="pkg:/images/background.jpg" />
+<Video id="_video" width="300" height="300" visible="false" />
+
+<Poster id="myPoster"
+    width="500.0"
+	height="500.0"
+	translation="[50,50]"
+	visible="false"
+	opacity="0.0"
+	uri="http://devtools.web.roku.com/samples/images/Landscape_1.jpg" />
+<Label id="myLabel"
+       horizAlign="center"
+       vertAlign="center"
+	   visible="false"
+       translation="[1000.0, 100.0]"
+       text="Scene Graph Animations" />
+
+<Rectangle 
+	id="bottomRect" 
+	color="0x0000FFFF" 
+	width="1280" 
+	height="100"
+	opacity="0.5"
+	translation="[0, 720]">
+		<Label id="MenuLabel"
+	       width="1280" 
+	       height="100" 		
+	       horizAlign="center"
+	       vertAlign="center"
+	       text="Your Menu Here" />
+</Rectangle>
+
+<Animation id="myAnimation" 
+       duration="3"
+       repeat="true" 
+       easeFunction="linear" >
+    <FloatFieldInterpolator id = "myInterp"
+	key="[0.0, 0.50, 0.75, 1.0]"
+	keyValue="[0.0, 0.50, 0.75, 1.0]"
+	fieldToInterp="myPoster.opacity" />
+</Animation>
+
+<Animation id="myAnimation2" 
+       duration="5"
+       repeat="true" 
+       easeFunction="linear" >
+    <Vector2DFieldInterpolator id = "myInterp2"
+	key="[0.0, 0.25, 0.5, 0.75, 1.0]"
+	keyValue="[ [50.0, 50.0], [715.0, 100.0], [715.0, 450.0], [365.0, 450.0], [365.0, 100.0] ]"
+	fieldToInterp="myPoster.translation" />
+</Animation>
+
+<Animation id="myAnimation3" 
+       duration="5"
+       repeat="true" 
+       easeFunction="linear" >
+    <Vector2DFieldInterpolator id = "myInterp3"
+	key="[0.0, 0.25, 0.5, 0.75, 1.0]"
+	keyValue="[ [1000.0, 100.0], [850.0, 150.0], [650.0, 300.0], [300.0, 450.0], [0.0, 600.0]]"
+	fieldToInterp="myLabel.translation" />
+</Animation>
+<Animation 
+	id="colorChangeAnimation"
+	duration="4"
+	repeat="true"
+	control="start"
+	easeFunction="linear" >
+	<ColorFieldInterpolator 
+		id = "changeBarColor"
+		key="[0.0, 0.25, 0.5, 0.75, 1.0]" 
+		keyValue="[ 0x000000FF, 0xFF0000FF, 0x00FF00FF, 0x0000FFFF, 0x00FFFFFF]"
+    	fieldToInterp="myLabel.color"
+	/>
+</Animation>
+<Animation id="bottomRectUpAnimation" 
+       duration="0.5"
+       repeat="false" 
+       easeFunction="linear" >
+    <Vector2DFieldInterpolator id = "myInterp4"
+	key="[0.0, 0.25, 0.5, 0.75, 1.0]"
+	keyValue="[ [0.0, 700.0], [0.0, 680.0], [0.0, 660.0], [0.0, 640.0], [0.0, 620.0] ]"
+	fieldToInterp="bottomRect.translation" />
+</Animation>
+
+<Animation id="bottomRectDownAnimation" 
+       duration="0.5"
+       repeat="false" 
+       easeFunction="linear" >
+    <Vector2DFieldInterpolator id = "myInterp4"
+	key="[0.0, 0.25, 0.5, 0.75, 1.0]"
+	keyValue="[ [0.0, 640.0], [0.0, 660.0], [0.0, 680.0], [0.0, 700.0], [0.0, 720.0] ]"
+	fieldToInterp="bottomRect.translation" />
+</Animation>
+</children>
+
+</component>

@@ -1,0 +1,42 @@
+<?xml version= "1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- This component will create a MarkupList node example -->
+<component name="MarkupListExample" extends="Group" initialFocus="exampleMarkupList" >
+
+  <script type="text/brightscript" uri="pkg:/components/ListsAndGrids/MarkupList/MarkupListExample.brs" />
+
+  <children>
+    
+    <!--
+        The MarkupList object. For this example, the MarkupList component will contain
+        "MarkupListItem" objects, which will be the individual list item containers.
+        The MarkupListItem objects define what will be displayed to the user when content
+        is loaded to the MarkupList.
+
+        For this example, we will also set the number of rows in the MarkupList. An important
+        detail here is that depending on the amount of content that is passed to the MarkupList
+        object, there can be more or less rows than specified explicitly in the numRows field.
+
+        It is also important for MarkupList objects to set the itemSize field because the
+        list items will visually not be seen, but will exist in the channel. Note that by
+        specifying the itemSize, it is setting the size of the MarkupList component by setting
+        the width to itemSize[0] and height to numRows * itemSize[1].
+
+        In this example, we will also disable the focus ring that surrounds the focused
+        MarkupListItem object within the MarkupList.
+    -->
+    <MarkupList 
+      id="exampleMarkupList" 
+      itemComponentName="MarkupListItem" 
+      itemSize="[ 800, 154 ]"
+      numRows="3"
+      itemSpacing="[ 0, 10 ]" 
+      drawFocusFeedback="false" 
+      vertFocusAnimationStyle="floatingFocus"
+      translation="[ 200, 160 ]" />
+
+  </children>
+
+</component>

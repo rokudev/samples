@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<component name="UriFetcher" extends="Task" >
+
+<interface>
+	<field id="request" type="assocarray"/>
+	<field id="jobsByIdField" type="int" />
+	<field id="urlTransferPoolField" type="int" /> 
+</interface>
+
+<script type="text/brightscript" uri="pkg://components/UriFetcher.brs"/>
+
+<children/>
+
+</component>

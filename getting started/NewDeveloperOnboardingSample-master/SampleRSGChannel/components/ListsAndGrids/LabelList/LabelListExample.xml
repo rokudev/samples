@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- This component will create a LabelList node example -->
+<component name="LabelListExample" extends="Group" initialFocus="exampleLabelList" >
+
+  <script type="text/brightscript" uri="pkg:/components/ListsAndGrids/LabelList/LabelListExample.brs" />
+
+  <children>
+    
+    <!--
+        The LabelList object. For this example, the LabelList component will be populated
+        with a ContentNode that will be the parent of other ContentNodes containing the
+        actual content for the LabelList object.
+    -->
+    <LabelList id="exampleLabelList" >
+
+      <ContentNode role="content" >
+        <ContentNode title="Renderable Nodes" />
+        <ContentNode title="Z-Order/Parent-Child" />
+        <ContentNode title="Animations" />
+        <ContentNode title="Events and Observers" />
+      </ContentNode>
+
+    </LabelList>
+
+  </children>
+
+</component>

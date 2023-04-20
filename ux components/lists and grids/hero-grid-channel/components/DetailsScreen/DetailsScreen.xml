@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- node that renders details screen. handles start of video playback -->
+<component name="DetailsScreen" extends="Group" initialFocus="Buttons">
+  <children>
+
+    <!-- Background poster -->
+    <Poster
+      id="Background"
+      width="1920"
+      height="1080" />
+
+    <Animation
+      id="fadeinAnimation"
+      repeat="false"
+      duration="0.3">
+      <FloatFieldInterpolator
+        id="backgroundInterpolator"
+        key="[0.0, 1.0]"
+        keyValue="[0.0, 1.0]"
+        fieldToInterp="Background.opacity"/>
+    </Animation>
+
+    <Animation
+      id="fadeoutAnimation"
+      repeat="false"
+      duration="0.3">
+      <FloatFieldInterpolator
+        id="backgroundInterpolator"
+        key="[0.0, 1.0]"
+        keyValue="[1.0, 0.0]"
+        fieldToInterp="Background.opacity"/>
+    </Animation>
+
+    <!-- Background fade -->
+    <Rectangle
+      translation="[0,0]"
+      width="1920"
+      height="1080"
+      color="0x000000"
+      opacity="0.8" />
+
+    <!-- Control buttons (Button List) -->
+    <LabelList
+      id="Buttons"
+      translation="[1440,480]"
+      color="0xFFFFFFFF"
+      focusedColor="0x333333FF"
+      numRows="7"
+      vertFocusAnimationStyle="floatingFocus"
+      itemSpacing="[0,20]"
+      itemSize="[300, 35]" />
+
+    <!-- Black hud at bottom of the Details Screen -->
+    <Rectangle
+      id="HUDRectangle"
+      color="0x000000FF"
+      width="1920"
+      height="300"
+      translation="[0, 780]" />
+
+    <!-- Item poster -->
+    <Poster
+      id="Poster"
+      translation="[120, 825]"
+      width="300"
+      height="178" />
+
+    <!-- Item description -->
+    <Description
+      id="Description"
+      translation="[500, 800]"
+      itemSpacings="[7, 16]" />
+
+    <!-- Overhang Node (has to be rendered after others) -->
+    <Overhang
+      showClock="true"
+      title="Hero-Grid-Channel" />
+
+    <!-- Playback node -->
+    <Video
+      id="VideoPlayer"
+      visible="false"
+      translation="[0, 0]"
+      width="1920"
+      height="1080" />
+
+  </children>
+
+    <interface>
+      <!-- Button press handler -->
+      <field id="itemSelected" type="integer" alwaysnotify="true" alias="Buttons.itemSelected" onChange="onItemSelected" />
+      <!-- Playback flag -->
+      <field id="videoPlayerVisible" type="bool" alwaysnotify="true" alias="VideoPlayer.visible"  onChange="onVideoVisibleChange" />
+      <!-- Content fields -->
+      <field id="content" type="node" alwaysnotify="true" onChange="OnContentChange" />
+    </interface>
+
+    <!-- main handler -->
+    <script type="text/brightscript" uri="pkg:/components/DetailsScreen/DetailsScreen.brs" />
+</component>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Copyright 2016 Roku Corp.  All Rights Reserved. -->
+
+<component name="MyLabelList" extends="LabelList" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+
+<!-- This is a wrapper class to override specific button inputs in LabelList -->
+
+<script type="text/brightscript" >
+<![CDATA[
+    function onKeyEvent(key as String, press as Boolean) as Boolean 
+	handled = false
+        if press
+	    	if key="fastforward"
+	        		m.global.FF += 1
+				handled = true
+	    	else if key="rewind"
+	        	m.global.Rewind +=1
+				handled = true
+	    	end if
+        end if
+	return handled
+    end function
+]]>
+</script>
+
+</component>

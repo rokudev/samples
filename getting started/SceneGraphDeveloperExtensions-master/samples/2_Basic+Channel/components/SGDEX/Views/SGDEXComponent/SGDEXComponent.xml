@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2018 Roku, Inc. All rights reserved. -->
+
+<component name="SGDEXComponent" extends="Group" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+    <!-- @Public
+    Base component for SGDEX views that adds common fields and handles theme params passing to view,
+     each view is responsible for populating proper params to it's views-->
+    <interface>
+        <!-- @Public  -->
+        <!-- Theme is used to set view specific theme fields, this is used to set initial theme, if you want to update any value use updateTheme
+
+        Commmon attributes for all view:
+            *textColor - Set text color to all supported labels
+            *focusRingColor - Set focus ring color
+            *progressBarColor - Set color for progress bars
+
+            *backgroundImageURI - Set url to background image
+            *backgroundColor - Set background color
+
+            *OverhangTitle - text that will be displayed in overhang title
+            *OverhangTitleColor - Color of overhang title
+            *OverhangShowClock - toggle showing of overhang clock
+            *OverhangShowOptions - show options on overhang
+            *OverhangOptionsAvailable - tells if options are available. Note this is only visual field and doesn't affect if developer implements options
+            *OverhangVisible - set if overhang should be visible
+
+            *OverhangLogoUri - url to overhang logo
+            *OverhangBackgroundUri - overhang background url
+            *OverhangOptionsText - text that will be show in options
+            *OverhangHeight - height of overhang
+            *OverhangBackgroundColor - overhang background color
+
+        Usage:
+
+        To set global theme attributes refer to [BaseScene](#BaseScene#fields#theme)
+
+        To set view specific fields use:
+
+            view = CreateObject("roSGNode", "GridView")
+            view.theme = {
+                textColor: "FF0000FF"
+            } -->
+        <field id="theme" type="assocarray" onChange="SGDEX_ViewThemeObserver" />
+
+        <!-- @Public -->
+        <!-- updateTheme is used to update view specific theme fields
+
+        Usage is same as [theme](#SGDEXComponent#fields#theme) field but here you should only set field that you want to update
+        If you want global updates use [BaseScene updateTheme](#BaseScene#fields#updateTheme) -->
+        <field id="updateTheme" type="assocarray" onChange="SGDEX_ViewUpdateThemeObserver" />
+
+        <!-- @Public -->
+        <!-- is used to tell view what style should be used, style is view specific -->
+        <field id="style" type="string" />
+
+        <!-- @Public -->
+        <!-- is used to tell view what poster shape should be used for posters that are rendered on view -->
+        <field id="posterShape" type="string" />
+
+        <!-- @Public -->
+        <!-- Main field for setting content
+        content tree is specific to each view and is handled by view itself -->
+        <field id="content" type="node" />
+
+        <!-- @Public -->
+        <!-- Control field to tell View Manager to close this View manually.
+        Is desined for authentication flows or other flows when set of Views should be closed after some action. -->
+        <field id="close" type="boolean" alwaysNotify="true" />
+
+        <!-- @Public -->
+        <!-- Observe this to know when view is closed and removed from View Manager -->
+        <field id="wasClosed" type="boolean" alwaysNotify="true" />
+
+        <!-- @Public -->
+        <!-- Observe this to know when view is hiding and new top view is being opened -->
+        <field id="saveState" type="boolean" alwaysNotify="true" />
+
+        <!-- @Public -->
+        <!-- Observe this to know when view was shown for first time or restored after top view was closed -->
+        <field id="wasShown" type="boolean" alwaysNotify="true" />
+
+        <!-- overhang node, this is for customizing overhang, also can be updated through theme mechanism  -->
+        <field id="overhang" type="node" />
+
+
+        <field id="errorCode" type="integer" value="0" />
+        <field id="errorMsg" type="string" value="" />
+    </interface>
+
+    <script type="text/brightscript" uri="SGDEXComponent.brs" />
+
+    <children>
+        <Rectangle
+            id="backgroundRectangle"
+            width="1280"
+            height="720"
+            color="0xFFFFFF00"
+        />
+        <FadingBackground
+            id="backgroundImage"
+            width="1280"
+            height="720"
+            animationDuration ="0.5"
+            shadeOpacity="0.5"
+        />
+
+        <Overhang id="overhang"  showOptions="true" showClock="false" />
+    </children>
+</component>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<!-- Copyright 2016 Roku Corp.  All Rights Reserved. -->
+
+<!-- LoadingIndicator component can be used to indicate loading/buffering process. If added to another element, it
+    scales to width and height of parent element and positions itself at the center. Width and height can also be set
+    manually.
+    It consists of 3 elements:
+    - background, it can be either a rectangle, whose color and opacity can be adjusted, or image
+    - square spinning image, which has to be specified
+    - optional text under the spinning image.
+
+Sample: 
+    <LoadingIndicator
+        imageUri="pkg:/images/loader.png"
+        clockwise="false"
+        spinInterval="4"
+        text="Loading..."
+        spacing="40"
+        width="500"
+        height="700"
+        imageWidth="100"
+        imageHeight="100"
+        centered="true"
+        font="font:LargeBoldSystemFont"
+        backgroundColor="0x551A8B"
+        backgroundOpacity="0.6"/> -->
+
+<component name="LoadingIndicator" extends="Group">
+
+<interface>
+<!--     URI of the loading indicator image/spinner graphic, if used. -->
+    <field id="imageUri" type="string" alias="image.uri" value="pkg:/components/screens/LoadingIndicator/loader.png"/>
+<!--     If specified, width of a spinning image, otherwise bitmap width is used. You can specify only imageWidth
+         and imageHeight will be calculated accordingly to image's aspect ratio. Make sure image fits into component or
+         it will be downscaled. -->
+    <field id="imageWidth" type="float" onChange="onImageWidthChange"/>
+<!--     If specified, height of a spinning image, otherwise bitmap height is used. You can specify only imageHeight
+         and imageWidth will be calculated accordingly to image's aspect ratio. Make sure image fits into component or
+         it will be downscaled. -->
+    <field id="imageHeight" type="float" onChange="onImageHeightChange"/>
+<!--     If true, animate image in imageUri field clockwise, otherwise counter-clockwise. -->
+    <field id="clockwise" type="bool" value="true" onChange="changeRotationDirection"/>
+<!--     If set, time in seconds it take for one complete image rotation.  -->
+    <field id="spinInterval" type="time" alias="rotationAnimation.duration" value="3"/>
+<!--     If true, component is centered on the parent component. This overrides the translation field settings.
+         If false, translation positions the component. Note that you must set desired translation AFTER setting
+         this to false, otherwise component might be centered. -->
+    <field id="centered" type="bool" value="true" onChange="updateLayout"/>
+<!--     Color of the background. -->
+    <field id="backgroundColor" type="color" alias="background.color" value="0x000000"/>
+<!--     Background image. If set, backgroundColor is ignored. -->
+    <field id="backgroundUri" type="string" onChange="onBackgroundImageChange"/>
+<!--     Opacity of the background. To remove background, this should be set to 0. -->
+    <field id="backgroundOpacity" type="float" alias="background.opacity" value="0.4" onChange="onBackgroundOpacityChange"/>
+<!--     Loading/message text, if used. -->
+    <field id="text" type="string" alias="text.text" onChange="onTextChange"/>
+<!--     Color of the text. -->
+    <field id="textColor" type="color" alias="text.color"/>
+<!--     Space, in pixels, between text and spinner. -->
+    <field id="spacing" type="float" value="30"/>
+<!--     Left and right text padding. -->
+    <field id="textPadding" type="float" onChange="onTextPaddingChange"/>
+<!--     Font of a loading text. -->
+    <field id="font" type="node" alias="text.font"/>
+<!--     If set, specifies width of the component, otherwise, parent's width is used. -->
+    <field id="width" type="float" onChange="updateLayout"/>
+<!--     If set, specifies height of the component, otherwise, parent's height is used. -->
+    <field id="height" type="float" onChange="updateLayout"/>
+<!--     Read-only field. Can be in 2 states: "running" and "stopped". -->
+    <field id="state" type="string"/>
+<!--     Write-only field. Can be used to start/stop spinning animation. Animation starts automatically,
+         to stop it you should set this field to "stop". To start it again, set this to "start".
+         You can also use fadeInterval field to make animation disappear once it's stopped. -->
+    <field id="control" type="string" onChange="onControlChange"/>
+<!--     If set, time in seconds to fade from 100% to 0% opaque once control is set to "stop". -->
+    <field id="fadeInterval" type="time"/>
+</interface>
+
+<script type="text/brightscript" uri="pkg:/components/screens/LoadingIndicator/LoadingIndicator.brs"/>
+
+<children>
+    <Group
+        id="loadingIndicatorGroup">
+        <Rectangle
+            id="background"/>
+        <Poster
+            id="backgroundImage"/>
+        <Group
+            id="loadingGroup">
+            <Poster id="image">
+                <Animation
+                    id="rotationAnimation"
+                    repeat="true"
+                    easeFunction="linear">
+                    <FloatFieldInterpolator
+                        id="rotationAnimationInterpolator"
+                        key="[1, 0]"
+                        keyValue="[0, 6.283]"
+                        fieldToInterp="image.rotation"/>
+                </Animation>
+            </Poster>
+            <Label
+                id="text"
+                horizAlign="center"/>
+        </Group>
+        <Animation
+            id="fadeAnimation"
+            repeat="false"
+            easeFunction="linear">
+            <FloatFieldInterpolator
+                keyValue="[1, 0]"
+                key="[0, 1]"
+                fieldToInterp="loadingIndicatorGroup.opacity"/>
+        </Animation>
+    </Group>
+</children>
+
+</component>

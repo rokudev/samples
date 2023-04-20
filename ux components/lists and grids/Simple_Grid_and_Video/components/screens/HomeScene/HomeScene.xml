@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********--> 
+
+<!-- main node which handles home screen children -->
+<component name="HomeScene" extends="Scene">
+
+    <interface>
+        <!-- Specifies the content for the GridPannel -->
+        <field id="gridContent" type="node" alias="GridScreen.content" onChange="OnChangeContent"/>
+        <field id="rowItemSelected" type="intarray" alwaysnotify="true" alias="GridScreen.rowItemSelected"/>
+    </interface>
+    
+    <!-- main handler -->
+    <script type="text/brightscript" uri="pkg:/components/screens/HomeScene/HomeScene.brs" />
+    
+    <children>
+
+        <GridScreen
+            id="GridScreen"
+            visible="true"
+            translation="[0,0]" />
+    
+        <Group
+            id="HomeSceneOverhang"
+            > <!-- -> Overhang -->
+            <Poster
+                translation="[79, 36]"
+                uri="pkg:/images/overhangLogo.png"
+                width="156"
+                height="49" />
+        </Group> <!-- <- Overhang -->
+
+        <Video
+            id="videoPlayer"
+            visible="false"
+            translation="[0, 0]"
+            width="1280"
+            height="720"/>
+            
+        <LoadingIndicator
+              id="loadingIndicator"
+              imageUri="pkg:/components/screens/LoadingIndicator/loader.png"
+              clockwise="true"
+              spinInterval="2"
+              fadeInterval="0.5"
+              spacing="20"
+              imageWidth="100"
+              text="Loading..."
+              width="1280"
+              height="720"
+              translation="[0, 0]"
+              centered="false"
+              textPadding="10"
+              font="font:SmallBoldSystemFont"
+              backgroundColor="0x551A8B"
+              backgroundOpacity="0"/>        
+
+    </children> 
+</component>

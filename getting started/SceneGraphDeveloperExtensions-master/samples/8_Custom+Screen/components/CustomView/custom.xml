@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+  <component name="custom" extends="Group" >
+    <interface>
+      <field id="picPath" type="string" alias="thumbnail.uri" />
+    </interface>
+    <children>
+        <Poster id="thumbnail" translation="[0,0]" width="1280" height="720" />
+    </children>
+</component>

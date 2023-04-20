@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2018 Roku, Inc. All rights reserved. -->
+
+<!-- @Public
+    RAFHandler is responsible for making all business logic related to Ads playing.
+    developer extends this Handler in channel and can override ConfigureRAF(adIface as Object) sub.
+    Reference to Raf library instance will be passed to ConfigureRAF sub.
+    In ConfigureRAF developer can make any configuraion that supported by RAF.
+
+    @Sample:
+    sub ConfigureRAF(adIface)
+        ' Detailed RAF docs: https://sdkdocs.roku.com/display/sdkdoc/Integrating+the+Roku+Advertising+Framework
+        adIface.SetAdUrl("http://www.some.ad.url.com")
+        adIface.SetContentGenre("General Variety")
+        adIface.SetContentLength(1200) ' in seconds
+        ' Nielsen specific data
+        adIface.EnableNielsenDAR(true)
+        adIface.SetNielsenProgramId("CBAA")
+        adIface.SetNielsenGenre("GV")
+        adIface.SetNielsenAppId("P123QWE-1A2B-1234-5678-C7D654348321")
+    end sub
+-->
+<component 
+    name="RAFHandler"
+    extends="Task"
+    xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+    <interface>
+        <!-- Reference to Video node should be passed outside to make Raf handler works with it -->
+        <field id="video" type="node" />
+        
+        <!-- This is internal field for CM to know when task finished -->
+        <field id="finished" type="bool" />
+    </interface>
+    
+    <script type="text/brightscript" uri="RAFHandler.brs" />
+    
+    <children>
+    </children>
+</component>

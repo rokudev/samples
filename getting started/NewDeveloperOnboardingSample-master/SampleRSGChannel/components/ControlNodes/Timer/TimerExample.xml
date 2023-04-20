@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- This component will create a Timer node example -->
+<component name="TimerExample" extends="Group" >
+
+  <script type="text/brightscript" uri="pkg:/components/ControlNodes/Timer/TimerExample.brs" />
+
+  <children>
+
+    <!--
+        This label node will change text based on when the timer
+        node fires an event to indicate that its time limit was
+        reached.
+    -->
+    <Label 
+      id="exampleTimerLabel" 
+      width="500" 
+      height="60" 
+      horizAlign="center" 
+      vertAlign="center" />
+
+    <!--
+        The timer node. For this example, the timer node will
+        fire off an event indicating that it has been 5 seconds
+        since it has started and will repeat this event until
+        the channel sets the timer's control to "stop" or until
+        the repeat field is changed to false.
+    -->
+    <Timer 
+      id="exampleTimer" 
+      repeat="true" 
+      duration="5" />
+
+  </children>
+
+</component>

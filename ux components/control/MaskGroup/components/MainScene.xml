@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+
+<component name="MainScene" extends="Scene" >
+
+	<children>
+		
+
+		<Rectangle
+			height="720"
+			width="1280"
+			color="0x00000033"/>
+
+		<MaskPoster
+			id="maskGroup1"
+			translation="[60,30]"
+			uri="pkg:/MaskImages/fieldOfGold.jpg"
+			maskuri="pkg:/MaskImages/Custom.png"
+			width="300"
+			height="200"
+			masksize="[300,200]"
+			maskOffset="[0,0]"/>
+
+		
+			
+		<Animation
+			id="MaskAnimation"
+			duration="3"
+			easeFunction="inOutExpo"
+			control="start"
+			repeat="true">
+			
+			<Vector2DFieldInterpolator
+				id="interpolator"
+				fieldToInterp="maskGroup1.maskOffset"
+				key="[0.0,0.3,0.7,1.0]"
+				keyValue="[[-300,0],[300,0],[300,0],[-300,0]]"/>							
+		</Animation>
+		
+	</children>
+
+</component>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- This component will create a MaskGroup node example -->
+<component name="MaskGroupExample" extends="Group" >
+
+  <script type="text/brightscript" uri="pkg:/components/ControlNodes/MaskGroup/MaskGroupExample.brs" />
+
+  <children>
+
+    <!--
+        A MaskGroup component.
+
+        For this example, we are setting an alpha mask bitmap
+        (specified in the "maskuri" field of the MaskGroup node)
+        to create a mask that fades the poster image (child of
+        the MaskGroup component).
+    -->
+    <MaskGroup 
+      id="exampleMaskGroup" 
+      masksize="[ 512, 288 ]" 
+      maskOffset="[ 0, 0 ]" 
+      maskuri="pkg:/images/grad_lin_l2r_hd.png" >
+      
+      <!--
+          The poster node is used in the sample to demonstrate
+          the behavior of the MaskGroup component.
+      -->
+      <Poster 
+        id="examplePoster" 
+        width="512" 
+        height="288" 
+        uri="http://sdktestinglab.com/Tutorial/images/videopg.jpg" />
+
+    </MaskGroup>
+
+    <!--
+        This Animation node specifies the length of time of the
+        animation, along with the ease function and whether this
+        animation will repeat.
+    -->
+    <Animation 
+      id="MaskGroupAnimation" 
+      duration="3" 
+      easeFunction="linear" 
+      repeat="true" >
+      
+      <!--
+          This node specifies its keyframe animation on the
+          MaskGroup's maskOffset field value.
+      -->
+      <Vector2DFieldInterpolator 
+        id="interpolator" 
+        fieldToInterp="exampleMaskGroup.maskOffset" 
+        key="[ 0.0, 0.5, 1.0 ]" 
+        keyValue="[ [512,0], [-512,0], [512,0] ]" />
+
+    </Animation>
+
+  </children>
+
+</component>

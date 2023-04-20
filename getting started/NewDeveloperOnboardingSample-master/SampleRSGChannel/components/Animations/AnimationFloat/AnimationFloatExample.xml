@@ -1,0 +1,37 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- This example animates the opacity field of an example Poster -->
+<component name = "AnimationFloatExample" extends = "Group" >
+
+  <script type = "text/brightscript" uri = "pkg:/components/Animations/AnimationFloat/AnimationFloatExample.brs" />
+
+  <children >
+
+	<!-- Example poster to show linear float animation -->
+    <Poster 
+      id = "examplePoster" 
+      width = "512" 
+      height = "288" 
+      uri = "http://sdktestinglab.com/Tutorial/images/videopg.jpg" />
+
+	<!-- Float animation, does linear interpolation of example poster's opacity field -->
+    <Animation 
+      id = "exampleFloatAnimation" 
+      duration = "5" 
+      easeFunction = "linear" >
+
+	  <!-- Animation interpolator, defines the float values of opacity,
+           key field array defines the fractional value of the 5 seconds duration of the animation
+           keyValue field contains the float values of the example poster's opacity field -->
+      <FloatFieldInterpolator 
+        key = "[ 0.0, 0.5, 1.0 ]" 
+        keyValue = "[ 1.0, 0.0, 1.0 ]" 
+        fieldToInterp = "examplePoster.opacity" />
+
+    </Animation>
+
+  </children>
+
+</component>

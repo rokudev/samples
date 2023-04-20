@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********--> 
+
+<!-- 
+    main node which handles home screen children 
+    -->
+<component name="HomeScene" extends="Scene">
+    
+    <!-- main handler -->
+    <script type="text/brightscript" uri="pkg:/components/HomeScene.brs" />
+    
+    <children>
+
+        <!-- Very simple Home Screen on Home Scene -->
+        <HomeScreen
+            id="HomeScreen"
+            visible="true"
+            translation="[0,0]" />
+
+        <!-- Overhang logos -->
+        <Poster
+            id="RokuLogoPoster"
+            translation="[79, 56]"
+            uri="pkg:/images/Overhang_Logo_Roku_White_HD.png"
+            width="156"
+            height="49"  />
+
+        <Poster
+            id="RokuDevPoster"
+            translation="[1000, 36]"
+            uri="pkg:/images/overhangRokuLogo.png"
+            width="336"
+            height="210"
+            scale="[0.5, 0.5]"  />
+    </children>
+</component>

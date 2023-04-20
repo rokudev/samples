@@ -1,0 +1,42 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "PCRenderablesExample" extends = "Group" >
+
+  <script type = "text/brightscript" uri = "pkg:/components/ZOrderParentChild/PCRenderables/PCRenderablesExample.brs" />
+
+  <children >
+
+	<!-- The examplePoster is the parent of bottomRectangle and bottomLabel -->
+    <Poster 
+      id = "examplePoster" 
+      width = "512" 
+      height = "288" 
+      uri = "http://sdktestinglab.com/Tutorial/images/videopg.jpg" >
+
+	    <!-- The bottomRectangle is the child of examplePoster and parent of bottomLabel -->
+        <Rectangle 
+          id = "bottomRectangle" 
+          translation = "[ 0, 244 ]" 
+          width = "512" 
+          height = "34" 
+          color = "0x1010EBFF" >
+
+		  <!-- The bottomLabel is child of bottomRectangle and inherits the translation field of bottomRectangle -->
+          <Label 
+            id = "bottomLabel" 
+            width = "512" 
+            height = "34" 
+            font = "font:SmallBoldSystemFont" 
+            text = "All the Best Videos...All the Time!" 
+            horizAlign = "center" 
+            vertAlign = "center" />
+
+        </Rectangle>
+
+      </Poster>
+
+  </children>
+
+</component>

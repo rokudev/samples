@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "VideoContentReader" extends = "Task" >
+ 
+  <interface>
+    <field id = "videocontenturi" type = "uri" value = "" />
+    <field id = "videocontent" type = "node" />
+  </interface> 
+
+  <script type = "text/brightscript" >
+    <![CDATA[
+
+    sub init()
+      m.top.functionName = "readcontent"
+    end sub
+
+    sub readcontent()
+      videocontent = createObject("RoSGNode","ContentNode")
+
+      videocontentxml = createObject("roXMLElement")
+
+      ' uncomment/conditionalize for development package XML transfers (pkg:/server/foo.xml)
+      xmlstring = ReadAsciiFile(m.top.videocontenturi)
+      videocontentxml.parse(xmlstring)
+
+      ' uncomment/conditionalize for published channel Internet XML transfers (http://serverdomain/foo.xml)
+      ' readInternet = createObject("roUrlTransfer")
+      ' readInternet.setUrl(m.top.foocontentxmluri)
+      ' foocontentxml.parse(readInternet.GetToString())
+
+      if videocontentxml.getName()="VideoContent"
+        for each video in videocontentxml.GetNamedElements("video")
+          videoitem = videocontent.createChild("ContentNode")
+          videoitem.setFields(video.getAttributes())
+        end for
+      end if
+
+      m.top.videocontent = videocontent
+    end sub
+
+    ]]>
+  </script>
+
+</component>

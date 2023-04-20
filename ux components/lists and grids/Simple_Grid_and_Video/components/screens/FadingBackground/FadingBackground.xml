@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2016 Roku Corp.  All Rights Reserved. -->
+
+<!-- Description 
+FadingBackground - Background for all nodes. It is basically poster that gets picture Url from HDBackgroundImageUrl field of content meta-data of current focused item. Between switching uri, starts animation with fading out old image and fading in new picture after loading.-->
+
+<component name = "FadingBackground" extends="Rectangle">
+
+    <interface>
+        <!--Uri of image.-->
+        <field id="uri"    type="string"   onChange="OnBackgroundUriChange"/>
+        <!--Set color of background while image is loading.-->
+        <field id="ShadeOpacity"  type="float" alias="shade.opacity"/>
+    </interface>
+    
+
+    <!-- main handler -->
+    <script type="text/brightscript" uri="pkg:/components/screens/FadingBackground/FadingBackground.brs" />
+    
+    <children>
+        <Rectangle
+            id="backgroundColor"/>
+        <Poster
+            id="oldBackground"/>
+        <Poster
+            id="background"
+            opacity="0"/>
+        <Rectangle
+            id="shade"
+            color="0x000000"
+            opacity="0.65"/>
+            
+        <Animation
+            id="fadeoutAnimation"
+            repeat="false"
+            duration="0.5">
+            <FloatFieldInterpolator
+                id="oldbackgroundInterpolator"
+                key="[0.0, 1.0]"
+                keyValue="[1.0, 0.0]"
+                fieldToInterp="oldBackground.opacity"/>
+        </Animation>
+        
+        <Animation
+            id="fadeinAnimation"
+            repeat="false"
+            easeFunction="linear"
+            duration="0.5">
+            <FloatFieldInterpolator
+                id="backgroundInterpolator"
+                key="[0.0, 1.0]"
+                keyValue="[0.0, 1.0]"
+                fieldToInterp="background.opacity"/>
+        </Animation>
+    </children>
+</component>

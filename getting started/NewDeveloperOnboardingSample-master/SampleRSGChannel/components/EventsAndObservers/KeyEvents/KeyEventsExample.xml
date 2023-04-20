@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- This example illustrates the use of onKeyEvent() to handle remote keys -->
+<component name = "KeyEventsExample" extends = "Group" >
+
+  <script type = "text/brightscript" uri = "pkg:/components/EventsAndObservers/KeyEvents/KeyEventsExample.brs" />
+
+  <children>
+
+	<!-- Simple label -->
+    <Label 
+      id = "exampleLabel" 
+      width = "600" 
+      height = "60" 
+      text = "Press OK to Hide/Show" 
+      horizAlign = "center" 
+      vertAlign = "center" 
+      visible = "true" />
+
+  </children>
+
+</component>

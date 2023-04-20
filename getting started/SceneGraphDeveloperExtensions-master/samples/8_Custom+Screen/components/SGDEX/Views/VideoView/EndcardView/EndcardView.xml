@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2018 Roku, Inc. All rights reserved. -->
+
+<component
+    name="EndcardView"
+    extends="SGDEXComponent"
+    xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd"
+    >
+
+    <!-- Endcard View is shown on video playbacks end
+        features implemented:
+            - Repeat button
+            - Endcard grid
+            - Timer to close
+    -->
+
+    <interface>
+        <!-- Total seconds for countdown timer -->
+        <field id="endcardCountdownTime" type="integer" value="10" alwaysNotify="true" />
+
+        <!-- Setter to decide what text should be shown in countdown prompt. "Next video in: {0} or "Close View in: {0}". -->
+        <field id="hasNextItemInPlaylist" type="bool" alwaysNotify="true" />
+
+        <!-- Read-Only. Trigger with array of integers [row, col] - item that is selected on grid -->
+        <field id="rowItemSelected" type="array" alwaysNotify="true" alias="grid.rowItemSelected" />
+
+        <!-- Read-Only. Trigger with array of integers [row, col] - item that is focused on grid - used internally in EndcardView to stop countdown -->
+        <field id="rowItemFocused" type="array" alwaysNotify="true" alias="grid.rowItemFocused" />
+
+        <!-- Read-Only. Trigger integer - repeat button was selected - public interface to know that Repeat Button is selected -->
+        <field id="repeatButtonSelectedEvent" type="integer" alwaysNotify="true" alias="repeatButton.itemSelected" />
+
+        <!-- Read-Only. Trigger integer - repeat button was focused - used internally in EndcardView to stop countdown -->
+        <field id="repeatButtonFocusedEvent" type="integer" alwaysNotify="true" alias="repeatButton.itemFocused" />
+
+        <!-- Read-Only. Trigger integer - seconds to end - public interface to know that endcard View should be closed -->
+        <field id="timerFired" type="integer" alwaysNotify="true" />
+
+        <!-- Write-Only. Setter to control start of countdown timer. -->
+        <field id="startTimer" type="bool" alwaysNotify="true" />
+    </interface>
+
+    <script type="text/brightscript" uri="EndcardView.brs" />
+    <script type="text/brightscript" uri="../../utils/utils.brs" />
+
+    <children>
+        <!-- Two background rectangles with different colours -->
+        <Rectangle
+            id="topRectangle"
+            color="0x262626FF"
+            width="1280"
+            height="360"
+            translation="[0,0]"
+        />
+        <Rectangle
+            id="bottomRectangle"
+            color="0x000000FF"
+            width="1280"
+            height="360"
+            translation="[0,360]"
+        />
+
+        <!-- Countdown prompt "Next video in" or "Close View in" -->
+        <Label
+            id="timerLabel"
+            translation="[100,375]"
+        />
+
+        <!-- Countdown timer to close the endcard View -->
+        <Timer
+            id="endcardTimer"
+            repeat="true"
+        />
+
+        <!-- FocusableGroup handles vertical focus movement between Repeat button and grid with endcard content -->
+        <FocusableGroup
+            id="FocusableGroup"
+        >
+            <LabelList
+                id="repeatButton"
+                numRows="1"
+                color="0xFFFFFFFF"
+                focusedColor="0x121212FF"
+                textHorizAlign="center"
+                translation="[540,170]"
+                itemSize="[200, 60]">
+            </LabelList>
+
+            <RowList
+                id="grid"
+                itemSize="[1080,225]"
+                itemSpacing="[30, 30]"
+                numRows="2"
+                focusable="false"
+                translation="[100, 425]"
+                rowHeights="[225]"
+                rowItemSpacing="[[30, 30]]"
+                rowItemSize="[[302,170]]"
+                itemComponentName="TitleUnderItemAndPosterGridItemComponent"
+            />
+        </FocusableGroup>
+    </children>
+</component>

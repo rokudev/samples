@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--********** Copyright 2016 Roku Inc.  All Rights Reserved. **********-->
+
+<component name="RowListContentTask" extends="Task">
+    <interface>
+        <field id="content" type="node" />
+    </interface>
+
+    <script type="text/brightscript" uri = "pkg:/components/Config.brs"/>
+    <script type="text/brightscript" uri = "pkg:/components/tasks/RowListContentTask.brs"/>
+</component>

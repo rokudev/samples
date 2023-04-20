@@ -1,0 +1,12 @@
+title=Comedor Canal
+subtitle=Su Lugar Favorito para Comer
+major_version=1
+minor_version=0
+build_version=0
+mm_icon_focus_hd=pkg:/locale/es_ES/images/focus_hd.png
+mm_icon_side_hd=pkg:/locale/es_ES/images/side_hd.png
+mm_icon_focus_sd=pkg:/locale/es_ES/images/focus_sd.png
+mm_icon_side_sd=pkg:/locale/es_ES/images/side_sd.png
+splash_screen_hd=pkg:/locale/es_ES/images/splash_page.png
+splash_screen_sd=pkg:/locale/es_ES/images/splash_page.png
+splash_color=#000

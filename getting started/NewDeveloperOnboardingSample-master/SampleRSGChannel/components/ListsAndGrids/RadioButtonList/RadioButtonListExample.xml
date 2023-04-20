@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- This component will create a RadioButtonList node example -->
+<component name="RadioButtonListExample" extends="Group" initialFocus="exampleRadioButtonList">
+
+  <script type="text/brightscript" uri="pkg:/components/ListsAndGrids/RadioButtonList/RadioButtonListExample.brs" />
+
+  <children>
+
+    <!--
+        The RadioButtonList object. For this example, the RadioButtonList component will be populated
+        with a ContentNode that will be the parent of other ContentNodes containing the
+        actual content for the RadioButtonList object.
+    -->
+    <RadioButtonList id="exampleRadioButtonList" >
+
+      <ContentNode role="content" >
+        <ContentNode title="Renderable Nodes" />
+        <ContentNode title="Z-Order/Parent-Child" />
+        <ContentNode title="Animations" />
+        <ContentNode title="Events and Observers" />
+      </ContentNode>
+
+    </RadioButtonList>
+
+  </children>
+
+</component>

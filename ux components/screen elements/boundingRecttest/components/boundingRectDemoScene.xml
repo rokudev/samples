@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<component name="BoundingRectDemoScene" extends="Scene" >
+
+<script type="text/brightscript" >
+<![CDATA[
+    function init()
+        print "in init"
+
+        m.top.backgroundUri=""
+        m.top.backgroundColor="0xFFFFFFFF"
+
+	m.yellowRect = m.top.findNode("YellowRect")
+	m.greenRect  = m.top.findNode("GreenRect")
+	m.rectGroup  = m.top.findNode("RectGroup")
+
+        ' add instruction label
+        instructionLabel = m.top.createChild("Label")
+        instructionLabel.text = "Use Up Arrow to toggle annotations"
+	instructionLabel.font = "font:MediumBoldSystemFont"
+	instructionLabel.color = "0x000000FF"
+	instructionLabel.translation = [ 100, 680 ]
+
+        ' add info label
+        m.infoLabel = createObject("roSGNode","Label")
+        m.infoLabel.text = "Default"
+	m.infoLabel.font = "font:SmallSystemFont"
+	m.infoLabel.color = "0x000000FF"
+
+        m.rectLabel = m.infoLabel.createChild("Label")
+        m.rectLabel.text = "Default"
+	m.rectLabel.font = "font:SmallSystemFont"
+	m.rectLabel.color = "0x000000FF"
+	m.rectLabel.translation = [ 5, 25 ]
+
+        m.numTests = 7
+        m.testCase = -1
+
+        ' create brect representation
+        m.brectPoster = createObject("roSGNode", "Poster")
+        m.brectPoster.uri = "pkg:/images/brect.9.png"
+
+        ' create the axis indicators
+	m.arrows = createObject("RoSGNode", "Poster")
+	m.arrows.uri = "pkg:/images/XYAxisArrows.png"
+        m.arrows.translation=[-11, -11]
+
+        m.arrowText = m.arrows.createChild("Label")
+	m.arrowText.font = "font:SmallSystemFont"
+	m.arrowText.color = "0x000000FF"
+
+        m.sceneDescGroup = createObject("roSGNode", "Group")
+	
+        m.sceneArrows = m.sceneDescGroup.createChild("Poster")
+	m.sceneArrows.uri = "pkg:/images/XYAxisArrows.png"
+        m.sceneArrows.translation = [-11, -11]
+
+        m.line1 = m.sceneDescGroup.createChild("Label")
+        m.line1.color = "0x000000FF"
+	m.line1.font = "font:SmallSystemFont"
+	m.line1.text = "Scene"
+	m.line1.translation = [ 10, 8 ]
+
+        m.groupDescGroup = m.sceneDescGroup.createChild("Group")
+	m.groupDescGroup.translation = [ 100, 50]
+
+        m.groupArrows = m.groupDescGroup.createChild("Poster")
+	m.groupArrows.uri = "pkg:/images/XYAxisArrows.png"
+	m.groupArrows.translation = [-11, -11]
+
+	m.line2 = m.groupDescGroup.createChild("Label")
+        m.line2.color = "0x000000FF"
+	m.line2.font = "font:SmallSystemFont"
+	m.line2.text = "Rectangle Group (child of Scene) translation=[100, 50]"
+	m.line2.translation = [ 10, 8 ]
+
+        m.greenDescGroup = m.groupDescGroup.createChild("Group")
+	m.greenDescGroup.translation = [200, 75]
+
+        m.greenArrows = m.greenDescGroup.createChild("Poster")
+	m.greenArrows.uri = "pkg:/images/XYAxisArrows.png"
+	m.greenArrows.translation = [-11, -11]
+
+	m.line3 = m.greenDescGroup.createChild("Label")
+        m.line3.color = "0x000000FF"
+	m.line3.font = "font:SmallSystemFont"
+	m.line3.text = "Green Rectangle (child of Rectangle Group) translation=[200, 75]"
+	m.line3.translation = [ 10, 8]
+
+        m.yellowDescGroup = m.greenDescGroup.createChild("Group")
+	m.yellowDescGroup.translation = [200, 100]
+        m.yellowDescGroup.rotation = -0.45
+
+        m.yellowArrows = m.yellowDescGroup.createChild("Poster")
+	m.yellowArrows.uri = "pkg:/images/XYAxisArrows.png"
+	m.yellowArrows.translation = [-11, -11]
+
+	m.line4 = m.yellowDescGroup.createChild("Label")
+        m.line4.color = "0x000000FF"
+	m.line4.font = "font:SmallSystemFont"
+	m.line4.text = "Yellow Rectangle (child of Green Rectangle) translation=[200, 100] rotation=-0.45"
+	m.line4.translation = [ 10, 8 ]
+	
+        createNextBRect()
+
+        m.top.setFocus(true)
+
+    end function
+
+    function createNextBRect()
+        m.testCase = m.testCase + 1
+	if m.testCase = m.numTests
+            m.testCase = m.testCase - m.numTests
+        end if
+
+        m.yellowRect.removeChild(m.arrows)
+        m.yellowRect.removeChild(m.brectPoster)
+        m.yellowRect.removeChild(m.infoLabel)
+
+        m.greenRect.removeChild(m.arrows)
+        m.greenRect.removeChild(m.brectPoster)
+        m.greenRect.removeChild(m.infoLabel)
+
+        m.rectGroup.removeChild(m.arrows)
+        m.rectGroup.removeChild(m.brectPoster)
+        m.rectGroup.removeChild(m.infoLabel)
+
+        m.top.removeChild(m.arrows)
+        m.top.removeChild(m.brectPoster)
+        m.top.removeChild(m.infoLabel)
+	m.top.removeChild(m.sceneDescGroup)
+  
+        if m.testCase = 0            ' scene description
+            m.top.appendChild(m.sceneDescGroup)
+        else if m.testCase = 1            ' yellow rect local bounding rect
+            brect = m.yellowRect.localBoundingRect()
+            print "Yellow lbr "; brect
+
+            m.yellowRect.appendChild(m.brectPoster)
+	    m.brectPoster.translation = [ brect.x, brect.y ]
+            m.brectPoster.width = brect.width 
+            m.brectPoster.height = brect.height 
+
+            m.yellowRect.appendChild(m.arrows)
+	    m.arrowText.text = "Yellow Rectangle's Coordinate System"
+	    m.arrowText.translation = [ 11, -15 ]
+
+            m.yellowRect.appendChild(m.infoLabel)
+	    m.infoLabel.translation = [0,  brect.height ]
+
+            infoMsg = "Yellow Rectangle localBoundingRect()"
+            rectMsg = "x =" + str(brect.x) + " y =" + str(brect.y) + " width =" + str(brect.width) + " height =" + str(brect.height)
+
+            m.infoLabel.text = infoMsg
+            m.rectLabel.text = rectmsg
+        else if m.testCase = 2       ' yellow rect bounding rect
+            brect = m.yellowRect.boundingRect()
+
+            m.greenRect.appendChild(m.brectPoster)
+	    m.brectPoster.translation = [ brect.x, brect.y ]
+            m.brectPoster.width = brect.width 
+            m.brectPoster.height = brect.height 
+
+            m.greenRect.appendChild(m.arrows)
+	    m.arrowText.text = "Yellow Rectangle's Parent Coordinate System"
+	    m.arrowText.translation = [ 11, -15 ]
+
+            m.greenRect.appendChild(m.infoLabel)
+	    m.infoLabel.translation = [brect.x,  brect.y + brect.height ]
+
+	    infoMsg = "Yellow Rectangle boundingRect()"
+            rectMsg = "x =" + str(brect.x) + " y =" + str(brect.y) + " width =" + str(brect.width) + " height =" + str(brect.height)
+
+            m.infoLabel.text = infoMsg
+            m.rectLabel.text = rectMsg
+
+        else if m.testCase = 3       ' yellow rect scene rect
+            brect = m.yellowRect.sceneBoundingRect()
+
+            m.top.appendChild(m.brectPoster)
+	    m.brectPoster.translation = [ brect.x, brect.y ]
+            m.brectPoster.width = brect.width 
+            m.brectPoster.height = brect.height 
+
+            m.top.appendChild(m.arrows)
+	    m.arrowText.text = "Scene's Coordinate System"
+	    m.arrowText.translation = [ 20, 20 ]
+
+            m.top.appendChild(m.infoLabel)
+	    m.infoLabel.translation = [brect.x,  brect.y + brect.height ]
+
+	    infoMsg = "Yellow Rectangle sceneBoundingRect()"
+            rectMsg = "x =" + str(brect.x) + " y =" + str(brect.y) + " width =" + str(brect.width) + " height =" + str(brect.height)
+
+            m.infoLabel.text = infoMsg
+            m.rectLabel.text = rectMsg
+
+        else if m.testCase = 4       ' green rect local bounding rect
+            brect = m.greenRect.localBoundingRect()
+
+            m.greenRect.appendChild(m.brectPoster)
+	    m.brectPoster.translation = [ brect.x, brect.y ]
+            m.brectPoster.width = brect.width 
+            m.brectPoster.height = brect.height 
+
+            m.greenRect.appendChild(m.arrows)
+	    m.arrowText.text = "Green Rectangle's Coordinate System"
+	    m.arrowText.translation = [ 11, -15 ]
+
+            m.greenRect.appendChild(m.infoLabel)
+	    m.infoLabel.translation = [brect.x,  brect.y + brect.height ]
+
+	    infoMsg = "GreenRectangle localBoundingRect()"
+            rectMsg = "x =" + str(brect.x) + " y =" + str(brect.y) + " width =" + str(brect.width) + " height =" + str(brect.height)
+
+            m.infoLabel.text = infoMsg
+            m.rectLabel.text = rectMsg
+        else if m.testCase = 5       ' green rect bounding rect
+            brect = m.greenRect.boundingRect()
+
+            m.rectGroup.appendChild(m.brectPoster)
+	    m.brectPoster.translation = [ brect.x, brect.y ]
+            m.brectPoster.width = brect.width 
+            m.brectPoster.height = brect.height 
+
+            m.rectGroup.appendChild(m.arrows)
+	    m.arrowText.text = "Green Rectangle's Parent Coordinate System"
+	    m.arrowText.translation = [ 20, 20 ]
+
+            m.rectGroup.appendChild(m.infoLabel)
+	    m.infoLabel.translation = [brect.x,  brect.y + brect.height ]
+
+	    infoMsg = "GreenRectangle boundingRect()"
+            rectMsg = "x =" + str(brect.x) + " y =" + str(brect.y) + " width =" + str(brect.width) + " height =" + str(brect.height)
+
+            m.infoLabel.text = infoMsg
+            m.rectLabel.text = rectMsg
+        else if m.testCase = 6       ' green rect scene bounding rect
+            brect = m.greenRect.sceneBoundingRect()
+
+            m.top.appendChild(m.brectPoster)
+	    m.brectPoster.translation = [ brect.x, brect.y ]
+            m.brectPoster.width = brect.width 
+            m.brectPoster.height = brect.height 
+
+            m.top.appendChild(m.arrows)
+	    m.arrowText.text = "Scene's Coordinate System"
+	    m.arrowText.translation = [ 20, 20 ]
+
+            m.top.appendChild(m.infoLabel)
+	    m.infoLabel.translation = [brect.x,  brect.y + brect.height ]
+
+	    infoMsg = "GreenRectangle sceneBoundingRect()"
+            rectMsg = "x =" + str(brect.x) + " y =" + str(brect.y) + " width =" + str(brect.width) + " height =" + str(brect.height)
+
+            m.infoLabel.text = infoMsg
+            m.rectLabel.text = rectMsg
+
+        end if
+            
+    end function
+
+    function adjustBRect(brect)
+        brect.x = brect.x + 11
+        brect.y = brect.y + 11
+        brect.width = brect.width - 11
+        brect.height = brect.height - 11
+    end function
+
+    function onKeyEvent(key as String, press as Boolean)
+        if press = true
+            if key = "up"
+                print "Got Up!"
+                createNextBRect()
+            end if
+	end if
+    end function
+]]>
+</script>
+
+<children>
+    <Group id="RectGroup" translation="[100, 50]" > 
+        <Rectangle id="GreenRect" width="100" height="150" color="0x00FF00FF" translation="[200, 75]" >
+            <Rectangle id="YellowRect" width="150" height="250" color="0xFFFF00FF" translation="[200,100]" rotation="-0.45"/>
+        </Rectangle>
+    </Group> 
+</children>
+
+</component>

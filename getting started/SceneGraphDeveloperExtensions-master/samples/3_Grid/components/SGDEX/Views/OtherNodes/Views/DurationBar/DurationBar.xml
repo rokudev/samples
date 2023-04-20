@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!-- Copyright (c) 2018 Roku, Inc. All rights reserved. -->
+
+<!-- Node that implements progress bar, you can customize the size and look of it. -->
+<component name="DurationBar" extends="Group">
+    <interface>
+        <!-- preffered width of duration bar -->
+        <field id="width" type="float" alias="background.width" />
+        <!-- preffered height of duration bar -->
+        <field id="height" type="int" onChange="OnHeightChanged" />
+        <!-- preffered background color of duration bar -->
+        <field id="backgroundColor" type="color" alias="background.color" />
+        <!-- preffered color of progress on duration bar -->
+        <field id="progressColor" type="color" alias="progress.color" />
+        <!-- current playback position -->
+        <field id="length" type="int" onChange="UpdateBookmark" />
+        <!-- stored bookmark playback position -->
+        <field id="bookmarkPosition" type="int" onChange="UpdateBookmark" />     
+    </interface> 
+
+    <script type="text/brightscript" uri= "DurationBar.brs" />
+
+    <children>
+        <Rectangle
+            id="background"
+            visible="true"
+            translation="[0,0]"
+            color="0xFFFFFF"
+            width="300"
+            height="10"
+        />
+        <Rectangle
+            id="progress"
+            visible="true"
+            translation="[0,0]"
+            color="0xFF00001f"
+            width="0"
+            height="10"
+        />
+    </children>
+</component>

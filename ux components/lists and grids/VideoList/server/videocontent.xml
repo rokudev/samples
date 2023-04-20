@@ -1,0 +1,84 @@
+﻿<?xml version = "1.0" encoding = "utf-8" standalone = "yes" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<VideoContent >
+  <video 
+    title = "Puppies and Kittens" 
+    description = "So Cute!" 
+    hdposterurl = "http://s2.content.video.llnw.net/lovs/images-prod/59021fabe3b645968e382ac726cd6c7b/media/f8de8daf2ba34aeb90edc55b2d380c3f/ZLh.540x304.jpeg" 
+    streamformat  =  "mp4" 
+    url = "http://roku.cpl.delvenetworks.com/media/59021fabe3b645968e382ac726cd6c7b/f8de8daf2ba34aeb90edc55b2d380c3f/b228eeaba0f248c48e01e158f99cd96e/rr_123_segment_1_072715.mp4"/>
+  <video 
+    title = "Cult Movie Network" 
+    description = "So Weird They're Scary" 
+    hdposterurl = "http://img.delvenetworks.com/WQIfq-O2RZYjjgqxybNbHs/ac5Asmj6R2YqhYSExqnSJg/thp.540x302.jpeg" 
+    streamformat = "mp4" 
+    url = "http://roku.cpl.delvenetworks.com/media/59021fabe3b645968e382ac726cd6c7b/69ce40b268fa4766aa1612131aa74898/f9402439b3bb46028bcb3421821cadbf/roku-recommends_new.mp4"/>
+  <video 
+    title = "The Affair: Season 2" 
+    description = "Things Heat Up" 
+    hdposterurl = "http://s2.content.video.llnw.net/lovs/images-prod/59021fabe3b645968e382ac726cd6c7b/media/e92ddcb71f154e6897f5900471c54992/aUf.540x304.jpeg" 
+    streamformat = "mp4" 
+    url = "http://roku.cpl.delvenetworks.com/media/59021fabe3b645968e382ac726cd6c7b/e92ddcb71f154e6897f5900471c54992/37b977aabf2c4a27b25adb036af417c8/the-affair-s2-tune-in-post-premiere---roku-with-dominic-read.mp4"/>
+  <video 
+    title = "AwesomenessTV" 
+    description = "Awesome YouTube Stars" 
+    hdposterurl = "http://s2.content.video.llnw.net/lovs/images-prod/59021fabe3b645968e382ac726cd6c7b/media/bf2bfe826e3f4d61818306901d9ac985/1Jd.540x304.jpeg" 
+    streamformat = "mp4" 
+    url = "http://roku.cpl.delvenetworks.com/media/59021fabe3b645968e382ac726cd6c7b/bf2bfe826e3f4d61818306901d9ac985/cdf0a4452b124fd18c8c39507d3f1e87/rr_125_segment_4_080715.mp4"/>
+  <video 
+    title = "WatchESPN" 
+    description = "Get Your Game Face On" 
+    hdposterurl = "http://s2.content.video.llnw.net/lovs/images-prod/59021fabe3b645968e382ac726cd6c7b/media/7ec4711dc886464fa16001c1962904f8/pUY.540x304.jpeg" 
+    streamformat = "mp4" 
+    url = "http://roku.cpl.delvenetworks.com/media/59021fabe3b645968e382ac726cd6c7b/7ec4711dc886464fa16001c1962904f8/f0f6be8be9f145dc876d18872ba746fe/rr_ep_124_segment_2_080315_h264.mp4"/>
+  <video 
+    title = "Nickelodeon" 
+    description = "Get Slimed" 
+    hdposterurl = "http://img.delvenetworks.com/WQIfq-O2RZYjjgqxybNbHs/LE6Ooa0vSo0nSRPXdTMR7Y/jVd.540x302.jpeg" 
+    streamformat = "mp4" 
+    url = "http://roku.cpl.delvenetworks.com/media/59021fabe3b645968e382ac726cd6c7b/2c4e8ea1ad2f4a8d9d244f5dd4cc47b6/d6217d5a03e64cef9e6bf889fda8d41c/ep-123-seq-4-nick-alt_081215.mp4"/>
+  <video 
+    title = "ConTV" 
+    description = "Comic Con Fanboys Unite" 
+    hdposterurl = "http://s2.content.video.llnw.net/lovs/images-prod/59021fabe3b645968e382ac726cd6c7b/media/5686748268874a57a4ba3debda1619dd/7UL.540x304.jpeg" 
+    streamformat = "mp4" 
+    url = "http://roku.cpl.delvenetworks.com/media/59021fabe3b645968e382ac726cd6c7b/5686748268874a57a4ba3debda1619dd/75ad4598ef4a4e5c950e26d80464abb4/ep-126-seg-3_contv_v1-mo.mp4"/>
+  <video 
+    title = "Twitch" 
+    description = "Live Gaming" 
+    hdposterurl = "http://s2.content.video.llnw.net/lovs/images-prod/59021fabe3b645968e382ac726cd6c7b/media/decbe34b64ea4ca281dc09997d0f23fd/j5_.540x304.jpeg" 
+    streamformat = "mp4" 
+    url = "http://roku.cpl.delvenetworks.com/media/59021fabe3b645968e382ac726cd6c7b/decbe34b64ea4ca281dc09997d0f23fd/aac0cfc54ae74fdfbb3ba9a2ef4c7080/117_segment_2_twitch__nw_060515.mp4"/>
+  <video 
+    title = "UFC" 
+    description = "Fight Pass" 
+    hdposterurl = "http://s2.content.video.llnw.net/lovs/images-prod/59021fabe3b645968e382ac726cd6c7b/media/37d290e03d894135b07c5e514cbad72d/xUE.540x304.jpeg" 
+    streamformat = "mp4" 
+    url = "http://roku.cpl.delvenetworks.com/media/59021fabe3b645968e382ac726cd6c7b/37d290e03d894135b07c5e514cbad72d/dfd02160a5374c39967c105a8cfff3a1/roku_ep_115_segment_3_ufc_nw_051815.mp4"/>
+  <video 
+    title = "Paula Deen" 
+    description = "Let's Get Cookin'" 
+    hdposterurl = "http://s2.content.video.llnw.net/lovs/images-prod/59021fabe3b645968e382ac726cd6c7b/media/6c9d0951d6d74229afe4adf972b278dd/JME.540x304.jpeg" 
+    streamformat = "mp4" 
+    url = "http://roku.cpl.delvenetworks.com/media/59021fabe3b645968e382ac726cd6c7b/6c9d0951d6d74229afe4adf972b278dd/bc227724e2854c6b93ad48d1feb39c16/roku_ep_115_segment_5_paula_nw_050515.mp4"/>
+  <video 
+    title = "TEDTalks" 
+    description = "Ideas Worth Spreading" 
+    hdposterurl = "http://s2.content.video.llnw.net/lovs/images-prod/59021fabe3b645968e382ac726cd6c7b/media/7405a8c101ee4c9da312c426e6067044/ZCu.540x304.jpeg" 
+    streamformat = "mp4" 
+    url = "http://roku.cpl.delvenetworks.com/media/59021fabe3b645968e382ac726cd6c7b/7405a8c101ee4c9da312c426e6067044/dc0d29c5dde34565a3be95987f2956fe/roku_ep_115_segment_1_ted_nw_050515.mp4"/>
+  <video 
+    title = "Campus Insiders" 
+    description = "College Sports" 
+    hdposterurl = "http://s2.content.video.llnw.net/lovs/images-prod/59021fabe3b645968e382ac726cd6c7b/media/a4d29aebf55e499c968ce02469859637/7UV.540x304.jpeg" 
+    streamformat = "mp4" 
+    url = "http://roku.cpl.delvenetworks.com/media/59021fabe3b645968e382ac726cd6c7b/a4d29aebf55e499c968ce02469859637/1436ec35d7984170b428141579add3c2/roku_ep_113_segment_3_college_insiders_042415.mp4"/>
+  <video 
+    title = "XiveTV" 
+    description = "Giant Sharks And More" 
+    hdposterurl = "http://s2.content.video.llnw.net/lovs/images-prod/59021fabe3b645968e382ac726cd6c7b/media/42137542fa884b97a2a72cb356ae21b9/cfa.540x304.jpeg" 
+    streamformat = "mp4" 
+    url = "http://roku.cpl.delvenetworks.com/media/59021fabe3b645968e382ac726cd6c7b/42137542fa884b97a2a72cb356ae21b9/57316de2eaa3448b8376ef0b1ff58d46/roku_119_segment_2_062315.mp4"/>
+</VideoContent>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********--> 
+
+<!-- This component will be used to fetch the assets for the examples -->
+<component name="ContentReader" extends="Task" >
+
+  <!--
+       When the task finishes, the result will be passed to the "content"
+       field and the component that used this ContentReader will retrieve
+       the content through this field.
+  -->
+  <interface>
+  	<field id="uri" type="string" />
+    <field id="content" type="node" />
+  </interface>
+
+  <script type="text/brightscript" uri="pkg:/components/ContentReader.brs" />
+
+</component>

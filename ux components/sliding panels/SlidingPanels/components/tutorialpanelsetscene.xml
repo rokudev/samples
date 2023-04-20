@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<!--********** Copyright 2015 Roku Corp.  All Rights Reserved. **********-->
+
+<component name="tutorialPanelSetScene" extends="OverhangPanelSetScene" >
+
+<script type="text/brightscript" >
+
+
+<![CDATA[
+
+sub init()
+  m.top.backgroundURI = "pkg:/images/rsgetbg.jpg"
+
+  m.top.overhang.showClock = false
+  m.top.overhang.showOptions = true
+
+  m.categoriespanel = m.top.panelSet.createChild("categoriesListPanel")
+
+  m.categoryinfopanel = m.top.panelSet.createChild("categoryinfoPanel")
+
+  m.categoriespanel.list.observeField("itemFocused","showcategoryinfo")
+  m.categoryinfopanel.observeField("focusedChild","slideexamplesgridpanel")
+
+  m.categoriespanel.setFocus(true)
+end sub
+
+sub showcategoryinfo()
+  categorycontent = m.categoriespanel.list.content.getChild(m.categoriespanel.list.itemFocused)
+  m.categoryinfopanel.description = categorycontent.description
+  m.examplespanel = createObject("RoSGNode","examplesGridPanel")
+  m.examplespanel.overhangtext = categorycontent.shortdescriptionline1
+  m.examplespanel.gridcontenturi = categorycontent.Url
+end sub
+
+sub slideexamplesgridpanel()
+  if not m.top.panelSet.isGoingBack
+    m.top.panelSet.appendChild(m.examplespanel)
+    m.examplespanel.setFocus(true)
+  else
+    m.categoriespanel.setFocus(true)
+  end if 
+end sub
+
+]]>
+</script>
+
+</component>

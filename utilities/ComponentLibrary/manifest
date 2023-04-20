@@ -1,0 +1,7 @@
+title=SampleComponentLib
+subtitle=Test for Downloadable Scene Graph Component Library
+major_version=1
+minor_version=1
+build_version=00001
+sg_component_libs_provided=SampleComponentLib
+hidden=1

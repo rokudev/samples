@@ -1,0 +1,37 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- This example animates the color field of a Rectangle -->
+<component name = "AnimationColorExample" extends = "Group" >
+
+  <script type = "text/brightscript" uri = "pkg:/components/Animations/AnimationColor/AnimationColorExample.brs" />
+
+  <children >
+
+	<!-- Example rectangle to show linear float animation of color field -->
+    <Rectangle 
+	id = "exampleRectangle" 
+	width = "512" 
+	height = "288" 
+	color = "0x1010EBFF" />
+
+	<!-- Float animation, does linear interpolation of example poster's opacity field -->
+    <Animation 
+      id = "exampleColorAnimation" 
+      duration = "5" 
+      easeFunction = "linear" >
+
+	  <!-- Animation interpolator, defines the 4-hex byte values of color,
+           key field array defines the fractional value of the 5 seconds duration of the animation
+           keyValue field contains the hex values of the example rectangle's color field -->
+      <ColorFieldInterpolator 
+        key = "[ 0.0, 0.5, 1.0 ]" 
+        keyValue = "[ 0x1010EBFF, 0x10101FFF, 0x1010EBFF ]" 
+        fieldToInterp = "exampleRectangle.color" />
+
+    </Animation>
+
+  </children>
+
+</component>

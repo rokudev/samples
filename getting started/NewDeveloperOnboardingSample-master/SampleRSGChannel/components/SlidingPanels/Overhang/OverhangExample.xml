@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- This component will create a Overhang node example -->
+<component name="OverhangExample" extends="Group">
+
+  <script type="text/brightscript" uri="pkg:/components/SlidingPanels/Overhang/OverhangExample.brs" />
+
+  <children >
+    
+    <!--
+        For this example, the Overhang component will be the
+        only component in this example and it will show the
+        options icon on the top right corner of the screen.
+    -->
+    <Overhang
+      id="exampleOverhang"
+      title="Overhang Example"
+      optionsAvailable="true"
+      showOptions="true" />
+
+  </children>
+
+</component>

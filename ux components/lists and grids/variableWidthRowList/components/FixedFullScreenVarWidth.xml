@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="FixedFullScreenVarWidth" extends="Scene" initialFocus="rowList">
+
+    <script type="text/brightscript" uri="pkg:/components/FixedFullScreenVarWidth.brs"/>
+
+    <children>
+      <RowList
+        id="rowList"
+        translation="[0,100]"
+        itemComponentName="PosterItem"
+        itemSize="[1920,300]"
+        numRows="5"
+        rowItemSize="[[1220,591],[351,234]]"
+	      rowHeights="[648,300]"
+        rowItemSpacing="[[54,0],[18,0]]"
+        focusXOffset="[350,47]"
+        rowLabelOffset="[[47,8]]"
+        showRowLabel="[true]"
+        showRowCounter="[true]"
+	      variableWidthItems="[true]"
+	      rowFocusAnimationStyle="fixedFocusWrap"
+      />
+    </children>
+</component>

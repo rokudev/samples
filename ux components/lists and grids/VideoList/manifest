@@ -1,0 +1,24 @@
+'********** Copyright 2016 Roku Corp.  All Rights Reserved. **********
+
+title=Video Node Example
+subtitle=A Roku Scene Graph Development Example
+major_version=1
+minor_version=0
+build_version=00000
+
+mm_icon_focus_hd=pkg:/images/sgxe_icon_hd.jpg
+
+mm_icon_side_hd=pkg:/images/MainMenu_Icon_Side_HD.png
+
+mm_icon_focus_sd=pkg:/images/MainMenu_Icon_Center_SD43.png
+
+mm_icon_side_sd=pkg:/images/MainMenu_Icon_Side_SD43.png
+
+
+
+splash_screen_sd=pkg:/images/splash_sd.jpg
+
+splash_screen_hd=pkg:/images/rsgesplash.jpg
+
+splash_color=#000000
+splash_min_time=1000

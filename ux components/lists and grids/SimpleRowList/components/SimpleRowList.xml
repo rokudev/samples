@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+
+<component name="SimpleRowList" extends="RowList" >
+
+<script type="text/brightscript" >
+<![CDATA[
+
+    function init()
+        print "in SimpleRowListPanel init()"
+	    m.top.itemComponentName = "SimpleRowListItem"
+	    m.top.numRows = 2
+	    m.top.itemSize = [196 * 3 + 20 * 2, 213]
+	    m.top.rowHeights = [213]
+	    m.top.rowItemSize = [ [196, 213], [196, 213], [196, 213] ]
+	    m.top.itemSpacing = [ 0, 80 ]
+	    m.top.rowItemSpacing = [ [20, 0] ]
+		m.top.rowLabelOffset = [ [0, 30] ]
+	    m.top.rowFocusAnimationStyle = "floatingFocus"
+		m.top.showRowLabel = [true, true]
+		m.top.rowLabelColor="0xa0b033ff"
+        m.top.content = GetRowListContent()
+	    m.top.visible = true
+	    m.top.SetFocus(true)
+	    m.top.ObserveField("rowItemFocused", "onRowItemFocused")
+    end function
+
+	function GetRowListContent() as object
+	    'Populate the RowList content here
+	    data = CreateObject("roSGNode", "ContentNode")
+	    for numRows = 0 to 1
+	        row = data.CreateChild("ContentNode")
+			row.title = "Row " + stri(numRows)
+	        for i = 1 to 3
+	            item = row.CreateChild("SimpleRowListItemData")
+	            item.posterUrl = "http://devtools.web.roku.com/samples/images/Landscape_1.jpg"
+	            item.labelText = "This is item" + stri(numRows*3 + i)
+	        end for
+	    end for
+            return data
+	end function
+
+    function onRowItemFocused() as void
+        row = m.top.rowItemFocused[0]
+        col = m.top.rowItemFocused[1]
+        print "Row Focused: " + stri(row)
+        print "Col Focused: " + stri(col)
+    end function
+]]>
+</script>
+</component>

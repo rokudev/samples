@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+
+<component name="SimpleTunerScene" extends="Scene" >
+
+<script type="text/brightscript">
+<![CDATA[
+function init()
+    m.video = m.top.findNode("myVideo")
+	m.label = m.top.findNode("myLabel")
+    if hasTuner() = true
+        playVideo()	
+	else
+	    m.video.visible = false
+	    m.label.visible = true
+        m.label.text = "No Tuner Available"
+	endif
+end function
+
+function hasTuner() as Boolean
+	deviceInfo = CreateObject("roDeviceInfo")
+	result = deviceInfo.hasFeature("tuner_hardware")
+	return result
+end function
+
+function playVideo() as void
+	m.video.visible = true
+	m.label.visible = false
+    tuner = CreateObject("roTuner")
+    if (tuner <> invalid)
+        channels = tuner.GetChannelList()
+        channelInfo = tuner.GetChannelInfo(channels[0])
+
+        if channelInfo <> invalid
+            cm = channelInfo.content_metadata
+	    stream = {}
+            stream.AddReplace("url", "file://")
+            stream.AddReplace("channelnumber", cm.ChannelNumber)
+
+            vidContent = createObject("RoSGNode", "ContentNode")
+            vidContent.url = "file://"
+	    vidContent.streams = stream
+            vidContent.title = cm.Title
+            vidContent.streamformat = cm.StreamFormat
+
+            m.video.content = vidContent
+            m.video.control = "play"
+        end if
+    endif
+end function
+]]>
+</script>
+
+<children>
+    <Group>
+	    <Label
+			id="myLabel"
+			horizAlign="center"
+			width="1280"
+			text="BusySpinner Sample"
+			font="font:LargeBoldSystemFont"
+			translation="[0, 50]"
+			visible="false" />
+
+        <Video id="myVideo" width="1280" height="720" visible="false" />
+	</Group>
+</children>
+
+</component>

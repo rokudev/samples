@@ -1,0 +1,7 @@
+title=Image Canvas
+subtitle=Image Canvas Sample
+major_version=1
+minor_version=0
+build_version=0
+mm_icon_focus_hd=pkg:/assets/icon_focus_hd.png
+mm_icon_side_hd=pkg:/assets/icon_side_hd.png

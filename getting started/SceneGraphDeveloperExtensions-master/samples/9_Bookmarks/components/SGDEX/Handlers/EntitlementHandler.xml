@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2018 Roku, Inc. All rights reserved. -->
+
+<!-- 
+    @Public
+    developer should implement own Handler in channel that extends EntitlementHandler
+    In this handler developer can override 2 function:
+    - ConfigureEntitlements(config) [Required]
+    - OnPurchaseSuccess(transactionData) [Optional]
+
+    In ConfigureEntitlements developer can update config with his own params:
+        config should contain fields:
+            config.products [Array] of AAs having fields:
+            config.products.code [String] product code in ChannelStore
+            config.products.hasTrial [Boolean] true if product has trial period
+
+    OnPurchaseSuccess is a callback that allows end developer to inject some suctom logic on purchase success
+    by overriding this subroutine. Default implementation does nothing.
+
+    @Sample:
+    // [In <component name="HandlerEntitlement" extends="EntitlementHandler"> in channel]
+    sub ConfigureEntitlements(config as Object)
+        config.products = [
+            '{code: "PROD1", hasTrial: false}
+            {code: "PROD2", hasTrial: false}
+        ]
+    end sub
+-->
+
+<component name="EntitlementHandler" extends="Task" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+    <interface>
+        <!-- @Public  -->
+        <!-- Content node from EntitlementView will be passed here, developer can use it in handler.  -->
+        <field id="content" type="node" />
+
+        <!-- @Public  -->
+        <!-- View is a reference to EntitlementView where this Handler is created.  -->
+        <field id="view" type="node" />
+    </interface>
+    
+    <script type="text/brightscript" uri="EntitlementHandler.brs" />
+</component>

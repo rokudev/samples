@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- This component will create a ContentNode node example -->
+<component name="ContentNodeExample" extends="Group" >
+
+  <script type="text/brightscript" uri="pkg:/components/ControlNodes/ContentNode/ContentNodeExample.brs" />
+
+  <children>
+    
+    <!--
+        This rectangle node is a container of this example,
+        where it will show 2 labels: one telling the user
+        the instructions of this example, and the other
+        will display text based on what is next in the
+        content node that contain children with different
+        texts that are also content nodes.
+    -->
+    <Rectangle 
+      id="exampleDisplay" 
+      width="560" 
+      height="360" 
+      color="0x101010C0" >
+
+      <!--
+          This label tells the user the instructions
+          of this example.
+      -->
+      <Label 
+        translation="[ 0, 100 ]" 
+        width="560" 
+        height="24" 
+        horizAlign="center" 
+        text="Press OK For Next Content Item" />
+
+      <!--
+          This label changes text based on the content
+          node's children, which have metadata that
+          will be used to change the text of this
+          label.
+      -->
+      <Label 
+        id="itemLabel" 
+        translation="[ 0, 200 ]" 
+        width="560" 
+        height="24" 
+        horizAlign="center"
+        color="0xEBEB10FF" />
+
+    </Rectangle>
+
+    <!--
+      The content node.
+
+      This example will have a "master" content node that
+      will have many children that are also content nodes.
+      These children content nodes contain metadata that
+      will change a label's text based on the "title"
+      field of the child content node.
+    -->
+    <ContentNode id="exampleContentNode" >
+
+      <ContentNode title="Renderable Nodes" />
+      <ContentNode title="Z-Order/Parent-Child" />
+      <ContentNode title="Animations" />
+      <ContentNode title="Events and Observers" />
+      <ContentNode title="Typography" />
+      <ContentNode title="Control Nodes" />
+      <ContentNode title="Lists and Grids" />
+      <ContentNode title="Dialogs" />
+      <ContentNode title="Widgets" />
+      <ContentNode title="Layout/Groups" />
+      <ContentNode title="Sliding Panels"  />
+      <ContentNode title="Media Playback" />
+
+    </ContentNode>
+
+  </children>
+
+</component>

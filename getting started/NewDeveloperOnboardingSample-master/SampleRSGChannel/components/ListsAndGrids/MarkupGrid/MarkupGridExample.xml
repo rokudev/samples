@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- This component will create a MarkupGrid node example -->
+<component name="MarkupGridExample" extends="Group" initialFocus="exampleMarkupGrid">
+
+  <script type="text/brightscript" uri="pkg:/components/ListsAndGrids/MarkupGrid/MarkupGridExample.brs" />
+
+  <children>
+
+    <!--
+        The MarkupGrid object. For this example, the MarkupGrid component will contain
+        "MarkupGridItem" objects, which will be the individual grid item containers.
+        The MarkupGridItem objects define what will be displayed to the user when content
+        is loaded to the MarkupGrid.
+
+        For this example, we will also set the number of columns and number of rows in
+        the MarkupGrid. An important detail here is that depending on the amount of content
+        that is passed to the MarkupGrid object, there can be less columns than specified
+        explicitly in the numColumns field. There can also be a case where the amount of
+        rows can be more or less than what is specified explicitly in the numRows field.
+        In other words, the content will first be displayed based on the amount of columns
+        specified in the numColumns field, then wrap the rest of the content into another
+        row and continue to display content in this fashion.
+
+        It is also important for MarkupGrid objects to set the itemSize field because the
+        grid will visually not be seen, but will exist in the channel.
+
+        In this example, we will also disable the focus ring that surrounds the focused
+        MarkupGridItem object within the MarkupGrid.
+    -->
+    <MarkupGrid 
+      id="exampleMarkupGrid" 
+      itemComponentName="MarkupGridItem"
+      numColumns="2" 
+      numRows="5" 
+      itemSize="[ 532, 308 ]" 
+      itemSpacing="[ 20, 20 ]" 
+      drawFocusFeedback="false" />
+
+  </children>
+
+</component>

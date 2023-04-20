@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+
+<component name="SimpleRowListScene" extends="Scene" >
+
+<script type="text/brightscript" >
+<![CDATA[
+function init()
+    m.theRowList = m.top.FindNode("theRowList")
+    m.theRowList.SetFocus(true)
+end function
+]]>
+</script>
+
+<children>
+    <SimpleRowList id="theRowList" translation="[50,50]" />
+</children>
+</component>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright (c) 2018 Roku, Inc. All rights reserved. -->
+
+<component name="MarkupListWithRewFF" extends="MarkupList">
+  <interface>
+      <field id="isFFPressed" type="boolean" alwaysNotify="true" />
+      <field id="isRewPressed" type="boolean" alwaysNotify="true" />
+      <field id="drawFocusFeedbackIfViewUnfocused" type="boolean" value="true" />
+  </interface>
+  <script type="text/brightscript" uri="MarkupListWithRewFF.brs" />
+</component>

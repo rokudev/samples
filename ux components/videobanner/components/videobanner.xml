@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<!--********** Copyright 2015 Roku Corp.  All Rights Reserved. **********-->
+
+<component name="videobannerScene" extends="Scene" >
+
+<script type="text/brightscript" >
+<![CDATA[
+
+sub init()
+	m.top.backgroundURI = "pkg:/images/purplebg.jpg"
+	m.top.setFocus(true)
+	m.bottomlabel = m.top.findNode("bottomLabel")
+	m.warninglabel = m.top.findNode("warningLabel")
+	m.warningrectangle = m.top.findNode("warningRectangle")
+	m.texttimer = m.top.findNode("textTimer")
+	m.defaulttext = "All The Best Videos!"
+	m.alternatetext = "All The Time!!!"
+	m.videostoppedtext = "video stopped, press Play to start"
+	m.wrongkeytext = "press Home or Back to return, OK to dismiss"
+	m.textchange = false
+	m.videostopped = false
+	m.texttimer.ObserveField("fire","changetext")
+	setVideo()
+end sub
+
+function setVideo() as void    
+	videoContent = createObject("RoSGNode", "ContentNode")
+	videoContent.url = "https://roku.s.cpl.delvenetworks.com/media/59021fabe3b645968e382ac726cd6c7b/60b4a471ffb74809beb2f7d5a15b3193/roku_ep_111_segment_1_final-cc_mix_033015-a7ec8a288c4bcec001c118181c668de321108861.m3u8"
+	videoContent.title = "loading video..."
+	videoContent.streamformat = "hls"
+
+	m.video = m.top.findNode("musicvideos")
+	m.video.content = videoContent
+	m.video.control = "play"
+end function
+
+function onKeyEvent(key as String, press as Boolean) as Boolean
+
+	handled = false
+	if press then
+		if (key = "home") then 
+			handled = false
+		else if (key = "back") then 
+			handled = false 
+		else if (key = "play")
+			if (m.videostopped = false) then 
+				m.video.control = "stop"
+				m.warninglabel.text = m.videostoppedtext
+				m.warningrectangle.visible = true
+				m.videostopped = true
+			else
+				m.video.control = "play"
+				m.warningrectangle.visible = false
+				m.videostopped = false
+			end if
+			handled = true
+		else 
+			if (m.warningrectangle.visible = false)
+				m.warninglabel.text = m.wrongkeytext
+				m.warningrectangle.visible="true"
+			else 
+				if (key = "OK") then
+					m.warningrectangle.visible="false"
+				end if
+			end if
+			handled = true
+		end if
+    	end if
+	return handled
+end function
+
+function changetext()
+	if (m.textchange = false) then 
+		m.bottomlabel.text = m.alternatetext
+		m.textchange = true
+	else
+		m.bottomlabel.text = m.defaulttext
+		m.textchange = false
+	end if
+end function
+
+]]>
+</script>
+
+<children>
+    <Video
+	id="musicvideos"
+	width="1280"
+	height="720"
+	translation="[0,0]" />
+
+    <Group
+	id="bannerGroup" 
+	translation="[0,600]" >
+
+	<Rectangle 
+		id="bottomRectangle"
+        	width="1280"
+		height="60" 
+		color="0x0000FFFF"
+                translation="[0,20]" >
+		<Animation 
+			id="colorchangeAnimation"
+			duration="10"
+			repeat="true"
+			control="start"
+			easeFunction="linear" >
+			<ColorFieldInterpolator 
+				id = "colorchangeRectangle"
+				key="[0.0, 0.5, 1.0]" 
+				keyValue="[ 0x0000FFFF, 0x00000FFF, 0x0000FFFF ]"
+    				fieldToInterp="bottomRectangle.color" />
+		</Animation>
+	</Rectangle>
+
+	<Label 
+		id="bottomLabel"
+		height="60"
+        	width="0"
+		text = "All The Best Videos!"
+		horizAlign = "left"
+		vertAlign = "center"
+		translation="[160,20]" >
+		<Animation 
+			id="scrollbackAnimation"
+			duration="10"
+			repeat="true"
+			control="start"
+			easeFunction="linear" >
+			<Vector2DFieldInterpolator 
+				id = "scrollbackLabel"
+				key="[0.0, 0.5, 1.0]" 
+				keyValue="[ [160.0, 20.0], [620.0, 20.0], [160.0, 20.0] ]"
+    				fieldToInterp="bottomLabel.translation" 
+				/>
+		</Animation>
+	</Label>
+
+	<Poster
+		id="channelPoster"
+		uri="pkg:/images/channel.png"
+		width="220"
+		height="100"
+		translation="[900,0]" >
+		<Animation 
+			id="fadeinoutAnimation"
+			duration="10"
+			repeat="true"
+			control="start"
+			easeFunction="linear" >
+			<FloatFieldInterpolator 
+				id = "fadeinoutPoster"
+				key="[0.0, 0.5, 1.0]" 
+				keyValue="[ 0.0, 1.0, 0.0 ]"
+    				fieldToInterp="channelPoster.opacity" 
+				/>
+		</Animation>
+	</Poster>
+    </Group>
+
+    <Rectangle 
+	id="warningRectangle"
+	visible="false"
+	color="0xAAAAAAAA"
+	height="50"
+	width="560" 
+	translation="[560,520]" >
+	<Label 
+		id="warningLabel"
+		color="0xFFFFFFFF"
+		height="50"
+        	width="540"
+		horizAlign = "right"
+		vertAlign = "center"
+		translation="[0,0]" />
+    </Rectangle>
+
+    <Timer
+	id="textTimer"
+	repeat="true"
+	duration="5"
+	control="start" />
+</children>
+</component>

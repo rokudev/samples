@@ -1,0 +1,45 @@
+<?xml version = "1.0" encoding = "utf-8" ?> 
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- This example animates the translation field of a moving Rectangle -->
+<component name = "AnimationV2DExample" extends = "Group" >
+
+  <script type = "text/brightscript" uri = "pkg:/components/Animations/AnimationV2d/AnimationV2DExample.brs" />
+
+  <children>
+
+	<!-- Parent rectangle, provides the boundary for the translation of the movingRectangle -->
+    <Rectangle 
+      width = "900" 
+      height = "330" 
+      color = "0x10101000" >
+
+	  <!-- Moving rectangle, color blue, moves diagonally, translation defined by the animation -->
+      <Rectangle 
+        id = "movingRectangle" 
+        width = "720" 
+        height = "240" 
+        color = "0x1010EBFF" />
+
+    </Rectangle>
+
+	<!-- Vector2D animation, interpolates the movingRectangle's translation field -->
+    <Animation 
+      id = "exampleVector2DAnimation" 
+      duration = "5" 
+      easeFunction = "linear" >
+
+	  <!-- Animation interpolator, defines the values of translation,
+		   key field array defines the fractional value of the 5 seconds duration of the animation
+		   keyValue field contains the float values of the movingRectangle's translation field -->
+      <Vector2DFieldInterpolator 
+        key = "[ 0.0, 0.5, 1.0 ]" 
+        keyValue = "[ [0.0,0.0], [180.0,90.0], [0.0,0.0] ]" 
+        fieldToInterp = "movingRectangle.translation" />
+
+    </Animation>
+
+  </children>
+
+</component>

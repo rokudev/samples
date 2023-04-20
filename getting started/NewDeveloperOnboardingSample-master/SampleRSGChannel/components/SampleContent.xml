@@ -1,0 +1,277 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+ 
+<!--
+    This component creates a SampleContent content node that will specify
+    what samples are available in the home screen. This SampleContent node
+    is setup where each content node child of SampleContent is a row/category
+    for the HomeScreen's rowlist and each content node child under this is
+    an individual item/sample for the HomeScreen's rowlist.
+
+    Each item/sample's id field is set so that it launches the example based
+    on the id. All finished examples have an id with an "Example" string
+    concatenated at the end to make it easier on creating these examples
+    with this pattern.
+-->
+<component name = "SampleContent" extends = "ContentNode" >
+
+  <children >
+
+    <ContentNode id="renderableNodes" title = "Renderable Nodes" description="Basic nodes that show things such as Rectangles, Labels, and Posters">
+      <ContentNode 
+        id="RectangleExample"
+        HDPosterUrl = "http://www.sdktestinglab.com/Tutorial/images/rectanglepg.jpg" 
+        title = "Rectangle Node"
+        shortDescriptionLine1="Rectangle Node" />
+      <ContentNode 
+        id="RotatedRectangleExample"
+        HDPosterUrl = "http://www.sdktestinglab.com/Tutorial/images/rectanglerotpg.jpg" 
+        title = "Rectangle Node (Rotated)"
+        shortDescriptionLine1="Rectangle Node (Rotated)" />
+      <ContentNode 
+        id="LabelExample"
+        HDPosterUrl = "http://www.sdktestinglab.com/Tutorial/images/labelpg.jpg" 
+        title = "Label Node"
+        shortDescriptionLine1="Label Node" />
+      <ContentNode 
+        id="PosterExample"
+        HDPosterUrl = "http://www.sdktestinglab.com/Tutorial/images/posterpg.jpg" 
+        title = "Poster Node"
+        shortDescriptionLine1="Poster Node" />
+    </ContentNode>
+
+    <ContentNode id="zorder" title = "Z-Order/Parent-Child" description="Demonstrates the basic concepts of Scene Graph element layering and inheritance. In Roku Scene Graph, what's on the bottom of your XML tree goes on top!">
+      <ContentNode 
+        id="ZOrderRectanglesExample"
+        HDPosterUrl = "http://www.sdktestinglab.com/Tutorial/images/zorectanglespg.jpg" 
+        title = "Z-Order Rendering"
+        shortDescriptionLine1="Z-Order Rendering" />
+      <ContentNode 
+        id="ZOrderRenderablesExample"
+        HDPosterUrl = "http://www.sdktestinglab.com/Tutorial/images/zorenderablespg.jpg" 
+        title = "Z-Order Renderable Nodes"
+        shortDescriptionLine1="Z-Order Renderable Nodes" />
+      <ContentNode 
+        id="PCRenderablesExample"
+        HDPosterUrl = "http://www.sdktestinglab.com/Tutorial/images/pcrenderablespg.jpg" 
+        title = "Parent-Child Grouping"
+        shortDescriptionLine1="Parent-Child Grouping" />
+      <ContentNode 
+        id="PCRectanglesInheritExample"
+        HDPosterUrl = "http://www.sdktestinglab.com/Tutorial/images/pcrectanglespg.jpg" 
+        title = "Parent-Child Inheritance"
+        shortDescriptionLine1="Parent-Child Inheritance" />
+    </ContentNode>
+
+    <ContentNode id="eventsAndObservers" title = "Events and Observers" description="You need to handle events that come from both the user, and program actions. You'll learn to use the onKeyEvent() and observeField() Scene Graph functions to do this.">
+      <ContentNode 
+        id="EventObserverExample"
+        HDPosterUrl = "http://www.sdktestinglab.com/Tutorial/images/eotextchangepg.jpg" 
+        title = "Observed Fields"
+        shortDescriptionLine1="Observed Fields" />
+      <ContentNode 
+        id="KeyEventsExample"
+        HDPosterUrl = "http://www.sdktestinglab.com/Tutorial/images/keyeventspg.jpg" 
+        title = "Key Events"
+        shortDescriptionLine1="Key Events" />
+    </ContentNode>
+
+    <!-- FELIX STARTS HERE -->
+
+    <ContentNode id="listsAndGrids" title="Lists and Grids" description="Every group of items you want to present to a user can be shown using a list or grid node class. Roku Scene Graph allows you easily format these groups from your current content catalog, with as much content meta-data and graphic images as you need for each item, then lets you program custom user focus and selection actions.">
+      <ContentNode
+        id="LabelListExample"
+        HDPosterUrl="pkg:/images/overhangRokuLogo.png"
+        title="LabelList Node"
+        shortDescriptionLine1="LabelList Node" />
+      <ContentNode
+        id="PosterGridExample"
+        HDPosterUrl="pkg:/images/overhangRokuLogo.png"
+        title="PosterGrid Node"
+        shortDescriptionLine1="PosterGrid Node" />
+      <ContentNode
+        id="RadioButtonListExample"
+        HDPosterUrl="pkg:/images/overhangRokuLogo.png"
+        title="RadioButtonList Node"
+        shortDescriptionLine1="RadioButtonList Node" />
+      <ContentNode
+        id="CheckListExample"
+        HDPosterUrl="pkg:/images/overhangRokuLogo.png"
+        title="CheckList Node"
+        shortDescriptionLine1="CheckList Node" />
+      <ContentNode
+        id="MarkupGridExample"
+        HDPosterUrl="pkg:/images/overhangRokuLogo.png"
+        title="MarkupGrid Node"
+        shortDescriptionLine1="MarkupGrid Node" />
+      <ContentNode
+        id="MarkupListExample"
+        HDPosterUrl="pkg:/images/overhangRokuLogo.png"
+        title="MarkupList Node"
+        shortDescriptionLine1="MarkupList Node" />
+      <ContentNode
+        id="RowListExample"
+        HDPosterUrl="pkg:/images/overhangRokuLogo.png"
+        title="RowList Node"
+        shortDescriptionLine1="RowList Node" />
+    </ContentNode>
+
+    <ContentNode id="slidingPanels" title="Sliding Panels" description="Roku SceneGraph pioneers the use of sliding panels in a TV user interface, providing instant familiarity for smart phone users who 'swipe' screens of information billions of times a day.">
+      <ContentNode
+        id="PanelExample"
+        HDPosterUrl="pkg:/images/overhangRokuLogo.png"
+        title="Panel Node"
+        shortDescriptionLine1="Panel Node" />
+      <ContentNode
+        id="ListPanelExample"
+        HDPosterUrl="pkg:/images/overhangRokuLogo.png"
+        title="ListPanel Node"
+        shortDescriptionLine1="ListPanel Node" />
+      <ContentNode
+        id="GridPanelExample"
+        HDPosterUrl="pkg:/images/overhangRokuLogo.png"
+        title="GridPanel Node"
+        shortDescriptionLine1="GridPanel Node" />
+      <ContentNode
+        id="PanelSetExample"
+        HDPosterUrl="pkg:/images/overhangRokuLogo.png"
+        title="PanelSet Node"
+        shortDescriptionLine1="PanelSet Node" />
+      <ContentNode
+        id="OverhangExample"
+        HDPosterUrl="pkg:/images/overhangRokuLogo.png"
+        title="Overhang Node"
+        shortDescriptionLine1="Overhang Node" />
+      <ContentNode
+        id=""
+        HDPosterUrl="pkg:/images/overhangRokuLogo.png"
+        title="OverhangPanelSetScene Node"
+        shortDescriptionLine1="OverhangPanelSetScene Node" />
+    </ContentNode>
+
+    <ContentNode id="widgets" title="Widgets" description="Buttons, text entry boxes, pin pads, even full keyboards, Roku Scene Graph has them all. Drop these into your application as needed, mix and match.">
+      <ContentNode
+        id="ButtonExample"
+        HDPosterUrl="pkg:/images/overhangRokuLogo.png"
+        title="Button Node"
+        shortDescriptionLine1="Button Node" />
+      <ContentNode
+        id="BusySpinnerExample"
+        HDPosterUrl="pkg:/images/overhangRokuLogo.png"
+        title="BusySpinner Node"
+        shortDescriptionLine1="BusySpinner Node" />
+      <ContentNode
+        id="TextEditBoxExample"
+        HDPosterUrl="pkg:/images/overhangRokuLogo.png"
+        title="TextEditBox Node"
+        shortDescriptionLine1="TextEditBox Node" />
+      <ContentNode
+        id="PinPadExample"
+        HDPosterUrl="pkg:/images/overhangRokuLogo.png"
+        title="PinPad Node"
+        shortDescriptionLine1="PinPad Node" />
+      <ContentNode
+        id="MiniKeyboardExample"
+        HDPosterUrl="pkg:/images/overhangRokuLogo.png"
+        title="MiniKeyboard Node"
+        shortDescriptionLine1="MiniKeyboard Node" />
+      <ContentNode
+        id="KeyboardExample"
+        HDPosterUrl="pkg:/images/overhangRokuLogo.png"
+        title="Keyboard Node"
+        shortDescriptionLine1="Keyboard Node" />
+    </ContentNode>
+
+    <ContentNode id="dialogs" title="Dialogs" description="Scene Graph provides a full set of dialog nodes to allow you to convey information about the status of your application to users, and let them select options for moving forward.">
+      <ContentNode
+        id="DialogExample"
+        HDPosterUrl="pkg:/images/overhangRokuLogo.png"
+        title="Dialog Node"
+        shortDescriptionLine1="Dialog Node" />
+      <ContentNode
+        id="PinDialogExample"
+        HDPosterUrl="pkg:/images/overhangRokuLogo.png"
+        title="PinDialog Node"
+        shortDescriptionLine1="PinDialog Node" />
+      <ContentNode
+        id="KeyboardDialogExample"
+        HDPosterUrl="pkg:/images/overhangRokuLogo.png"
+        title="KeyboardDialog Node"
+        shortDescriptionLine1="KeyboardDialog Node" />
+      <ContentNode
+        id="ProgressDialogExample"
+        HDPosterUrl="pkg:/images/overhangRokuLogo.png"
+        title="ProgressDialog Node"
+        shortDescriptionLine1="ProgressDialog Node" />
+    </ContentNode>
+
+    <ContentNode id="controlNodes" title="Control Nodes" description="These nodes let you get complete control over your application program flow, download server data, and change your program behavior.">
+      <ContentNode
+        id="TimerExample"
+        HDPosterUrl="pkg:/images/overhangRokuLogo.png"
+        title="Timer Node"
+        shortDescriptionLine1="Timer Node" />
+      <ContentNode
+        id="ContentNodeExample"
+        HDPosterUrl="pkg:/images/overhangRokuLogo.png"
+        title="ContentNode Node"
+        shortDescriptionLine1="ContentNode Node" />
+      <ContentNode
+        id="TaskExample"
+        HDPosterUrl="pkg:/images/overhangRokuLogo.png"
+        title="Task Node"
+        shortDescriptionLine1="Task Node" />
+      <ContentNode
+        id="MaskGroupExample"
+        HDPosterUrl="pkg:/images/overhangRokuLogo.png"
+        title="MaskGroup Node"
+        shortDescriptionLine1="MaskGroup Node" />
+    </ContentNode>
+
+    <ContentNode id="typography" title="Typography" description="You'll want to use text here and there in your application, so Scene Graph gives you several special nodes and features when a paragraph is worth a thousand posters.">
+      <ContentNode
+        id="ScrollingLabelExample"
+        HDPosterUrl="pkg:/images/overhangRokuLogo.png"
+        title="ScrollingLabel Node"
+        shortDescriptionLine1="ScrollingLabel Node" />
+      <ContentNode
+        id="ScrollableTextExample"
+        HDPosterUrl="pkg:/images/overhangRokuLogo.png"
+        title="ScrollableText Node"
+        shortDescriptionLine1="ScrollableText Node" />
+    </ContentNode>
+
+    <ContentNode id="animationNodes" title = "Animation Nodes" description="This shows you how to make your application more moving, by animating screen elements. There are examples for all of the field interpolator nodes, plus sequential and parallel animations.">
+      <ContentNode 
+        id="AnimationV2DExample"
+        HDPosterUrl = "http://www.sdktestinglab.com/Tutorial/images/animv2dpg.jpg" 
+        title = "Vector2DFieldInterpolator"
+        shortDescriptionLine1="Vector2DFieldInterpolator" />
+      <ContentNode 
+        id="AnimationFloatExample"
+        HDPosterUrl = "http://www.sdktestinglab.com/Tutorial/images/animfloatpg.jpg" 
+        title = "FloatFieldInterpolator"
+        shortDescriptionLine1="FloatFieldInterpolator" />
+      <ContentNode 
+        id="AnimationColorExample"
+        HDPosterUrl = "http://www.sdktestinglab.com/Tutorial/images/animcolorpg.jpg" 
+        title = "ColorFieldInterpolator"
+        shortDescriptionLine1="ColorFieldInterpolator" />
+      <ContentNode 
+        id="AnimationSequentialExample"
+        HDPosterUrl = "http://www.sdktestinglab.com/Tutorial/images/animsequencepg.jpg" 
+        title = "Sequential Animation"
+        shortDescriptionLine1="Sequential Animation" />
+      <ContentNode 
+        id="AnimationParallelExample"
+        HDPosterUrl = "http://www.sdktestinglab.com/Tutorial/images/animparallelpg.jpg" 
+        title = "Parallel Animation"
+        shortDescriptionLine1="Parallel Animation" />
+    </ContentNode>
+
+    <!-- FELIX ENDS HERE -->
+
+  </children>
+
+</component>

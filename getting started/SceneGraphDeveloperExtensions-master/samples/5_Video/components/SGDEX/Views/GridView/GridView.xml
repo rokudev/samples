@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2018 Roku, Inc. All rights reserved. -->
+
+<!--
+    @Public
+    Grid view represents SGDEX grid that is responsible for:
+        - content loading
+        - lazy loading of rows and item in row
+        - loading pages of content
+        - lazy loading rows when user is not navigating
+
+    @Sample
+    grid = CreateObject("roSGNode", "GridView")
+    grid.setFields({
+        style: "standard"
+        posterShape: "16x9"
+    })
+    content = CreateObject("roSGNode", "ContentNode")
+    content.addfields({
+        HandlerConfigGrid: {
+            name: "CHRoot"
+        }
+    })
+    grid.content = content
+
+    'this will trigger job to show this View
+    m.top.ComponentController.callFunc("show", {
+        view: grid
+    })
+-->
+
+<component name="GridView" extends="SGDEXComponent" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+    <interface>
+        <!-- @Public -->
+        <!-- Updated when focused item changes
+        Value is an array containing the index of the row and item that were focused -->
+        <field id="rowItemFocused" type="vector2d" alwaysNotify="true" onChange="SimulateAlias" />
+
+        <!-- @Public -->
+        <!--
+            Updated when an item is selected
+            Value is an array containing the index of the row and item that were selected
+        -->
+        <field id="rowItemSelected" type="vector2d" alwaysNotify="true" onChange="SimulateAlias" />
+
+        <!-- @Public -->
+        <!--
+            Set grid focus to specified item
+            Value is an array containing the index of the row and item that should be focused
+            This field must be set after setting the content field.
+        -->
+        <field id="jumpToRowItem" type="vector2d" alwaysNotify="true" onChange="SimulateAlias" />
+
+        <field id="showSpinner" type="boolean" alwaysNotify="true" onChange="OnShowSpinnerChange" />
+        <field id="updateFocusedItem" type="boolean" alwaysNotify="true" onChange="OnUpdateFocusedItem" />
+
+        <field id="details" type="node" />
+
+        <!--
+            @Public
+            @Override
+            <field id="theme" type="assocarray" />
+
+            Controls the color of visual elements
+
+            @PossibleValue textColor - sets the color of all text elements in the view
+            @PossibleValue focusRingColor - set color of focus ring
+            @PossibleValue focusFootprintColor - set color for focus ring when unfocused
+            @PossibleValue rowLabelColor - sets color for row title
+
+            @PossibleValue itemTextColorLine1 - set color for first row in item description
+            @PossibleValue itemTextColorLine2 - set color for second row in item description
+
+            @PossibleValue titleColor - sets color of title
+            @PossibleValue descriptionColor - sets color of description text
+            @PossibleValue descriptionmaxWidth - sets max width for description
+            @PossibleValue descriptionMaxLines - sets max lines for description
+        -->
+
+        <!--
+            @Public
+            @Override
+            <field id="style" type="string" />
+
+            Styles are used to tell what grid UI will be used
+
+            @PossibleValue standard - This is default grid style
+            @PossibleValue hero - This style will display larger posters on the top row of the grid
+            @PossibleValue zoom - This style will enable an animated zoom effect when a row gains focus
+        -->
+
+        <!--
+            @Public
+            @Override <field id="posterShape" type="string"/>
+
+            Controls the aspect ratio of the posters on the grid
+
+            @PossibleValue 16x9
+            @PossibleValue portrait
+            @PossibleValue 4x3
+            @PossibleValue square
+        -->
+
+        <!--
+            @Public
+            @Override <field id="content" type="node" />
+
+            Controls how SGDEX will load the content for the view
+
+
+            Content metadata field that can be used:
+
+            root = {
+
+                children:[{
+                    title: "Row title"
+
+                    children: [{
+
+                        title: "title that will be shown on upper details section"
+                        description: "Description that will be shown on upper details section"
+                        hdPosterUrl: "Poster URL that should be shown on grid item"
+
+                        releaseDate: "Release date string"
+                        StarRating: "star rating integer between 0 and 100"
+
+                        _gridItemMetaData: "fields that are used on grid"
+
+                        shortDescriptionLine1: "first row that will be displayed on grid"
+                        shortDescriptionLine2: "second row that will be displayed on grid"
+
+
+                        _forShowing_bookmarks_on_grid: "Add these fields to show bookmarks on grid item"
+                        length: "length of video"
+                        bookmarkposition: "actual bookmark position"
+
+                        _note: "tels if this bar should be hidden, default = true"
+                        hideItemDurationBar: false
+
+                    }]
+                }]
+            }
+
+            If you have to make API call to get list of rows set content like this:
+
+                content = CreateObject("roSGNode", "ContentNode")
+                content.addfields({
+                    HandlerConfigGrid: {
+                        name: "CHRoot"
+                    }
+                })
+                grid.content = content
+
+            Where CHRoot is a ContentHandler that is responsible for getting rows for grid
+
+            IF you know the structure of your grid but need to load content to rows you can do:
+
+                content = CreateObject("roSGNode", "ContentNode")
+
+                row = CreateObject("roSGNode", "ContentNode")
+                row.title = "first row"
+                row.addfields({
+                    HandlerConfigGrid: {
+                        name: "ContentHandlerForRows"
+                        fields : {
+                            myField1 : "value I need to pass to content handler"
+                        }
+                    }
+                })
+                grid.content = content
+
+            Where
+                1) "ContentHandlerForRows" is content handler that will be called to get content for provided row.
+                2) fields is AA of values that will be set to ContentHandler so you can pass additional data to ContentHandler
+                Note. that passing row itself or grid via fields might cause memory leaks
+
+            You can set row ContentHandler even when parsing content in "CHRoot", so it will be called when data for that row is needed
+        -->
+    </interface>
+
+    <script type="text/brightscript" uri="GridView.brs" />
+
+    <children>
+        <ItemDetailsView
+            id="details"
+            translation="[125,110]"
+            maxWidth="666"
+        />
+
+        <LayoutGroup
+            translation="[640,360]"
+            horizAlignment="center"
+            vertAlignment="center">
+            <BusySpinner
+                id="spinner"
+                visible="false"
+            />
+        </LayoutGroup>
+    </children>
+</component>

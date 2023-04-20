@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- This component will create a ScrollableText node example -->
+<component name="ScrollableTextExample" extends="Group" initialFocus="exampleScrollableText">
+
+  <script type="text/brightscript" uri="pkg:/components/Typography/ScrollableText/ScrollableTextExample.brs" />
+
+  <children>
+    <!--
+        This rectangle node is a container for the ScrollableText
+        node and the instructions on how to proceed scrolling.
+    -->
+    <Rectangle 
+      id="textRectangle" 
+      width="920" 
+      height="460" 
+      color="0x101010C0" >
+
+    <!--
+        The ScrollableText node. The "text" field is where the
+        massive amounts of text needs to be set. This node has
+        set the text so that it is top-left aligned and uses
+        a system font to be make the text easy to see.
+    -->
+      <ScrollableText 
+        id="exampleScrollableText" 
+        translation="[ 20 , 20 ]" 
+        font="font:SmallBoldSystemFont" 
+        text="Roku now offers Nielsen audience measurement software on the Roku platform. You may choose to turn on these Nielsen audience measurement features in your channel. By doing so, you acknowledge and agree: &#xA;
+          &#xA;&#8195;&#8195;(i) that turning on these features will cause device and content viewing information provided by your Roku Channel to the Roku SDK to be automatically appended to Nielsen digital ad ratings (DAR) beacons received in VAST responses and sent to Nielsen; &#xA;
+          &#xA;&#8195;&#8195;(ii) Nielsen may have personally identifiable information (PII) on certain end users of the Roku platform; &#xA;
+          &#xA;&#8195;&#8195;(iii) these features will enable third party advertisers, agencies and media resellers (including Roku ad sales team if Roku is a reseller of your ad inventory) to serve VAST responses with Nielsen DAR campaign beacons into your channel, and receive reports on the performance of those DAR campaigns; and &#xA;
+          &#xA;&#8195;&#8195;(iv) if you are not a Nielsen DAR customer, you may not receive reports on DAR campaigns. If you choose to turn on the Nielsen audience measurement features, you hereby represent and warrant: &#xA;
+          &#xA;&#8195;&#8195;&#8195;&#8195;(i) that you will notify your users of the occurrence of audience measurement; &#xA;
+          &#xA;&#8195;&#8195;&#8195;&#8195;(ii) you have and will maintain a legally adequate privacy policy; &#xA;
+          &#xA;&#8195;&#8195;&#8195;&#8195;(iii) you have and will maintain all necessary rights from Nielsen and consents from users to use the Nielsen audience measurement features; and &#xA;
+          &#xA;&#8195;&#8195;&#8195;&#8195;(iv) your use of the Nielsen audience measurement features will comply with all applicable laws, rules and regulations.&#xA;
+          &#xA;In the event that Roku runs an ad campaign on your channel, Roku may, in its sole discretion, provide to you or your ad agency, as applicable, excerpts of the Nielsen DAR that relate to the delivery and performance of advertisements on your ad inventory. You hereby agree to: &#xA;
+          &#xA;&#8195;&#8195;(i) maintain the confidentiality of any Nielsen DAR reports provided to you by Roku; and &#xA;
+          &#xA;&#8195;&#8195;(ii) maintain in the Nielsen DAR reports any sourcing and copyright information provided by Nielsen.&#xA;
+          &#xA;YOU AGREE YOU WILL NOT USE THE NIELSEN AUDIENCE MEASUREMENT SOFTWARE AND FEATURES  IN CONNECTION WITH CONTENT OR CHANNELS DIRECTED TOWARD CHILDREN OR IN CONNECTION  WITH USERS KNOWN TO BE CHILDREN. If Roku discovers or determines in its sole discretion that you are using the Nielsen audience measurement software and features in connection with content or channels directed toward children or with users known to be children, Roku reserves the right to disable or otherwise limit functionality.&#xA;
+          &#xA;YOU MAY NOT ENABLE THE NIELSEN AUDIENCE MEASUREMENT FEATURES IF YOU DO NOT AGREE TO ABOVE. PLEASE CONTACT ROKU OR NIELSEN FOR FURTHER INFORMATION." 
+        horizAlign="left" 
+        vertAlign="top" />
+
+      <!--
+        This rectangle node is a container for organizing the
+        instructions on how to navigate the ScrollableText
+        component.
+      -->
+      <Rectangle 
+        id="instructionbar" 
+        color="0x222222FF" >
+        
+        <!--
+          This rectangle node is a container for holding the
+          label and poster responsible for explaining to the
+          user what happens when pressing up and down on the
+          remote control.
+        -->
+        <Rectangle 
+         id="updninstruct" 
+         color="0x10101000" >
+          
+          <!--
+            This poster displays an image of the symbols for
+            up and down.
+          -->
+          <Poster 
+            translation="[ 0, 10 ]" 
+            uri="pkg:/images/dpad_updn_hd.png" />
+          
+          <!--
+            This label tells the user the symbols displayed
+            next to this label is to scroll up and down the
+            ScrollableText node.
+          -->
+          <Label 
+            width="300" 
+            translation="[ 0, 10 ]" 
+            text="Scroll Up/Down" 
+            horizAlign="right" />
+
+        </Rectangle>
+
+        <!--
+          This rectangle node is a container for holding the
+          label and poster responsible for explaining to the
+          user what happens when pressing ff and rw on the
+          remote control.
+        -->
+        <Rectangle 
+         id="ffrwinstruct" 
+         color="0x10101000" >
+
+          <!--
+            This poster displays an image of the symbols for
+            ff and rw.
+          -->
+          <Poster 
+            translation="[ 0, 10 ]" 
+            uri="pkg:/images/remote_ffrw_hd.png" />
+
+          <!--
+            This label tells the user the symbols displayed
+            next to this label is to page up and down the
+            ScrollableText node.
+          -->
+          <Label 
+            width="300" 
+            translation="[ 0, 10 ]" 
+            text="Page Up/Down" 
+            horizAlign="right" />
+
+        </Rectangle>
+
+      </Rectangle>
+
+    </Rectangle>
+
+  </children>
+
+</component>

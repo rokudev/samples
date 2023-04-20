@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="CenteredRectangle" extends="Group" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+
+  <script type = "text/brightscript" >
+    <![CDATA[
+    sub init()
+        print "Inside Init"
+        di = CreateObject("roDeviceInfo")
+        uiRes = di.GetUIResolution()
+        m.rect = m.top.findNode("rect")
+        centerX = (uiRes.width - m.rect.width) / 2
+        centerY = (uiRes.height - m.rect.height) / 2
+        m.rect.translation = [centerX, centerY]
+        SetColor()
+    end sub
+    
+    sub SetColor()
+        m.rect.color = "0xFFFFFFFF"
+    end sub
+    ]]>
+  </script>
+ 
+ <children>
+ 
+   <Group>
+     <Rectangle
+       id="rect"
+       width="200"
+       height="200"
+     />
+   </Group>
+   
+ </children>
+</component>

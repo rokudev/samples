@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2018 Roku, Inc. All rights reserved. -->
+
+<component name="StandardCategoryListItemComponent" extends="Group" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+    <interface>
+        <field id="itemContent" type="node" onChange="itemContentChanged" />
+    </interface>
+    
+    <script type="text/brightscript" uri="StandardCategoryListItemComponent.brs" />
+    <script type="text/brightscript" uri="../../../utils/utils.brs"/>
+    
+    <children>
+        <Rectangle
+            width="650"
+            height="180"
+            color="0x202020ff"
+        />
+
+        <LayoutGroup layoutDirection="horiz" itemSpacings="[10]" vertAlignment="custom">
+            <StyledPoster id="poster"
+                maxWidth="0"
+                maxHeight="180"
+            />
+            <LayoutGroup translation="[0.0, 10.0]" itemSpacings="[16]">
+                <Label id="title"
+                    color="#EFEFEFFF"
+                    maxLines="2"
+                    width="310"
+                    wrap="true"
+                />
+                <Label id="description"
+                    color="#FFFFFF6F"
+                    maxLines="4"
+                    width="310"
+                    wrap="true"
+                />
+            </LayoutGroup>
+        </LayoutGroup>
+    </children>
+</component>

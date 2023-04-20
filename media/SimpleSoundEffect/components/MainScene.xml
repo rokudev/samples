@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name="MainScene" extends="Scene" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+	<!-- importing main handler -->
+    <script type="text/brightscript" uri="pkg:/components/MainScene.brs" />
+    
+    <children>
+    
+    
+        <Label
+            translation="[550, 50]"
+            text="Press OK To Bounce"
+            horizAlign="center"
+            width="800"
+            height="100"
+            color="0x000000ff"
+            font="font:LargeSystemFont"
+        />
+        <Poster
+            id="pogo"
+            translation="[600,100]"
+            width="210"
+            height="350"
+            uri="pkg:/images/pogo.jpg"
+        />
+
+<Animation id="pogoAnimation"
+       duration="1"
+       repeat="false"
+       control="stop"
+       easeFunction="linear" >
+    <Vector2DFieldInterpolator id = "pogoInterpreter"
+	key="[0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]"
+
+	keyValue="[[600,100], [600,200], [600, 300], [600, 400], [600,500], [600, 400], [600, 300], [600, 200], [600, 100]]"
+
+	fieldToInterp="pogo.translation" />
+
+</Animation>
+        <SoundEffect
+            id = "se"
+            uri="pkg:/sounds/boing_x.wav"
+            control="stop"
+        />
+        
+        
+    </children>
+</component>

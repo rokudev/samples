@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2018 Roku, Inc. All rights reserved. -->
+
+<component name="ItemDetailsView" extends="Group" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+    <interface>
+        <field type="node" id="content" onChange="onContentSet" />
+    
+        <field type="color" id="titleColor" alias="title.color" />
+        <field type="color" id="descriptionColor" alias="description.color" />
+    
+        <field type="integer" id="descriptionMaxLines" alias="description.maxLines" />
+        <field type="integer" id="maxWidth"  onChange="onMaxWidthChange" value="0" />
+    </interface>
+
+    <script type="text/brightscript" uri="ItemDetailsView.brs" />
+
+    <children>
+        <LayoutGroup 
+            itemSpacings="[6]">
+            <Label 
+                id="title" 
+                font="font:MediumBoldSystemFont" 
+                wrap="false" 
+                maxLines="1"
+            />
+            <Label 
+                id="description" 
+                maxLines="3" 
+                wrap="true"
+            />
+        </LayoutGroup>
+    </children>
+</component>

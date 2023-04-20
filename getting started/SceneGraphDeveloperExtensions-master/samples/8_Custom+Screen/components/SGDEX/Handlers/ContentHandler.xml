@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2018 Roku, Inc. All rights reserved. -->
+
+<!--
+    @Public
+    Content Handlers are responsible for all content loading tasks in SGDEX.
+    When you extend a Content Hander, you must implement a function called GetContent().
+    This function is where you will do things like make API requests and build ContentNodes
+    to be rendered in your SGDEX views.
+
+    @Sample
+    ' SimpleContentHandler.xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <component name="SimpleContentHandler" extends="ContentHandler" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+      <script type="text/brightscript" uri="pkg:/components/content/SimpleContentHandler.brs" />
+    </component>
+
+    ' SimpleContentHandler.brs
+    sub GetContent()
+      m.top.content.SetFields({
+        title: "Hello World"
+      })
+    end sub
+-->
+
+<component name="ContentHandler" extends="Task" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+    <interface>
+        <!-- @Public -->
+        <!-- This is the field you should modify in your GetContent() function
+        by adding/updating the ContentNodes being rendered by the associated view. -->
+        <field id="content" type="node" />
+
+        <!-- @Public -->
+        <!-- When working with paged data, this will reflect which page of content
+        SGDEX is expecting the ContentHandler to populate. -->
+        <field id="offset" type="int" />
+
+        <!-- @Public -->
+        <!-- When working with paged data, this will reflect the number of items
+        SGDEX is expecting the ContentHandler to populate. -->
+        <field id="pageSize" type="int" />
+
+        <!-- @Public -->
+        <!-- When your ContentHandler fails to load the requested content
+        you should set this field to TRUE in your GetContent() function. This will
+        force SGDEX to re-try the ContentHandler.
+        In this case, you can also optionally set a new HandlerConfig to the content field.
+        That will cause SGDEX to use the new config when it re-tries the ContentHandler.
+        If you do not update the HandlerConfig, SGDEX will re-use the original one for subsequent tries. -->
+        <field id="failed" type="bool" value="false" />
+
+        <!-- @Public -->
+        <!-- This is a copy of the config that was used to invoke the ContentHandler. -->
+        <field id="HandlerConfig" type="assocarray" />
+
+        <!--
+            Used intenally by SGDEX. You should not change this.
+        -->
+        <field id="finished" type="bool" />
+    </interface>
+
+    <script type="text/brightscript" uri="ContentHandler.brs" />
+</component>

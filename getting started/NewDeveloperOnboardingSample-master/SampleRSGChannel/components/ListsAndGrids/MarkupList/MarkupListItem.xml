@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!--
+    This component will create a MarkupListItem node to be used by the
+    MarkupList node in the MarkupListExample component. This was specified
+    in the "itemComponentName" field of the MarkupList component.
+
+    The responsibility of this node is to specify the layout of the
+    individual list items within the MarkupList.
+
+    The "itemContent" and "focusPercent" fields are special fields that
+    will be updated by the MarkupGrid component. The "itemContent" field
+    contains the data that the MarkupListItem object can use to modify
+    how it will be displayed in the MarkupList component. The "focusPercent"
+    field is a read-only float value that indicates the time delay after focus
+    has moved from one MarkupListItem object to another. This is represented as
+    float values between 0.0 and 1.0, where 0.0 is having no focus and 1.0 is
+    having complete focus on the MarkupListItem object.
+
+    Other special fields and their functions/behaviors can be found at:
+    https://sdkdocs.roku.com/display/sdkdoc/MarkupList#MarkupList-MarkupListXMLComponent
+--> 
+<component name="MarkupListItem" extends="Group" >
+ 
+  <interface> 
+    <field id="itemContent" type="node" onChange="showcontent"/>
+    <field id="focusPercent" type="float" onChange="showfocus"/> 
+  </interface>
+ 
+  <script type="text/brightscript" uri="pkg:/components/ListsAndGrids/MarkupList/MarkupListItem.brs" />
+
+  <children>
+
+    <!--
+        In this example, we will be designing each list item to have a poster
+        acting like a bullet point, a label showing the title of the content,
+        a rectangle node acting as an indicator of what label is focused, and
+        a poster showing the content it represents.
+    -->
+    <Poster 
+      id="itemIcon" 
+      uri="pkg:/images/options.png"
+      translation="[ 0, 114 ]" 
+      width="43" 
+      height="30" />
+
+    <Label 
+      id="itemLabel" 
+      translation="[ 60, 120 ]" />
+
+    <Rectangle 
+      id="itemcursor" 
+      translation="[ 0, 148 ]" 
+      width="800" 
+      height="6" 
+      color="0xEB3333FF" 
+      opacity="0.0" />
+
+    <Poster 
+      id="itemPoster" 
+      translation="[ 544, 0 ]" 
+      width="256" 
+      height="144" 
+      opacity="0.0" />
+
+  </children>
+
+</component>

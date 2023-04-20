@@ -1,0 +1,9 @@
+title=JSON Parsing
+subtitle=Simple JSON Parsing Example
+mm_icon_focus_hd=pkg:/images/json.png
+mm_icon_side_hd=pkg:/images/json.png
+mm_icon_focus_sd=pkg:/images/json.png
+mm_icon_side_sd=pkg:/images/json.png
+major_version=1
+minor_version=0
+build_version=00001

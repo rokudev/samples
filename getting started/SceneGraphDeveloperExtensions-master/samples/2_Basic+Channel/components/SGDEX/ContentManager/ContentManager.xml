@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2018 Roku, Inc. All rights reserved. -->
+
+<!--
+  The SGDEX Content Manager simplifies task management for developers
+  so they don't have to worry as much about things like Task Nodes
+  and the multi-threaded nature of Roku Scene Graph. SGDEX does this
+  using ContentHandlers. In order to populate a view, all the developer
+  needs to do is provide SGDEX with a some config data to drive that view's 
+  ContentHandler(s).
+-->
+
+<component name="ContentManager" extends="Group" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+    <interface>
+        <field id="Parent" type="node" />
+
+        <!--
+            Number of ContentHandlers that can be running at the same time.
+            Generally you shoud not change this.
+        -->
+        <field id="MAX_SIMULTANEOUS_LOADINGS" type="int" value="3" />
+
+        <!--
+            Controls How far forward from the focused item to load content
+            when rendering a view. Generally you should not change this.
+        -->
+        <field id="FORWARD_ROW_LOOKAHEAD_NUMBER_OF_ITEMS" type="int" value="6" />
+
+        <!--
+            Controls How far back from the focused item to load content
+            when rendering a view. Generally you should not change this.
+        -->
+        <field id="REWIND_ROW_LOOKAHEAD_NUMBER_OF_ITEMS" type="int" value="2" />
+
+        <!--
+            Controls How many times a ContentHandler will be retried before SGDEX
+            gives up and stops calling its GetContent() function.
+            Generally you should not change this.
+        -->
+        <field id="MAX_NUMBER_OF_FAILS" type="int" value="5" />
+
+        <!--
+            Controls how long SGDEX will wait after a focus change before starting to
+            load content in the background. Generally you should not change this.
+        -->
+        <field id="IDLE_ROW_LOAD_TIME" type="int" value="4" onChange="onIdleTimerChanged" />
+        <field id="control" type="string" onChange="onControlChanged" />
+
+        <function name="setView" />
+    </interface>
+
+    <script type="text/brightscript" uri="ContentManager.brs" />
+    <script type="text/brightscript" uri="ContentManagerUtils.brs" />
+</component>

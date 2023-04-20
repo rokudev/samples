@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+<file original="main.brs" source-language="en-US" target-language="es-ES" datatype="x-brs">
+<body>
+	<trans-unit id="0">
+		<source>Welcome to The Channel Diner</source>
+		<target>Bienvenidos a Comedor Canal</target>
+	</trans-unit>
+	<trans-unit id="1">
+		<source>Menu</source>
+		<target>Menú</target>
+	</trans-unit>
+	<trans-unit id="2">
+		<source>Breakfast</source>
+		<target>Desayuno</target>
+	</trans-unit>
+	<trans-unit id="3">
+		<source>Breakfast Menu</source>
+		<target>Menú Desayuno</target>
+	</trans-unit>
+	<trans-unit id="4">
+		<source>Select from our award winning offerings</source>
+		<target>¡Tenemos todos sus platos favoritos!</target>
+	</trans-unit>
+	<trans-unit id="5">
+		<source>Lunch</source>
+		<target>Almuerzo</target>
+	</trans-unit>
+	<trans-unit id="6">
+		<source>Lunch Menu</source>
+		<target>Menú Almuerzo</target>
+	</trans-unit>
+	<trans-unit id="7">
+		<source>Eating again already?</source>
+		<target>¿Ya esta comiendo otra vez?</target>
+	</trans-unit>
+	<trans-unit id="8">
+		<source>Dinner</source>
+		<target>Cena</target>
+	</trans-unit>
+	<trans-unit id="9">
+		<source>Dinner Menu</source>
+		<target>Menú Cena</target>
+	</trans-unit>
+	<trans-unit id="10">
+		<source>Chicken or Fish?</source>
+		<target>¿Pollo o Pescado?</target>
+	</trans-unit>
+	<trans-unit id="11">
+		<source>Dessert</source>
+		<target>Postre</target>
+	</trans-unit>
+	<trans-unit id="12">
+		<source>Dessert Menu</source>
+		<target>Menú Postre</target>
+	</trans-unit>
+	<trans-unit id="13">
+		<source>Something for your sweet tooth</source>
+		<target>Algo dulce después la comida</target>
+	</trans-unit>
+	<trans-unit id="14">
+		<source>Contact</source>
+		<target>Contado</target>
+	</trans-unit>
+	<trans-unit id="15">
+		<source>The Channel Diner</source>
+		<target>Comedor Canal</target>
+	</trans-unit>
+	<trans-unit id="16">
+		<source>Phone: 1-(111)-111-1111</source>
+		<target>Tel: 1-(111)-111-1111</target>
+	</trans-unit>
+</body>
+</file>
+</xliff>

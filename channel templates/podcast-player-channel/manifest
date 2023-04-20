@@ -1,0 +1,27 @@
+#
+#  Copyright (c) 2016 Roku, Inc. All rights reserved.
+#  Roku Channel Manifest File
+#  Full spec at bit.ly/roku-manifest-file
+#
+
+# Channel Details
+title=PodcastProject
+major_version=1
+minor_version=0
+build_version=74
+
+# Channel Assets
+mm_icon_focus_hd=pkg:/images/podcast-sample-hd.png
+mm_icon_focus_sd=pkg:/images/podcast-sample-sd.png
+mm_icon_side_hd=pkg:/images/podcast-sample-hd.png
+mm_icon_side_sd=pkg:/images/podcast-sample-sd.png
+
+# Splash Screen + Loading Screen Artwork
+splash_screen_fhd=pkg:/images/podcast-sample-fhd.png
+splash_screen_hd=pkg:/images/podcast-sample-hd.png
+splash_screen_sd=pkg:/images/podcast-sample-sd.png
+splash_color=#121212
+splash_min_time=0
+
+# Resolution
+ui_resolutions=fhd

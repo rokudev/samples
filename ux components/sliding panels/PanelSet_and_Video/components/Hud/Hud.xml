@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- Description 
+	This node is used to show details of item in bottom of screen.-->
+
+<component name="Hud" extends="Group" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+	    
+	<interface>
+	  <!-- setting this value for true shows hud with animation and vise versa.-->
+	  <field id="show"          type="bool"  onChange="onVisibilityChanged" alwaysNotify="true"/>
+	  <!--  set content meta-data to hud.-->
+	  <field id="content"       type="node"  onChange="onContentChanged"/>
+	  <!--  set height of hud from bottom.-->
+	  <field id="height"        type="int"   onChange="onHeightChanged"/>
+	  <!-- horizontal space size of labels. Used only second value in this array. -->
+	  <field id="offset"        type="vector2d" onChange="OnOffsetChange"/>
+	</interface> 
+
+	<script type="text/brightscript" uri="pkg:/components/Hud/Hud.brs"/> 
+ 
+	<children>
+		<Group
+			id="hudgroup"
+			opacity="0">
+			 
+			<Rectangle
+				id="background"
+				color="0x000000FF"
+				opacity="0.8"
+				height="1080"
+				width="1910"/>
+	
+			<LayoutGroup
+				id = "infogroup"
+				layoutDirection="vert"
+				horizAlignment="left"
+				translation="[200, 38]"
+				itemspacings="[40]">
+				<Label
+					id="title"
+					text=""
+					color="0xFFFFFFFF"
+					horizAlign="left"
+					vertAlign="center"
+					width="1560"
+					ellipsizeOnBoundary="true"/>
+					
+				<Label
+					id="description"
+					horizAlign="left"
+					width="1560"
+					height="150"
+					wrap="true"/>
+			</LayoutGroup>
+			
+			<Animation
+				id="slideanimation"
+				duration="0.2"
+				repeat="false"
+				easeFunction="linear">
+				<FloatFieldInterpolator
+					id="slideanimationinterpolator"
+					key="[0, 1]"
+					keyValue="[0.0, 1.0]"
+					fieldToInterp="hudgroup.opacity"/>
+			</Animation> 
+		</Group>
+	</children>  
+</component>

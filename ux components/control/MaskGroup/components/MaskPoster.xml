@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+
+<component name="MaskPoster" extends="MaskGroup">
+	
+	<interface>
+		<field id="width"  type="float" alias="poster.width"/>
+		<field id="height" type="float" alias="poster.height"/>
+		<field id="uri"    type="string" alias="poster.uri"/>
+	</interface>
+
+	<script type="text/brightscript">
+		<![CDATA[
+			sub init()
+			end sub
+		]]>
+	</script>
+
+	<children>
+		
+		<Poster
+			id="poster"
+			uri="pkg:/MaskImages/fieldOfGold.jpg"
+			width="300"
+			height="200"/>
+			
+	</children>
+
+</component>

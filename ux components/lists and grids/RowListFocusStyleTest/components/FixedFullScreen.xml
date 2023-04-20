@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+
+<component name="FixedFullScreen" extends="Group" initialFocus="rowList">
+
+
+
+    <script type="text/brightscript">
+
+        <![CDATA[
+			Sub init()
+                m.top.setFocus(true)
+                m.RowList = m.top.findNode("rowList")
+                m.LoadTask = CreateObject("roSGNode", "RowListContentTask")
+                m.loadTask.observeField("content","rowListContentChanged")
+                m.LoadTask.control = "RUN"
+                
+            End Sub
+
+            Sub rowListContentChanged()
+                print "ContentUpdate"
+                m.RowList.content = m.LoadTask.content
+            end Sub]]>
+    </script>
+
+    <children>
+        <RowList
+			id="rowList"
+			translation="[0,100]"
+			itemComponentName="PosterItem"
+			itemSize="[1920,254]"
+			numRows="5"
+			rowItemSize="[[1220,591],[351,197]]"
+			rowHeights="[648,254]"
+			rowItemSpacing="[[54,0],[18,0]]"
+			focusXOffset="[350,47]"
+			rowLabelOffset="[[47,8]]"
+			showRowLabel="[true]"
+			showRowCounter="[true]"
+			rowFocusAnimationStyle="fixedFocusWrap"/> 
+    </children>
+
+</component>
+

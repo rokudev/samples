@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********--> 
+
+<!-- main node which handles home screen children -->
+<component name="HomeScene" extends="Scene" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+
+    <interface>
+        <!-- Specifies the content -->
+        <field id="Content" type="node" onChange="OnChangeContent"/>
+        <field id="LabelContent" type="node" onChange="OnChangeLabelContent"/>
+        <field id="OptionsContent" type="node" onChange="OnChangeOptionsContent"/>
+    </interface>
+    
+    <!-- main handler -->
+    <script type="text/brightscript" uri="pkg:/components/HomeScene.brs" />
+    
+    <children>
+    	<Overhang/>
+    	
+    	<PanelSet
+    		id="PanelSet"
+    		translation="[0, 207]"/>
+    	
+
+		<LoadingIndicator 
+			id="loadingProgress"
+			imageUri="pkg:/images/loader.png"
+			backgroundColor="0x000000"
+		 	imageWidth="100"
+			fadeInterval ="0.2"
+		 	text="Loading..."/>
+    	<Hud
+    		id="Hud"
+    		height="340"/>
+    	
+    	<Dialog
+            id="Dialog"
+            translation="[0,0]"
+            visible="false"
+            close="true"
+            message="Some option text goes here"
+            title="Options"
+            messageFont="font:MediumSystemFont"/>	
+    				
+    	<Video
+    		id="Video"
+    		width="1920"
+    		height="1080"
+    		visible="false"/>	
+    </children> 
+</component>

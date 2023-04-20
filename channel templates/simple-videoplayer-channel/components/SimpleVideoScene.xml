@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2016 Roku Corp.  All Rights Reserved. -->
+<component name="SimpleVideoScene" extends="Scene">
+  <children>
+
+    <Label id="Title" font="font:LargeBoldSystemFont" translation="[750, 250]" width="850" />
+    <ButtonGroup id="ButtonGroup" translation="[800,325]"/>
+    <Poster id="Image" translation="[300,250]"/>
+
+    <Label
+      id="Details"
+      height="300"
+      width="1300"
+      font="font:MediumBoldSystemFont"
+      text="PUT DETAILS TEXT HERE"
+      wrap="true"
+      translation="[300,600]" />
+
+    <Overhang
+      showClock="true"
+      title="Simple-Video-Player" />
+
+    <Video
+      id="Video"
+      width="1920"
+      height="1080"
+      translation="[0,0]"
+      visible="false"/>
+
+    <Dialog
+      id="WarningDialog"
+      title="Warning"
+      message="PUT A WARNING MESSAGE HERE"
+      visible="false" />
+
+    <Exiter id="Exiter"/>
+  </children>
+
+  <script type="text/brightscript" uri="pkg:/components/SimpleVideoScene.brs"/>
+</component>

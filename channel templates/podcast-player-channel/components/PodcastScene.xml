@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Copyright 2016 Roku Corp.  All Rights Reserved. -->
+
+<component name="PodcastScene" extends="Scene" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+	<script type ="text/brightscript" uri = "pkg:/components/PodcastScene.brs"/>
+
+	<interface>
+		<field id = "listContent" type = "node" alias = "EpisodePicker.content"/>
+	</interface>
+
+	<children>
+
+
+		<Timer
+			id = "PlayTime"
+			repeat = "true"
+			duration = "1"
+		/>
+
+		<Timer
+			id = "WarningTimer"
+			repeat = "false"
+			duration = "6"
+		/>
+
+		<Group
+			id = "Artwork"
+		>
+			<!--  Set URI in brs to Podcast Cover-->
+			<Poster
+				id = "Background"
+				width = "1920"
+				height = "1080"
+				loadDisplayMode = "scaleToFill"
+				loadWidth = "6"
+				loadHeight = "6"
+				loadSync = "true"
+			/>
+					<!-- Set URI in brs to Podcast Cover-->
+			<Poster
+				id = "PodcastArt"
+				height = "500"
+				width = "500"
+				translation = "[100, 55]"
+				loadSync = "true">
+				<Rectangle
+					id = "AlbumRect"
+					width = "500"
+					height = "40"
+					color = "0x000000FF"
+					opacity = "0"
+					translation = "[0,460]"
+				>
+					<Label
+						id = "PodcastPlaying"
+						width = "445"
+						height = "45"
+						color = "0xFFFFFFFF"
+						translation = "[0,5]"
+					/>
+					<Label
+						id = "CurrentlyPlaying"
+						width = "450"
+						height = "95"
+						color = "0xFFFFFFFF"
+						text = "0"
+						translation = "[450,0]">
+						<Font
+							id = "Sosa-Regular"
+							role = "font"
+							uri = "pkg:/fonts/sosa-regular-webfont.ttf"
+							size = "36"/>
+					</Label>
+				</Rectangle>
+			</Poster>
+		</Group>
+
+		<MyLabelList
+			id = "EpisodePicker"
+			translation = "[690,310]"
+			itemSize = "[810,60]"
+			numRows = "10"
+			color = "0x000000FF">
+			<ContentNode
+			id = "LabelListContent"
+			role = "content"
+			>
+			</ContentNode>
+		</MyLabelList>
+
+		<!-- Translation in Group field to account for safety zones. Can be removed if testing on TV without safety zones -->
+		<Group
+			translation = "[0,-30]">
+			<Rectangle
+				id = "PlayBar"
+				height = "200"
+				width = "1920"
+				color = "0x000000FF"
+				opacity = ".8"
+				translation = "[0,930]">
+				<Poster
+					id = "AlbumPlay"
+					height = "150"
+					width = "150"
+					loadWidth = "640"
+					loadHeight = "360"
+					translation = "[42,0]"
+				/>
+				<Rectangle
+					id = "TimeBarBack"
+					height = "3"
+					width = "1470"
+					color = "0xFFFFFFFF"
+					translation = "[300,120]"
+				>
+					<Rectangle
+						id = "TimeBarFront"
+						height = "3"
+						width = "0"
+						color = "0xBF5FFFFF"
+					/>
+				</Rectangle>
+				<Label
+					id = "AudioCurrent"
+					color = "0xFFFFFFFF"
+					width = "100"
+					height = "10"
+					translation = "[225,100]"
+				> <Font
+					role = "font"
+					uri = "pkg:/fonts/avenirltstd-light-webfont.ttf"
+					id = "avenir-light"
+					size = "26"
+				/>
+				</Label>
+				<Label
+					id = "AudioDuration"
+					color = "0xFFFFFFFF"
+					width = "100"
+					height = "10"
+					translation = "[1800,100]"
+				> <Font
+					role = "font"
+					uri = "pkg:/fonts/avenirltstd-light-webfont.ttf"
+					id = "avenir-light"
+					size = "26"
+				/>
+				</Label>
+				<Label
+					id = "Play"
+					color = "0xFFFFFFFF"
+					width = "100"
+					height = "120"
+					text = "N"
+					translation = "[910,10]">
+					<Font
+						id = "Sosa-Regular"
+						role = "font"
+						uri = "pkg:/fonts/sosa-regular-webfont.ttf"
+						size = "90"/>
+				</Label>
+				<Label
+					id = "FF"
+					color = "0xFFFFFFFF"
+					width = "100"
+					height = "120"
+					text = "T"
+					translation = "[810,10]">
+					<Font
+						id = "Sosa-Regular"
+						role = "font"
+						uri = "pkg:/fonts/sosa-regular-webfont.ttf"
+						size = "90"/>
+				</Label>
+				<Label
+					id = "Rewind"
+					color = "0xFFFFFFFF"
+					width = "100"
+					height = "120"
+					text = "S"
+					translation = "[1010,10]">
+					<Font
+						id = "Sosa-Regular"
+						role = "font"
+						uri = "pkg:/fonts/sosa-regular-webfont.ttf"
+						size = "90"/>
+				</Label>
+			</Rectangle>
+		</Group>
+
+		<Animation
+			id = "RewindAnim"
+			repeat = "false"
+			easeFunction = "linear"
+			duration = ".1">
+			<ColorFieldInterpolator
+				id = "ColorInterp"
+				key = "[0.0,0.5,1.0]"
+				keyValue = "[0xFFFFFFFF, 0x000000FF, 0xFFFFFFFF]"
+				fieldToInterp = "FF.color"
+			/>
+		</Animation>
+
+		<Animation
+			id = "FFAnim"
+			repeat = "false"
+			easeFunction = "linear"
+			duration = ".1">
+			<ColorFieldInterpolator
+				id = "ColorInterp"
+				key = "[0.0,0.5,1.0]"
+				keyValue = "[0xFFFFFFFF, 0x000000FF, 0xFFFFFFFF]"
+				fieldToInterp = "Rewind.color"
+			/>
+		</Animation>
+
+		<Animation
+			id = "TimerAnim"
+			repeat = "false"
+			easeFunction = "linear"
+			>
+			<FloatFieldInterpolator
+				id = "TimerInterp"
+				key = "[0,1]"
+				keyValue = "[0,1470]"
+				fieldToInterp = "TimeBarFront.width"
+			/>
+		</Animation>
+
+		<Group>
+			<Rectangle
+				id = "TitleBackground"
+				width = "590"
+				height = "100"
+				color = "0x000000FF"
+				opacity = ".7"
+				translation = "[670,55]">
+
+				<!-- Set Text in brs to Podcast Title-->
+				<Label
+					id = "Title"
+					color = "0xFFFFFFFF"
+					width = "530"
+					height = "60"
+					translation = "[30,15]"
+					>
+					<Font
+						role = "font"
+						uri = "pkg:/fonts/avenirltstd-light-webfont.ttf"
+						id = "avenir-light"
+						size = "64"
+					/>
+				</Label>
+			</Rectangle>
+			<Rectangle
+				id = "AuthorBackground"
+				width = "330"
+				height = "80"
+				color = "0x000000FF"
+				opacity = ".7"
+				translation = "[670,170]">
+
+				<!-- Set text in brs to Author -->
+				<Label
+					id = "Author"
+					color = "0xFFFFFFFF"
+					width = "270"
+					height = "40"
+					translation = "[30,20]"
+				>
+				<Font
+						role = "font"
+						uri = "pkg:/fonts/avenirltstd-light-webfont.ttf"
+						id = "avenir-light"
+						size = "42"
+				/>
+				</Label>
+			</Rectangle>
+		</Group>
+			<!-- Set to Text to summary -->
+			<Label
+				id = "Summary"
+				height = "350"
+				width = "475"
+				color = "0x000000FF"
+				wrap = "true"
+				ellipsizeOnBoundary = "true"
+				translation = "[100,575]">
+			</Label>
+			<!-- Append Episodes for LabelListContent -->
+		<Dialog
+			id = "Warning"
+			title = "Invalid Feed Warning"
+			message = "Some of the content from this feed was invalid. There may be some missing content from the playlist."
+			visible = "false"
+		/>
+
+	</children>
+
+</component>

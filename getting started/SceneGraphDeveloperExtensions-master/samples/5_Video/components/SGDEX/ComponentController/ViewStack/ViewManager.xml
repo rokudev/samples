@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2018 Roku, Inc. All rights reserved. -->
+
+<component name="ViewManager" extends="Node">
+    <interface>
+        <field id="ViewCount" type="integer" />
+
+      <field id="allowCloseChannelWhenNoViews" type="bool" alwaysNotify="true" value="false" />
+
+        <!-- Assign UI before any procedure to call -->
+        <field id="viewStackUI" type="node" onChange="viewStackUIChange" alwaysNotify="true" />
+        <field id="currentView" type="node" />
+        <!-- <field id="procedureObject" type="assocarray" onChange="procedureObjectChange" /> -->
+
+        <!-- 
+            You can use it to call specific function(assocarray format = {fp : ['Array with Parameters']})
+            OR append procedureObjects as children
+        -->
+        <field id="addView" type="assocarray" onChange="procedureObjectChange" />
+        <field id="closeView" type="assocarray" onChange="procedureObjectChange" />
+        <field id="closeToView" type="assocarray" onChange="procedureObjectChange" />
+        <field id="replaceCurrentView" type="assocarray" onChange="procedureObjectChange" />
+        <field id="saveState" type="assocarray" onChange="procedureObjectChange" />
+
+        <function name="runProcedure" />
+    </interface>
+
+    <script type="text/brightscript" uri="ViewManager.brs" />
+</component>

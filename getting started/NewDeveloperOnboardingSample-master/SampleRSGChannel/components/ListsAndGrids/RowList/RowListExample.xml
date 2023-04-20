@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- This component will create a RowList node example -->
+<component name="RowListExample" extends="Group" initialFocus="exampleRowList">
+
+  <script type="text/brightscript" uri="pkg:/components/ListsAndGrids/RowList/RowListExample.brs" />
+
+  <children>
+    <!--
+        The RowList object.
+
+        For this example, we will set the number of rows in the RowList. An important
+        detail here is that depending on the amount of content that is passed to the RowList
+        object, there can be more or less rows than specified explicitly in the numRows field.
+
+        It is also important for RowList objects to set the rowItemSize field because the
+        list items will visually not be seen, but will exist in the channel.
+
+        In this example, we will also disable the focus ring that surrounds the focused
+        RowList items within the RowList.
+    -->
+    <RowList 
+      id="exampleRowList" 
+      numRows="2" 
+      rowItemSize="[ [536, 308] ]" 
+      itemSpacing="[ 0, 40 ]" 
+      showRowLabel="[ true ]" 
+      drawFocusFeedback="false" 
+      vertFocusAnimationStyle="fixedFocusWrap" 
+      rowFocusAnimationStyle="fixedFocusWrap" />
+
+  </children>
+
+</component>

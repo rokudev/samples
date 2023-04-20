@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2018 Roku, Inc. All rights reserved. -->
+
+<!--
+    @private
+    Focusable Layout group and Focusable group are same components based on LayoutGroup and Group.
+    Those are components that provide easy mechanism to build complex UI with focus handling
+    Component is based on LayoutGroup/Group and handles focus between it's children.
+	
+	This group catches key presses when focused and sets focus to proper child if needed 
+	    
+    Note. If you don't want child to gain focus just set child.focusable=false 
+
+    @Sample
+       
+       <FocusableLayoutGroup
+           id="FocusableGroup">
+           <LabelList
+               id="repeatButton"
+               numRows="1"
+               color="0xFFFFFFFF"
+               focusedColor="0x121212FF"
+               textHorizAlign="center"
+               translation="[540,170]"
+               itemSize="[200, 60]">
+           </LabelList>
+           <RowList
+               id="grid"
+               itemSize="[1080,225]"
+               itemSpacing="[30, 30]"
+               numRows="2"
+               focusable="false"
+               translation="[100, 425]"
+               rowHeights="[225]"
+               rowItemSpacing="[[30, 30]]"
+               rowItemSize="[[302,170]]"
+               itemComponentName="TitleUnderItemAndPosterGridItemComponent"
+           />
+       </FocusableLayoutGroup>
+       
+       Handles focus between LabelList and Rowlist
+-->
+
+<component name="FocusableLayoutGroup" extends="LayoutGroup" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+    <interface>
+    	<!-- @Public -->
+        <!-- Tells if pressing down on last child should set focus to first and vise versa -->
+        <field id="allowCarousel"   type="bool"     value="false"/>
+    </interface>
+
+    <script type="text/brightscript" uri="FocusableGroup.brs"/>
+</component>

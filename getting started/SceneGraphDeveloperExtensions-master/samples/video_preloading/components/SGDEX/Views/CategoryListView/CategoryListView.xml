@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2018 Roku, Inc. All rights reserved. -->
+
+<!--
+    @Public
+    CategoryListView represents SGDEX category list view that shows two lists: one for categories another for items in category
+
+    @Sample:
+    CategoryList = CreateObject("roSGNode", "CategoryListView")
+    CategoryList.posterShape = "square"
+
+    content = CreateObject("roSGNode", "ContentNode")
+    content.Addfields({
+        HandlerCategoryList: {
+            name: "CGSeasons"
+        }
+    })
+
+    CategoryList.content = content
+    CategoryList.ObserveField("selectedItem", "OnEpisodeSelected")
+
+    ' this will trigger job to show this View
+    m.top.ComponentController.CallFunc("show", {
+        view: CategoryList
+    })
+
+    <b>Advanced loading logic</b>
+
+    root = {
+        HandlerConfigCategoryList: {
+            _description: "Content handler that will be called to populate categories if they are not created"
+            name: "Component name that extends [ContentHandler](#ContentHandler)"
+            fields: {
+                field: "any field that you want to set in this component when it's created"
+            }
+        }
+        _comment: "categories"
+        children: [{
+            title: "Category that is prepopulated"
+            contentType: "section"
+            children: [{
+                title: "Title to be shown"
+                description: "Description for item, max 4 lines"
+                hdPosterUrl: "image url for item"
+            }]
+            _optionalFields: "Fields that can be used for category"
+            HDLISTITEMICONURL: "icon that will be shown left to category when not focused"
+            HDLISTITEMICONSELECTEDURL: "icon that will be shown left to category title when focused"
+            HDGRIDPOSTERURL: "icon that will be shown left to title in item list"
+        }, {
+            title: "Category that requires content to be loaded"
+            contentType: "section"
+            HandlerConfigCategoryList: {
+                _description: "Content handler that will be called if there are no children in category"
+                name: "Component name that extends [ContentHandler](#ContentHandler)"
+                fields: {
+                    field: "any field that you want to set in this component when it's created"
+                }
+            }
+        }, {
+            title: "Category that has children but they need metadata (non serial model)"
+            contentType: "section"
+            HandlerConfigCategoryList: {
+                _description: "Content handler that will be called if "
+                name: "Component name that extends [ContentHandler](#ContentHandler)"
+                _note: "use bigger value for page size to improve performance"
+                _mandatatory: "This field is required in order to work"
+
+                pageSize: 2
+                fields: {
+                    field: "any field that you want to set in this component when it's created"
+                }
+            }
+            children: [{title: "Title to be shown"}
+                {title: "Title to be shown"}
+                {title: "Title to be shown"}
+                {title: "Title to be shown"}]
+        }, {
+            title: "Category has children but there are more items that can be loaded"
+            contentType: "section"
+            HandlerConfigCategoryList: {
+                _description: "Content handler will be called when focused near end of category"
+                name: "Component name that extends [ContentHandler](#ContentHandler)"
+                _mandatatory: "This field is required in order to work"
+                hasMore: true
+                fields: {
+                    field: "any field that you want to set in this component when it's created"
+                }
+            }
+            children: [{
+                title: "Title to be shown"
+                description: "Description for item, max 4 lines"
+                hdPosterUrl: "image url for item"
+            }]
+        }]
+    }
+
+    CategoryList = CreateObject("roSGNode", "CategoryListView")
+    CategoryList.posterShape = "square"
+
+    content = CreateObject("roSGNode", "ContentNode")
+    content.update(root)
+
+    CategoryList.content = content
+
+    ' this will trigger job to show this View
+    m.top.ComponentController.CallFunc("show", {
+        view: CategoryList
+    })
+
+-->
+
+<component name="CategoryListView" extends="SGDEXComponent" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+    <interface>
+        <!-- @Public -->
+        <!--
+            Tells where set initial focus on itemsList: 1st coordinate = category, 2st coordinate = item in this category
+        -->
+        <field id="initialPosition" type="vector2d" value="[0, 0]" />
+
+        <!-- @Public -->
+        <!-- @ReadOnly -->
+        <!-- Array with 2 ints - section and item in current section that was selected  -->
+        <field id="selectedItem" type="vector2d" alwaysNotify="true" />
+
+        <!-- @Public  -->
+        <!-- @ReadOnly  -->
+        <!-- Current focued item index (within all categories) -->
+
+        <field id="focusedItem" type="int" alwaysNotify="true" />
+
+        <!-- @Public -->
+        <!-- Current focued item index from current focusedCategory -->
+        <field id="focusedItemInCategory" type="int" alwaysNotify="true" />
+
+        <!-- @Public -->
+        <!-- Current focused category index.  -->
+        <field id="focusedCategory" type="int" alwaysNotify="true" />
+
+        <!-- @Public -->
+        <!-- @WriteOnly  -->
+        <!--
+          Jumps to item in items list (within all categories).
+          This field must be set after setting the content field.
+         -->
+        <field id="jumpToItem" type="int" alwaysNotify="true" />
+
+        <!-- @Public -->
+        <!-- @WriteOnly  -->
+        <!-- Animates to item in items list (within all categories). -->
+        <field id="animateToItem"  type="int" alwaysNotify="true" />
+
+        <!-- @Public -->
+        <!-- @WriteOnly -->
+        <!-- Jumps to category. -->
+        <field id="jumpToCategory" type="int" alwaysNotify="true" />
+
+        <!-- @Public -->
+        <!-- @WriteOnly  -->
+        <!-- Animates to category. -->
+        <field id="animateToCategory" type="int" alwaysNotify="true" />
+
+        <!-- @Public -->
+        <!-- @WriteOnly Jumps to item in current category. -->
+        <field id="jumpToItemInCategory" type="int" alwaysNotify="true" />
+
+        <!-- @Public -->
+        <!-- @WriteOnly  -->
+        <!-- Animates to item in current category. -->
+        <field id="animateToItemInCategory" type="int" alwaysNotify="true" />
+
+        <field id="MAX_SIMULTANEOUS_LOADINGS" type="int" value = "3" />
+
+        <!--
+            @Override <field id="theme" type="assocarray" />
+            @Public
+            Theme is used to change color of grid view elements
+            Note. you can set TextColor and focusRingColor to have generic theme and only change attributes that shouldn't use it.
+            Possible fields:
+                    *TextColor - changes color for all text fields in category list
+                    *focusRingColor - changes color of focus rings for both category and item list
+                    *categoryFocusedColor - set focused text color for category
+                    *categoryUnFocusedColor - set unfocused text color for category
+                    *itemTitleColor - set item title color
+                    *itemDescriptionColor - set item description color
+                    *categoryfocusRingColor - set color for category list focus ring
+                    *itemsListfocusRingColor - set color for item list focus ring
+        -->
+        <!--
+            @Override <field id="content" type="node" />
+            @Public
+            In order to build proper content node tree you have to stick to this model:
+            Possible fields:
+                Category fields:
+                Title - Title that will be displayed for category name
+                CONTENTTYPE - Must be set to SECTION
+                HDLISTITEMICONURL - The image file for the icon to be displayed to the left of the list item label when the list item is not focused
+                HDLISTITEMICONSELECTEDURL - The image file for the icon to be displayed to the left of the list item label when the list item is focused
+                HDGRIDPOSTERURL - The image file for the icon to be displayed to the left of the section label when the View resolution is set to HD.
+                Item List fields:
+                title - Title to be shown
+                description - Description for item, max 4 lines
+                hdPosterUrl - image url for item
+        -->
+    </interface>
+
+    <script type="text/brightscript" uri="CategoryListView.brs" />
+    <script type="text/brightscript" uri="../../ContentManager/ContentManagerUtils.brs" />
+    <script type="text/brightscript" uri="../utils/utils.brs" />
+    <script type="text/brightscript" uri="ContentManager.brs" />
+
+    <children>
+        <LayoutGroup
+            translation="[640,360]"
+            horizAlignment="center"
+            vertAlignment="center">
+            <BusySpinner
+                id="spinner"
+                visible="false"
+            />
+        </LayoutGroup>
+
+        <LayoutGroup layoutDirection="horiz" translation="[90.0, 150.0]" itemSpacings="[20]">
+            <LabelList id="categoryList"
+                itemSpacing="[0,10]"
+                itemSize="[360, 48]"
+            />
+
+            <MarkupListWithRewFF id="itemsList"
+                itemComponentName="StandardCategoryListItemComponent"
+                drawFocusFeedbackIfViewUnfocused="false"
+                drawFocusFeedbackOnTop="true"
+                itemSize="[650, 180]"
+                itemSpacing="[0, 20]"
+                numRows="4"
+            />
+        </LayoutGroup>
+    </children>
+</component>

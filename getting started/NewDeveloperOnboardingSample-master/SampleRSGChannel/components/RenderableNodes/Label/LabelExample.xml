@@ -1,0 +1,24 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- This component will create a Rectangle node example -->
+<component name = "LabelExample" extends = "Group" >
+
+  <script type = "text/brightscript" uri = "pkg:/components/RenderableNodes/Label/LabelExample.brs" />
+
+  <children >
+
+	<!-- Simple label with the Roku default bold font and text fields -->
+    <Label 
+      id = "exampleLabel" 
+      width = "512" 
+      height = "44" 
+      font = "font:MediumBoldSystemFont" 
+      text = "All the Best Videos...All the Time!" 
+      horizAlign = "center" 
+	  vertAlign = "center" />
+
+  </children>
+
+</component>

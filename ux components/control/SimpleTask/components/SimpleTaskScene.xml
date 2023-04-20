@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name="SimpleTaskScene" extends="Scene" >
+
+<script type="text/brightscript">
+<![CDATA[
+
+sub init()
+	m.top.backgroundURI = "pkg:/images/purplebg.jpg"
+
+	m.indexLabel = m.top.findNode("indexLabel")
+	m.simpleTask = CreateObject("roSGNode", "SimpleTask")
+	m.simpleTask.ObserveField("index", "onIndexChanged")
+	m.simpleTask.control = "RUN"
+end sub
+
+function onIndexChanged() as void
+    str = "Iteration " + stri(m.simpleTask.index)
+    m.indexLabel.text = str
+end function
+
+]]>
+</script>
+
+<children>
+
+<Label
+	id="indexLabel"
+	text="Iteration 0"
+	translation="[550,350]" />
+
+</children>
+
+</component>

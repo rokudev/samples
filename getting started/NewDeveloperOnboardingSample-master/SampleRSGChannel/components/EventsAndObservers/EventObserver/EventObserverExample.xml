@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- This example illustrates the use of an observeField() call for the Timer "fire" field.
+	 The parent node is a rectangle, the boundary for the scrolling text,
+     the animation moves the label (text) on the rectangle by changing the translation of label,
+     the timer changes the text field of label every time it "hits" the left/right edge of the rectangle -->
+<component name = "EventObserverExample" extends = "Group" >
+
+  <script type = "text/brightscript" uri = "pkg:/components/EventsAndObservers/EventObserver/EventObserverExample.brs" />
+
+  <children>
+
+	<!-- parent rectangle is the boundary for the scrolling text/label -->
+    <Rectangle 
+      width = "640" 
+      height = "60" 
+      color = "0x10101000" >
+
+	  <!-- scrolling text/label -->
+      <Label 
+        id = "movingLabel" 
+        width = "280" 
+        height = "60" 
+        text = "All The Best Videos!" 
+        horizAlign = "center" 
+        vertAlign = "center" />
+
+    </Rectangle>
+
+	<!-- Vector2D animation, interpolates the translation field of the movingLabel 
+		 duration is double the timer duration -->
+    <Animation 
+      id = "scrollbackAnimation" 
+      duration = "10" 
+      repeat = "true" 
+      easeFunction = "linear" >
+
+      <Vector2DFieldInterpolator 
+        key = "[ 0.0, 0.5, 1.0 ]" 
+        keyValue = "[ [0.0, 0.0], [360.0, 0.0], [0.0, 0.0] ]" 
+        fieldToInterp = "movingLabel.translation" />
+
+    </Animation>
+
+	<!-- text Timer with 5 seconds duration -->
+    <Timer 
+      id = "textTimer" 
+      repeat = "true" 
+      duration = "5" />
+
+  </children>
+
+</component>

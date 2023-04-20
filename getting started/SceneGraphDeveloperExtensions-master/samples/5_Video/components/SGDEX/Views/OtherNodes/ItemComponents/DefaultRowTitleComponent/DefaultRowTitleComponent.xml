@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2018 Roku, Inc. All rights reserved. -->
+
+<component name="DefaultRowTitleComponent" extends="Group" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+    <interface>
+        <field id="content" type="node" onChange="onContentSet" />
+        <field id="rowCounterVertAlign" type="string" alias="title.vertAlign" />
+    </interface>
+
+    <script type="text/brightscript" uri="DefaultRowTitleComponent.brs" />
+
+    <children>
+        <Label 
+            id="title" 
+            width="330" 
+            wrap="false" 
+            font="font:SmallBoldSystemFont"
+        />
+    </children>
+</component>

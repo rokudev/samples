@@ -1,0 +1,18 @@
+<BitmapSet>
+	
+	<Bitmap name="sprite_bitmapset" filespec="pkg:/assets/bitmapset.png">
+		<Region name="r1" x="0" y="0" w="300" h="300" />
+		<Region name="r2" x="300" y="0" w="300" h="300" />
+		<Region name="r3" x="600" y="0" w="300" h="300" />
+		<Region name="r4" x="900" y="0" w="300" h="300" />
+	</Bitmap>
+	
+	<Animation name="animated_sprite">
+		<frame use="sprite_bitmapset.r1" />
+		<frame use="sprite_bitmapset.r2" />
+		<frame use="sprite_bitmapset.r3" />
+		<frame use="sprite_bitmapset.r4" />		
+	</Animation>
+	
+</BitmapSet>
+

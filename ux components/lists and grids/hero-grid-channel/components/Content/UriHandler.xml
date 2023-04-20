@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2016 Roku Corp.  All Rights Reserved. -->
+
+<component name="UriHandler" extends="Task" >
+  <interface>
+    <!-- Field to issue a request to the handler -->
+  	<field id="request" type="assocarray"/>
+    <!-- Contains the response content -->
+    <field id="content" type="node"/>
+    <!-- The # of rows to populate -->
+    <field id="numRows" type="integer"/>
+    <!-- # of rows of content received -->
+    <field id="numRowsReceived" type="integer"/>
+    <!-- # of requests that have bad/no content -->
+    <field id="numBadRequests" type="integer" value="0"/>
+    <!-- variable so updateContent only runs once -->
+    <field id="contentSet" type="boolean"/>
+    <!-- Cache of content -->
+    <field id="ContentCache" type="node" />
+  </interface>
+
+  <script type="text/brightscript" uri="pkg:/components/Content/UriHandler.brs"/>
+</component>

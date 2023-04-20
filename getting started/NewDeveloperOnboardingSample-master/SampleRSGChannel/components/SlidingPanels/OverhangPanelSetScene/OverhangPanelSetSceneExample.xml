@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- This component will create a OverhangPanelSetScene node example -->
+<component name="OverhangPanelSetSceneExample" extends="OverhangPanelSetScene">
+
+  <interface>
+    <field id="exitExample" type="boolean" value="false" alwaysNotify="true" />
+  </interface>
+
+  <script type="text/brightscript" uri="pkg:/components/SlidingPanels/Overhang/OverhangExample.brs" />
+
+</component>

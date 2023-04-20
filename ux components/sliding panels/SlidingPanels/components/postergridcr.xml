@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<!--********** Copyright 2015 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "postergridCR" extends = "Task" >
+ 
+<interface>
+	<field id = "postergriduri" type = "string" />
+	<field id = "postergridcontent" type = "node" />
+</interface> 
+
+<script type = "text/brightscript" >
+<![CDATA[
+
+sub init()
+	m.top.functionName = "getContent"
+end sub
+
+sub getContent()
+	postergridcontent = createObject("RoSGNode","ContentNode")
+
+	postergridxml = createObject("roXMLElement")
+
+	readInternet = createObject("roUrlTransfer")
+	readInternet.setUrl(m.top.postergriduri)
+	print "test url in postergridCR is " m.top.postergriduri
+	postergridxml.parse(readInternet.GetToString())
+
+	if postergridxml.getName()="PosterGrid"
+		for each poster in postergridxml.GetNamedElements("poster")
+			attributes = poster.getAttributes()
+			poster = 	{
+					hdgridposterurl:	attributes.hdgridposterurl,
+					hdposterurl:		attributes.hdposterurl,
+					sdgridposterurl:	attributes.sdgridposterurl,
+					sdposterurl:		attributes.sdposterurl,
+					shortdescriptionline1:	attributes.shortdescriptionline1,
+					shortdescriptionline2:	attributes.shortdescriptionline2,
+					xrow:			attributes.xrow,
+					ycol:			attributes.ycol,
+					wcols:			attributes.wcols,
+					hrows:			attributes.hrows
+					}
+			postercontent = postergridcontent.createChild("ContentNode")
+			postercontent.hdgridposterurl = poster.hdgridposterurl
+			postercontent.hdposterurl = poster.hdposterurl
+			postercontent.sdgridposterurl = poster.sdgridposterurl
+			postercontent.sdgridposterurl = poster.sdposterurl
+			postercontent.shortdescriptionline1 = poster.shortdescriptionline1
+			postercontent.shortdescriptionline2 = poster.shortdescriptionline2 
+			postercontent.xrow = poster.xrow
+			postercontent.ycol = poster.ycol
+			postercontent.wcols = poster.wcols
+			postercontent.hrows = poster.hrows
+		end for
+	end if
+	m.top.postergridcontent = postergridcontent
+end sub
+
+]]>
+</script>
+
+</component>

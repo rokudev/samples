@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- This component will create a Keyboard node example -->
+<component name="KeyboardExample" extends="Group" initialFocus="exampleKeyboard" >
+
+  <script type="text/brightscript" uri="pkg:/components/Widgets/Keyboard/KeyboardExample.brs" />
+
+  <children >
+    
+    <!--
+        The Keyboard
+
+        In this example, we will have a Keyboard to input characters into
+        the built-in TextEditBox within the Keyboard component.
+    -->
+    <Keyboard
+      id="exampleKeyboard" />
+
+    <!--
+        We will have a button for the user to clear the text within the
+        TextEditBox/Keyboard component. 
+    -->
+    <button
+      id="clearButton"
+      text="Clear"
+      iconUri=""
+      focusedIconUri=""
+      translation="[250, 300]" />
+
+  </children>
+
+</component>

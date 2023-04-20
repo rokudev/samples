@@ -1,0 +1,7 @@
+title=Animated Sprite
+subtitle=Simple Animated Sprite Sample
+major_version=1
+minor_version=0
+build_version=0
+mm_icon_focus_hd=pkg:/images/icon_focus_hd.png
+mm_icon_side_hd=pkg:/locale/default/images/icon_side_hd.png

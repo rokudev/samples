@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<!--********** Copyright 2015 Roku Corp.  All Rights Reserved. **********-->
+
+<component name="rectangleanimationScene" extends="Scene" >
+
+<script type="text/brightscript" >
+<![CDATA[
+
+sub init()
+	m.top.backgroundURI = "pkg:/images/purplebg.jpg"
+
+	m.top.setFocus(true)
+end sub
+
+]]>
+</script>
+
+<children>
+    <Rectangle 
+	id="bottomRectangle" 
+	color="0x0000FFFF" 
+	width="1280" 
+	height="60" 
+	translation="[0,620]" />
+
+    <Animation 
+	id="colorchangeAnimation"
+	duration="10"
+	repeat="true"
+	control="start"
+	easeFunction="linear" >
+	<ColorFieldInterpolator 
+		id = "colorchangeRectangle"
+		key="[0.0, 0.5, 1.0]" 
+		keyValue="[ 0x0000FFFF, 0x00000FFF, 0x0000FFFF ]"
+    		fieldToInterp="bottomRectangle.color" />
+    </Animation>
+</children>
+
+</component>

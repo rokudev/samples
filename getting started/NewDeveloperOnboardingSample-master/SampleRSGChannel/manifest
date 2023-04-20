@@ -1,0 +1,26 @@
+#
+#  Copyright (c) 2018 Roku, Inc. All rights reserved.
+#  Roku Channel Manifest File 
+#  S3 - Starter Scenegraph Sample Channel
+#  Full spec at https://sdkdocs.roku.com/display/sdkdoc/Controlling+Screen+Layout
+#
+
+##   Channel Details
+title=S3 RSG Sample Channel
+major_version=1
+minor_version=0
+build_version=0
+
+##   Channel Assets
+mm_icon_focus_hd=pkg:/images/icon_focus_hd.png
+mm_icon_side_hd=pkg:/images/icon_side_hd.png
+mm_icon_focus_sd=pkg:/images/icon_focus_sd.png
+mm_icon_side_sd=pkg:/images/icon_focus_sd.png
+
+###  Splash Screen + Loading Screen Artwork 
+#### Image sizes are FHD: 1920x1080px | HD: 1280x720px | SD: 720x480px
+splash_screen_fhd=pkg:/images/splash-screen_fhd.jpg
+splash_screen_hd=pkg:/images/splash-screen_hd.jpg
+splash_screen_sd=pkg:/images/splash-screen_sd.jpg
+
+ui_resolutions=hd

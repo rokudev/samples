@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!--
+    This component will create a ListPanel node example. This is different
+    from previous examples due to the use of the "extends" field, as this
+    will inherit all the properties (such as fields) from the component
+    being extended from. However, the user can override functions and
+    field values in order to customize the behavior of this custom
+    component. In this case, we want different behavior for the "ListPanelExample"
+    component than the built-in "ListPanel" component.
+-->
+<component name="ListPanelExample" extends="ListPanel" >
+
+  <script type="text/brightscript" uri="pkg:/components/SlidingPanels/ListPanel/ListPanelExample.brs" />
+
+  <children >
+    
+    <!--
+        In this example, we will only have the ListPanel contain a
+        LabelList node with content.
+    -->
+    <LabelList id="exampleLabelList" >
+        <!--
+            For this example, we will have the "container" ContentNode define
+            a role. A role is used to set a field of the node's parent. In this
+            case, the LabelList's content field will be set to the "container"
+            ContentNode
+        -->
+        <ContentNode role="content">
+            <ContentNode title="Renderable Node" />
+            <ContentNode title="Z-Order/Parent-Child" />
+            <ContentNode title="Animations" />
+            <ContentNode title="Events and Observers" />
+        </ContentNode>
+
+    </LabelList>
+
+  </children>
+
+</component>

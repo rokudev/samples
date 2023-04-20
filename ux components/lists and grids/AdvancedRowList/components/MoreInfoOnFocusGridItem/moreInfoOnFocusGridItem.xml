@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+
+<component name="MoreInfoOnFocusGridItem" extends="Group">
+
+<interface>
+  <field id="width" type="float" onChange="widthChanged"/> 
+  <field id="height" type="float" onChange="heightChanged"/> 
+  <field id="index" type="int" />
+  <field id="rowIndex" type="int" />
+  <field id="itemContent" type="node" onChange="itemContentChanged"/> 
+  <field id="focusPercent" type="float" onChange="focusPercentChanged"/> 
+  <field id="rowFocusPercent" type="float" />
+  <field id="rowHasFocus" type="bool" />
+  <field id="rowListHasFocus" type="bool" onChange="focusPercentChanged" />
+  <field id="mupItem" type="bool" />
+</interface>
+
+<script type="text/brightscript" uri="pkg:/components/MoreInfoOnFocusGridItem/MoreInfoOnFocusGridItem.brs"/>
+<children>
+<Poster id="itemPoster">
+    <Group id="itemOverlay" visible="false">
+        <Rectangle id="overlayBG" color="0x00000040" >
+	    <LayoutGroup id="overlayContent" layoutDirection="horizontal" vertAlignment="center" itemSpacings="8" >
+	        <Poster id="playIcon" loadSync="true" uri="pkg:/images/icon_play.png" />
+	        <Label id="numTracks" font="font:SmallSystemFont" text="SomeText" color="0xDDDDDDFF"/>
+            </LayoutGroup>
+	</Rectangle>
+    </Group>
+</Poster>
+</children>
+
+</component>
+

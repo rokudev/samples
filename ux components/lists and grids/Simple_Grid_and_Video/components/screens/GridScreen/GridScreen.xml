@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- node that renders Grid Screen 
+    handles bookmark buttons
+    handles start of video playback
+ -->
+
+<component name="GridScreen" extends="Group" initialFocus="RowList">
+    <interface>
+        <!-- input -->
+        <!-- Grid Content Node -->
+        <field id="content" type="node" alias="RowList.content" onChange="onContentChange"/>
+        
+        <!-- Row item selection handler -->
+        <field id="rowItemSelected" type="intarray" alwaysnotify="true" alias="RowList.rowItemSelected"/>
+        
+        <!-- Row item focused handler -->
+        <field id="itemFocused" type="intarray" alias="RowList.rowItemFocused" onChange="OnItemFocused"/>
+
+        <!-- Interface to focused item (Content Node) -->
+        <field id="focusedContent"  type="node"/>
+    </interface>
+    
+    <!-- main handler -->
+    <script type="text/brightscript" uri="pkg:/components/screens/GridScreen/GridScreen.brs" />
+        
+    <children>
+        <FadingBackground
+            id="Background"
+            width="1280"
+            height="720"
+            color="0xAAAAAA"
+            ShadeOpacity="0.8"/>
+            
+        <RowList
+            id="RowList"
+            focusBitmapUri="pkg:/images/focus_grid.9.png"
+            translation="[-60, 372]"
+            itemSize="[1327, 218]"
+            numRows="2"
+            itemSpacing="[13, 0]"
+            focusXOffset="[147]"
+            rowFocusAnimationStyle="fixedFocusWrap"
+            rowItemSize="[[262, 147]]"
+            rowItemSpacing="[[16.5, 3]]"
+            showRowLabel="true"
+            showRowCounter="true"
+            rowLabelOffset="[[147, 20]]"/>
+            
+        <Poster
+            translation="[0, 650]"
+            uri="pkg:/images/BG_dark_down.png"
+            width="2000"
+            height="95" />
+
+        <Description 
+            id="Description"
+            translation="[106, 119]"
+            itemSpacings="[7,17]"/>
+    </children>
+</component>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+
+<component name="MixedAspectRowListPanel" extends="Panel" >
+
+	<interface>
+		<field id="rowListContent" type="node" onchange="rowListContentChanged" />
+	</interface> 
+	
+	<script type="text/brightscript" uri="pkg:/components/mixedAspectRowListPanel/mixedAspectRowListPanel.brs"/>
+	
+	<children>
+		<RowList id="theRowList"/>
+	</children>
+
+</component>

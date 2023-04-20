@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********--> 
+
+<!-- node that renders Home Screen 
+ -->
+<component name="HomeScreen" extends="Group">
+    <!-- main handler -->
+    <script type="text/brightscript" uri="pkg:/components/HomeScreen.brs" />
+    
+    <children>
+		    <!--  Content title -->
+        <Label
+          id = "Title"
+          height = "30"
+          width = "650"
+          color = "0xA3A3C2FF"
+          translation = "[80,150]"
+          font = "font:LargeBoldSystemFont"/>
+        <!-- Content description -->
+        <Label
+          id = "Description"
+          height = "250"
+          width = "1000"
+          color = "0xA3A3C2FF"
+          translation = "[80,200]"
+          wrap = "true"/>
+        <!-- Rowlist containing samples -->
+        <RowList 
+          id = "myRowList" 
+          translation = "[ 80, 350 ]" 
+          itemComponentName = "SampleItem" 
+          numRows = "4" 
+          itemSize = "[ 1200, 308 ]" 
+          rowItemSize = "[ [512, 288] ]" 
+          rowItemSpacing="[ [40, 0] ]"
+          rowLabelOffset="[ [0, 20] ]"
+          itemSpacing = "[ 0, 40 ]" 
+          showRowLabel = "[ false ]"/>
+
+		<!-- Bottom image (effect) -->
+        <Poster
+			translation="[0, 650]"
+            uri="pkg:/images/BG_dark_down.png"
+            width="2000"
+            height="95" />
+    </children>
+</component>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!--********** Copyright 2019 Roku Corp.  All Rights Reserved. **********--> 
+
+<!-- 
+    main node which handles home screen children 
+    -->
+<component name="HomeScene" extends="Scene">
+    
+    <interface>
+        <!-- Content for RowList in GridScreen on Home Scene -->
+        <field id="gridContent" type="node" alias="GridScreen.content" onChange="OnChangeContent" />
+
+        <!-- Row item selection handler -->
+        <field id="rowItemSelected" type="intarray" alwaysNotify="true" alias="GridScreen.rowItemSelected"/>
+    </interface>
+    
+    <!-- main handler -->
+    <script type="text/brightscript" uri="pkg:/components/screens/HomeScene/HomeScene.brs" />
+    
+    <children>
+
+        <!-- Grid screen with RowList on Home Scene -->
+        <GridScreen
+            id="GridScreen"
+            visible="true"
+            translation="[0,0]" />
+
+        <Overhang
+            id="Overhang"
+            logoBaselineOffset="20"
+            translation="[-20, 0]" />
+
+        <!-- Details screen with Play button -->
+        <DetailsScreen
+            id="DetailsScreen"
+            visible="false"/>
+            
+        <LoadingIndicator
+		      id="loadingIndicator"
+		      imageUri="pkg:/components/screens/LoadingIndicator/loader.png"
+		      clockwise="true"
+		      spinInterval="2"
+		      fadeInterval="0.5"
+		      spacing="20"
+		      imageWidth="100"
+		      text="Loading..."
+		      width="1280"
+		      height="720"
+		      centered="false"
+              translation="[0, 0]"
+		      textPadding="10"
+		      font="font:SmallBoldSystemFont"
+		      backgroundColor="0x551A8B"
+		      backgroundOpacity="0"/>
+
+    </children>
+</component>

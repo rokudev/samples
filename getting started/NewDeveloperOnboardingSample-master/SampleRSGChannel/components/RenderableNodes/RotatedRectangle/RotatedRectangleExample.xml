@@ -1,0 +1,24 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- This component will create a Rectangle node example with 90 degrees rotation -->
+<component name = "RotatedRectangleExample" extends = "Group" >
+
+  <script type = "text/brightscript" uri = "pkg:/components/RenderableNodes/RotatedRectangle/RotatedRectangleExample.brs" />
+
+  <children >
+
+		  <!-- Very simple rectangle with fixed dimensions, blue color, and a 90 degrees rotation  
+			   (the rotation field value 1.5707963268 in radian unit is an approximation of 90 degrees -->
+    <Rectangle 
+      id = "exampleRectangle" 
+      width = "512" 
+      height = "288" 
+	  rotation = "1.5707963268"
+	  color = "0x1010EBFF" 
+	  />
+
+  </children>
+
+</component>

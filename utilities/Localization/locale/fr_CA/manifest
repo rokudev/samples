@@ -1,0 +1,12 @@
+title=Chez Canal
+subtitle=Votre Premier Choix Pour Cuisine
+major_version=1
+minor_version=0
+build_version=0
+mm_icon_focus_hd=pkg:/locale/fr_CA/images/focus_hd.png
+mm_icon_side_hd=pkg:/locale/fr_CA/images/side_hd.png
+mm_icon_focus_sd=pkg:/locale/fr_CA/images/focus_sd.png
+mm_icon_side_sd=pkg:/locale/fr_CA/images/side_sd.png
+splash_screen_hd=pkg:/locale/fr_CA/images/splash_page.png
+splash_screen_sd=pkg:/locale/fr_CA/images/splash_page.png
+splash_color=#000

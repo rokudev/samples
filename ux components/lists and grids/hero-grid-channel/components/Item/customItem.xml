@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2016 Roku Corp.  All Rights Reserved. -->
+
+<component name="customItem" extends="Group">
+
+  <interface>
+    <field id="width"       type="float" onChange="updateLayout"/>
+    <field id="height"      type="float" onChange="updateLayout"/>
+    <field id="itemContent" type="node" onChange="itemContentChanged" />
+  </interface>
+
+  <script type="text/brightscript">
+    <![CDATA[
+      sub Init()
+        m.Poster = m.top.findNode("poster")
+      end sub
+
+      sub itemContentChanged()
+        m.Poster.loadDisplayMode = "scaleToZoom"
+        if m.top.height < 400 and m.top.width < 400
+          m.Poster.loadWidth = 300
+          m.Poster.loadHeight = 150
+        end if
+        updateLayout()
+        m.Poster.uri = m.top.itemContent.HDPOSTERURL
+      end sub
+
+      sub updateLayout()
+        if m.top.height > 0 And m.top.width > 0 then
+          m.Poster.width  = m.top.width
+          m.Poster.height = m.top.height
+        end if
+      end sub
+            ]]>
+  </script>
+
+  <children>
+      <Poster id="poster" />
+  </children>
+
+</component>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- 
+    This component will create a Panel node example. This is different
+    from previous examples due to the use of the "extends" field, as this
+    will inherit all the properties (such as fields) from the component
+    being extended from. However, the user can override functions and
+    field values in order to customize the behavior of this custom
+    component. In this case, we want different behavior for the "PanelExample"
+    component than the built-in "Panel" component.
+-->
+<component name="PanelExample" extends="Panel" >
+
+<!--
+    This example won't use the user-created "description" field,
+    but will be used for the PanelSet example. By setting this
+    field, it will trigger the callback function "updateLabel".
+-->
+  <interface>
+    <field id="description" type="string" onChange="updateLabel" />
+  </interface>
+
+  <script type="text/brightscript" uri="pkg:/components/SlidingPanels/Panel/PanelExample.brs" />
+
+  <children >
+    
+    <!--
+        The Panel
+
+        In this example, we will only have one Panel that contains a rectangle
+        and label with predefined text.
+    -->
+      <Rectangle
+        id="panelRectangle"
+        width="520"
+        height="460"
+        color="0x101010C0"
+        translation="[0, 50]" >
+
+          <Label
+            id="panelLabel"
+            text="Example Panel"
+            width="490"
+            height="430"
+            wrap="true"
+            translation="[10, 10]" />
+
+      </Rectangle>
+
+  </children>
+
+</component>

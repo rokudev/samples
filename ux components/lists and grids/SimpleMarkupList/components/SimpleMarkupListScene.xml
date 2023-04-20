@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+
+<component name="SimpleMarkupListScene" extends="Scene" >
+
+<script type="text/brightscript" uri="pkg:/components/SimpleMarkupListScene.brs" />
+
+<children>
+<MarkupList
+    id="SimpleMarkupList"
+    itemComponentName="SimpleListItem"
+    itemSize="[350, 40]"
+    itemSpacing="[0, 20]"
+    translation="[100,100]"
+/>
+
+<MarkupGrid
+    id="SimpleMarkupGrid"
+	itemComponentName="SimpleGridItem"
+	itemSize="[200,200]"
+        itemSpacing="[20, 20]"
+	rowHeights="[200, 200]"
+	columnWidths="[200,200,200]"
+	numColumns="3"
+	numRows="2"
+	translation="[600, 100]"
+/>
+</children>
+
+</component>

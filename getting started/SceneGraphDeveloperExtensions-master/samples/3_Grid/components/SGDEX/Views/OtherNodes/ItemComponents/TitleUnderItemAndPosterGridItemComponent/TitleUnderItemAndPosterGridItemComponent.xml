@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2018 Roku, Inc. All rights reserved. -->
+
+<component name="TitleUnderItemAndPosterGridItemComponent" extends="Group" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+    <interface>
+        <field id="width" type="float" onChange="onWidthChange" alias="posterRect.width" />
+        <field id="height" type="float" onChange="onHeightChange" alias="posterRect.height" />
+        <field id="itemContent" type="node" onChange="OnContentSet" />
+    </interface>
+
+    <script type="text/brightscript" uri="TitleUnderItemAndPosterGridItemComponent.brs" />
+    <script type="text/brightscript" uri="../../../utils/utils.brs" />
+
+    <children>
+        <Rectangle 
+            id="posterRect" 
+            opacity="0.4" 
+            color="#000000"
+        />
+        <Poster 
+            id="poster"
+            loadDisplayMode="scaleToFit"
+        />
+        <Label 
+            id="title" 
+            horizAlign="left" 
+            vertAlign="bottom" 
+            color="0xffffffff" 
+            numLines="1"
+            maxLines="1"
+            wrap="false"
+        />
+    </children>
+</component>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+
+<component name="RowListExamplesListPanel" extends="ListPanel" >
+
+<script type="text/brightscript" uri="pkg:/components/RowListExamplesListPanel/RowListExamplesListPanel.brs"/>
+<children>
+
+<LabelList 
+    id = "examplesList"
+
+    focusRow = "0"
+    itemSize = "[348, 52]"
+    translation = "[0, 43]"
+    numRows = "12" />
+
+</children>
+
+</component>

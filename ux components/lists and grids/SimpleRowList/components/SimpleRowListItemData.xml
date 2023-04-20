@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+ 
+<component name="SimpleRowListItemData" extends="ContentNode">
+ 
+<interface> 
+  <field id="labelText" type="string" />
+  <field id="posterUrl" type="string" />
+</interface>
+
+</component>

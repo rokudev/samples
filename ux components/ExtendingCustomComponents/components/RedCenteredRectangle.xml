@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="RedCenteredRectangle" extends="CenteredRectangle" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+
+  <script type = "text/brightscript" >
+    <![CDATA[
+    sub SetColor()
+        print "Inside sub SetColor"
+        m.rect.color = "0xff0000ff"
+    end sub
+    ]]>
+  </script>
+
+</component>

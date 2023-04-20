@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!-- Copyright (c) 2018 Roku, Inc. All rights reserved. -->
+
+<component name="LoadingFacade" extends="Group">
+    <interface>
+        <!-- @ReadOnly -->
+        <!-- reference to the busySpinner (see related component for more info) -->
+        <field id="busySpinner" type="node" />
+    
+        <!-- "eats" key events if True (component need to have focus for that) -->
+        <field id="bEatKeyEvents" type="boolean" value="true" />
+    </interface>
+
+    <script type="text/brightscript" uri="LoadingFacade.brs" />
+</component>

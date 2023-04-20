@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!--
+    This component will create a MarkupGridItem node to be used by the
+    MarkupGrid node in the MarkupGridExample component. This was specified
+    in the "itemComponentName" field of the MarkupGrid component.
+
+    The responsibility of this node is to specify the layout of the
+    individual tiles within the MarkupGrid.
+
+    The "itemContent" and "focusPercent" fields are special fields that
+    will be updated by the MarkupGrid component. The "itemContent" field
+    contains the data that the MarkupGridItem object can use to modify
+    how it will be displayed in the MarkupGrid component. The "focusPercent"
+    field is a read-only float value that indicates the time delay after focus
+    has moved from one MarkupGridItem object to another. This is represented as
+    float values between 0.0 and 1.0, where 0.0 is having no focus and 1.0 is
+    having complete focus on the MarkupGridItem object.
+
+    Other special fields and their functions/behaviors can be found at:
+    https://sdkdocs.roku.com/display/sdkdoc/MarkupGrid#MarkupGrid-MarkupGridXMLComponent
+-->
+<component name="MarkupGridItem" extends="Group">
+ 
+  <interface> 
+    <field id="itemContent" type="node" onChange="showcontent"/>
+    <field id="focusPercent" type="float" onChange="showfocus"/> 
+  </interface>
+ 
+  <script type="text/brightscript" uri="pkg:/components/ListsAndGrids/MarkupGrid/MarkupGridItem.brs" />
+
+  <children>
+    
+    <!--
+        In this example, we will display a poster of the content retrieved
+        from a ContentReader task node and a rectangle node will act as a
+        mask to distinguish what is being focused within the MarkupGrid
+        component.
+    -->
+    <Poster 
+      id="itemPoster" 
+      translation="[ 10, 10 ]" 
+      width="512" 
+      height="288" 
+      scaleRotateCenter="[ 256.0, 144.0 ]" >
+
+      <Rectangle 
+        id="itemMask" 
+        width="512" 
+        height="288" 
+        scaleRotateCenter="[ 256.0, 144.0 ]" 
+        color="0x101010FF" 
+        opacity="0.75" />
+
+    </Poster>
+
+  </children>
+
+</component>

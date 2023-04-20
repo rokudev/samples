@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "VideoExampleScene" extends = "Scene" >
+
+  <script type="text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      m.top.backgroundURI = "pkg:/images/rsgetbg.jpg"
+
+      m.videolist = m.top.findNode("videoLabelList")
+      m.videoinfo = m.top.findNode("infoLabel")
+      m.videoposter = m.top.findNode("videoPoster")
+      m.video = m.top.findNode("exampleVideo")
+
+      m.video.observeField("state","controlvideoplay")
+
+      m.readVideoContentTask = createObject("RoSGNode","VideoContentReader")
+      m.readVideoContentTask.observeField("videocontent","showvideolist")
+      m.readVideoContentTask.videocontenturi = "pkg:/server/videocontent.xml"
+      m.readVideoContentTask.control = "RUN" 
+
+      m.videolist.observeField("itemFocused","setvideo")
+      m.videolist.observeField("itemSelected","playvideo")
+    end sub
+
+    sub showvideolist()
+      m.videolist.content = m.readVideoContentTask.videocontent
+      m.videolist.setFocus(true)
+    end sub
+
+    sub setvideo()
+      videocontent = m.videolist.content.getChild(m.videolist.itemFocused)
+      m.videoposter.uri = videocontent.hdposterurl
+      m.videoinfo.text = videocontent.description
+      m.video.content = videocontent
+    end sub
+
+    sub playvideo()
+      m.video.control = "play"
+      m.video.visible = true
+      m.video.setFocus(true)
+    end sub
+
+    sub controlvideoplay()
+      if (m.video.state = "finished") 
+        m.video.control = "stop"
+        m.videolist.setFocus(true)
+        m.video.visible = false
+      end if
+    end sub
+
+    function onKeyEvent(key as String,press as Boolean) as Boolean
+      if press then
+        if key = "back"
+          if (m.video.state = "playing")
+            m.video.control = "stop"
+            m.videolist.setFocus(true)
+            m.video.visible = false
+
+            return true
+          end if
+        end if
+      end if
+
+      return false
+    end function
+
+    ]]>
+
+  </script>
+
+  <children>
+
+    <LabelList 
+      id = "videoLabelList"
+      itemSize = "[ 350, 60 ]"
+      translation = "[ 140, 100 ]" />
+
+    <Poster 
+      id = "tvPoster"
+      translation = "[ 560, 100 ]"
+      width = "647"
+      height = "448"
+      uri = "pkg:/images/flatscreencntnt.png" >
+
+      <Poster 
+        id = "videoPoster" 
+        translation = "[ 53, 45 ]" 
+        width = "540" 
+        height = "304" />
+
+      <Rectangle
+        id = "infoRectangle"
+        translation = "[ 0, 460 ]"
+        width = "647"
+        height = "76"
+        color = "0x161616FF" >
+
+        <Label
+          id = "infoLabel"
+          translation = "[ 20, 20 ]"
+          width = "607"
+          height = "36" 
+          horizalign = "center"
+          vertalign = "center"
+          wrap = "true"
+          font = "font:LargeBoldSystemFont" />
+
+      </Rectangle>
+
+    </Poster>
+
+    <Video
+      id = "exampleVideo"
+      visible = "false" />
+
+  </children>
+
+</component>

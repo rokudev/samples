@@ -1,0 +1,9 @@
+title=Uri Fetcher Test
+major_version=1
+minor_version=2
+build_version=00001
+
+mm_icon_focus_hd=pkg:/images/channel-poster.png
+splash_screen_fhd=pkg:/images/splash-screen.jpg
+
+ui_resolutions=hd

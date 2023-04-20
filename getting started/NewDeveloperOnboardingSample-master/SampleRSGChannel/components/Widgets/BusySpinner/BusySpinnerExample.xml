@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- This component will create a BusySpinner node example -->
+<component name="BusySpinnerExample" extends="Group" >
+
+  <script type="text/brightscript" uri="pkg:/components/Widgets/BusySpinner/BusySpinnerExample.brs" />
+
+  <children >
+    <!--
+    	A BusySpinner node. It is initially set to not be visible.
+    -->
+    <BusySpinner 
+      id="exampleBusySpinner" 
+      visible="false" />
+
+  </children>
+
+</component>

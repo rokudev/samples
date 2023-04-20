@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="HomeScene" extends="Scene" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+	<children>
+		<Poster
+			id = "SafeZone"
+		/>
+	</children>
+	
+	<script type="text/brightscript" >
+<![CDATA[
+	
+	Sub Init()
+		m.Poster = m.top.findNode("SafeZone")
+		m.Poster.width = m.global.Width
+		m.Poster.height = m.global.Height
+		if m.Poster.height = 1080 'if FHD
+			m.Poster.uri = "https://raw.githubusercontent.com/rokudev/safe-zone-channel/master/images/Roku-Safe-Zones-FHD.png"
+		else
+			m.Poster.uri = "https://raw.githubusercontent.com/rokudev/safe-zone-channel/master/images/Roku-Safe-Zones-HD.png"
+		end if
+	End Sub
+	
+]]>
+</script>
+</component>

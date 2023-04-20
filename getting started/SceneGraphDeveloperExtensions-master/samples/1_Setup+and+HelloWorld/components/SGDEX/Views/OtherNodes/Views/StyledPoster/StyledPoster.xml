@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2018 Roku, Inc. All rights reserved. -->
+
+<component name="StyledPoster" extends="Poster" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+  <interface>
+    <field id="maxWidth" type="integer" onChange="UpdateSize" value="0" />
+    <field id="maxHeight" type="integer" onChange="UpdateSize" value="0" />
+    <field id="shape" type="string" onChange="UpdateSize" value="16x9" />
+  </interface>
+  
+  <script type="text/brightscript" uri="StyledPoster.brs" />
+</component>

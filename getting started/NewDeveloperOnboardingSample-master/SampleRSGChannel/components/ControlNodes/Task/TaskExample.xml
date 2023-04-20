@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- This component will create a Task node example -->
+<component name="TaskExample" extends="Group" >
+
+  <script type="text/brightscript" uri="pkg:/components/ControlNodes/Task/TaskExample.brs" />
+
+  <children>
+
+    <!--
+        This rectangle node is a container for holding the contents
+        of this example.
+    -->
+    <Rectangle 
+      id="exampleDisplay" 
+      width="560" 
+      height="360" 
+      color="0x101010C0" >
+
+      <!--
+          This label node tells the user the instructions on how
+          to proceed with this example.
+      -->
+      <Label 
+          translation="[ 0, 100 ]" 
+          width="560" 
+          height="24" 
+          horizAlign="center" 
+          text="Press OK For Next Content Item" />
+
+      <!--
+          This label changes text based on the title of the content
+          node's children. This content node was retrieved by a task
+          node that returns a "master" content node which has children
+          containing metadata that can be used to replace the text in
+          this label node.
+
+          Task nodes are used to run a specific task on a different thread
+          asynchronously while the render thread and main thread are running.
+          This is useful for fetching data from a server without having to
+          make the render thread wait on the data, for example. There are
+          also certain Brightscript functions and components that cannot be
+          run in SceneGraph components or nodes, and can only be done on task
+          nodes. Refer to https://sdkdocs.roku.com/display/sdkdoc/BrightScript+Support
+          for more information.
+      -->
+      <Label 
+        id="itemLabel" 
+        translation="[ 0, 200 ]" 
+        width="560" 
+        height="24" 
+        horizAlign="center" 
+        color="0xEBEB10FF" />
+
+    </Rectangle>
+
+  </children>
+
+</component>

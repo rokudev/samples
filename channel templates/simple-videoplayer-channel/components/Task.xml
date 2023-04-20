@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2016 Roku Corp.  All Rights Reserved. -->
+<component name="Exiter" extends="Task">
+  <script type="text/brightscript">
+    <![CDATA[
+      sub init()
+        m.top.functionName = "go"
+      end sub
+
+      sub go()
+        DeviceInfo  = CreateObject("roDeviceInfo")
+        IPAddr      = DeviceInfo.getIPAddrs()
+        transfer    = createObject("roUrlTransfer")
+        for each item in IPAddr
+          url       = "http://" + IPAddr[item]  + ":8060/keypress/Back"
+          transfer.setUrl(url)
+          transfer.PostFromString("")
+        end for
+      end sub
+    ]]>
+  </script>
+</component>

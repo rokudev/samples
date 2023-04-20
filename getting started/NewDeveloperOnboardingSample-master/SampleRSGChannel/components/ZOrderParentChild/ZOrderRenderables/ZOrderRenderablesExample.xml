@@ -1,0 +1,39 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2018 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "ZOrderRenderablesExample" extends = "Group" >
+
+  <script type = "text/brightscript" uri = "pkg:/components/ZOrderParentChild/ZOrderRenderables/ZOrderRenderablesExample.brs" />
+
+  <children >
+
+	<!-- The channelPoster is drawn first and will be partially covered by subsequent drawn rectangles -->
+    <Poster 
+      id = "channelPoster" 
+      width = "512" 
+      height = "288" 
+      uri = "http://sdktestinglab.com/Tutorial/images/videopg.jpg" />
+
+	<!-- The bottomRectangle is drawn next and will cover rectangles drawn earlier and be covered by rectangles drawn next -->
+    <Rectangle 
+      id = "bottomRectangle" 
+      translation = "[ 0, 244 ]" 
+      width = "512" 
+      height = "34" 
+      color = "0x1010EBFF" />
+
+	<!-- The bottomLabel is drawn last and will cover rectangles drawn earlier -->
+    <Label 
+      id = "bottomLabel" 
+      translation = "[ 0, 244 ]" 
+      width = "512" 
+      height = "34" 
+      font = "font:SmallBoldSystemFont" 
+      text = "All the Best Videos...All the Time!" 
+      horizAlign = "center" 
+      vertAlign = "center" />
+
+  </children>
+
+</component>

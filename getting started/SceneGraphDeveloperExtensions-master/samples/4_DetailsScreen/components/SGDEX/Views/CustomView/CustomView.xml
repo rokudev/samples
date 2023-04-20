@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2018 Roku, Inc. All rights reserved. -->
+
+<component name="CustomView" extends="Group" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+    <interface>
+        <!-- Main field for setting content
+        content tree is specific to each view and is handled by view itself -->
+        <field id="content" type="node" />
+
+        <!-- Control field to tell View Manager to close this View manually.
+        Is desined for authentication flows or other flows when set of Views should be closed after some action. -->
+        <field id="close" type="boolean" alwaysNotify="true" />
+
+        <!-- Observe this to know when view is closed and removed from View Manager -->
+        <field id="wasClosed" type="boolean" alwaysNotify="true" />
+
+        <!-- Observe this to know when view is hiding and new top view is being opened -->
+        <field id="saveState" type="boolean" alwaysNotify="true" />
+
+        <!-- Observe this to know when view was shown for first time or restored after top view was closed -->
+        <field id="wasShown" type="boolean" alwaysNotify="true" />
+    </interface>
+
+    <script type="text/brightscript" uri="CustomView.brs" />
+    <script type="text/brightscript" uri="../../ContentManager/ContentManagerUtils.brs" />
+    <script type="text/brightscript" uri="../utils/utils.brs" />
+
+    <children>
+        <Rectangle
+            id="backgroundRectangle"
+            width="1280"
+            height="720"
+            color="0xFFFFFF00"
+        />
+
+        <FadingBackground
+            id="backgroundImage"
+            width="1280"
+            height="720"
+            animationDuration ="0.5"
+            shadeOpacity ="0.5"
+        />
+
+        <Overhang id="overhang" showOptions="true" showClock="false" />
+
+        <LayoutGroup 
+            translation="[640, 360]" 
+            horizAlignment="center" 
+            vertAlignment="center">
+            <BusySpinner 
+                id="spinner"
+                control="start"
+                visible="true"
+            />
+        </LayoutGroup>
+    </children>
+</component>

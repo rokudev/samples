@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+<!-- This node implements overhang.
+	 You can customize logo and text accordingly. -->
+
+<component name="Overhang" extends="Group" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+
+	<interface>
+		<!-- logo image URI of overhang -->
+		<field id="logoURI" 			type="string" 	alias="Logo.uri" 			value="pkg:/images/generic_logo.png"/>
+		<!-- text on the right side of overhang -->
+		<field id="optionsLabelText" 	type="string" 	alias="OptionsLabel.text"	value="Options"/>
+		<!-- font of the text on the right side of overhang -->
+		<field id="optionsLabelFont" 	type="node" 	alias="OptionsLabel.font"	value="font:MediumSystemFont"/>
+		<!-- color of the text on the right side of overhang -->
+		<field id="optionsLabelColor" 	type="color" 	alias="OptionsLabel.color"	value="#737373FF"/>
+		<!-- URI of image that follows after text on overhang -->
+		<field id="optionsIconURI" 		type="string" 	alias="OptionsIcon.uri" 	value="pkg:/images/options.png"/>
+		<!-- triggers options visibility -->
+		<field id="optionsVisible"		type="bool" 								value="true"							onChange="OnChangeOptionsVisible"/>
+	</interface>
+	
+	<children>
+	   	<Poster
+	   		id="Logo"
+			blendColor = "#06d5e1"
+			enableColorBlending = "true"
+	   		translation = "[192, 60]"
+	   		width = "207"
+	   		height = "75" />
+	   	
+	  	<Label
+	  		id="OptionsLabel"
+	  		translation="[1100, 88]"
+	  		width="600"
+	  		horizAlign="right" />
+		
+		<Poster
+			id="OptionsIcon"
+			blendColor = "#06d5e1"
+			enableColorBlending = "true"
+			translation = "[1710, 88]"
+			width="36"
+			height="36" />
+	</children>
+</component>

@@ -1,0 +1,67 @@
+<BitmapSet>
+
+	<ExtraInfo ballsize="128" />
+	<Bitmap name="3ball_bitmapset" filespec="pkg:/assets/3ballset.png">
+		<Region name="r1" x="0" y="0" w="128" h="128" />
+		<Region name="r2" x="128" y="0" w="128" h="128" />
+		<Region name="r3" x="256" y="0" w="128" h="128" />
+		<Region name="r4" x="384" y="0" w="128" h="128" />
+	</Bitmap>	
+	<Bitmap name="4ball_bitmapset" filespec="pkg:/assets/4ballset.png">
+		<Region name="r1" x="0" y="0" w="128" h="128" />
+		<Region name="r2" x="128" y="0" w="128" h="128" />
+		<Region name="r3" x="256" y="0" w="128" h="128" />
+		<Region name="r4" x="384" y="0" w="128" h="128" />
+	</Bitmap>
+	<Bitmap name="5ball_bitmapset" filespec="pkg:/assets/5ballset.png">
+		<Region name="r1" x="0" y="0" w="128" h="128" />
+		<Region name="r2" x="128" y="0" w="128" h="128" />
+		<Region name="r3" x="256" y="0" w="128" h="128" />
+		<Region name="r4" x="384" y="0" w="128" h="128" />
+	</Bitmap>
+	<Bitmap name="6ball_bitmapset" filespec="pkg:/assets/6ballset.png">
+		<Region name="r1" x="0" y="0" w="128" h="128" />
+		<Region name="r2" x="128" y="0" w="128" h="128" />
+		<Region name="r3" x="256" y="0" w="128" h="128" />
+		<Region name="r4" x="384" y="0" w="128" h="128" />
+	</Bitmap>	
+	<Bitmap name="8ball_bitmapset" filespec="pkg:/assets/8ballset.png">
+		<Region name="r1" x="0" y="0" w="128" h="128" />
+		<Region name="r2" x="128" y="0" w="128" h="128" />
+		<Region name="r3" x="256" y="0" w="128" h="128" />
+		<Region name="r4" x="384" y="0" w="128" h="128" />
+	</Bitmap>
+
+	<Animation name="animated_3ball">
+		<frame use="3ball_bitmapset.r1" />
+		<frame use="3ball_bitmapset.r2" />
+		<frame use="3ball_bitmapset.r3" />
+		<frame use="3ball_bitmapset.r4" />		
+	</Animation>	
+	<Animation name="animated_4ball">
+		<frame use="4ball_bitmapset.r1" />
+		<frame use="4ball_bitmapset.r2" />
+		<frame use="4ball_bitmapset.r3" />
+		<frame use="4ball_bitmapset.r4" />		
+	</Animation>
+	<Animation name="animated_5ball">
+		<frame use="5ball_bitmapset.r1" />
+		<frame use="5ball_bitmapset.r2" />
+		<frame use="5ball_bitmapset.r3" />
+		<frame use="5ball_bitmapset.r4" />		
+	</Animation>
+	<Animation name="animated_6ball">
+		<frame use="6ball_bitmapset.r1" />
+		<frame use="6ball_bitmapset.r2" />
+		<frame use="6ball_bitmapset.r3" />
+		<frame use="6ball_bitmapset.r4" />		
+	</Animation>	
+	<Animation name="animated_8ball">
+		<frame use="8ball_bitmapset.r1" />
+		<frame use="8ball_bitmapset.r2" />
+		<frame use="8ball_bitmapset.r3" />
+		<frame use="8ball_bitmapset.r4" />		
+	</Animation>
+
+</BitmapSet>
+

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<component name="MainScene" extends="Scene">
+
+<script type="text/brightscript" uri="pkg:/components/MainScene.brs" />
+
+<children>
+    <Group>
+	    <Label
+			id="lbl"
+			horizAlign="center"
+			width="1280"
+			text="BusySpinner Sample"
+			color="0x6c3b97ff"
+			font="font:LargeBoldSystemFont"
+			translation="[0, 50]" />
+			
+			<BusySpinner
+				id="spinner"
+				translation="[570, 300]"
+				control="start"
+				clockwise="true"
+				spinInterval="2" />
+	</Group>
+</children>
+
+</component>

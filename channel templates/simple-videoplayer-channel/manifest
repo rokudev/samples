@@ -1,0 +1,27 @@
+#
+#  Copyright (c) 2016 Roku, Inc. All rights reserved.
+#  Roku Channel Manifest File
+#  Full spec at bit.ly/roku-manifest-file
+#
+
+# Channel Details
+title=SimpleVideoPlayer
+subtitle=SimpleVideoPlayer Example in SceneGraph
+major_version=1
+minor_version=1
+build_version=1
+
+# Channel Assets
+mm_icon_focus_sd=pkg:/images/channel-poster_sd.png
+mm_icon_focus_hd=pkg:/images/channel-poster_hd.png
+mm_icon_focus_fhd=pkg:/images/channel-poster_fhd.png
+
+# Splash Screen + Loading Screen Artwork
+splash_screen_sd=pkg:/images/splash-screen_sd.jpg
+splash_screen_hd=pkg:/images/splash-screen_hd.jpg
+splash_screen_fhd=pkg:/images/splash-screen_fhd.jpg
+splash_color=#808080
+splash_min_time=0
+
+# Resolution
+ui_resolutions=fhd

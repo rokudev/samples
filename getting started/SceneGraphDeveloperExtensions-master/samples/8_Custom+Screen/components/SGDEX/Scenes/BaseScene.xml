@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2018 Roku, Inc. All rights reserved. -->
+
+<!-- @Public
+    developer should extend BaseScene and work in it's context.
+    Function show(args) should be overrided in channel.
+
+    @Sample:
+    // MainScene.xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <component name="MainScene" extends="BaseScene" >
+        <script type="text/brightscript" uri="pkg:/components/MainScene.brs" />
+    </component>
+
+    // MainScene.brs
+    sub Show(args)
+        homeGrid = CreateObject("roSGNode", "GridView")
+        homeGrid.content = GetContentNodeForHome() ' implemented by developer
+        homeGrid.ObserveField("rowItemSelected","OnGridItemSelected")
+        'this will trigger job to show this View
+        m.top.ComponentController.callFunc("show", {
+            view: homeGrid
+        })
+    end sub
+
+-->
+<component name="BaseScene" extends="Scene" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+    <interface>
+        <!-- @Public -->
+        <!-- @ReadOnly -->
+        <!-- reference to ComponentController node that is created and used inside library -->
+        <field id="ComponentController" type="node" />
+
+        <!-- @Public -->
+        <!-- @WriteOnly -->
+        <!-- Exits channel if set to true -->
+        <field id="exitChannel" type="bool" alwaysNotify="true" />
+
+        <!-- Deep linking launch arguments will be passed via this field to Show function -->
+        <field id="launch_args" type="assocarray" onChange="LaunchArgumentsReceived" />
+
+        <!-- @Public -->
+        <!-- Theme is used to customize the appearance of all SGDEX views.
+        For common fields see [SGDEXComponent](#SGDEXComponent#fields#theme)
+        For view specific views see view documentation
+
+        [GridView](#GridView#fields#theme)
+        [DetailsView](#DetailsView#fields#theme)
+        [VideoView](#VideoView#fields#theme)
+        [CategoryListView](#CategoryListView#fields#theme)
+
+        <b>Theme can be set to several levels</b>
+        <b>Any view:</b>
+        <code>
+        scene.theme = {
+        &nbsp;&nbsp;global: {
+        &nbsp;&nbsp;&nbsp;&nbsp;textColor: "FF0000FF"
+        &nbsp;&nbsp;}
+        }
+        </code>
+        Set's all text colors to red
+        <b>Type of view</b>
+        <code>
+        scene.theme = {
+        &nbsp;&nbsp;gridView: {
+        &nbsp;&nbsp;&nbsp;&nbsp;textColor: "FF0000FF"
+        &nbsp;&nbsp;}
+        }
+        </code>
+        Set's all grids text color to red
+        <b>Instance specific:</b>
+        use view's theme field to set it's theme
+        <code>
+        view = CreateObject("roSGNode", "GridView")
+        view.theme = {
+        &nbsp;&nbsp;textColor: "FF0000FF"
+        }
+        </code>
+        this grid will only have text color red
+        All theme fields are combined and used by view when created, so you can set
+        <code>
+        scene.theme = {
+        &nbsp;&nbsp;   global: {
+        &nbsp;&nbsp;&nbsp;&nbsp;    textColor: "FF0000FF"
+        &nbsp;&nbsp;}
+        &nbsp;&nbsp;gridView: {
+        &nbsp;&nbsp;&nbsp;&nbsp;textColor: "00FF00FF"
+        &nbsp;&nbsp;}
+        }
+        view1 = CreateObject("roSGNode", "GridView")
+        view2 = CreateObject("roSGNode", "GridView")
+        view.2theme = {
+        &nbsp;&nbsp;textColor: "FFFFFFFF"
+        }
+        detailsView= CreateObject("roSGNode", "DetailsView")
+        </code>
+        In this case
+        view1 - will have texts in 00FF00FF
+        view2 - will have FFFFFFFF
+        detailsView - will take textColor from global and it will be FF0000FF
+        -->
+        <field id="theme" type="assocarray" alwaysNotify="true" />
+
+        <!-- @Public -->
+        <!-- Field to update themes by passing the config
+            Structure of config is same as for [theme](#BaseScene#fields#theme) field.
+            You should only pass fields that should be updated not all theme fields.
+
+            Note. if you want to change a lot of fields change them with as smaller amount of configs as you can, it wouldn't redraw views too often then.
+        -->
+        <field id="updateTheme" type="assocarray" alwaysNotify="true" />
+
+        <!-- @Private -->
+        <!-- Store global theme parameters -->
+        <field id="actualThemeParameters" type="assocarray" alwaysNotify="true" />
+
+        <!-- Function that is used under the hood to create objects in channel context -->
+        <function name="createObjectOnDemand"/>
+    </interface>
+
+    <script type="text/brightscript" uri="BaseScene.brs" />
+
+    <children>
+        <ComponentController
+            id ="ComponentController" />
+    </children>
+</component>
