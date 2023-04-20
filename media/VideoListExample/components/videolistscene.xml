@@ -20,7 +20,7 @@
 
       m.readVideoContentTask = createObject("roSGNode", "ContentReader")
       m.readVideoContentTask.observeField("content", "showvideolist")
-      m.readVideoContentTask.contenturi = "http://bit.ly/2JUKILe"
+      m.readVideoContentTask.contenturi = "https://go.roku.com/video-content-sample-channel-feed"
       m.readVideoContentTask.control = "RUN" 
 
       m.videolist.observeField("itemFocused", "setvideo")
