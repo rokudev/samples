@@ -866,8 +866,8 @@ end if
 end if
 end function
 impl.onPosition = function (msg as object) as void
-if invalid <> m.prplyInfo["mediaURL"] and invalid = m.prplyInfo["pods"]
-adjsn = m.loader.requestAdInsertion(m.prplyInfo.mediaURL)
+if invalid <> m.prplyInfo["variantURL"] and invalid = m.prplyInfo["pods"]
+adjsn = m.loader.requestAdInsertion(m.prplyInfo.variantURL)
 if invalid = adjsn
 m.prplyInfo["pods"] = []
 else
@@ -894,9 +894,10 @@ if invalid = masterjson or not m.isValidString(masterjson["Master-M3U8"]) then r
 if false then return {masterURL:masterjson["Master-M3U8"]}
 playlistUrl = masterjson["Master-M3U8"]
 mediaURL = m.selectMediaUrl(playlistUrl, requestObj)
-if "" <> mediaURL
-prplyInfo["mediaURL"] = mediaURL
+if mediaURL <> ""
+prplyInfo["variantURL"] = mediaURL
 end if
+prplyInfo["mediaURL"] = playlistUrl
 matches = m.trckngpos.match(requestObj.url)
 if 1 < matches.count()
 m.trackingposition = matches[1]
@@ -1421,7 +1422,7 @@ function RAFX_SSAI(params as object) as object
         else if "simple" = params["trackingmode"]'
             p = RAFX_getAdobeSimplePlugin(params)'
         end if
-        p["__version__"] = "0b.42.35.15"
+        p["__version__"] = "0b.42.36.15"
         p["__name__"] = params["name"]
         return p
     end if
