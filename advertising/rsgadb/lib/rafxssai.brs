@@ -1,4 +1,4 @@
-' ********** Copyright 2020 Roku, Inc.  All Rights Reserved. **********
+' ********** Copyright 2023 Roku, Inc.  All Rights Reserved. **********
 function RAFX_getSSAIPluginBase(params as object) as Object
 daisdk = {}
 daisdk.init = function(params=invalid as object) as Void
@@ -96,6 +96,12 @@ m.useStitched = (invalid = params["useStitched"]  or  params["useStitched"])
 if m.useStitched
 adIface = m.sdk.getRokuAds()
 adIface.stitchedAdsInit([])
+if invalid <> params.RIA
+m.RIA = params.RIA
+end if
+if invalid <> params.IROLL
+m.IROLL = params.IROLL
+end if
 end if
 if not ei
 m.sdk.log("Warning: Invalid object for interactive ads.")
@@ -127,25 +133,30 @@ m.streamManager.createTimeToEventMap(adBreaks)
 end function
 impl.onMetadata = function(msg as object) as void
 end function
+impl.onUnknown = function(msg as object) as void
+end function
 impl.onPosition = function (msg as object) as void
 m.streamManager.onPosition(msg)
 end function
 impl.onMessage = function(msg as object) as object
 msgType = m.sdk.getMsgType(msg, m.wrpdPlayer)
-if msgType = m.sdk.msgType.FINISHED     
-m.sdk.log("All video is completed - full result")
-m.sdk.eventCallbacks.doCall(m.sdk.AdEvent.STREAM_END, {})
-else if msgType = m.sdk.msgType.METADATA
+if msgType = m.sdk.msgType.METADATA
 m.onMetadata(msg)
 else if msgType = m.sdk.msgType.POSITION
 m.onPosition(msg)
+else if invalid <> msg and msgType = m.sdk.msgType.UNKNOWN 
+m.onUnknown(msg)
 end if
 curAd = m.msgToRAF(msg)
 if invalid <> m.prplyInfo and msgType = m.sdk.msgType.POSITION
 m.streamManager.onMessageVOD(msg, curAd)
 m.onMessageLIVE(msg, curAd)
 else if msgType = m.sdk.msgType.FINISHED     
-m.streamManager.deinit()
+m.sdk.log("All video is completed - full result. Last pos: "+m.streamManager.crrntPosSec.tostr())
+if invalid <> m.wrpdPlayer and invalid <> m.wrpdPlayer.sgnode then
+m.streamManager.deinit({curAd:curAd, strmEnd:m.wrpdPlayer.sgnode.duration, strmType:m.prplyInfo.strmType})
+end if
+m.sdk.eventCallbacks.doCall(m.sdk.AdEvent.STREAM_END, {})
 end if
 return curAd
 end function
@@ -232,6 +243,24 @@ adIface.stitchedAdsInit([])
 end if
 return curAd
 end function
+impl.isnonemptystr = function(obj) as boolean
+return ((obj <> invalid) and (GetInterface(obj, "ifString") <> invalid) and (len(obj) > 0))
+end function
+impl.setRIAParameters = function(rAd as object, srcAd as object) as void
+if m.useStitched
+if m.isnonemptystr(srcAd.adParameters) then
+rAd.adParameters = srcAd.adParameters
+return
+else if invalid <> m.RIA and invalid <> m.RIA.getAdParameters
+rAd.adParameters = m.RIA.getAdParameters()
+end if
+end if
+end function
+impl.setIRollParameters = function(rAd as object) as void
+if m.useStitche and invalid <> m.IROLL and invalid <> m.IROLL.getIRollAd
+rAd.append(m.IROLL.getIRollAd())
+end if
+end function
 daisdk["impl"] = impl
 daisdk.createLoader = function(live_or_vod as string) as object
 obj = m.createDAIObject(live_or_vod+"loader")
@@ -316,41 +345,44 @@ obj.crrntPosSec = -1
 obj.lastPosSec = -1
 obj.whenAdBreakStart = -1 
 obj.currentAdBreak = invalid
+obj.nukeTimeToEventMap = false
 return obj
 end function
 strmMgr = {}
-strmMgr.addEventToEvtMap = function(timeToEvtMap as object, timeKey as string, evtStr as string) as void
+strmMgr.addEventToEvtMap = function(timeToEvtMap as object, timeKey as string, evtStr as dynamic) as void
+evtType = type(evtStr)
+if "String" = evtType or "roString" = evtType
+m.addEventToEvtMapString(timeToEvtMap, timeKey, evtStr)
+else
+for each x in evtStr
+m.addEventToEvtMapString(timeToEvtMap, timeKey, x)
+end for
+end if
+end function
+strmMgr.addEventToEvtMapString = function(timeToEvtMap as object, timeKey as string, evtStr as string) as void
 if timeToEvtMap[timeKey] = invalid
 timeToEvtMap[timeKey] = [evtStr]
 else
+mapList = timeToEvtMap[timeKey]
 eExist = false
-for each e in timeToEvtMap[timeKey]
+for each e in mapList
 eExist =   eExist or (e = evtStr)
 end for
 if not eExist
-timeToEvtMap[timeKey].push(evtStr)
+mapList.push(evtStr)
+if m.sdk.AdEvent.COMPLETE = evtStr and 1 < mapList.count() and m.sdk.AdEvent.POD_END = mapList[0]
+mapList.sort()
+end if
 end if
 end if
 end function
-strmMgr.createTimeToEventMap = function(adBreaks as object) as Void
-if adBreaks = invalid
-m.adTimeToEventMap = invalid
-m.adTimeToBreakMap = invalid
-m.adTimeToBeginEnd = invalid
-return
+strmMgr.trackingToMap = function(tracking as object, timeToEvtMapGiven=invalid as object) as boolean
+timeToEvtMap = timeToEvtMapGiven
+if invalid = timeToEvtMap
+timeToEvtMap = m.adTimeToEventMap
 end if
-timeToEvtMap = {}
-timeToBreakMap = {}
-timeToBeginEnd = []
-for each adBreak in adBreaks
-brkBegin = int(adBreak.renderTime)
-brkTimeKey = brkBegin.tostr()
-timeToEvtMap[brkTimeKey] = [m.sdk.AdEvent.POD_START]
-timeToBreakMap[brkTimeKey] = adBreak
-adRenderTime = adBreak.renderTime
-for each rAd in adBreak.ads
 hasCompleteEvent = false
-for each evt in rAd.tracking
+for each evt in tracking
 if invalid <> evt["time"]
 timeKey = int(evt.time).tostr()
 m.addEventToEvtMap(timeToEvtMap, timeKey, evt.event)
@@ -359,13 +391,36 @@ hasCompleteEvent = true
 end if
 end if
 end for
+return hasCompleteEvent
+end function
+strmMgr.createTimeToEventMap = function(adBreaks as object) as Void
+if adBreaks = invalid
+m.adTimeToEventMap = invalid
+m.adTimeToBreakMap = invalid
+m.adTimeToBeginEnd = invalid
+return
+end if
+timeToEvtMap = {}   
+timeToBreakMap = {}
+timeToBeginEnd = [] 
+for each adBreak in adBreaks
+brkBegin = int(adBreak.renderTime)
+brkTimeKey = brkBegin.tostr()
+podstartevts = [m.sdk.AdEvent.POD_START]
+if 0 < adBreak.ads.count() then podstartevts.push(m.sdk.AdEvent.IMPRESSION)
+timeToEvtMap[brkTimeKey] = podstartevts
+timeToBreakMap[brkTimeKey] = adBreak
+adRenderTime = adBreak.renderTime
+brkEnd = int(adBreak.renderTime+adBreak.duration)
+for each rAd in adBreak.ads
+hasCompleteEvent = m.trackingToMap(rAd.tracking, timeToEvtMap)
 adRenderTime = adRenderTime + rAd.duration
 if not hasCompleteEvent and 0 < rAd.tracking.count() and 0 < rAd.duration
+if brkEnd < adRenderTime then adRenderTime = brkEnd
 timeKey = int(adRenderTime - 0.5).tostr()
 m.addEventToEvtMap(timeToEvtMap, timeKey, m.sdk.AdEvent.COMPLETE)
 end if
 end for
-brkEnd = int(adBreak.renderTime+adBreak.duration)
 timeKey = brkEnd.tostr()
 m.appendBreakEnd(timeToEvtMap, timeKey)
 timeToBeginEnd.push({"begin":brkBegin, "end":brkEnd, "renderSequence":adBreak.renderSequence})
@@ -427,7 +482,6 @@ end if
 return seekRequest.time
 end function
 strmMgr.onPosition = function(msg as object) as Void
-m.sdk.log(["onPosition() msg position: ",msg.getData().tostr()], 89)
 if m.currentAdBreak = invalid or m.currentAdBreak.duration = invalid
 return
 end if
@@ -457,6 +511,9 @@ if adEvent <> invalid
 m.handleAdEvent(adEvent, sec, curAd)
 end if
 end for
+if m.nukeTimeToEventMap
+m.adTimeToEventMap.delete(timeKey)
+end if
 end if
 end if
 end function
@@ -480,15 +537,19 @@ for each evnt in adBreak.tracking
 evnt.triggered = triggered
 end for
 end function
+strmMgr.adBreakEnded = function(params as object) as boolean
+return ((invalid <> params.endAt and params.endAt < m.crrntPosSec) or (invalid <> m.adBreakEndedId and invalid <> params.id and m.adBreakEndedId = params.id))
+end function
 strmMgr.cleanupAdBreakInfo = function(triggered=false as boolean) as void
 if m.currentAdBreak <> invalid
 m.updateAdBreakEvents(m.currentAdBreak, triggered)
+m.adBreakEndedId = m.currentAdBreak.id
 end if
 m.whenAdBreakStart = -1
 m.currentAdBreak = invalid
 m.lastEvents = {}
 end function
-strmMgr.deinit = function() as void
+strmMgr.deinit = function(params as object) as void
 m.adTimeToEventMap = invalid
 m.adTimeToBreakMap = invalid
 m.adTimeToBeginEnd = invalid
@@ -590,10 +651,10 @@ xfer.addHeader("Accept-Language", m.locale.Accept_Language)
 xfer.addHeader("Content-Language", m.locale.Content_Language)
 return xfer
 end function
-daisdk.setTrackingTime = function(timeOffset as float, rAd as object) as void
+daisdk.setTrackingTime = function(timeOffset as float, rAd as object, capComplete=-1 as integer) as void
 duration = rAd.duration
 for each evt in rAd.tracking
-if evt.event = m.AdEvent.IMPRESSION
+if evt.event = m.AdEvent.IMPRESSION or evt.event = m.AdEvent.POD_START
 evt.time = 0.0 + timeOffset
 else if evt.event = m.AdEvent.FIRST_QUARTILE
 evt.time = duration * 0.25 + timeOffset
@@ -601,8 +662,9 @@ else if evt.event = m.AdEvent.MIDPOINT
 evt.time = duration * 0.5 + timeOffset
 else if evt.event = m.AdEvent.THIRD_QUARTILE
 evt.time = duration * 0.75 + timeOffset
-else if evt.event = m.AdEvent.COMPLETE
+else if evt.event = m.AdEvent.COMPLETE or evt.event = m.AdEvent.POD_END
 evt.time = duration + timeOffset
+if 0.0 < capComplete and capComplete < evt.time then evt.time = capComplete
 end if
 end for
 end function
@@ -683,7 +745,8 @@ return ERROR
 end function
 daisdk.log = function(x, logLevel=-1 as integer) as void
 if logLevel < m.logLevel
-dtm = ["SDK (", createObject("roDateTime").toISOString().split("T")[1], "): "].join("")
+ddttm = createObject("roDateTime")
+dtm = ["SDK (", ddttm.toISOString().split("T")[1], " ", ddttm.getMilliseconds().tostr(), "): "].join("")
 if "roArray" = type(x)
 print dtm; x.join("")
 else
@@ -1010,20 +1073,20 @@ else
 return xobj.id
 end if
 end function
-strmMgr.setXid = function(xobj as object, xdata as string) as void
+strmMgr.setXid = sub(xobj as object, xdata as string)
 if "data" = m.xid then
 xobj.xdata = xdata 
 else
 xobj.xdata = xobj.id
 end if
-end function
+end sub
 strmMgr.isPodBegin = function(podbegin as string) as boolean
 return (podbegin <> invalid and podbegin.right(8) = "PodBegin")
 end function
 strmMgr.isPodEnd = function(podend as string) as boolean
 return (podend <> invalid and podend.right(6) = "PodEnd")
 end function
-strmMgr.onMetadataAdBegin = function(position, xobj as object) as void
+strmMgr.onMetadataAdBegin = sub(position, xobj as object)
 if invalid = m.adBreakID 
 m.setEmptyAdBreak(position)
 end if
@@ -1043,11 +1106,18 @@ if adSeq < 0
 adbreak.ads.push(newAd)
 end if
 adRenderTime = adbreak.renderTime
-if 0 < adbreak.duration
-adRenderTime += adbreak.duration
+if 0 < adSeq
+for each evt in adbreak.ads[adSeq-1].tracking
+if m.sdk.AdEvent.COMPLETE = evt.event
+if adRenderTime < evt.time
+adRenderTime = evt.time
+end if
+exit for
+end if
+end for
 end if
 m.sdk.setTrackingTime(adRenderTime, newAd)
-if 0 < adbreak.duration  and  int(adRenderTime) <=int(m.crrntPosSec) then
+if 0 < adSeq and int(adRenderTime) <= int(m.crrntPosSec) then
 adRenderTime = int(m.crrntPosSec + 1)
 for each evt in newAd.tracking
 if m.sdk.AdEvent.IMPRESSION = evt.event
@@ -1055,14 +1125,18 @@ evt.time = adRenderTime
 end if
 end for
 end if
-adbreak.duration += newAd.duration
+if 0 < adSeq
+adBreak.duration = (adRenderTime + newAd.duration) - adBreak.renderTime
+else
+adBreak.duration = newAd.duration
+end if
 m.sdk.log(["Ad renderTime: ", adRenderTime.tostr(), "  dur: ", adBreak.duration.tostr()], 20)
 exit for
 end if
 end for
 end if
 m.createTimeToEventMap(m.adBreaks)
-end function
+end sub
 strmMgr.onMetadata = function(msg as object, useStitched as boolean, sgnode as object) as void
 if msg.getField() <> "timedMetaData2" then return
 if invalid = m.adBreaks
@@ -1116,10 +1190,6 @@ else
 eopByMarker += xobj.offset
 end if
 end if
-eopByMarker = int(eopByMarker)
-if eopByMarker <= m.crrntPosSec
-eopByMarker = m.crrntPosSec + 1
-end if
 abEnding = invalid
 for each ab in m.adBreaks
 if m.adBreakID = ab.xid
@@ -1127,6 +1197,21 @@ abEnding = ab
 exit for
 end if
 end for
+eopByMarker = int(eopByMarker)
+endOfPodEvents = [m.sdk.AdEvent.POD_END]
+if invalid <> abEnding and "0" <> xobj.adcount and xobj.adcount.toInt() = abEnding.ads.count()
+lastAd = abEnding.ads.peek()
+for each evt in lastAd.tracking
+if m.sdk.AdEvent.COMPLETE = evt.event and evt.triggered = false and eopByMarker < evt.time
+eopByMarker = int(evt.time + 0.5)
+endOfPodEvents = [m.sdk.AdEvent.COMPLETE, m.sdk.AdEvent.POD_END]
+exit for
+end if
+end for
+end if
+while eopByMarker <= m.crrntPosSec
+eopByMarker += 1
+end while
 if invalid <> abEnding and invalid <> m.adTimeToEventMap
 timeToEvtMap = {}
 timeKey = eopByMarker.tostr()
@@ -1144,7 +1229,7 @@ end if
 end for
 timeToEvtMap[timeKey] = [m.sdk.AdEvent.COMPLETE, m.sdk.AdEvent.POD_END]
 else
-timeToEvtMap[timeKey] = [m.sdk.AdEvent.POD_END]
+timeToEvtMap[timeKey] = endOfPodEvents
 end if
 m.adTimeToEventMap = timeToEvtMap
 end if
@@ -1166,7 +1251,7 @@ strmMgr.rgx_duration = createObject("roRegEx", "DURATION=([\d+[\.\d+]*)", "")
 strmMgr.rgx_offset = createObject("roRegEx", "OFFSET=([\d+[\.\d+]*)", "")
 strmMgr.rgx_podduration = createObject("roRegEx", "BREAKDUR=([\d+[\.\d+]*)", "")
 strmMgr.rgx_adcount = createObject("roRegEx", "COUNT=(\d+)", "")
-strmMgr.rgx_data = createObject("roRegEx", "DATA=" + chr(34) + "([\w+/=\+]+)", "")
+strmMgr.rgx_data = createObject("roRegEx", "DATA=""?([\w+/=\+]+)", "")
 strmMgr.rgx_outer = createObject("roRegEx", "</?AdTrackingFragments?></?AdTrackingFragments?>", "")
 strmMgr.rgx_adseq = createObject("roRegEx", "<Ad[^>]+(sequence=""(\d+)"")", "")
 strmMgr.VASTToRAFEvent = {
@@ -1206,6 +1291,9 @@ return matches[1]
 end if
 return defaultval
 end function
+strmMgr.isnonemptystr = function(obj) as boolean
+return ((obj <> invalid) AND (GetInterface(obj, "ifString") <> invalid) AND (Len(obj) > 0))
+end function
 strmMgr.parseXMarker = function(ext_x_marker as string) as object
 xobj = {
 id: m.extract(ext_x_marker, m.rgx_id, "")
@@ -1214,9 +1302,6 @@ data: invalid
 }
 m.sdk.log(["X-Marker ", ext_x_marker.left(80), "..."], 50)
 xdata = m.extract(ext_x_marker, m.rgx_data, "")
-if xdata.left(1) = chr(34)
-xdata = xdata.right(len(xdata)-1)
-end if
 m.setXid(xobj, xdata)
 ba = createObject("roByteArray")
 ba.fromBase64String(xdata)
@@ -1224,10 +1309,10 @@ xmlstr = ba.toAsciiString()
 if invalid = xmlstr then return xobj
 xmlstr = m.rgx_outer.replaceAll(xmlstr, "")
 if m.isPodBegin(xobj.xtype)
-xobj.adcount = m.extract(ext_x_marker, m.rgx_adcount, 0)
+xobj.adcount = m.extract(ext_x_marker, m.rgx_adcount, "0")
 xobj.podduration = val(m.extract(ext_x_marker, m.rgx_podduration, "0"))
 for each ab in m.adBreaks
-if ab.xid = m.getXid(xobj) then
+if m.isnonemptystr(ab.xid) and ab.xid = m.getXid(xobj) then
 m.sdk.log(["Duplicate PodBegin. ID: ", xobj.id], 30)
 xobj.xtype = "dupPodBegin"
 return xobj
@@ -1235,6 +1320,14 @@ end if
 end for
 m.parsePodBegin(xmlstr, xobj)
 else if "AdBegin" = xobj.xtype
+if 0 < xmlstr.Len()
+if Instr(1, xmlstr, "<VAST>") <= 0
+xmlstr = "<VAST>" + xmlstr
+end if
+if Instr(1, xmlstr, "</VAST>") <= 0
+xmlstr = xmlstr + "</VAST>"
+end if
+end if
 if invalid <> m.adBreaks
 adBreak = m.adBreaks[0]
 for each ad in adBreak.ads
@@ -1248,6 +1341,7 @@ end if
 xobj.duration = val(m.extract(ext_x_marker, m.rgx_duration, "0"))
 m.parseAdBegin(xmlstr, xobj)
 else if m.isPodEnd(xobj.xtype)
+xobj.adcount = m.extract(ext_x_marker, m.rgx_adcount, "0")
 xobj.offset = val(m.extract(ext_x_marker, m.rgx_offset, "0"))
 m.parsePodEnd(xmlstr, xobj)
 end if
@@ -1268,7 +1362,7 @@ m.sdk.eventCallbacks.doCall(m.sdk.AdEvent.PODS, {event:m.sdk.AdEvent.PODS, adPod
 m.adBreakID = adBreak["xid"]
 end if
 end function
-strmMgr.parsePodBegin = function(xmlstr as string, xobj as object) as void
+strmMgr.parsePodBegin = sub(xmlstr as string, xobj as object)
 adBreak = {rendersequence:"midroll", renderTime:0, tracking:[], viewed:false, ads:[]}
 if "" <> xmlstr then
 adBreak = m.parseMultiVMAP(xmlstr)
@@ -1287,8 +1381,8 @@ else
 adBreak.ads = []
 end if
 xobj.data = adBreak
-end function
-strmMgr.parseAdBegin = function(data as string, xobj as object) as void
+end sub
+strmMgr.parseAdBegin = sub(data as string, xobj as object)
 vasts = data.split("</VAST>")
 vast = vasts[0]
 mtch = m.rgx_adseq.match(vast)
@@ -1335,7 +1429,7 @@ else
 ad.tracking = events
 end if
 end if
-end function
+end sub
 strmMgr.parseAdBeginRAF = function(xmlstr as string, xobj as object) as void
 adIface = m.sdk.getRokuAds()
 validvast = xmlstr.split("</VAST>")[0] + "</VAST>"
@@ -1405,6 +1499,11 @@ end if
 m.sdk.log(["parseMultiVMAP() adBreak tracking count: ", adBreak.tracking.count().tostr()], 11)
 return adBreak
 end function
+strmMgr.cleanupAdBreakInfoBase = strmMgr.cleanupAdBreakInfo
+strmMgr.cleanupAdBreakInfo = function(triggered=false as boolean) as void
+m.cleanupAdBreakInfoBase(triggered)
+m.adBreaks[0] = {rendersequence:"midroll",renderTime:0,tracking:[],duration:0,ads:[]}
+end function
 vodloader = rafssai["vodloader"]
 vodloader.requestPreplay = function(requestObj as object) as dynamic
 m.strmURL = requestObj.url           
@@ -1421,7 +1520,7 @@ function RAFX_SSAI(params as object) as object
         else if "simple" = params["trackingmode"]'
             p = RAFX_getAdobeSimplePlugin(params)'
         end if
-        p["__version__"] = "0b.42.35.15"
+        p["__version__"] = "0b.47.34.14"
         p["__name__"] = params["name"]
         return p
     end if
