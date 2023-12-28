@@ -18,7 +18,7 @@
 
       m.readContentTask = createObject("roSGNode", "ContentReader")
       m.readContentTask.observeField("content", "setpanels")
-      m.readContentTask.contenturi = "http://www.sdktestinglab.com/Tutorial/content/panelsetcontent.xml"
+      m.readContentTask.contenturi = "http://roku-sdk-docs.s3.amazonaws.com/feeds/sths/panelsetscontent.xml"
       m.readContentTask.control = "RUN"
     end sub
 

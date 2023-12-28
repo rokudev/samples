@@ -69,7 +69,7 @@ end sub
 Function GetApiArray()
     url = CreateObject("roUrlTransfer")
     'External resource
-    url.SetUrl("http://api.delvenetworks.com/rest/organizations/59021fabe3b645968e382ac726cd6c7b/channels/1cfd09ab38e54f48be8498e0249f5c83/media.rss")
+    url.SetUrl("https://roku-sdk-docs.s3.amazonaws.com/samples/videocontent.xml")
     rsp = url.GetToString()
 
     'Utility function for XML parsing.

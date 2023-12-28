@@ -1,0 +1,15 @@
+{
+    "contents": [
+        {
+            "title" : "tracking mode X-MARKER",
+            "description"  : "Using EXT-X-MARKER directive in HTTP Live Streaming to extract Ad Tracking info. PodBegin,PodEnd,AdBegin will be parsed into list of RAF Pods and given to RAF.stitchedAdsInit() then RAF.stitchedAdHandledEvent() called when POSITION events. App may not call RAF.fireTrackingEvents().",
+            "url"   : "https:// your HLS url obtained from OTTera upon request"
+        },
+        {
+            "title" : "tracking mode X-MARKER, fireTrackingEvents() only",
+            "description"  : "Using EXT-X-MARKER directive in HTTP Live Streaming, but RAF Pods not given to RAF.stitchedAdsInit() nor RAF.stitchedAdHandledEvent() called. App is responsible to call RAF.fireTrackingEvents().",
+            "useStitched": false,
+            "url"   : "https:// your HLS url obtained from OTTera upon request"
+        }
+    ]
+}

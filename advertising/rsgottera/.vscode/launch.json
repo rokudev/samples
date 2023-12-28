@@ -1,0 +1,29 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.1.0",
+    "configurations": [
+        {
+            "type": "brightscript",
+            "request": "launch",
+            "name": "rsgottera",
+            "stopOnEntry": false,
+            "host": "${env:ROKU_HOST}",
+            "password": "${env:ROKU_PASSWORD}",
+            "rootDir": "${workspaceFolder}",
+            "enableDebuggerAutoRecovery": true,
+            "stopDebuggerOnAppExit": false,
+            "outDir": "${workspaceFolder}/out",
+            "files": [
+                "manifest",
+                "lib/**/*.*",
+                "components/**/*.*",
+                "assets/**/*.*",
+                "images/**/*.*",
+                "source/**/*.*",
+            ]
+        }
+
+    ]
+}
