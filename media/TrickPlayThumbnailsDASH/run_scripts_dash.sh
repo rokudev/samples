@@ -7,7 +7,7 @@
 # a .mpd manifest with thumbnails
 
 if [ $# -lt 6 ]; then
-	echo "Usage: $0 <input-file> <output-dir> <output-prefix> <resolution> <columns> <rows> <interval>"
+	echo "Usage: $0 <input-file> <output-dir> <resolution> <columns> <rows> <interval>"
 	exit 1
 fi
 
