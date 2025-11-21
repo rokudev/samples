@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--********** Copyright 2020 Roku Corp.  All Rights Reserved. **********-->
+
+<component name="MainScene" extends="Scene" >
+
+<interface>
+    <field id="orders" type="assocarray"/>
+    <field id="exitApp" type="boolean" value="false" />
+</interface>
+
+<script type="text/brightscript" uri="pkg:/components/MainScene.brs" />
+
+<children>
+    <ProductScreen
+        id="productScreen" />
+
+    <PurchaseScreen
+        id="purchaseScreen"
+        visible="false"/>
+
+    <PurchaseTVODScreen
+        id="purchaseTVODScreen"
+        visible="false"/>
+        
+    <UpgradeScreen
+        id="upgradeScreen"
+        visible="false"/>
+</children>
+
+</component>
