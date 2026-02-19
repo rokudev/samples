@@ -5,28 +5,28 @@ sub init()
     
     mslb1 = m.top.findNode("mslb1")
     mslb1.drawingStyles = {
-        "GothamPurpleBold": {
-            "fontUri": "pkg:/fonts/Gotham-Bold.otf"
+        "RokuTextPurpleBold": {
+            "fontUri": "pkg:/fonts/RokuText-Bold.otf"
             "fontSize":36
             "color": "#662d91"
         }
-        "GothamBoldWhite": {
-            "fontUri": "pkg:/fonts/Gotham-Bold.otf"
+        "RokuTextBoldWhite": {
+            "fontUri": "pkg:/fonts/RokuText-Bold.otf"
             "fontSize":36
             "color": "#FFFAFA"
         }
-        "GothamPurple": {
-            "fontUri": "pkg:/fonts/Gotham-Medium.otf"
+        "RokuTextPurple": {
+            "fontUri": "pkg:/fonts/RokuText-Medium.otf"
             "fontSize":36
             "color": "#662d91"
         }
-        	"GothamPurpleLarge": {
-            "fontUri": "pkg:/fonts/Gotham-Medium.otf"
+        	"RokuTextPurpleLarge": {
+            "fontUri": "pkg:/fonts/RokuText-Medium.otf"
             "fontSize":54
             "color": "#662d91"
         }
-         "GothamWhite": {
-            "fontUri": "pkg:/fonts/Gotham-Medium.otf"
+         "RokuTextWhite": {
+            "fontUri": "pkg:/fonts/RokuText-Medium.otf"
             "fontSize":36
             "color": "#FFFAFA"
         }
@@ -54,28 +54,28 @@ sub init()
     
     mslb2 = m.top.findNode("mslb2")
     mslb2.drawingStyles = {
-        "GothamPurpleBold": {
-            "fontUri": "pkg:/fonts/Gotham-Bold.otf"
+        "RokuTextPurpleBold": {
+            "fontUri": "pkg:/fonts/RokuText-Bold.otf"
             "fontSize":36
             "color": "#662d91"
         }
-        "GothamBoldWhite": {
-            "fontUri": "pkg:/fonts/Gotham-Bold.otf"
+        "RokuTextBoldWhite": {
+            "fontUri": "pkg:/fonts/RokuText-Bold.otf"
             "fontSize":36
             "color": "#FFFAFA"
         }
-        "GothamPurple": {
-            "fontUri": "pkg:/fonts/Gotham-Medium.otf"
+        "RokuTextPurple": {
+            "fontUri": "pkg:/fonts/RokuText-Medium.otf"
             "fontSize":36
             "color": "#662d91"
         }
-        	"GothamPurpleLarge": {
-            "fontUri": "pkg:/fonts/Gotham-Medium.otf"
+        	"RokuTextPurpleLarge": {
+            "fontUri": "pkg:/fonts/RokuText-Medium.otf"
             "fontSize":72
             "color": "#662d91"
         }
-         "GothamWhite": {
-            "fontUri": "pkg:/fonts/Gotham-Medium.otf"
+         "RokuTextWhite": {
+            "fontUri": "pkg:/fonts/RokuText-Medium.otf"
             "fontSize":36
             "color": "#FFFAFA"
         }
@@ -101,8 +101,8 @@ sub init()
         }              
     }    
 
-   mslb1.text = "<GothamWhite>Developers can use the new </GothamWhite><GothamBoldWhite>MultiStyleLabel </GothamBoldWhite><GothamWhite>node class to create labels with multiple </GothamWhite><HandprintedWhite>fonts,</HandprintedWhite><GothamPurple>colors, and </GothamPurple><GothamPurpleLarge>sizes.</GothamPurpleLarge>" 
-   mslb2.text = "<GothamWhite>This enables developers to, for example, bold and/or color </GothamWhite><GothamPurpleBold>important text </GothamPurpleBold><GothamWhite>within a label and display emojis </GothamWhite><GothamPurpleBold>(</GothamPurpleBold>" + "<Noto>" + chr(128250) +"</Noto>" + "<GothamPurpleBold>)</GothamPurpleBold><GothamWhite>.</GothamWhite>"
+   mslb1.text = "<RokuTextWhite>Developers can use the new </RokuTextWhite><RokuTextBoldWhite>MultiStyleLabel </RokuTextBoldWhite><RokuTextWhite>node class to create labels with multiple </RokuTextWhite><HandprintedWhite>fonts,</HandprintedWhite><RokuTextPurple>colors, and </RokuTextPurple><RokuTextPurpleLarge>sizes.</RokuTextPurpleLarge>" 
+   mslb2.text = "<RokuTextWhite>This enables developers to, for example, bold and/or color </RokuTextWhite><RokuTextPurpleBold>important text </RokuTextPurpleBold><RokuTextWhite>within a label and display emojis </RokuTextWhite><RokuTextPurpleBold>(</RokuTextPurpleBold>" + "<Noto>" + chr(128250) +"</Noto>" + "<RokuTextPurpleBold>)</RokuTextPurpleBold><RokuTextWhite>.</RokuTextWhite>"
 
 
 End sub
