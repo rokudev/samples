@@ -16,9 +16,9 @@ end function
 
 function runTask()
     '
-    '  1. Load and instanciate Adopter
+    '  1. Load and instanciate Adapter
     '
-    adapter = loadAdopter()
+    adapter = loadAdapter()
     '
     '  2. Request preplay
     '
@@ -29,11 +29,11 @@ function runTask()
     runLoop(adapter)
 end function
 
-function loadAdopter() as object
+function loadAdapter() as object
     '  not calling RAF.stitchedAdHandledEvent(). App is responsible to call RAF.fireTrackingEvents()
     if invalid <> m.top.testConfig["useStitched"] and false = m.top.testConfig.useStitched then m.useStitched = false
     '
-    '  1. Load and instanciate Adopter
+    '  1. Load and instanciate Adapter
     '
     adapter = RAFX_SSAI({name:"uplynk"}) ' Required, "uplynk"
     if adapter <> invalid
@@ -184,7 +184,7 @@ function podStartCallback(podInfo as Object)
     end if
 end function
 function adEventCallback(adInfo as Object) as Void
-    print "At ";adInfo.position;" from Adopter -- " ; adInfo.event
+    print "At ";adInfo.position;" from Adapter -- " ; adInfo.event
     if invalid <> m.adPod and m.adIndex < m.adPod.ads.count()
         adIface = Roku_Ads()
         ' fire Ad pixel
