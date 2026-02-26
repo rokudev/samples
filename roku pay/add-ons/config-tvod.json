@@ -1,0 +1,8 @@
+{
+    "TVOD": [
+        {"sku": "TVOD-Buy", "title": "Movie 2", "contentKey": "TVOD-Movie-2", "price": "1.99", "originalPrice": "2.99" },
+        {"sku": "TVOD-Buy", "title": "Movie 6", "contentKey": "TVOD-Movie-6", "price": "5.99", "originalPrice": "5.99" },
+        {"sku": "TVOD-Rent", "title": "Rent 1", "contentKey": "TVOD-Rent-1", "price": "0.99", "originalPrice": "2.99" },
+        {"sku": "TVOD-Rent", "title": "Rent 4", "contentKey": "TVOD-Rent-4", "price": "3.99", "originalPrice": "4.99" }
+	]
+}

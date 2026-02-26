@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--********** Copyright 2020, 2023 Roku Corp.  All Rights Reserved. **********-->
+
+<component name="PurchaseTVODScreen" extends="Group" >
+
+  <script type="text/brightscript" uri="pkg:/components/screens/PurchaseTVODScreen.brs" />
+
+  <interface>
+    <field id="productName" type="string" alwaysNotify="true"/>
+    <field id="productCode" type="string" />
+    <field id="contentKey" type="string" />
+    <field id="productPrice" type="string" />
+    <field id="productOriginalPrice" type="string" />
+
+    <field id="billing" type="node" />
+  </interface>
+
+  <children>
+    <Label id="purchaseProductLabel"
+        height = "50"
+        width = "1000"
+        translation = "[50,100]"
+        font = "font:LargeBoldSystemFont"/>
+
+   <Button id="purchaseButton"
+        text = "Purchase"
+        translation = "[100, 550]"
+        showFocusFootprint="true"
+        minWidth="240"/>
+    <Button id="backPurchButton"
+        text = "Back"
+        translation = "[400, 550]"
+        showFocusFootprint="true"
+        minWidth="240"/>
+  </children>
+</component>

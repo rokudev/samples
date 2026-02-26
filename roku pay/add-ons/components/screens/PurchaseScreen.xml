@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--********** Copyright 2020, 2023 Roku Corp.  All Rights Reserved. **********-->
+
+<component name="PurchaseScreen" extends="Group" >
+
+  <script type="text/brightscript" uri="pkg:/components/screens/PurchaseScreen.brs" />
+
+  <interface>
+    <field id="productName" type="string" alwaysNotify="true"/>
+    <field id="productCode" type="string" />
+    <field id="productPrice" type="string" />
+
+    <field id="addOns" type="assocarray" />
+    <field id="purchasedAddonSkus" type="array" />
+    <field id="productsInBundle" type="array" />
+    <field id="oneTimeEvents" type="assocarray" />
+
+    <field id="billing" type="node" />
+  </interface>
+
+  <children>
+    <Label id="purchaseProductLabel"
+        height = "50"
+        width = "1000"
+        translation = "[50,100]"
+        font = "font:LargeBoldSystemFont"/>
+    <Label id="includedInBundle" text="Included products" 
+        translation = "[130,150]" wrap="true" width="800"
+        horizAlign="left" vertAlign="top" visible="false"/>
+    <LayoutGroup id="vertLayout" translation = "[130, 150]" visible="false">        
+        <Label id="helpMsg" text="Available addons:" />
+        <CheckList id="addonChecklist" 
+            itemSize = "[600, 70]"
+            numRows="7"
+            checkedState="[false,false,false,false,false,false,false]"
+            vertFocusAnimationStyle="floatingFocus"/>
+    </LayoutGroup>
+    <LayoutGroup id="vertEventsLayout" translation = "[130, 380]" visible="false">        
+        <Label id="helpMsg" text="One Time Events:"/>
+        <CheckList id="eventsChecklist" 
+            itemSize = "[600, 70]"
+            numRows="2"
+            checkedState="[false,false]"
+            vertFocusAnimationStyle="floatingFocus"/>
+    </LayoutGroup>
+
+   <Button id="purchaseButton"
+        text = "Purchase"
+        translation = "[100, 550]"
+        showFocusFootprint="true"
+        minWidth="240"/>
+    <Button id="backPurchButton"
+        text = "Back"
+        translation = "[400, 550]"
+        showFocusFootprint="true"
+        minWidth="240"/>
+  </children>
+</component>

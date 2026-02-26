@@ -1,0 +1,15 @@
+title=RSB Sample
+major_version=1
+minor_version=2
+build_version=003
+
+mm_icon_focus_hd=pkg:/images/rokudev_hd.png
+mm_icon_focus_sd=pkg:/images/rokudev_sd.png
+
+splash_screen_sd=pkg:/images/rokudev_sd.png
+splash_screen_hd=pkg:/images/rokudev_hd.jpg
+splash_screen_fhd=pkg:/images/rokudev_fhd.jpg
+splash_color=#000000
+splash_min_time=1000
+
+bs_const=includePPV=true
