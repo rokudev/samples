@@ -49,12 +49,18 @@ return obj
 end function
 evtcll = {}
 evtcll.addEventListener = function(event as string, callback as function) as Void
-m.callbacks[event] = callback
+if m.callbacks[event] = invalid
+m.callbacks[event] = [callback]
+else
+m.callbacks[event].push(callback)
+end if
 end function
 evtcll.doCall = function(event as string, adInfo as object) as Void
 if invalid <> m.callbacks[event]
 func = getglobalaa()["callFunctionInGlobalNamespace"]
-func(m.callbacks[event], adInfo)
+for each item in m.callbacks[event]
+func(item, adInfo)
+end for
 end if
 end function
 evtcll.errCall = function(errid as integer, errInfo as string) as Void
