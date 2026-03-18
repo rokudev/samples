@@ -57,7 +57,7 @@ end function
 
 function PosterUrlsDynamic() as Object
     if m.PosterCounter = invalid then
-        itemUri = "http://devtools.web.roku.com/samples/images/Portrait_"
+        itemUri = "https://devtools.web.roku.com/samples/images/Portrait_"
         format = ".jpg"
         m.PosterCounter = 0
         m.PosterUrls = []

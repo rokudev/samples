@@ -8,9 +8,9 @@ function buildModel()
            itemContent = rowContent.createChild("ContentNode")
            itemContent.TITLE = "ITEM"
            if (i < 5) and (i MOD 2 = 0)
-               itemUri = "http://devtools.web.roku.com/samples/images/Portrait_" + j.toStr() + ".jpg"
+               itemUri = "https://devtools.web.roku.com/samples/images/Portrait_" + j.toStr() + ".jpg"
            else
-               itemUri = "http://devtools.web.roku.com/samples/images/Landscape_" + j.toStr() + ".jpg"
+               itemUri = "https://devtools.web.roku.com/samples/images/Landscape_" + j.toStr() + ".jpg"
            end if
            itemContent.HDPOSTERURL = itemUri
            if (i = 3)
