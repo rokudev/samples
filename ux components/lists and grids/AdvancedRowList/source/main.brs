@@ -1,4 +1,4 @@
-'********** Copyright 2016 Roku Corp.  All Rights Reserved. **********
+'********** Copyright 2016-2026 Roku Corp.  All Rights Reserved. **********
 
 sub main()
     print "in showChannelSGScreen"

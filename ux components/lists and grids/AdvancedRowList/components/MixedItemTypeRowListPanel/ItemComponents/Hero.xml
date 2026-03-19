@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--********** Copyright 2026 Roku Corp.  All Rights Reserved. **********-->
+<component name="Hero" extends="Group" >
+    <script type="text/brightscript" uri="pkg:/components/MixedItemTypeRowListPanel/ItemComponents/Hero.brs" />
+    <children>
+        <rectangle id="border" color="0x00ff00ff" />
+        <poster id="hero_poster" uri="pkg:/images/BigBuckBunny.jpg" translation="[4,2]"/>
+        <rectangle id="info_bg" color="0x636363cc" />
+        <MultiStyleLabel id="info" vertAlign="center" />
+    </children>
+    <interface>
+        <field id="itemContent" type="node" onChange="itemContentChanged"/>
+        <field id="width" type="float" onChange="onSizeChanged" />
+        <field id="height" type="float" onChange="onSizeChanged" />
+    </interface>
+</component>

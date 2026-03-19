@@ -1,0 +1,16 @@
+<?XML VERSion="1.0" encoding="utf-8" ?>
+<!--********** Copyright 2026 Roku Corp.  All Rights Reserved. **********-->
+
+<component name="MixedItemTypeRowListPanel" extends="Panel" >
+
+	<interface>
+	</interface>
+
+	<script type="text/brightscript" uri="pkg:/components/MixedItemTypeRowListPanel/MixedItemTypeRowListPanel.brs"/>
+
+	<children>
+		<RowList id="theRowList"/>
+		<Timer id="poolTestTimer" duration="0.5" repeat="false" />
+	</children>
+
+</component>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--********** Copyright 2026 Roku Corp.  All Rights Reserved. **********-->
+<component name="ContinueWatching" extends="Group" >
+    <script type="text/brightscript" uri="pkg:/components/MixedItemTypeRowListPanel/ItemComponents/ContinueWatching.brs" />
+    <children>
+        <Poster id="poster"/>
+        <rectangle id="progress_background" width="196" height="6" translation="[0, 160]" color="0xdddddd80" />
+        <rectangle id="progress" width="0" height="4" translation="[0, 161]" color="0x0080aaff" />
+        <label id="remaining_label" width="120" font="font:TinySystemFont" translation="[0, 180]" />
+    </children>
+    <interface>
+        <field id="rowIndex" type="int" />
+        <field id="index" type="int" />
+        <field id="itemContent" type="node" onChange="itemContentChanged"/>
+        <field id="width" type="float" onChange="onWidthChanged" />
+        <field id="height" type="float" onChange="onHeightChanged" />
+    </interface>
+</component>

@@ -7,7 +7,6 @@ function init()
     m.rowList.itemSize = [ 180*3 + 20*2, 250 ]
     m.top.observeField("focusedChild", "focusChanged")
 
-    m.top.id = "RowListTestScene"
     m.top.visible = true
 
     m.playCount = 0

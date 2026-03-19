@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--********** Copyright 2026 Roku Corp.  All Rights Reserved. **********-->
+<component name="LiveTVTile" extends="Group" >
+    <script type="text/brightscript" uri="pkg:/components/MixedItemTypeRowListPanel/ItemComponents/LiveTVTile.brs" />
+    <children>
+        <Poster id="poster"/>
+        <label id="info_label" width="180" font="font:TinySystemFont" translation="[0, 185]" />
+        <label id="time_label" width="180" font="font:TinySystemFont" translation="[0, 200]" />
+    </children>
+    <interface>
+        <field id="rowIndex" type="int" />
+        <field id="index" type="int" />
+        <field id="itemContent" type="node" onChange="itemContentChanged"/>
+        <field id="width" type="float" onChange="onWidthChanged" />
+        <field id="height" type="float" onChange="onHeightChanged" />
+    </interface>
+</component>

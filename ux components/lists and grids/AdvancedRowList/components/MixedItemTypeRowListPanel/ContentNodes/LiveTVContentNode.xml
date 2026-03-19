@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--********** Copyright 2026 Roku Corp.  All Rights Reserved. **********-->
+<component name="LiveTVContentNode" extends="ContentNode">
+    <script type="text/brightscript" uri="pkg:/components/MixedItemTypeRowListPanel/ContentNodes/LiveTVContentNode.brs" />
+    <interface>
+        <field id="start" type="int" value="0" />
+        <field id="columnIndex" type="int" value="0" onChange="onColumnIndex" />
+    </interface>
+</component>

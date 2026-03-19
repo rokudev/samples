@@ -26,7 +26,7 @@ function createRowListExamplePanel()
 end function
 
 function init()
-    print "in rowListExamplesListPanel init"
+    ? "in rowListExamplesListPanel init"
     m.list = m.top.FindNode("examplesList")
 
     m.top.list = m.list
@@ -36,6 +36,7 @@ function init()
     addRowListTestItem("Simple Test", "SimpleRowListPanel")
     addRowListTestItem("Mixed Aspect Test", "MixedAspectRowListPanel")
     addRowListTestItem("Markup On Focus Test", "MarkupOnFocusRowListPanel")
+    addRowListTestItem("Mixed Item Type Test", "MixedItemTypeRowListPanel")
 
     m.list.content = m.rowListTestListContent
 

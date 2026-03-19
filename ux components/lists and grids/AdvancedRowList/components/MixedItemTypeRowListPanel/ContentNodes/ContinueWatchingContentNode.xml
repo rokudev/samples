@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--********** Copyright 2026 Roku Corp.  All Rights Reserved. **********-->
+<component name="ContinueWatchingContentNode" extends="ContentNode">
+    <script type="text/brightscript" uri="pkg:/components/MixedItemTypeRowListPanel/ContentNodes/ContinueWatchingContentNode.brs" />
+    <interface>
+        <field id="columnIndex" type="int" value="0" onChange="onColumnIndex" />
+        <field id="duration" type="int" value="3600" />
+        <field id="position" type="int" value="0" />
+    </interface>
+</component>

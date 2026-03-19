@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--********** Copyright 2026 Roku Corp.  All Rights Reserved. **********-->
+<component name="MixedBaseTile" extends="Group" >
+    <script type="text/brightscript" uri="pkg:/components/MixedItemTypeRowListPanel/ItemComponents/MixedBaseTile.brs" />
+    <children>
+        <Poster id="poster" />
+    </children>
+    <interface>
+        <field id="rowIndex" type="int" />
+        <field id="index" type="int" />
+        <field id="itemContent" type="node" onChange="itemContentChanged"/>
+        <field id="width" type="float" alias="poster.width" />
+        <field id="height" type="float" alias="poster.height" />
+    </interface>
+</component>
