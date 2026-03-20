@@ -19,7 +19,6 @@ end function
 
 function createRowListExamplePanel()
     listItemContent = m.rowListTestListContent.getChild(m.top.createNextPanelIndex)
-    componentToCreate = listItemContent.componentName
 
     newRightPanel = createObject("RoSGNode", listItemContent.componentName)
 

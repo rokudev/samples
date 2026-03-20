@@ -5,7 +5,7 @@ sub main()
     screen = CreateObject("roSGScreen")
     m.port = CreateObject("roMessagePort")
     screen.setMessagePort(m.port)
-    scene = screen.CreateScene("RowListTestScene")
+    _scene = screen.CreateScene("RowListTestScene")
     screen.show()
 
     while(true)
