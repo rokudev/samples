@@ -5,7 +5,6 @@
 <component name="RowListTestScene" extends="OverhangPanelSetScene" >
 
 	<interface>
-		<field id="rowListContent" type="node" onchange="rowListContentChanged" />
 	</interface> 
 	
 	<script type="text/brightscript" uri="pkg:/components/RowListTestScene/RowListTestScene.brs"/>

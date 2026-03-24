@@ -5,7 +5,6 @@
 <component name="MixedAspectRowListPanel" extends="Panel" >
 
 	<interface>
-		<field id="rowListContent" type="node" onchange="rowListContentChanged" />
 	</interface> 
 	
 	<script type="text/brightscript" uri="pkg:/components/mixedAspectRowListPanel/mixedAspectRowListPanel.brs"/>
