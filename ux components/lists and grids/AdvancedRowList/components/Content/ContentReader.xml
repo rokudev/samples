@@ -8,7 +8,7 @@
 	    <field id="content" type="node" />
 	</interface> 
 
-	<script type="text/brightscript" uri="pkg:/components/content/content.brs"/>
+	<script type="text/brightscript" uri="pkg:/components/Content/content.brs"/>
 
 	<script type="text/brightscript">
 	    <![CDATA[function init()
