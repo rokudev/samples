@@ -12,7 +12,7 @@ sub init()
     m.rowlist.itemSize = [ 536 * 3, 308 ]
 
     m.contentReader = createObject("roSGNode", "ContentReader")
-    m.contentReader.uri = "http://api.delvenetworks.com/rest/organizations/59021fabe3b645968e382ac726cd6c7b/channels/1cfd09ab38e54f48be8498e0249f5c83/media.rss"
+    m.contentReader.uri = "https://stream-fastly.castr.com/5b9352dbda7b8c769937e459/live_2361c920455111ea85db6911fe397b9e/index.fmp4.m3u8"
     m.contentReader.observeField("content", "getContent")
     m.contentReader.control = "RUN"
 end sub

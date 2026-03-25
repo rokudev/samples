@@ -13,7 +13,7 @@
       id = "examplePoster" 
       width = "512" 
       height = "288" 
-      uri = "http://sdktestinglab.com/Tutorial/images/videopg.jpg" >
+      uri = "http://www.sdktestinglab.com/Tutorial/images/videopg.jpg" >
 
 	    <!-- The bottomRectangle is the child of examplePoster and parent of bottomLabel -->
         <Rectangle 
