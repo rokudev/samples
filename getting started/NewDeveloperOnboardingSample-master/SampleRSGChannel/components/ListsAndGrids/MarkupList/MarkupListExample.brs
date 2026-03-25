@@ -8,7 +8,7 @@ sub init()
     m.markupList = m.top.findNode("exampleMarkupList")
 
     m.markupListContentReader = createObject("roSGNode", "ContentReader")
-    m.markupListContentReader.uri = "http://api.delvenetworks.com/rest/organizations/59021fabe3b645968e382ac726cd6c7b/channels/1cfd09ab38e54f48be8498e0249f5c83/media.rss"
+    m.markupListContentReader.uri = "https://stream-akamai.castr.com/5b9352dbda7b8c769937e459/live_2361c920455111ea85db6911fe397b9e/index.fmp4.m3u8"
     m.markupListContentReader.observeField("content", "setMarkupListContent")
     m.markupListContentReader.control = "RUN"
 end sub
