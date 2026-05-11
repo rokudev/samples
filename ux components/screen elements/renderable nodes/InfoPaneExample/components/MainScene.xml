@@ -12,7 +12,7 @@
             id = "infoPane"
             width="800"
             height="300"
-            textColor="FFFFFF"
+            textColor="#FFFFFF"
             infoText = "The InfoPane node class is used to display an opaque, white-bordered, rounded rectangular label with text providing help for a specific setting. This component can be used to help customers successfully configure settings related to their account profile, closed captioning, parental controls, and so on."
         />   
     
