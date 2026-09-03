@@ -4,7 +4,19 @@
 <component name="FloatFullScreen" extends="Group" initialFocus="rowList">
     <script type="text/brightscript">
         <![CDATA[
-			Sub init()                m.top.setFocus(true)                m.RowList = m.top.findNode("rowList")                m.LoadTask = CreateObject("roSGNode", "RowListContentTask")                m.loadTask.observeField("content","rowListContentChanged")                m.LoadTask.control = "RUN"            End Sub            Sub rowListContentChanged()                print "ContentUpdate"                m.RowList.content = m.LoadTask.content            end Sub]]>
+            Sub init()
+                m.top.setFocus(true)
+                m.RowList = m.top.findNode("rowList")
+                m.LoadTask = CreateObject("roSGNode", "RowListContentTask")
+                m.LoadTask.observeField("content", "rowListContentChanged")
+                m.LoadTask.control = "RUN"
+            End Sub
+
+            Sub rowListContentChanged()
+                print "ContentUpdate"
+                m.RowList.content = m.LoadTask.content
+            End Sub
+        ]]>
     </script>
     <children>
         <RowList
@@ -14,12 +26,12 @@
             itemSize="[1920,254]"
             numRows="5"
             rowItemSize="[[1220,591],[351,197]]"
-	    	rowHeights="[648,254]"
+            rowHeights="[648,254]"
             rowItemSpacing="[[54,0],[18,0]]"
             focusXOffset="[350,47]"
             rowLabelOffset="[[47,8]]"
             showRowLabel="[true]"
-            showRowCounter="[true]" 
-	    	rowFocusAnimationStyle = "floatingFocus"/> 
+            showRowCounter="[true]"
+            rowFocusAnimationStyle="floatingFocus" />
     </children>
 </component>
