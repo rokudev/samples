@@ -1,3 +1,11 @@
+# samples has moved to GitLab
+
+**This project has moved.** Development now continues at **https://gitlab.com/rokudev/samples**.
+
+This GitHub repository is archived and read-only. It is kept only as a pointer to the new home. Please open new issues and merge requests on GitLab.
+
+---
+
 # Roku Sample Channels
 
 The samples listed above demonstrate working Roku channels. Often the best way to learn a framework is seeing a working application running. Make sure to obtain a Roku device - it's required for following these steps. Products are found at https://www.roku.com/products/compare and on many online stores.
