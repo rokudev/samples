@@ -14,7 +14,7 @@ sub showChannelSGScreen()
 
     while(true)
         msg = wait(0, m.port)
-	msgType = type(msg)
+        msgType = type(msg)
         if msgType = "roSGScreenEvent"
             if msg.isScreenClosed() then return
         end if
